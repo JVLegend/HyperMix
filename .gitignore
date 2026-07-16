@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+# keep the committed demo figure, ignore ad-hoc outputs
+assets/*.png
+!assets/demo_detection.png
