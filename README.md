@@ -1,64 +1,61 @@
-# HyperMix
+<div align="center">
 
-**Open detection of engineered biosignatures in remote hyperspectral imagery.**
+<img src="assets/banner.png" alt="HyperMix" width="820">
+
+# 🔬 HyperMix
+
+### Open detection of engineered biosignatures in remote hyperspectral imagery
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
+[![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
+[![Tests](https://img.shields.io/badge/tests-8%20passing-2ea44f.svg)](tests/)
+[![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
+[![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
+
+*Pulling a faint engineered reporter out of noisy remote hyperspectral cubes, with calibrated uncertainty.*
+
+</div>
+
+---
 
 We can now read living, engineered cells from a drone, ninety meters up
-(Chemla et al., *Nature Biotechnology*, 2026). But out in the real world that
-signal is faint: it hides inside the spectrum of soil, leaves, and water,
-the atmosphere distorts it, and cheap sensors bury it in noise. A hyperspectral
-camera hands you a mountain of data, not an answer. Pulling the answer out is an
-**algorithm** problem, and that is what HyperMix is for.
+([Chemla et al., *Nature Biotechnology*, 2026](https://www.nature.com/articles/s41587-025-02622-y)).
+But out in the real world that signal is faint: it hides inside the spectrum of
+soil, leaves, and water, the atmosphere distorts it, and cheap sensors bury it in
+noise. A hyperspectral camera hands you a mountain of data, not an answer. Pulling
+the answer out is an **algorithm** problem, and that is what HyperMix is for.
 
 HyperMix treats detection and spectral unmixing as one regularized inverse
 problem, designed from the start for **unknown natural backgrounds, sparse
 reference libraries, and low SNR**. It is developed by a physician working in
 medical imaging, porting the low-SNR, cross-device reconstruction toolkit from
-retinal OCT to biology at a distance.
+retinal OCT to biology at a distance. Everything here is MIT licensed.
 
-Funded by the [Hyperspectral Biology grant](https://experiment.com/projects/cldzyecslnphmynjenmv)
-(Experiment Foundation). Everything here is MIT licensed.
+## 📚 Contents
 
----
+- [✨ Highlights](#-highlights)
+- [🚀 Quickstart](#-quickstart)
+- [🧪 The learned detector](#-milestone-2-a-learned-detector-that-beats-the-baselines)
+- [📊 Benchmarks](#-benchmarks)
+- [🗺️ Roadmap](#️-roadmap)
+- [💾 Data](#-data)
+- [⚠️ Honest limitations](#️-honest-limitations)
 
-## Status: Phase 0 (foundation)
+## ✨ Highlights
 
-This first release ships the **ground floor** everything else is measured on:
+- 🌍 **Physics-based scene simulator** with exact ground truth (NumPy only, deterministic).
+- 🛰️ **Real-data benchmark** on a real AVIRIS cube (Indian Pines) via implanted targets.
+- 🧬 **Targets grounded on the paper**: biliverdin IXα and bacteriochlorophyll a.
+- 🧠 **Learned detector** that beats the classical matched filter at low SNR and generalizes sim → real.
+- 🎯 **Calibrated uncertainty** via MC-dropout (know where to trust the map).
+- 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
 
-- **Physics-based scene simulator** with full ground truth. The forward model is
-  `illumination · blur( (1 − r)·Σ bₖEₖ + r·R ) + noise`, i.e. an engineered
-  reporter `R` at fractional abundance `r` composited over natural background
-  endmembers `Eₖ`, then blurred by the instrument PSF and hit with sensor noise
-  at a target SNR. Deterministic, NumPy-only, no external data required.
-- **Classical baselines**: spectral matched filter and the adaptive cosine
-  estimator. This is the floor the learned detector must beat.
-- **Detection metrics**: ROC AUC.
-
-### The gap HyperMix exists to close
-
-Matched filter, our strongest classical baseline, on the simulator (seed 0):
-
-| SNR (dB) | Detection AUC |
-|---------:|:-------------:|
-| 30 | 0.947 |
-| 20 | 0.899 |
-| 10 | 0.779 |
-| 5  | 0.698 |
-| 0  | 0.626 |
-
-Detection collapses exactly where it matters most, at low SNR. Closing that gap
-is the goal of the physics-informed, self-supervised detector in Milestone 2.
-
-![Phase 0 demo](assets/demo_detection.png)
-
----
-
-## Install
+## 🚀 Quickstart
 
 ```bash
-pip install -e ".[viz]"     # numpy + matplotlib
+pip install -e ".[viz]"        # numpy + scipy + matplotlib
 ```
-
-## Quickstart
 
 ```python
 from hypermix import simulate_scene, spectral_matched_filter, roc_auc
@@ -68,81 +65,53 @@ score = spectral_matched_filter(scene.cube, scene.reporter)
 print("AUC:", roc_auc(score, scene.detection_gt))
 ```
 
-Reproduce the table and figure:
+Reproduce everything:
 
 ```bash
-python examples/run_demo.py
+python examples/run_demo.py         # simulator + baseline, AUC vs SNR
+python scripts/fetch_data.py        # download the real AVIRIS cube
+python -m hypermix.benchmark        # full benchmark (synthetic + real)
+python scripts/train_detector.py    # train the learned detector (needs ".[train]")
+pytest -q                           # 8 tests
 ```
 
-Run the tests:
+## 🧠 Milestone 2: a learned detector that beats the baselines
 
-```bash
-pip install -e ".[dev]" && pytest -q
-```
+`hypermix.detector` feeds each pixel the scene's **own** adaptive detector
+outputs (matched filter, ACE) plus spatial context, z-scored per scene, and a
+small PyTorch network learns a nonlinear combination. Because every feature is
+scene-relative, a model **trained only on physics-simulated backgrounds
+generalizes to real ones**. It ships **MC-dropout uncertainty**.
 
----
+<div align="center">
+<img src="assets/detector_real.png" alt="Learned detector on real background" width="920">
+<br><em>Real Indian Pines background, implanted target at 5 dB SNR. The classical matched filter drowns in real clutter; the learned detector recovers the targets and flags its own uncertainty.</em>
+</div>
 
-## Milestone 1: real backgrounds + literature-grounded targets
+## 📊 Benchmarks
 
-Two upgrades toward realism:
+Detection AUC on the **real** Indian Pines background (implanted target, 3 seeds):
 
-- **Real background clutter.** `hypermix.datasets` loads a real hyperspectral
-  cube (Indian Pines, an AVIRIS scene) and *implants* a known target at
-  controlled, sub-pixel abundance, the standard target-detection methodology.
-  `python -m hypermix.benchmark` runs all baselines over an SNR sweep on both
-  synthetic and real-background scenes and logs `results/benchmark.json`.
-- **Targets grounded on the paper.** `reporter_library()` models the two
-  reporters Chemla et al. (2026) actually selected, **biliverdin IXα** and
-  **bacteriochlorophyll a**, from their reported absorption maxima (approximate
-  until the measured spectra are wired in), instead of an arbitrary feature.
+| SNR (dB) | Matched filter | ACE | 🧠 **Learned** |
+|---------:|:--------------:|:---:|:--------------:|
+| 20 | 0.919 | 0.789 | **0.997** |
+| 10 | 0.769 | 0.639 | **0.970** |
+| 5  | 0.688 | 0.570 | **0.910** |
+| 0  | 0.627 | 0.530 | **0.828** |
 
-Matched filter on **real** Indian Pines background (implanted target, 3 seeds):
-AUC 0.920 @ 30 dB → 0.630 @ 0 dB. The low-SNR collapse holds on real clutter too.
+The gain is largest exactly where long-range biosensing is hardest: at low SNR,
+where the classical matched filter approaches chance.
 
-![Real-background benchmark](assets/benchmark_real.png)
-
-## Milestone 2: a learned detector that beats the baselines at low SNR
-
-`hypermix.detector` is a physics-informed learned detector: it feeds each
-pixel the scene's own adaptive detector outputs (matched filter, ACE) plus
-spatial context, z-scored per scene, and a small network (PyTorch) learns a
-nonlinear combination. Because every feature is scene-relative, a model
-**trained only on physics-simulated backgrounds generalizes to real ones**.
-It ships **MC-dropout uncertainty** (mean = detection, std = confidence).
-
-Detection AUC on the **real** Indian Pines background (implanted target, 3 seeds),
-learned detector vs the classical matched filter:
-
-| SNR (dB) | Matched filter | **Learned** |
-|---------:|:--------------:|:-----------:|
-| 20 | 0.919 | **0.997** |
-| 10 | 0.769 | **0.970** |
-| 5  | 0.688 | **0.910** |
-| 0  | 0.627 | **0.828** |
-
-The gain is largest exactly where it matters, at low SNR, where the classical
-matched filter approaches chance. Train and reproduce:
-
-```bash
-python scripts/train_detector.py     # needs the [train] extra (PyTorch)
-```
-
-![Learned detector on real background](assets/detector_real.png)
-
-*Note: the learned detector uses spatial context, so part of the gain over the
-per-pixel matched filter is spatial regularization of extended (blob) targets.
-Trained purely on simulated backgrounds; evaluated on the real cube.*
-
-## Roadmap
+## 🗺️ Roadmap
 
 - [x] **Milestone 0** — scene simulator, classical baselines, metrics
 - [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
-- [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty; beats baselines at low SNR and generalizes sim→real
-- [ ] **Milestone 3** — public release: pip package, Colab notebooks, open spectral dataset + leaderboard, DOI
+- [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty (beats baselines at low SNR, generalizes sim → real)
+- [ ] **Milestone 3** — public release: PyPI package, Colab notebooks, open spectral dataset + leaderboard, DOI
 
-## Data
+## 💾 Data
 
-Datasets are downloaded, not committed. Fetch the real cube with:
+Datasets are downloaded, not committed:
 
 ```bash
 python scripts/fetch_data.py
@@ -150,6 +119,17 @@ python scripts/fetch_data.py
 
 Indian Pines is a public AVIRIS scene (Purdue University).
 
-## License
+## ⚠️ Honest limitations
 
-MIT. See [LICENSE](LICENSE).
+- Reporter spectra are modeled from published absorption maxima, not yet the
+  measured spectra. They drop in without any API change once available.
+- Part of the learned detector's gain is spatial regularization of extended
+  (blob) targets; the edge shrinks for point-like targets.
+- The first learned model is a small MLP; richer models and a true unmixing head
+  are future work. All numbers, including failures, are tracked in [STATUS.md](STATUS.md).
+
+## 📄 License
+
+MIT. See [LICENSE](LICENSE). Built with support from the
+[Experiment Foundation](https://experiment.com/projects/cldzyecslnphmynjenmv)
+Hyperspectral Biology grant.
