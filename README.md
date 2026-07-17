@@ -82,18 +82,41 @@ pip install -e ".[dev]" && pytest -q
 
 ---
 
+## Milestone 1: real backgrounds + literature-grounded targets
+
+Two upgrades toward realism:
+
+- **Real background clutter.** `hypermix.datasets` loads a real hyperspectral
+  cube (Indian Pines, an AVIRIS scene) and *implants* a known target at
+  controlled, sub-pixel abundance, the standard target-detection methodology.
+  `python -m hypermix.benchmark` runs all baselines over an SNR sweep on both
+  synthetic and real-background scenes and logs `results/benchmark.json`.
+- **Targets grounded on the paper.** `reporter_library()` models the two
+  reporters Chemla et al. (2026) actually selected, **biliverdin IXα** and
+  **bacteriochlorophyll a**, from their reported absorption maxima (approximate
+  until the measured spectra are wired in), instead of an arbitrary feature.
+
+Matched filter on **real** Indian Pines background (implanted target, 3 seeds):
+AUC 0.920 @ 30 dB → 0.630 @ 0 dB. The low-SNR collapse holds on real clutter too.
+
+![Real-background benchmark](assets/benchmark_real.png)
+
 ## Roadmap
 
 - [x] **Milestone 0** — scene simulator, classical baselines, metrics
-- [ ] **Milestone 1** — real open datasets (AVIRIS / USGS / ECOSTRESS), richer simulator, benchmark harness
+- [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
 - [ ] **Milestone 2** — physics-informed, self-supervised joint detector + unmixing, with calibrated uncertainty (PyTorch)
 - [ ] **Milestone 3** — public release: pip package, Colab notebooks, open spectral dataset + leaderboard, DOI
 
-## Notes
+## Data
 
-The synthetic reporter signature is a placeholder for measured spectra. The
-simulator is built so a real engineered-reporter spectrum drops in without any
-API change once measured data is available.
+Datasets are downloaded, not committed. Fetch the real cube with:
+
+```bash
+python scripts/fetch_data.py
+```
+
+Indian Pines is a public AVIRIS scene (Purdue University).
 
 ## License
 

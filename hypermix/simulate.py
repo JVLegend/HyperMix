@@ -25,6 +25,7 @@ __all__ = [
     "SceneResult",
     "endmember_library",
     "reporter_signature",
+    "reporter_library",
     "simulate_scene",
     "false_color",
 ]
@@ -81,6 +82,36 @@ def reporter_signature(
     wl = _wavelengths(n_bands)
     dip = depth * np.exp(-(((wl - center_nm) / width_nm) ** 2))
     return np.clip(baseline - dip, 0.0, 1.0)
+
+
+# Absorption features (approximate peak positions, nm) of the two reporters
+# selected by Chemla et al., Nature Biotechnology 2026. Modeled from
+# published absorption maxima; replace with the measured spectra when the
+# supplementary data is available. Each entry: list of (center_nm, width_nm,
+# depth) absorption bands within the 400-1000 nm window.
+_KNOWN_REPORTERS = {
+    # bacteriochlorophyll a: Qx ~600 nm, Qy ~770 nm (Soret ~360 nm is out of range)
+    "bacteriochlorophyll_a": [(600.0, 20.0, 0.18), (770.0, 16.0, 0.38)],
+    # biliverdin IXalpha: broad red band ~670 nm (Soret ~377 nm mostly out of range)
+    "biliverdin_ixalpha": [(670.0, 45.0, 0.34), (400.0, 25.0, 0.15)],
+}
+
+
+def reporter_library(n_bands: int = 60, baseline: float = 0.45) -> dict[str, np.ndarray]:
+    """Reflectance signatures for the reporters used by Chemla et al. (2026).
+
+    Grounded on the reported absorption maxima of biliverdin IXalpha and
+    bacteriochlorophyll a (approximate, pending measured spectra). Useful as
+    realistic detection targets instead of an arbitrary synthetic feature.
+    """
+    wl = _wavelengths(n_bands)
+    lib = {}
+    for name, bands in _KNOWN_REPORTERS.items():
+        refl = np.full(n_bands, baseline, dtype=np.float64)
+        for center, width, depth in bands:
+            refl -= depth * np.exp(-(((wl - center) / width) ** 2))
+        lib[name] = np.clip(refl, 0.0, 1.0)
+    return lib
 
 
 # --------------------------------------------------------------------------- #

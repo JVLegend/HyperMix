@@ -14,23 +14,30 @@ from .simulate import (
     SceneResult,
     endmember_library,
     false_color,
+    reporter_library,
     reporter_signature,
     simulate_scene,
 )
 from .baselines import ace, spectral_matched_filter
 from .metrics import roc_auc, roc_curve
+from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "SceneResult",
     "simulate_scene",
     "endmember_library",
     "reporter_signature",
+    "reporter_library",
     "false_color",
     "spectral_matched_filter",
     "ace",
     "roc_auc",
     "roc_curve",
+    "load_mat_cube",
+    "load_envi_cube",
+    "synthetic_target",
+    "implant_target",
     "__version__",
 ]

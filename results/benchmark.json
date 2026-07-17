@@ -1,0 +1,142 @@
+[
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "snr_db": 30.0,
+    "auc_mean": 0.9485187606368486,
+    "auc_std": 0.020412646834092874
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "snr_db": 30.0,
+    "auc_mean": 0.7546246246719045,
+    "auc_std": 0.09172043012901372
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "snr_db": 20.0,
+    "auc_mean": 0.8851463697555709,
+    "auc_std": 0.037156125727783096
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "snr_db": 20.0,
+    "auc_mean": 0.6891147256873715,
+    "auc_std": 0.06589986584848553
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "snr_db": 10.0,
+    "auc_mean": 0.7543639141949484,
+    "auc_std": 0.04302614809577178
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "snr_db": 10.0,
+    "auc_mean": 0.5923421132833012,
+    "auc_std": 0.032288163298101635
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "snr_db": 5.0,
+    "auc_mean": 0.669105552019983,
+    "auc_std": 0.04028051128139821
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "snr_db": 5.0,
+    "auc_mean": 0.5397290765619213,
+    "auc_std": 0.00889535177134404
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "snr_db": 0.0,
+    "auc_mean": 0.6019822208515709,
+    "auc_std": 0.030638565853198713
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "snr_db": 0.0,
+    "auc_mean": 0.5125712122211579,
+    "auc_std": 0.0020437169506833056
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "matched_filter",
+    "snr_db": 30.0,
+    "auc_mean": 0.9200076408109238,
+    "auc_std": 0.0025482362868889134
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "ace",
+    "snr_db": 30.0,
+    "auc_mean": 0.8031343179033407,
+    "auc_std": 0.0021568688981803037
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "matched_filter",
+    "snr_db": 20.0,
+    "auc_mean": 0.8330198397607403,
+    "auc_std": 0.009018778078765914
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "ace",
+    "snr_db": 20.0,
+    "auc_mean": 0.7042022996048871,
+    "auc_std": 0.014374295747160915
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "matched_filter",
+    "snr_db": 10.0,
+    "auc_mean": 0.7148887395602893,
+    "auc_std": 0.01913976093458673
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "ace",
+    "snr_db": 10.0,
+    "auc_mean": 0.5851975062898185,
+    "auc_std": 0.020707541329210263
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "matched_filter",
+    "snr_db": 5.0,
+    "auc_mean": 0.6670909590258599,
+    "auc_std": 0.030566985768893988
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "ace",
+    "snr_db": 5.0,
+    "auc_mean": 0.546429311130002,
+    "auc_std": 0.024272712680128487
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "matched_filter",
+    "snr_db": 0.0,
+    "auc_mean": 0.6301847043413471,
+    "auc_std": 0.03490796142855171
+  },
+  {
+    "dataset": "indian_pines (real bg)",
+    "detector": "ace",
+    "snr_db": 0.0,
+    "auc_mean": 0.5253912364276819,
+    "auc_std": 0.019806482145853267
+  }
+]

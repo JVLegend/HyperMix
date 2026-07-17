@@ -3,10 +3,12 @@
 import numpy as np
 
 from hypermix import (
+    implant_target,
     reporter_signature,
     roc_auc,
     simulate_scene,
     spectral_matched_filter,
+    synthetic_target,
 )
 
 
@@ -32,6 +34,35 @@ def test_matched_filter_separates_at_high_snr():
     score = spectral_matched_filter(scene.cube, scene.reporter)
     auc = roc_auc(score, scene.detection_gt)
     assert auc > 0.85, f"expected strong detection at high SNR, got AUC={auc:.3f}"
+
+
+def test_implant_target_on_synthetic_background():
+    # a real cube isn't required: implant into any (H, W, B) background
+    rng = np.random.default_rng(0)
+    bg = rng.uniform(0.1, 0.6, size=(40, 40, 50)).astype(np.float32)
+    scene, gt, ab, tgt = implant_target(bg, rng, snr_db=30.0, n_blobs=4)
+    assert scene.shape == bg.shape
+    assert gt.shape == (40, 40)
+    assert gt.any() and not gt.all()
+    assert tgt.shape == (50,)
+    auc = roc_auc(spectral_matched_filter(scene, tgt), gt)
+    assert auc > 0.7, f"implanted target should be detectable at high SNR, got {auc:.3f}"
+
+
+def test_synthetic_target_shape():
+    t = synthetic_target(80, center_frac=0.5)
+    assert t.shape == (80,)
+    assert np.isclose(t.max(), 1.0, atol=1e-6)
+
+
+def test_reporter_library_matches_paper():
+    from hypermix import reporter_library
+
+    lib = reporter_library(n_bands=60)
+    assert set(lib) == {"bacteriochlorophyll_a", "biliverdin_ixalpha"}
+    for sig in lib.values():
+        assert sig.shape == (60,)
+        assert sig.min() < np.median(sig)   # has an absorption dip
 
 
 def test_auc_bounds_and_degradation():

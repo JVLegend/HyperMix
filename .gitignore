@@ -6,6 +6,9 @@ build/
 dist/
 .pytest_cache/
 .ipynb_checkpoints/
-# keep the committed demo figure, ignore ad-hoc outputs
+# datasets are downloaded, not committed
+data/
+# keep committed figures, ignore ad-hoc outputs
 assets/*.png
 !assets/demo_detection.png
+!assets/benchmark_real.png

@@ -17,13 +17,24 @@ Working, tested, reproducible on Python 3.10+ (built on 3.14.6, numpy 2.5.1).
 Baseline result (matched filter, seed 0): AUC 0.947 @ 30 dB down to 0.626 @ 0 dB.
 The low-SNR collapse is the motivation for Milestone 2.
 
-## Next: Milestone 1 — data + benchmark
+## Done: Milestone 1 — real backgrounds + benchmark (2026-07-16)
 
-- [ ] Wire in real open HSI (AVIRIS scenes; USGS / ECOSTRESS endmember libraries).
-- [ ] Chase the Chemla et al. 2026 supplementary for real reporter absorption spectra;
-      until then keep the synthetic signature.
-- [ ] Benchmark harness: fixed scene suite + seeds, run all baselines, log AUC/ROC.
-- [ ] Add linear unmixing / NNLS abundance baseline.
+- [x] Real HSI loader (`datasets.load_mat_cube`) + implanted-target adapter
+      (`datasets.implant_target`) on a real AVIRIS cube (Indian Pines).
+- [x] `scripts/fetch_data.py` downloads/validates the cube (data/ gitignored).
+- [x] Benchmark harness (`hypermix.benchmark`, `python -m hypermix.benchmark`):
+      all baselines over SNR sweep + seeds, synthetic + real, logs
+      `results/benchmark.json`, saves `assets/benchmark_real.png`.
+- [x] Reporters grounded on Chemla et al. 2026: `reporter_library()` models
+      biliverdin IXα + bacteriochlorophyll a from published absorption maxima
+      (approximate; swap for measured spectra when available).
+- [x] 7 tests passing.
+
+Real-background result (matched filter, Indian Pines, 3 seeds):
+AUC 0.920 @ 30 dB → 0.630 @ 0 dB.
+
+Still open for later polish: ENVI/USGS/ECOSTRESS loaders exist but untested on
+real files; add linear-unmixing / NNLS abundance baseline; more scenes.
 
 ## Later: Milestone 2 — the detector
 

@@ -4,18 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hypermix"
-version = "0.1.0"
+version = "0.2.0"
 description = "Open detection of engineered biosignatures in remote hyperspectral imagery"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "João Victor" }]
 keywords = ["hyperspectral", "remote sensing", "biosensing", "target detection", "unmixing"]
-dependencies = ["numpy>=1.24"]
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
 
 [project.optional-dependencies]
 viz = ["matplotlib>=3.6"]
-dev = ["pytest>=7", "matplotlib>=3.6"]
+hsi = ["spectral>=0.23"]
+dev = ["pytest>=7", "matplotlib>=3.6", "spectral>=0.23"]
 
 [project.urls]
 Homepage = "https://experiment.com/projects/cldzyecslnphmynjenmv"
