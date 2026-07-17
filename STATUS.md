@@ -36,14 +36,35 @@ AUC 0.920 @ 30 dB → 0.630 @ 0 dB.
 Still open for later polish: ENVI/USGS/ECOSTRESS loaders exist but untested on
 real files; add linear-unmixing / NNLS abundance baseline; more scenes.
 
-## Later: Milestone 2 — the detector
+## Done: Milestone 2 — learned detector (2026-07-16)
 
-- [ ] Physics-informed forward-model layer.
-- [ ] Self-supervised (Noise2Noise / Noise2Self) joint detection + unmixing (PyTorch).
-      Note: PyTorch wheels for Python 3.14 unconfirmed; pin a supported interpreter
-      (3.11/3.12) in a separate training env when this starts.
-- [ ] Semi-blind handling of unknown background / missing references.
-- [ ] Calibrated per-pixel uncertainty.
+- [x] `hypermix/detector.py`: physics-informed learned detector (PyTorch, lazy
+      import). Features per pixel = scene-adaptive detector outputs (matched
+      filter, ACE) + spatial context, z-scored per scene. `SpectralDetector`
+      (MLP + dropout), `make_training_set`, MC-dropout uncertainty.
+- [x] `scripts/train_detector.py`: train on simulated backgrounds, evaluate on
+      held-out synthetic AND real Indian Pines; writes results/detector_eval.json
+      + assets/detector_real.png (with uncertainty map).
+- [x] Trained purely on simulation, generalizes to real background.
+      Real Indian Pines AUC (learned vs matched filter): 0.997/0.919 @20dB,
+      0.910/0.688 @5dB, 0.828/0.627 @0dB. Biggest gain at low SNR.
+- [x] MC-dropout uncertainty map shipped.
+- [x] 8 tests passing (torch test skips when torch absent).
+
+Training env: Python 3.11 (`.venv-train`) with `torch` — torch has no 3.14
+wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
+
+### Honest caveats / next
+- Part of the gain over the per-pixel matched filter is spatial regularization
+  (targets are extended blobs). For point targets the spatial edge shrinks.
+- First learned model is a small MLP over 5 features. Next: richer model,
+  a true forward-model / unmixing head, and self-supervised adaptation on the
+  test scene's own unlabeled pixels.
+- Reporter spectra still approximate (paper maxima); wire in measured spectra.
+
+## Later: Milestone 3 — public release
+
+- [ ] pip package polish, Colab notebooks (no-install), open dataset + leaderboard, DOI.
 
 ## Grant / admin (tracked in the vault, not here)
 

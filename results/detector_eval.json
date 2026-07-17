@@ -1,0 +1,152 @@
+{
+  "target": "bacteriochlorophyll_a",
+  "n_bands": 200,
+  "synthetic": [
+    {
+      "detector": "matched_filter",
+      "snr_db": 20.0,
+      "auc_mean": 0.7904428417484214,
+      "auc_std": 0.030812175300893915
+    },
+    {
+      "detector": "ace",
+      "snr_db": 20.0,
+      "auc_mean": 0.6573338886965411,
+      "auc_std": 0.04019211889684921
+    },
+    {
+      "detector": "learned",
+      "snr_db": 20.0,
+      "auc_mean": 0.9315927292911407,
+      "auc_std": 0.017293530805252276
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 10.0,
+      "auc_mean": 0.6499669497398577,
+      "auc_std": 0.02404952057794683
+    },
+    {
+      "detector": "ace",
+      "snr_db": 10.0,
+      "auc_mean": 0.5487569808054751,
+      "auc_std": 0.01697959967603418
+    },
+    {
+      "detector": "learned",
+      "snr_db": 10.0,
+      "auc_mean": 0.7734209844757521,
+      "auc_std": 0.04313875235131383
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 5.0,
+      "auc_mean": 0.5935953310347254,
+      "auc_std": 0.01656875362411007
+    },
+    {
+      "detector": "ace",
+      "snr_db": 5.0,
+      "auc_mean": 0.5182228559067626,
+      "auc_std": 0.006767392409958755
+    },
+    {
+      "detector": "learned",
+      "snr_db": 5.0,
+      "auc_mean": 0.7150872425443778,
+      "auc_std": 0.0502998050183489
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 0.0,
+      "auc_mean": 0.5520109773053434,
+      "auc_std": 0.011930488084060208
+    },
+    {
+      "detector": "ace",
+      "snr_db": 0.0,
+      "auc_mean": 0.5021549483515303,
+      "auc_std": 0.004793806760015653
+    },
+    {
+      "detector": "learned",
+      "snr_db": 0.0,
+      "auc_mean": 0.643062190730393,
+      "auc_std": 0.04630765458940036
+    }
+  ],
+  "real": [
+    {
+      "detector": "matched_filter",
+      "snr_db": 20.0,
+      "auc_mean": 0.9191622466816595,
+      "auc_std": 0.004621183221610254
+    },
+    {
+      "detector": "ace",
+      "snr_db": 20.0,
+      "auc_mean": 0.7886557439352044,
+      "auc_std": 0.027110174606428488
+    },
+    {
+      "detector": "learned",
+      "snr_db": 20.0,
+      "auc_mean": 0.9966329610059685,
+      "auc_std": 0.0009860207772230515
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 10.0,
+      "auc_mean": 0.7685838399636863,
+      "auc_std": 0.009651703316807567
+    },
+    {
+      "detector": "ace",
+      "snr_db": 10.0,
+      "auc_mean": 0.6388886749666874,
+      "auc_std": 0.018315841386552796
+    },
+    {
+      "detector": "learned",
+      "snr_db": 10.0,
+      "auc_mean": 0.9695318460543122,
+      "auc_std": 0.004722903829640408
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 5.0,
+      "auc_mean": 0.6881786383039067,
+      "auc_std": 0.00906595557141906
+    },
+    {
+      "detector": "ace",
+      "snr_db": 5.0,
+      "auc_mean": 0.5696427005741244,
+      "auc_std": 0.011622205297510837
+    },
+    {
+      "detector": "learned",
+      "snr_db": 5.0,
+      "auc_mean": 0.9104444047076231,
+      "auc_std": 0.00793679891747976
+    },
+    {
+      "detector": "matched_filter",
+      "snr_db": 0.0,
+      "auc_mean": 0.6274888858748832,
+      "auc_std": 0.011849758842304263
+    },
+    {
+      "detector": "ace",
+      "snr_db": 0.0,
+      "auc_mean": 0.5299381301260352,
+      "auc_std": 0.0065286658290941435
+    },
+    {
+      "detector": "learned",
+      "snr_db": 0.0,
+      "auc_mean": 0.8279226433506803,
+      "auc_std": 0.01692778884432038
+    }
+  ]
+}

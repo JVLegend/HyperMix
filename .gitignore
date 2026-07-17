@@ -1,4 +1,6 @@
 .venv/
+.venv-train/
+models/
 __pycache__/
 *.pyc
 *.egg-info/
@@ -12,3 +14,4 @@ data/
 assets/*.png
 !assets/demo_detection.png
 !assets/benchmark_real.png
+!assets/detector_real.png

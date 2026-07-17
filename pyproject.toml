@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hypermix"
-version = "0.2.0"
+version = "0.3.0"
 description = "Open detection of engineered biosignatures in remote hyperspectral imagery"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,6 +16,7 @@ dependencies = ["numpy>=1.24", "scipy>=1.10"]
 [project.optional-dependencies]
 viz = ["matplotlib>=3.6"]
 hsi = ["spectral>=0.23"]
+train = ["torch>=2.0"]   # Milestone 2 detector; use Python 3.11/3.12 (torch has no 3.14 wheels yet)
 dev = ["pytest>=7", "matplotlib>=3.6", "spectral>=0.23"]
 
 [project.urls]

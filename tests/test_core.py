@@ -65,6 +65,26 @@ def test_reporter_library_matches_paper():
         assert sig.min() < np.median(sig)   # has an absorption dip
 
 
+def test_learned_detector_matches_or_beats_matched_filter():
+    import pytest
+
+    pytest.importorskip("torch")
+    from hypermix import implant_target, reporter_library, simulate_scene
+    from hypermix.detector import SpectralDetector, make_training_set
+
+    target = reporter_library(60)["bacteriochlorophyll_a"]
+    x, y = make_training_set(target, n_scenes=6, hw=48)
+    det = SpectralDetector(n_features=x.shape[1], seed=0).fit(x, y, epochs=15)
+
+    bg = simulate_scene(height=48, width=48, n_bands=60, snr_db=40.0,
+                        reporter_max_abundance=0.0, seed=777).cube
+    rng = np.random.default_rng(3)
+    scene, gt, _, tgt = implant_target(bg, rng, target=target, snr_db=10.0)
+    auc_learned = roc_auc(det.score_map(scene, tgt), gt)
+    auc_mf = roc_auc(spectral_matched_filter(scene, tgt), gt)
+    assert auc_learned >= auc_mf - 0.02, f"learned {auc_learned:.3f} vs mf {auc_mf:.3f}"
+
+
 def test_auc_bounds_and_degradation():
     hi = simulate_scene(snr_db=30.0, seed=2)
     lo = simulate_scene(snr_db=0.0, seed=2)
