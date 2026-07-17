@@ -53,6 +53,11 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 
 ## 🚀 Quickstart
 
+Run it in your browser, no setup:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JVLegend/HyperMix/blob/main/notebooks/quickstart.ipynb)
+
+Or locally:
+
 ```bash
 pip install -e ".[viz]"        # numpy + scipy + matplotlib
 ```

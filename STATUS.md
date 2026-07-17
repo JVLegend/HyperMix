@@ -62,9 +62,14 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
   test scene's own unlabeled pixels.
 - Reporter spectra still approximate (paper maxima); wire in measured spectra.
 
-## Later: Milestone 3 — public release
+## In progress: Milestone 3 — public release
 
-- [ ] pip package polish, Colab notebooks (no-install), open dataset + leaderboard, DOI.
+- [x] Colab quickstart notebook (`notebooks/quickstart.ipynb`): simulate ->
+      matched filter -> AUC-vs-SNR -> train learned detector, all in-browser.
+      "Open in Colab" badge in the README.
+- [ ] PyPI package polish + versioned release.
+- [ ] Open spectral dataset + public leaderboard.
+- [ ] DOI archive (Zenodo).
 
 ## Grant / admin (tracked in the vault, not here)
 
