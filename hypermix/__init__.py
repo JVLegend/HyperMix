@@ -29,7 +29,9 @@ from .spectra import (
 )
 from .baselines import (
     ace,
+    matched_subspace_detector,
     smoothed_matched_filter,
+    smoothed_matched_subspace_detector,
     spectral_angle_mapper,
     spectral_matched_filter,
 )
@@ -54,6 +56,8 @@ __all__ = [
     "false_color",
     "spectral_matched_filter",
     "smoothed_matched_filter",
+    "matched_subspace_detector",
+    "smoothed_matched_subspace_detector",
     "ace",
     "spectral_angle_mapper",
     "roc_auc",

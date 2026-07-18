@@ -48,6 +48,36 @@ def test_smoothed_matched_filter_adds_spatial_context():
     )
 
 
+def test_single_target_subspace_reduces_to_ace():
+    from hypermix import ace, matched_subspace_detector
+
+    scene = simulate_scene(height=32, width=32, n_bands=24, snr_db=20.0, seed=11)
+    expected = ace(scene.cube, scene.reporter)
+    actual = matched_subspace_detector(scene.cube, scene.reporter[None, :])
+    assert np.allclose(actual, expected, rtol=1e-5, atol=1e-7)
+
+
+def test_target_subspace_accepts_variants_and_spatial_smoothing():
+    from hypermix import (
+        matched_subspace_detector,
+        measured_reporter_library,
+        smoothed_matched_subspace_detector,
+    )
+
+    _, reporters = measured_reporter_library(30)
+    variants = np.stack([
+        reporters["biliverdin_ixalpha_ecoli"],
+        reporters["biliverdin_ixalpha_pputida"],
+    ])
+    scene = simulate_scene(height=32, width=32, n_bands=30, seed=12)
+    raw = matched_subspace_detector(scene.cube, variants)
+    spatial = smoothed_matched_subspace_detector(scene.cube, variants)
+    assert raw.shape == scene.detection_gt.shape
+    assert spatial.shape == raw.shape
+    assert np.all((0.0 <= raw) & (raw <= 1.0 + 1e-9))
+    assert not np.array_equal(raw, spatial)
+
+
 def test_implant_target_on_synthetic_background():
     # a real cube isn't required: implant into any (H, W, B) background
     rng = np.random.default_rng(0)

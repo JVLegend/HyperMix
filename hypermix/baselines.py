@@ -11,6 +11,8 @@ import numpy as np
 __all__ = [
     "spectral_matched_filter",
     "smoothed_matched_filter",
+    "matched_subspace_detector",
+    "smoothed_matched_subspace_detector",
     "ace",
     "spectral_angle_mapper",
 ]
@@ -56,6 +58,84 @@ def smoothed_matched_filter(
     if sigma == 0:
         return score
 
+    from scipy.ndimage import gaussian_filter
+
+    return gaussian_filter(score, sigma=float(sigma), mode="reflect")
+
+
+def matched_subspace_detector(
+    cube: np.ndarray,
+    targets: np.ndarray,
+    rank: int | None = None,
+) -> np.ndarray:
+    """Whitened target-subspace projection score, shape ``(H, W)``.
+
+    ``targets`` is a matrix of plausible target signatures with shape
+    ``(n_targets, n_bands)``. The detector estimates background covariance from
+    the scene, whitens pixels and signatures, then measures the fraction of
+    whitened pixel energy captured by the target subspace. With one signature,
+    this reduces numerically to ACE. The optional ``rank`` caps the number of
+    target directions retained after SVD.
+
+    This is the classical comparison designed for target variability. It is
+    not presented as a novel HyperMix detector.
+    """
+    values = np.asarray(targets, dtype=np.float64)
+    if values.ndim == 1:
+        values = values[None, :]
+    if values.ndim != 2 or values.shape[1] != cube.shape[2]:
+        raise ValueError("targets must have shape (n_targets, n_bands)")
+    if values.shape[0] < 1:
+        raise ValueError("at least one target signature is required")
+    if rank is not None and (rank < 1 or rank > min(values.shape)):
+        raise ValueError("rank must be between 1 and min(targets.shape)")
+
+    h, w, bands = cube.shape
+    pixels = cube.reshape(-1, bands).astype(np.float64)
+    mean = pixels.mean(axis=0)
+    centered = pixels - mean
+    covariance = (centered.T @ centered) / centered.shape[0]
+    ridge = max(1e-12, 1e-6 * float(np.trace(covariance)) / bands)
+    eigenvalues, eigenvectors = np.linalg.eigh(
+        covariance + ridge * np.eye(bands)
+    )
+    whitening = (
+        eigenvectors
+        * (1.0 / np.sqrt(np.maximum(eigenvalues, ridge)))[None, :]
+    ) @ eigenvectors.T
+    whitened_pixels = centered @ whitening
+    whitened_targets = (values - mean) @ whitening
+
+    _, singular_values, right_vectors = np.linalg.svd(
+        whitened_targets, full_matrices=False
+    )
+    if rank is None:
+        tolerance = max(whitened_targets.shape) * np.finfo(float).eps
+        tolerance *= singular_values[0] if singular_values.size else 1.0
+        retained = max(1, int(np.sum(singular_values > tolerance)))
+    else:
+        retained = rank
+    basis = right_vectors[:retained].T
+    projected = whitened_pixels @ basis
+    numerator = np.einsum("nr,nr->n", projected, projected)
+    denominator = np.einsum(
+        "nb,nb->n", whitened_pixels, whitened_pixels
+    ) + 1e-12
+    return (numerator / denominator).reshape(h, w)
+
+
+def smoothed_matched_subspace_detector(
+    cube: np.ndarray,
+    targets: np.ndarray,
+    sigma: float = 1.5,
+    rank: int | None = None,
+) -> np.ndarray:
+    """Matched-subspace score followed by fixed Gaussian smoothing."""
+    if sigma < 0:
+        raise ValueError("sigma must be non-negative")
+    score = matched_subspace_detector(cube, targets, rank=rank)
+    if sigma == 0:
+        return score
     from scipy.ndimage import gaussian_filter
 
     return gaussian_filter(score, sigma=float(sigma), mode="reflect")
