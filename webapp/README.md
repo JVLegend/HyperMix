@@ -17,6 +17,8 @@ detector aprendido.
 - três tracks de variabilidade medida do alvo;
 - experimento T7a de aprendizado auto-supervisionado do fundo, com AUC,
   Pd@FAR e intervalos de 95%;
+- comparação T7b de Platt e temperature scaling em NLL, Brier e ECE;
+- ablação T7c do matched filter espacial nas top-k bandas target-aware;
 - target MAE do unmixing em três cenas;
 - limitações que devem acompanhar qualquer interpretação dos resultados.
 - interface completa em inglês por padrão, com alternância 🇺🇸/🇧🇷 no topo.
@@ -29,20 +31,28 @@ página e também o atributo de idioma do documento, sem trocar a URL nem perder
 
 ## Storytelling editorial
 
-A página segue uma ordem causal explícita. O dossiê inicial apresenta cinco
+A página segue uma ordem causal explícita. O dossiê inicial apresenta sete
 perguntas e cada seção entrega uma resposta antes de conduzir à próxima:
 
 1. baixo sinal e mismatch espectral;
 2. realismo físico do laboratório ao sensor;
 3. variabilidade medida do alvo;
 4. aprendizado auto-supervisionado do fundo;
-5. utilidade no unmixing, seguida pelo Map Studio e pelos limites.
+5. incerteza calibrada em split sem vazamento;
+6. esparsidade target-aware de banda;
+7. utilidade no unmixing, seguida pelo Map Studio e pelos limites.
 
 O experimento T7a permanece sem inflação. MF espacial obteve AUC 0,987
 [0,968, 0,997] e Pd@FAR 0,650 [0,227, 0,872]. O autoencoder espacial obteve
 0,976 [0,945, 0,994] e 0,324 [0,087, 0,544]. Os intervalos das diferenças
 pareadas ficaram abaixo de zero nas duas métricas. A página registra que essa
 instanciação simples falhou, sem extrapolar para todo estimador de fundo.
+
+Em T7b, o MF espacial calibrado obteve NLL 0,05766 e ECE 0,00896. O ensemble
+aprendido obteve 0,06792 e 0,01293. As diferenças foram significativamente
+desfavoráveis ao ensemble. Em T7c, top-3 menos todas as bandas foi -0,036 AUC
+espacial [-0,092, -0,000], enquanto 20 bandas ficaram a até 0,005 da média
+completa. O site apresenta 20 como limiar descritivo, não equivalência provada.
 
 ## Experiência por scroll
 

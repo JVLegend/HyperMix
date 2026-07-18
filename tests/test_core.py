@@ -172,6 +172,64 @@ def test_pd_at_far_validates_inputs():
         pd_at_far([0.0, 1.0], [1, 1], 1e-3)
 
 
+def test_probability_metrics_match_hand_calculation():
+    from hypermix import binary_nll, brier_score, expected_calibration_error
+
+    probabilities = np.array([0.1, 0.4, 0.8, 0.9])
+    labels = np.array([0, 0, 1, 1])
+    expected_nll = -np.mean(np.log([0.9, 0.6, 0.8, 0.9]))
+    expected_brier = np.mean([0.1**2, 0.4**2, 0.2**2, 0.1**2])
+    assert np.isclose(binary_nll(probabilities, labels), expected_nll)
+    assert np.isclose(brier_score(probabilities, labels), expected_brier)
+    assert np.isclose(expected_calibration_error(probabilities, labels, 2), 0.2)
+
+
+def test_reliability_curve_includes_one_and_empty_bins():
+    from hypermix import reliability_curve
+
+    curve = reliability_curve([0.0, 0.2, 0.8, 1.0], [0, 1, 1, 1], n_bins=5)
+    assert curve["counts"].tolist() == [1, 1, 0, 0, 2]
+    assert np.isnan(curve["event_rate"][2])
+    assert np.isclose(curve["mean_probability"][-1], 0.9)
+    assert np.isclose(curve["event_rate"][-1], 1.0)
+
+
+def test_probability_metrics_validate_inputs():
+    import pytest
+
+    from hypermix import binary_nll, expected_calibration_error
+
+    with pytest.raises(ValueError, match=r"\[0, 1\]"):
+        binary_nll([1.2, 0.5], [1, 0])
+    with pytest.raises(ValueError, match="same size"):
+        expected_calibration_error([0.2], [0, 1])
+
+
+def test_score_calibrators_reduce_nll_without_changing_rank():
+    from hypermix import binary_nll
+    from hypermix.calibration import PlattCalibrator, TemperatureCalibrator
+
+    scores = np.linspace(-3.0, 3.0, 200)
+    labels = (scores > 0.8).astype(int)
+    platt = PlattCalibrator().fit(scores, labels)
+    platt_probabilities = platt.predict_proba(scores)
+    assert np.all(np.diff(platt_probabilities) >= 0)
+    assert platt_probabilities[-1] > platt_probabilities[0]
+    assert binary_nll(platt_probabilities, labels) < binary_nll(
+        1.0 / (1.0 + np.exp(-scores)), labels
+    )
+
+    logits = scores * 4.0 + 2.0
+    temperature = TemperatureCalibrator().fit(logits, labels)
+    temperature_probabilities = temperature.predict_proba(logits)
+    assert temperature.temperature_ > 0.0
+    assert np.all(np.diff(temperature_probabilities) >= 0)
+    assert temperature_probabilities[-1] > temperature_probabilities[0]
+    assert binary_nll(temperature_probabilities, labels) < binary_nll(
+        1.0 / (1.0 + np.exp(-logits)), labels
+    )
+
+
 def test_background_detector_is_deterministic_and_spatial():
     import pytest
 

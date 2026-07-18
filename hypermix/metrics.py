@@ -8,9 +8,118 @@ __all__ = [
     "roc_auc",
     "roc_curve",
     "pd_at_far",
+    "binary_nll",
+    "negative_log_likelihood",
+    "brier_score",
+    "expected_calibration_error",
+    "reliability_curve",
     "pearson_r",
     "mean_absolute_error",
 ]
+
+
+def _probability_inputs(
+    probabilities: np.ndarray,
+    labels: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    probabilities = np.asarray(probabilities, dtype=np.float64).ravel()
+    labels = np.asarray(labels).ravel()
+    if probabilities.shape != labels.shape:
+        raise ValueError("probabilities and labels must have the same size")
+    if probabilities.size == 0:
+        raise ValueError("probability metrics require at least one example")
+    if not np.all(np.isfinite(probabilities)):
+        raise ValueError("probabilities must be finite")
+    if np.any((probabilities < 0.0) | (probabilities > 1.0)):
+        raise ValueError("probabilities must lie in [0, 1]")
+    if not np.all(np.isin(labels, (0, 1, False, True))):
+        raise ValueError("labels must be binary")
+    return probabilities, labels.astype(np.float64)
+
+
+def binary_nll(
+    probabilities: np.ndarray,
+    labels: np.ndarray,
+    eps: float = 1e-12,
+) -> float:
+    """Mean binary negative log-likelihood for calibrated probabilities."""
+    if not 0.0 < eps < 0.5:
+        raise ValueError("eps must lie in (0, 0.5)")
+    probabilities, labels = _probability_inputs(probabilities, labels)
+    clipped = np.clip(probabilities, eps, 1.0 - eps)
+    return float(-np.mean(
+        labels * np.log(clipped) + (1.0 - labels) * np.log1p(-clipped)
+    ))
+
+
+def negative_log_likelihood(
+    probabilities: np.ndarray,
+    labels: np.ndarray,
+    eps: float = 1e-12,
+) -> float:
+    """Descriptive alias for :func:`binary_nll`."""
+    return binary_nll(probabilities, labels, eps=eps)
+
+
+def brier_score(probabilities: np.ndarray, labels: np.ndarray) -> float:
+    """Mean squared probability error for a binary event."""
+    probabilities, labels = _probability_inputs(probabilities, labels)
+    return float(np.mean((probabilities - labels) ** 2))
+
+
+def reliability_curve(
+    probabilities: np.ndarray,
+    labels: np.ndarray,
+    n_bins: int = 15,
+) -> dict[str, np.ndarray]:
+    """Uniform-bin reliability data, including empty-bin counts.
+
+    The returned dictionary contains ``bin_edges``, ``counts``,
+    ``mean_probability`` and ``event_rate``. Means are NaN for empty bins.
+    A probability of exactly one belongs to the final bin.
+    """
+    if not isinstance(n_bins, (int, np.integer)) or n_bins < 1:
+        raise ValueError("n_bins must be a positive integer")
+    probabilities, labels = _probability_inputs(probabilities, labels)
+    edges = np.linspace(0.0, 1.0, int(n_bins) + 1)
+    bin_index = np.minimum(
+        np.searchsorted(edges, probabilities, side="right") - 1,
+        int(n_bins) - 1,
+    )
+    counts = np.bincount(bin_index, minlength=int(n_bins)).astype(np.int64)
+    probability_sum = np.bincount(
+        bin_index, weights=probabilities, minlength=int(n_bins)
+    )
+    label_sum = np.bincount(
+        bin_index, weights=labels, minlength=int(n_bins)
+    )
+    mean_probability = np.full(int(n_bins), np.nan, dtype=np.float64)
+    event_rate = np.full(int(n_bins), np.nan, dtype=np.float64)
+    occupied = counts > 0
+    mean_probability[occupied] = probability_sum[occupied] / counts[occupied]
+    event_rate[occupied] = label_sum[occupied] / counts[occupied]
+    return {
+        "bin_edges": edges,
+        "counts": counts,
+        "mean_probability": mean_probability,
+        "event_rate": event_rate,
+    }
+
+
+def expected_calibration_error(
+    probabilities: np.ndarray,
+    labels: np.ndarray,
+    n_bins: int = 15,
+) -> float:
+    """Expected calibration error with fixed, uniform probability bins."""
+    probabilities, labels = _probability_inputs(probabilities, labels)
+    curve = reliability_curve(probabilities, labels, n_bins=n_bins)
+    occupied = curve["counts"] > 0
+    gaps = np.abs(
+        curve["mean_probability"][occupied] - curve["event_rate"][occupied]
+    )
+    weights = curve["counts"][occupied] / probabilities.size
+    return float(np.sum(weights * gaps))
 
 
 def roc_auc(scores: np.ndarray, labels: np.ndarray) -> float:

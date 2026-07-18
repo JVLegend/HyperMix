@@ -1,0 +1,2653 @@
+{
+  "protocol": {
+    "scenes": [
+      "indian_pines",
+      "salinas",
+      "paviaU"
+    ],
+    "target_snrs_db": [
+      5.0,
+      0.0
+    ],
+    "evaluation_seeds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "k_values": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      20,
+      40,
+      80,
+      "all"
+    ],
+    "ranking": "absolute full-scene C^-1 (target - mean) coefficient",
+    "ranking_uses_implanted_labels": false,
+    "spatial_sigma_pixels": 1.5,
+    "bootstrap": {
+      "replicates": 5000,
+      "seed": 20260720,
+      "scheme": "resample scenes, then seeds within scene/SNR"
+    }
+  },
+  "rankings": [
+    {
+      "scene": "indian_pines",
+      "bands": 200,
+      "top_band_indices_zero_based": [
+        199,
+        198,
+        151,
+        145,
+        144,
+        143,
+        150,
+        142,
+        103,
+        195
+      ],
+      "top_band_absolute_coefficients": [
+        301450.1530198654,
+        254252.04804711582,
+        242804.77003095773,
+        242016.2847114407,
+        240794.50774780652,
+        214838.36872509835,
+        209149.65174191963,
+        205356.01496564975,
+        178562.25741543478,
+        166659.68759406748
+      ],
+      "bands_for_absolute_weight_percent": {
+        "50": 24,
+        "80": 56,
+        "90": 74
+      },
+      "cumulative_absolute_weight_top_3": 0.09784107533805136
+    },
+    {
+      "scene": "salinas",
+      "bands": 204,
+      "top_band_indices_zero_based": [
+        147,
+        106,
+        202,
+        133,
+        107,
+        203,
+        149,
+        127,
+        128,
+        201
+      ],
+      "top_band_absolute_coefficients": [
+        774317.011953489,
+        645647.8606552975,
+        636054.6379331498,
+        630185.5613644656,
+        553585.5721856394,
+        420386.2862771272,
+        312187.70131211454,
+        307860.47313178773,
+        304275.0467798483,
+        295955.1212299285
+      ],
+      "bands_for_absolute_weight_percent": {
+        "50": 23,
+        "80": 59,
+        "90": 87
+      },
+      "cumulative_absolute_weight_top_3": 0.1342564143521368
+    },
+    {
+      "scene": "paviaU",
+      "bands": 103,
+      "top_band_indices_zero_based": [
+        63,
+        56,
+        62,
+        52,
+        58,
+        60,
+        67,
+        50,
+        51,
+        57
+      ],
+      "top_band_absolute_coefficients": [
+        10147.216577521953,
+        6493.205958692388,
+        5992.582182951623,
+        5634.729626782563,
+        5450.1655196987485,
+        5192.250992474728,
+        4959.071835264605,
+        4606.200362340589,
+        4373.876592995583,
+        3730.277349928912
+      ],
+      "bands_for_absolute_weight_percent": {
+        "50": 15,
+        "80": 37,
+        "90": 53
+      },
+      "cumulative_absolute_weight_top_3": 0.16094908324473087
+    }
+  ],
+  "rows": [
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8258014049631058,
+      "auc_mf_spatial": 0.9959163834542727
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8858623051957992,
+      "auc_mf_spatial": 0.9976137442209363
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.9095690770337712,
+      "auc_mf_spatial": 0.9942273851076208
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9406006973148403,
+      "auc_mf_spatial": 0.9970066746272312
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9595337520284131,
+      "auc_mf_spatial": 0.9978725773858731
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9685462593000826,
+      "auc_mf_spatial": 0.9979300235755182
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9755333769633507,
+      "auc_mf_spatial": 0.9974127973730137
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9800162847126542,
+      "auc_mf_spatial": 0.9969642884479961
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 120000,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.974452232785279,
+      "auc_mf_spatial": 0.996460514834206
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7937028459145536,
+      "auc_mf_spatial": 0.9896165228471566
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8550898835890033,
+      "auc_mf_spatial": 0.9960867979684
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8758088688766505,
+      "auc_mf_spatial": 0.985182575026325
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9085287987136579,
+      "auc_mf_spatial": 0.9905117900276351
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9354564696224027,
+      "auc_mf_spatial": 0.9877108164960278
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9731759336732928,
+      "auc_mf_spatial": 0.9989166224311471
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9836001188333935,
+      "auc_mf_spatial": 0.9989857372119696
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9883491288640937,
+      "auc_mf_spatial": 0.999032682736468
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 120001,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9584232205270937,
+      "auc_mf_spatial": 0.987993165534979
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8142022398110959,
+      "auc_mf_spatial": 0.9940305216319977
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8705913830637078,
+      "auc_mf_spatial": 0.9971818111301506
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8885241363470145,
+      "auc_mf_spatial": 0.9884895025854435
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9237751404541072,
+      "auc_mf_spatial": 0.9946243929269759
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9465290584109772,
+      "auc_mf_spatial": 0.9932671483962997
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9801690788406655,
+      "auc_mf_spatial": 0.9996344415532608
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9859653481055695,
+      "auc_mf_spatial": 0.9993371231009608
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9878311790488912,
+      "auc_mf_spatial": 0.9987762939054452
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 120002,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9830276435442488,
+      "auc_mf_spatial": 0.9979331965309826
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8348092244447787,
+      "auc_mf_spatial": 0.9951057903444127
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8909394695944253,
+      "auc_mf_spatial": 0.997518343610568
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.9099772396851656,
+      "auc_mf_spatial": 0.9917229658595278
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9367105228856469,
+      "auc_mf_spatial": 0.9950711385170702
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9557483731889507,
+      "auc_mf_spatial": 0.9960551060309821
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9875222740261693,
+      "auc_mf_spatial": 0.9995255226349827
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9925787737504387,
+      "auc_mf_spatial": 0.999604652328671
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9942000501328521,
+      "auc_mf_spatial": 0.999544432746779
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 120003,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9795428084423723,
+      "auc_mf_spatial": 0.9965365819421467
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7284072826488834,
+      "auc_mf_spatial": 0.9770442164345866
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7957339098289125,
+      "auc_mf_spatial": 0.9930036888728282
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8404138355594243,
+      "auc_mf_spatial": 0.9891754144211122
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8862872020243536,
+      "auc_mf_spatial": 0.9947440416753421
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9259317694737687,
+      "auc_mf_spatial": 0.9953958515397134
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9448459181862324,
+      "auc_mf_spatial": 0.9990643697504066
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9629169896449349,
+      "auc_mf_spatial": 0.9990048682523728
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9724211436812864,
+      "auc_mf_spatial": 0.9990117998248138
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 121000,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9693921565494976,
+      "auc_mf_spatial": 0.9980142695330722
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7273598010005724,
+      "auc_mf_spatial": 0.9743082700708506
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7803113298495955,
+      "auc_mf_spatial": 0.9868245973305518
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8158548339547446,
+      "auc_mf_spatial": 0.9797484405671144
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8633660651090561,
+      "auc_mf_spatial": 0.9876711498629885
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9045504454717259,
+      "auc_mf_spatial": 0.9856222104878307
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.946369679981827,
+      "auc_mf_spatial": 0.9989843270892821
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9659692201714887,
+      "auc_mf_spatial": 0.9991558977113465
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9745846923818011,
+      "auc_mf_spatial": 0.9993184707168955
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 121001,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9718846576258294,
+      "auc_mf_spatial": 0.9985074132460393
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7125135115407399,
+      "auc_mf_spatial": 0.9728601171465734
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7769436492991654,
+      "auc_mf_spatial": 0.9857754306828315
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8023025582465327,
+      "auc_mf_spatial": 0.9741577619618309
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8465805393232608,
+      "auc_mf_spatial": 0.9835773678332838
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.8864037305028006,
+      "auc_mf_spatial": 0.9792548276583545
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.944950995466552,
+      "auc_mf_spatial": 0.9984425165959402
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9639398157371043,
+      "auc_mf_spatial": 0.9982433185398102
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9736178932326088,
+      "auc_mf_spatial": 0.998019795098901
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 121002,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.9750420069914812,
+      "auc_mf_spatial": 0.9977469291713308
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7216809298405563,
+      "auc_mf_spatial": 0.9736195934945245
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7866359855231134,
+      "auc_mf_spatial": 0.9888600351320859
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8150786873912563,
+      "auc_mf_spatial": 0.9760892360120585
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8630853968936245,
+      "auc_mf_spatial": 0.9886095190412307
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9004091019922745,
+      "auc_mf_spatial": 0.986406174104286
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9547340092147838,
+      "auc_mf_spatial": 0.9991053140171111
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9734290510803052,
+      "auc_mf_spatial": 0.9991257536564868
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9826092801905922,
+      "auc_mf_spatial": 0.999043894707828
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 121003,
+      "k": "all",
+      "actual_bands": 200,
+      "auc_mf": 0.984501191683179,
+      "auc_mf_spatial": 0.9993141075435039
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8125527416899889,
+      "auc_mf_spatial": 0.9848704507623978
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8780616885693551,
+      "auc_mf_spatial": 0.9961517069285062
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.9074235274021586,
+      "auc_mf_spatial": 0.9967583394829015
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9387893984669208,
+      "auc_mf_spatial": 0.99947125367883
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9716672164451197,
+      "auc_mf_spatial": 0.9996383070970535
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9776443430267461,
+      "auc_mf_spatial": 0.9994851838563416
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.987166730726138,
+      "auc_mf_spatial": 0.9996796912142758
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9905755366484649,
+      "auc_mf_spatial": 0.9996014671378691
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 130000,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9847176636923761,
+      "auc_mf_spatial": 0.9976517557409922
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.768855663125865,
+      "auc_mf_spatial": 0.9715909465176323
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.841190382711452,
+      "auc_mf_spatial": 0.9909388386419794
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8710479317837412,
+      "auc_mf_spatial": 0.9916381450114606
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.9003080454760823,
+      "auc_mf_spatial": 0.998359314965957
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9386750712887725,
+      "auc_mf_spatial": 0.9990257689223964
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9522871730960263,
+      "auc_mf_spatial": 0.9985504713879207
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9638439047655835,
+      "auc_mf_spatial": 0.9986366958429636
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9691414282184615,
+      "auc_mf_spatial": 0.997492489337379
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 130001,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9580206803764404,
+      "auc_mf_spatial": 0.9857577985367524
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8701118527084766,
+      "auc_mf_spatial": 0.993462237741452
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.9234617823112037,
+      "auc_mf_spatial": 0.9980852835176541
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.9464803275917703,
+      "auc_mf_spatial": 0.9981607977989972
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.960606334292387,
+      "auc_mf_spatial": 0.9995516288916177
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9804267466483421,
+      "auc_mf_spatial": 0.9995139296127489
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9851287286528932,
+      "auc_mf_spatial": 0.9994325469873856
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9906838956664443,
+      "auc_mf_spatial": 0.9995420087883168
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9943133466689744,
+      "auc_mf_spatial": 0.9994366274017052
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 130002,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9944125461005956,
+      "auc_mf_spatial": 0.9993784728183797
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.8377198227003421,
+      "auc_mf_spatial": 0.9892187463229559
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8969198665320222,
+      "auc_mf_spatial": 0.9978976149266675
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.9212402012174574,
+      "auc_mf_spatial": 0.9983049205656125
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.949316249694261,
+      "auc_mf_spatial": 0.9995804371092326
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9711390194788797,
+      "auc_mf_spatial": 0.9995871090219703
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9762932622191675,
+      "auc_mf_spatial": 0.9993445016607647
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9873908613000859,
+      "auc_mf_spatial": 0.9995128294450132
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9934477453095472,
+      "auc_mf_spatial": 0.9995809102945332
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 130003,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9902325177887704,
+      "auc_mf_spatial": 0.9993664627163247
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7529027477833103,
+      "auc_mf_spatial": 0.9758394562337451
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.8184141174952686,
+      "auc_mf_spatial": 0.9918425019625857
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8532522279526767,
+      "auc_mf_spatial": 0.9941770901741113
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8796184741139337,
+      "auc_mf_spatial": 0.9989497952498684
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.9230752441825054,
+      "auc_mf_spatial": 0.9993265540196603
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9379223954646343,
+      "auc_mf_spatial": 0.9987186017093811
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9593158232769439,
+      "auc_mf_spatial": 0.9992498369621358
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9763854403057072,
+      "auc_mf_spatial": 0.9994837485952356
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 131000,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9808912732508042,
+      "auc_mf_spatial": 0.9995126693448196
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.697782666382448,
+      "auc_mf_spatial": 0.947217775882987
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7603339104033979,
+      "auc_mf_spatial": 0.9762358815392697
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7962513050482674,
+      "auc_mf_spatial": 0.9860451920899566
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8229856914514607,
+      "auc_mf_spatial": 0.9923701057784702
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.8790955499198809,
+      "auc_mf_spatial": 0.998035609672199
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9123933758465963,
+      "auc_mf_spatial": 0.9977022982529187
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9398520509229469,
+      "auc_mf_spatial": 0.9988018126242212
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.95397374829253,
+      "auc_mf_spatial": 0.9990196715149849
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 131001,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9277466735463512,
+      "auc_mf_spatial": 0.9708835852453345
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7113571983175518,
+      "auc_mf_spatial": 0.9517175605357657
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7711991406542764,
+      "auc_mf_spatial": 0.9796463092764847
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8051742964809642,
+      "auc_mf_spatial": 0.9862630564423984
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8351165956002435,
+      "auc_mf_spatial": 0.995566992618704
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.8835223848087586,
+      "auc_mf_spatial": 0.9988269328780474
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9074045032776892,
+      "auc_mf_spatial": 0.996937786732588
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9360397547565649,
+      "auc_mf_spatial": 0.9986116771963897
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9589277749640316,
+      "auc_mf_spatial": 0.9993764042584279
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 131002,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.963269153151623,
+      "auc_mf_spatial": 0.9990914664286633
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.7056765117314354,
+      "auc_mf_spatial": 0.9581622667311938
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7724375065959105,
+      "auc_mf_spatial": 0.9837740485522001
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.8141958396849595,
+      "auc_mf_spatial": 0.9903165604683536
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.8401058642818003,
+      "auc_mf_spatial": 0.9964096431405336
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.8933130102728202,
+      "auc_mf_spatial": 0.998896027681104
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.9262698410065735,
+      "auc_mf_spatial": 0.9988347811055964
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.9480425932707633,
+      "auc_mf_spatial": 0.9992262262048016
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.9565228446185841,
+      "auc_mf_spatial": 0.9992955572257793
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 131003,
+      "k": "all",
+      "actual_bands": 204,
+      "auc_mf": 0.9495113358624482,
+      "auc_mf_spatial": 0.9893046956192421
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.6207769683501468,
+      "auc_mf_spatial": 0.6447839995962316
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7195157652795859,
+      "auc_mf_spatial": 0.8518201125649223
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7273110541980393,
+      "auc_mf_spatial": 0.8542805615647014
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7561557934585261,
+      "auc_mf_spatial": 0.9005265351404167
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.7835219893385651,
+      "auc_mf_spatial": 0.9305324683453655
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.8263913540629608,
+      "auc_mf_spatial": 0.9711288955407533
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.8480728482878437,
+      "auc_mf_spatial": 0.978183702628182
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.8572476580425333,
+      "auc_mf_spatial": 0.9784343367307851
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 140000,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.8576353973816717,
+      "auc_mf_spatial": 0.9788914810397297
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.5858772606094166,
+      "auc_mf_spatial": 0.60742111755374
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7451746192535775,
+      "auc_mf_spatial": 0.8798487191599196
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7544589108858102,
+      "auc_mf_spatial": 0.8843588290950233
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7739420979499473,
+      "auc_mf_spatial": 0.9241371547451322
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.8067249320918574,
+      "auc_mf_spatial": 0.9538849729945268
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.8355304211267355,
+      "auc_mf_spatial": 0.973961392745013
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.8623516824322129,
+      "auc_mf_spatial": 0.9809374726682016
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.8689535204522431,
+      "auc_mf_spatial": 0.9811862503081411
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 140001,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.868747102205968,
+      "auc_mf_spatial": 0.9813940297987417
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.5543736592357027,
+      "auc_mf_spatial": 0.564043055088061
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7398888799982256,
+      "auc_mf_spatial": 0.8885094880725041
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7516387674583999,
+      "auc_mf_spatial": 0.8947764150847292
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7622703800551364,
+      "auc_mf_spatial": 0.9271536547500536
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.7973904696849224,
+      "auc_mf_spatial": 0.9558233400968864
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.8195910172698111,
+      "auc_mf_spatial": 0.9668954570420571
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.8350742172017468,
+      "auc_mf_spatial": 0.9670816149674373
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.84021206829683,
+      "auc_mf_spatial": 0.9642757616737209
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 140002,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.84055082170223,
+      "auc_mf_spatial": 0.9650686302833544
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.4718963823361695,
+      "auc_mf_spatial": 0.46242122347352543
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.7466367024168168,
+      "auc_mf_spatial": 0.8888175584667918
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7510820803965399,
+      "auc_mf_spatial": 0.888454242839273
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7906973923570303,
+      "auc_mf_spatial": 0.9365718805556928
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.7947992037765809,
+      "auc_mf_spatial": 0.9393900857489176
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.8346587586215355,
+      "auc_mf_spatial": 0.9682570767263521
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.8529400805425252,
+      "auc_mf_spatial": 0.9756011156975517
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.8566196086054652,
+      "auc_mf_spatial": 0.9745309864222849
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 140003,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.8567632040369465,
+      "auc_mf_spatial": 0.9749975821804485
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.5216531837976883,
+      "auc_mf_spatial": 0.5288205375114585
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.692140628087662,
+      "auc_mf_spatial": 0.9053964943763899
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.7068555430197905,
+      "auc_mf_spatial": 0.9120514095991602
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7370168480699195,
+      "auc_mf_spatial": 0.9222599908832727
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.7474682705571379,
+      "auc_mf_spatial": 0.9275377186305281
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.7566350921063955,
+      "auc_mf_spatial": 0.9590026235769394
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.7819826051539642,
+      "auc_mf_spatial": 0.9645847959208105
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.7923338315305057,
+      "auc_mf_spatial": 0.9654232516130623
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 141000,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.7926400340251588,
+      "auc_mf_spatial": 0.9658835895026553
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.6076626907873067,
+      "auc_mf_spatial": 0.6255535550583053
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.6555500848372582,
+      "auc_mf_spatial": 0.8219225998184428
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.6637003737968246,
+      "auc_mf_spatial": 0.824614204094626
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.6878949873705035,
+      "auc_mf_spatial": 0.8569319428324071
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.6965405057920165,
+      "auc_mf_spatial": 0.8749386181787376
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.7339721686478571,
+      "auc_mf_spatial": 0.937655668984908
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.7616012964179081,
+      "auc_mf_spatial": 0.9458025047492103
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.7757993845025953,
+      "auc_mf_spatial": 0.9480567277526742
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 141001,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.7751124481479996,
+      "auc_mf_spatial": 0.9477069696805628
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.5233584571207162,
+      "auc_mf_spatial": 0.520505742851132
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.6455325135418255,
+      "auc_mf_spatial": 0.8277134207973991
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.6553724200965926,
+      "auc_mf_spatial": 0.8317803743226779
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.6821770279334856,
+      "auc_mf_spatial": 0.857721375236995
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.6932201979928244,
+      "auc_mf_spatial": 0.8726883430690101
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.6948063096674454,
+      "auc_mf_spatial": 0.8777369385743289
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.7226534283549644,
+      "auc_mf_spatial": 0.8968691604057794
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.7386094738561655,
+      "auc_mf_spatial": 0.9089616391043442
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 141002,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.7396152828271194,
+      "auc_mf_spatial": 0.9107913203730942
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "1",
+      "actual_bands": 1,
+      "auc_mf": 0.5085885296360158,
+      "auc_mf_spatial": 0.5131910781947944
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "2",
+      "actual_bands": 2,
+      "auc_mf": 0.6773472503183795,
+      "auc_mf_spatial": 0.8455813323869741
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "3",
+      "actual_bands": 3,
+      "auc_mf": 0.6859380209727289,
+      "auc_mf_spatial": 0.8477666127021104
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "5",
+      "actual_bands": 5,
+      "auc_mf": 0.7151421908456298,
+      "auc_mf_spatial": 0.880859157769922
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "10",
+      "actual_bands": 10,
+      "auc_mf": 0.726911552084155,
+      "auc_mf_spatial": 0.8946147101260525
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "20",
+      "actual_bands": 20,
+      "auc_mf": 0.7793913481860553,
+      "auc_mf_spatial": 0.9564591099677707
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "40",
+      "actual_bands": 40,
+      "auc_mf": 0.8135622720982065,
+      "auc_mf_spatial": 0.9720490068203912
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "80",
+      "actual_bands": 80,
+      "auc_mf": 0.8245794502528486,
+      "auc_mf_spatial": 0.9738263968177785
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 141003,
+      "k": "all",
+      "actual_bands": 103,
+      "auc_mf": 0.825555092936684,
+      "auc_mf_spatial": 0.9745863907375387
+    }
+  ],
+  "summary": {
+    "overall": {
+      "1": {
+        "auc_mf": {
+          "mean": 0.696234315686536,
+          "ci_low": 0.5554605907756899,
+          "ci_high": 0.7759345594937878
+        },
+        "auc_mf_spatial": {
+          "mean": 0.8379717152283229,
+          "ci_low": 0.5658303311906218,
+          "ci_high": 0.9839085201015043
+        }
+      },
+      "2": {
+        "auc_mf": {
+          "mean": 0.7885796981229142,
+          "ci_low": 0.7047110157759193,
+          "ci_high": 0.8374974737104705
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9486269316640433,
+          "ci_low": 0.866795073593381,
+          "ci_high": 0.9928285494290107
+        }
+      },
+      "3": {
+        "auc_mf": {
+          "mean": 0.8112063360450534,
+          "ci_low": 0.7140076657313661,
+          "ci_high": 0.8676440094383419
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9482725013698804,
+          "ci_low": 0.8704909696105164,
+          "ci_high": 0.9925566270472509
+        }
+      },
+      "5": {
+        "auc_mf": {
+          "mean": 0.841711572255659,
+          "ci_low": 0.7405121616640898,
+          "ci_high": 0.8989419771882144
+        },
+        "auc_mf_spatial": {
+          "mean": 0.963259872410786,
+          "ci_low": 0.9032686922154165,
+          "ci_high": 0.997497668859938
+        }
+      },
+      "10": {
+        "auc_mf": {
+          "mean": 0.8709189193772687,
+          "ci_low": 0.7580536761320789,
+          "ci_high": 0.933027750457788
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9693268836747739,
+          "ci_low": 0.9205939154969186,
+          "ci_high": 0.9991058145165258
+        }
+      },
+      "20": {
+        "auc_mf": {
+          "mean": 0.8981930933736969,
+          "ci_low": 0.7877374569971279,
+          "ci_high": 0.961796123109747
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9829877696874446,
+          "ci_low": 0.9542512399051348,
+          "ci_high": 0.9989768519611885
+        }
+      },
+      "40": {
+        "auc_mf": {
+          "mean": 0.9164377808108929,
+          "ci_low": 0.8126972186974956,
+          "ci_high": 0.9748872107231725
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9860516791795964,
+          "ci_low": 0.9627071293204404,
+          "ci_high": 0.9991889796561296
+        }
+      },
+      "80": {
+        "auc_mf": {
+          "mean": 0.9250530213670944,
+          "ci_low": 0.8220042095401393,
+          "ci_high": 0.9814393681679084
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9865705785155763,
+          "ci_low": 0.9639899207305057,
+          "ci_high": 0.9992049081149162
+        }
+      },
+      "all": {
+        "auc_mf": {
+          "mean": 0.920903631049257,
+          "ci_low": 0.8221587662852279,
+          "ci_high": 0.9756356542904343
+        },
+        "auc_mf_spatial": {
+          "mean": 0.9838655449326206,
+          "ci_low": 0.9642302699580297,
+          "ci_high": 0.9968655194240298
+        }
+      }
+    },
+    "by_snr": {
+      "5": {
+        "1": {
+          "auc_mf": {
+            "mean": 0.7325566721574702,
+            "ci_low": 0.5653334883886995,
+            "ci_high": 0.831844845141958
+          },
+          "auc_mf_spatial": {
+            "mean": 0.8493734162778197,
+            "ci_low": 0.5781358348957674,
+            "ci_high": 0.9934560183488078
+          }
+        },
+        "2": {
+          "auc_mf": {
+            "mean": 0.8327777273762645,
+            "ci_low": 0.7383663102719341,
+            "ci_high": 0.8911090837520954
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9567058349340832,
+            "ci_low": 0.8780220453744646,
+            "ci_high": 0.9972863177993997
+          }
+        },
+        "3": {
+          "auc_mf": {
+            "mean": 0.8512135102397099,
+            "ci_low": 0.7464041057754699,
+            "ci_high": 0.9152320751160916
+          },
+          "auc_mf_spatial": {
+            "mean": 0.955529556668468,
+            "ci_low": 0.8813310052315296,
+            "ci_high": 0.9958410982294256
+          }
+        },
+        "5": {
+          "auc_mf": {
+            "mean": 0.8784750709265453,
+            "ci_low": 0.7711435927229818,
+            "ci_high": 0.9411951279595704
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9718804879946538,
+            "ci_low": 0.9228821584482939,
+            "ci_high": 0.9991479971020033
+          }
+        },
+        "10": {
+          "auc_mf": {
+            "mean": 0.9034676918336487,
+            "ci_low": 0.7959869835512666,
+            "ci_high": 0.9661196318087216
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9793584691790871,
+            "ci_low": 0.9459504256924504,
+            "ci_high": 0.9993963778942021
+          }
+        },
+        "20": {
+          "auc_mf": {
+            "mean": 0.9264115503263405,
+            "ci_low": 0.8292589874330083,
+            "ci_high": 0.9792759764757847
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9894218446784581,
+            "ci_low": 0.9701832786402075,
+            "ci_high": 0.9993186966291328
+          }
+        },
+        "40": {
+          "auc_mf": {
+            "mean": 0.9387668198812777,
+            "ci_low": 0.850121320761704,
+            "ci_high": 0.9867341389237165
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9912096201055465,
+            "ci_low": 0.975701973211183,
+            "ci_high": 0.9993939053991213
+          }
+        },
+        "80": {
+          "auc_mf": {
+            "mean": 0.9434089629167509,
+            "ci_low": 0.8562010493576069,
+            "ci_high": 0.9903736245209162
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9907380439285922,
+            "ci_low": 0.9750027835832208,
+            "ci_high": 0.9992053775899474
+          }
+        },
+        "all": {
+          "auc_mf": {
+            "mean": 0.9372104865486661,
+            "ci_low": 0.8564200535001646,
+            "ci_high": 0.9837903234109187
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9884524726630864,
+            "ci_low": 0.9754961062831581,
+            "ci_high": 0.9971053696356841
+          }
+        }
+      },
+      "0": {
+        "1": {
+          "auc_mf": {
+            "mean": 0.6599119592156021,
+            "ci_low": 0.5426317111532064,
+            "ci_high": 0.7257225878600206
+          },
+          "auc_mf_spatial": {
+            "mean": 0.8265700141788264,
+            "ci_low": 0.5496073994053325,
+            "ci_high": 0.9742302012558467
+          }
+        },
+        "2": {
+          "auc_mf": {
+            "mean": 0.7443816688695638,
+            "ci_low": 0.66945537877202,
+            "ci_high": 0.7891426228874742
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9405480283940036,
+            "ci_low": 0.8521250228921792,
+            "ci_high": 0.9886100247808884
+          }
+        },
+        "3": {
+          "auc_mf": {
+            "mean": 0.7711991618503968,
+            "ci_low": 0.6798197267361429,
+            "ci_high": 0.8250381451808856
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9410154460712926,
+            "ci_low": 0.8559825175636006,
+            "ci_high": 0.9887472104128582
+          }
+        },
+        "5": {
+          "auc_mf": {
+            "mean": 0.8049480735847726,
+            "ci_low": 0.7078178906505939,
+            "ci_high": 0.8653177127470797
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9546392568269182,
+            "ci_low": 0.8813712652250599,
+            "ci_high": 0.9953853079472271
+          }
+        },
+        "10": {
+          "auc_mf": {
+            "mean": 0.8383701469208891,
+            "ci_low": 0.718282747913819,
+            "ci_high": 0.9070128500769903
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9592952981704603,
+            "ci_low": 0.8942720447558355,
+            "ci_high": 0.9986638978814292
+          }
+        },
+        "20": {
+          "auc_mf": {
+            "mean": 0.8699746364210535,
+            "ci_low": 0.7444572735152124,
+            "ci_high": 0.9470198046582436
+          },
+          "auc_mf_spatial": {
+            "mean": 0.976553694696431,
+            "ci_low": 0.9347044576260868,
+            "ci_high": 0.9988924616414246
+          }
+        },
+        "40": {
+          "auc_mf": {
+            "mean": 0.8941087417405079,
+            "ci_low": 0.7727289878077759,
+            "ci_high": 0.9658846269048168
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9808937382536462,
+            "ci_low": 0.946086890693911,
+            "ci_high": 0.9990562546639791
+          }
+        },
+        "80": {
+          "auc_mf": {
+            "mean": 0.906697079817438,
+            "ci_low": 0.7855176699290572,
+            "ci_high": 0.9753203115092204
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9824031131025605,
+            "ci_low": 0.9501774554539003,
+            "ci_high": 0.9992803708931656
+          }
+        },
+        "all": {
+          "auc_mf": {
+            "mean": 0.9045967755498481,
+            "ci_low": 0.7859736360602009,
+            "ci_high": 0.9749974964355588
+          },
+          "auc_mf_spatial": {
+            "mean": 0.9792786172021546,
+            "ci_low": 0.9504661293229045,
+            "ci_high": 0.9983956798734868
+          }
+        }
+      }
+    }
+  },
+  "comparison": {
+    "top_3_minus_all": {
+      "auc_mf": {
+        "mean": -0.10969729500420365,
+        "ci_low": -0.11870469876472345,
+        "ci_high": -0.10102453677425276
+      },
+      "auc_mf_spatial": {
+        "mean": -0.03559304356274032,
+        "ci_low": -0.09171696035314883,
+        "ci_high": -0.0004828466024245605
+      }
+    },
+    "smallest_k_within_0_005_of_full_mean": "20"
+  }
+}

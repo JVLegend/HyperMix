@@ -103,20 +103,36 @@ class SpectralDetector:
 
     def score_map(self, cube: np.ndarray, target: np.ndarray, mc: int = 0):
         """Detection score map (H, W). If mc>1, returns (mean, std)."""
-        torch = self._torch
         h, w, _ = cube.shape
-        xs = torch.from_numpy(self._scale(pixel_features(cube, target)))
+        predictions = self.predict_proba(pixel_features(cube, target), mc=mc)
+        if mc and mc > 1:
+            mean, std = predictions
+            return mean.reshape(h, w), std.reshape(h, w)
+        return predictions.reshape(h, w)
+
+    def predict_logits(self, features: np.ndarray) -> np.ndarray:
+        """Deterministic raw logits for already-computed pixel features."""
+        torch = self._torch
+        xs = torch.from_numpy(self._scale(features))
+        self.net.eval()
+        with torch.no_grad():
+            return self.net(xs).numpy().reshape(-1)
+
+    def predict_proba(self, features: np.ndarray, mc: int = 0):
+        """Probabilities for features; MC mode returns flat mean and std."""
+        torch = self._torch
+        xs = torch.from_numpy(self._scale(features))
         if mc and mc > 1:
             self.net.train()  # keep dropout ON for MC sampling
             preds = []
             with torch.no_grad():
                 for _ in range(mc):
-                    preds.append(torch.sigmoid(self.net(xs)).numpy().reshape(h, w))
+                    preds.append(torch.sigmoid(self.net(xs)).numpy().reshape(-1))
             preds = np.stack(preds, axis=0)
             return preds.mean(axis=0), preds.std(axis=0)
         self.net.eval()
         with torch.no_grad():
-            return torch.sigmoid(self.net(xs)).numpy().reshape(h, w)
+            return torch.sigmoid(self.net(xs)).numpy().reshape(-1)
 
     def save(self, path: str) -> None:
         self._torch.save(

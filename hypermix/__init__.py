@@ -33,7 +33,18 @@ from .baselines import (
     spectral_angle_mapper,
     spectral_matched_filter,
 )
-from .metrics import mean_absolute_error, pd_at_far, pearson_r, roc_auc, roc_curve
+from .metrics import (
+    binary_nll,
+    brier_score,
+    expected_calibration_error,
+    mean_absolute_error,
+    negative_log_likelihood,
+    pd_at_far,
+    pearson_r,
+    reliability_curve,
+    roc_auc,
+    roc_curve,
+)
 from .background import background_detector, smoothed_background_detector
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
@@ -63,6 +74,11 @@ __all__ = [
     "roc_auc",
     "roc_curve",
     "pd_at_far",
+    "binary_nll",
+    "negative_log_likelihood",
+    "brier_score",
+    "expected_calibration_error",
+    "reliability_curve",
     "pearson_r",
     "mean_absolute_error",
     "background_detector",

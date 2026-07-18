@@ -16,16 +16,16 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hypermix-observatory.vercel.app"),
   title: "HyperMix Observatory",
   description:
-    "Explore an open and honest benchmark for hyperspectral biosignal detection.",
+    "Explore an open benchmark for hyperspectral detection, calibrated uncertainty, and band sparsity.",
   openGraph: {
     title: "HyperMix Observatory",
-    description: "Honest hyperspectral biology benchmark",
+    description: "Honest detection, calibration, and band-sparsity benchmark",
     images: [{ url: "/og-v2.png", width: 1672, height: 941 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "HyperMix Observatory",
-    description: "Honest hyperspectral biology benchmark",
+    description: "Honest detection, calibration, and band-sparsity benchmark",
     images: ["/og-v2.png"],
   },
   icons: {

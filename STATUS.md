@@ -2,6 +2,79 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T7b concluído: incerteza calibrada - 2026-07-18
+
+A hipótese nova foi testada com split explícito entre calibração e avaliação.
+Em cada uma das três cenas reais e em target SNR de 5 e 0 dB, os implantes de
+seeds 100 e 101 ajustam os calibradores; os implantes de seeds 0 a 3 são usados
+somente nas métricas. O MF e o MF espacial recebem Platt scaling. O detector
+recebe temperature scaling com correção de intercepto, sozinho e como ensemble
+de três redes treinadas apenas em fundos simulados.
+
+NLL e Brier são calculados sem balanceamento de classe em cada caso. A ECE usa
+15 bins uniformes. O agregado dá o mesmo peso a cada combinação de cena, SNR e
+seed. IC 95% usam 5000 réplicas de bootstrap hierárquico sobre cenas e seeds.
+
+| Método | NLL [IC 95%] | Brier [IC 95%] | ECE [IC 95%] | AUC [IC 95%] |
+|---|:---:|:---:|:---:|:---:|
+| MF + Platt | 0,12953 [0,05716, 0,23007] | 0,03477 [0,01424, 0,06252] | 0,01581 [0,00950, 0,02486] | 0,926 [0,818, 0,984] |
+| MF espacial + Platt | 0,05766 [0,01935, 0,12004] | 0,01540 [0,00517, 0,03152] | 0,00896 [0,00441, 0,01532] | 0,986 [0,963, 0,999] |
+| Aprendido + temperatura | 0,07169 [0,02790, 0,14910] | 0,01968 [0,00770, 0,04008] | 0,01291 [0,00909, 0,01814] | 0,977 [0,936, 0,999] |
+| Ensemble aprendido + temperatura | 0,06792 [0,02710, 0,13866] | 0,01940 [0,00760, 0,03944] | 0,01293 [0,00906, 0,01837] | 0,980 [0,946, 0,999] |
+
+O critério pré-especificado exigia que os limites superiores dos IC para a
+diferença ensemble menos MF espacial fossem negativos em NLL e ECE. O resultado
+foi o oposto: +0,01026 [0,00448, 0,01778] em NLL e +0,00397 [0,00208, 0,00560]
+em ECE. Brier também piorou em +0,00401 [0,00166, 0,00766].
+
+Conclusão: **o aprendizado não venceu em incerteza calibrada neste protocolo**.
+O MF espacial calibrado foi significativamente melhor nas três métricas próprias
+de probabilidade. Isto não reproduz a tarefa de recuperação atmosférica do Ariel
+Data Challenge; testa a pergunta binária correspondente no benchmark HyperMix.
+
+Artefatos: `hypermix/calibration.py`, `scripts/uncertainty_experiment.py`,
+`results/uncertainty.json`, `results/uncertainty.md` e
+`assets/reliability_uncertainty.png`. O SHA-256 do JSON foi
+`5cd0b6129d5109db5cadbf14ad8c4ba7ce986584ad8a8ba11f2fabab887f3052`
+em duas execuções completas independentes.
+
+## T7c concluído: esparsidade de banda - 2026-07-18
+
+As bandas foram ordenadas separadamente em cada cubo real não implantado pelo
+coeficiente absoluto do matched filter completo, `|C^-1 (t - mu)|`. A seleção
+conhece a assinatura do alvo e as estatísticas não rotuladas da cena, mas não
+usa máscara, AUC ou rótulos implantados. O MF foi recalculado nas top-k bandas
+com k igual a 1, 2, 3, 5, 10, 20, 40, 80 e todas.
+
+| Top-k | AUC do MF espacial [IC 95%] |
+|---:|:---:|
+| 1 | 0,838 [0,566, 0,984] |
+| 2 | 0,949 [0,867, 0,993] |
+| 3 | 0,948 [0,870, 0,993] |
+| 5 | 0,963 [0,903, 0,997] |
+| 10 | 0,969 [0,921, 0,999] |
+| 20 | 0,983 [0,954, 0,999] |
+| 40 | 0,986 [0,963, 0,999] |
+| 80 | 0,987 [0,964, 0,999] |
+| Todas | 0,984 [0,964, 0,997] |
+
+Top-3 menos todas as bandas foi -0,036 [-0,092, -0,000] em AUC espacial.
+As top-3 concentraram apenas 0,098, 0,134 e 0,161 do peso absoluto em Indian
+Pines, Salinas e Pavia University. O menor k cuja média ficou a até 0,005 do MF
+completo foi 20, uma leitura descritiva e não prova de equivalência.
+
+Conclusão: **menos de três bandas não bastaram neste benchmark de detecção**.
+O estudo `One Channel Is All You Need` avalia classificação de culturas na
+competição ICPR 2024 e foi publicado posteriormente nos anais do ICAISC. Ele
+motiva a ablação, mas não transfere automaticamente para alvo hiperespectral
+implantado e seleção target-aware.
+
+Artefatos: `scripts/band_sparsity_experiment.py`,
+`results/band_sparsity.json`, `results/band_sparsity.md` e
+`assets/band_sparsity.png`. O SHA-256 do JSON foi
+`227273f2aba5cd7ba7683bbe7a97314250de16beeb38470d8e93e69bac77c781`
+em duas execuções completas independentes. A suíte tem 33 testes passando.
+
 ## T7a concluído: modelo auto-supervisionado do fundo - 2026-07-18
 
 Foi implementado um autoencoder espectral raso que aprende apenas com os pixels
@@ -39,6 +112,15 @@ execuções independentes. A documentação pública e o observatório não fora
 alterados porque o critério de vantagem não foi satisfeito. 29 testes passando.
 
 ## Observatório web publicado - 2026-07-18
+
+O storytelling agora possui sete capítulos. Depois do experimento de fundo,
+novos painéis apresentam T7b, com NLL, Brier, ECE, curva de confiabilidade e o
+split de calibração, e T7c, com AUC do MF espacial versus top-k bandas. Os
+valores são curados diretamente de `results/uncertainty.json` e
+`results/band_sparsity.json`. A versão publicada preserva inglês como idioma
+inicial e registra explicitamente que o aprendizado perdeu também em calibração
+e que três bandas não bastaram neste benchmark. Build vinext, renderização,
+tipos, lint, build Next.js e deploy Vercel foram verificados.
 
 O benchmark agora possui uma interface web interativa em
 https://hypermix-observatory.vercel.app, publicada na Vercel. O painel reúne a

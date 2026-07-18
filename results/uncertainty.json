@@ -1,0 +1,2486 @@
+{
+  "protocol": {
+    "scenes": [
+      "indian_pines",
+      "salinas",
+      "paviaU"
+    ],
+    "target_snrs_db": [
+      5.0,
+      0.0
+    ],
+    "calibration_seeds": [
+      100,
+      101
+    ],
+    "evaluation_seeds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "split_unit": "independent target implantation",
+    "far": 0.001,
+    "ece_uniform_bins": 15,
+    "spatial_sigma_pixels": 1.5,
+    "ensemble_seeds": [
+      0,
+      1,
+      2
+    ],
+    "training": {
+      "background": "physics-simulated only",
+      "scenes": 28,
+      "height_width": 96,
+      "epochs": 30,
+      "class_weighted_detector_loss": true
+    },
+    "bootstrap": {
+      "replicates": 5000,
+      "seed": 20260719,
+      "scheme": "resample scenes, then seeds within scene/SNR"
+    },
+    "significance_rule": "upper 95% CI bounds for learned ensemble minus calibrated spatial MF must be below zero for both NLL and ECE",
+    "evaluation_labels_used_for_fitting": false
+  },
+  "calibration_parameters": [
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 273.1403830907826,
+          "intercept": -3.7901992203193693
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 513.1084621300822,
+          "intercept": -5.01340981878081
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 0.9203543167440452,
+          "bias": -0.9409764647353452
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 0.8811454503221271,
+          "bias": -1.0255157894347315
+        }
+      }
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 175.15061040010247,
+          "intercept": -3.725356608150381
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 421.1093991732417,
+          "intercept": -4.9877947644830485
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.0944362886342527,
+          "bias": -1.773896538264892
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.066094841133205,
+          "bias": -1.8350297794690171
+        }
+      }
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 265.87175652957967,
+          "intercept": -5.641418197249922
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 490.24846625988397,
+          "intercept": -7.227414255455711
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.2093532188738394,
+          "bias": -4.063856091861206
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.1570896924096052,
+          "bias": -4.168241467865438
+        }
+      }
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 158.5400260915613,
+          "intercept": -4.549671930280371
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 392.75910384919297,
+          "intercept": -5.969378006799333
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.207401419885061,
+          "bias": -3.131527196760993
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 1.1680129000585047,
+          "bias": -3.2179589820127097
+        }
+      }
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 46.25927560628322,
+          "intercept": -2.9508661937462675
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 152.31046995033563,
+          "intercept": -3.8891260807492616
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 2.5451890442002294,
+          "bias": -2.2949187962795197
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 2.2778990654184166,
+          "bias": -2.4801698533105454
+        }
+      }
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "calibrators": {
+        "mf_platt": {
+          "kind": "platt",
+          "slope": 27.78433559133421,
+          "intercept": -2.833605961391567
+        },
+        "mf_spatial_platt": {
+          "kind": "platt",
+          "slope": 114.47052881390071,
+          "intercept": -3.8911139640107346
+        },
+        "learned_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 3.728996330821587,
+          "bias": -2.1470689763179434
+        },
+        "learned_ensemble_temperature": {
+          "kind": "temperature_with_bias",
+          "temperature": 3.189226310649633,
+          "bias": -2.3122844058615124
+        }
+      }
+    }
+  ],
+  "rows": [
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 90000,
+      "method": "mf_platt",
+      "nll": 0.10641472558931436,
+      "brier": 0.029450875238143423,
+      "ece": 0.008900197813566066,
+      "auc": 0.9798968240930108,
+      "pd_at_far": 0.690444591904446,
+      "positive_pixels": 3014,
+      "negative_pixels": 18011
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 90000,
+      "method": "mf_spatial_platt",
+      "nll": 0.02875067490916454,
+      "brier": 0.00861157851054082,
+      "ece": 0.007554672077306743,
+      "auc": 0.999231392067157,
+      "pd_at_far": 0.9077637690776377,
+      "positive_pixels": 3014,
+      "negative_pixels": 18011
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 90000,
+      "method": "learned_temperature",
+      "nll": 0.03090082839552579,
+      "brier": 0.009674238252741585,
+      "ece": 0.011018736270956037,
+      "auc": 0.9993905884470734,
+      "pd_at_far": 0.8971466489714665,
+      "positive_pixels": 3014,
+      "negative_pixels": 18011
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 90000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.03138284593340541,
+      "brier": 0.009861996717382282,
+      "ece": 0.011258868249555926,
+      "auc": 0.999380862030897,
+      "pd_at_far": 0.8948241539482416,
+      "positive_pixels": 3014,
+      "negative_pixels": 18011
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 90001,
+      "method": "mf_platt",
+      "nll": 0.07058356416314962,
+      "brier": 0.019544504570586353,
+      "ece": 0.0066859373203883255,
+      "auc": 0.9926141156807747,
+      "pd_at_far": 0.7752742365846428,
+      "positive_pixels": 3373,
+      "negative_pixels": 17652
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 90001,
+      "method": "mf_spatial_platt",
+      "nll": 0.026117509082421192,
+      "brier": 0.007597412717143165,
+      "ece": 0.006603065817061944,
+      "auc": 0.9992860789373283,
+      "pd_at_far": 0.937444411503113,
+      "positive_pixels": 3373,
+      "negative_pixels": 17652
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 90001,
+      "method": "learned_temperature",
+      "nll": 0.03343671058796893,
+      "brier": 0.010736742374101136,
+      "ece": 0.013033590618389313,
+      "auc": 0.9993081648572336,
+      "pd_at_far": 0.9294396679513786,
+      "positive_pixels": 3373,
+      "negative_pixels": 17652
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 90001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.03399575775762406,
+      "brier": 0.010980703276316096,
+      "ece": 0.013340575021361215,
+      "auc": 0.9993128003811073,
+      "pd_at_far": 0.9282537800177884,
+      "positive_pixels": 3373,
+      "negative_pixels": 17652
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 90002,
+      "method": "mf_platt",
+      "nll": 0.06960287841590913,
+      "brier": 0.017937635431290896,
+      "ece": 0.015132624104860585,
+      "auc": 0.9889086407510931,
+      "pd_at_far": 0.7486910994764397,
+      "positive_pixels": 2292,
+      "negative_pixels": 18733
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 90002,
+      "method": "mf_spatial_platt",
+      "nll": 0.0256036090543732,
+      "brier": 0.0074540405377984615,
+      "ece": 0.007222974798564667,
+      "auc": 0.99923560712498,
+      "pd_at_far": 0.8970331588132635,
+      "positive_pixels": 2292,
+      "negative_pixels": 18733
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 90002,
+      "method": "learned_temperature",
+      "nll": 0.03766006750497234,
+      "brier": 0.011554764476779293,
+      "ece": 0.015166707894969779,
+      "auc": 0.999183739272065,
+      "pd_at_far": 0.8878708551483421,
+      "positive_pixels": 2292,
+      "negative_pixels": 18733
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 90002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.037520724859977504,
+      "brier": 0.01147478908476669,
+      "ece": 0.014751119550915823,
+      "auc": 0.9991785687900951,
+      "pd_at_far": 0.8861256544502618,
+      "positive_pixels": 2292,
+      "negative_pixels": 18733
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 90003,
+      "method": "mf_platt",
+      "nll": 0.07343696739090189,
+      "brier": 0.019792288112984627,
+      "ece": 0.008414476658854139,
+      "auc": 0.9895647724678053,
+      "pd_at_far": 0.7196509863429439,
+      "positive_pixels": 2636,
+      "negative_pixels": 18389
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 90003,
+      "method": "mf_spatial_platt",
+      "nll": 0.027799495807670445,
+      "brier": 0.008353017860404335,
+      "ece": 0.005662487836774215,
+      "auc": 0.9991031370522276,
+      "pd_at_far": 0.8786039453717754,
+      "positive_pixels": 2636,
+      "negative_pixels": 18389
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 90003,
+      "method": "learned_temperature",
+      "nll": 0.03826152208830457,
+      "brier": 0.011552675874397964,
+      "ece": 0.012479582896924411,
+      "auc": 0.9987661687633903,
+      "pd_at_far": 0.8474962063732928,
+      "positive_pixels": 2636,
+      "negative_pixels": 18389
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 90003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.03782903831955423,
+      "brier": 0.01141914503099299,
+      "ece": 0.012147485242732386,
+      "auc": 0.998791687911994,
+      "pd_at_far": 0.8516691957511381,
+      "positive_pixels": 2636,
+      "negative_pixels": 18389
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 91000,
+      "method": "mf_platt",
+      "nll": 0.10499421222062068,
+      "brier": 0.027039937020015822,
+      "ece": 0.008689024136591861,
+      "auc": 0.9723885948774565,
+      "pd_at_far": 0.6885724717050018,
+      "positive_pixels": 2739,
+      "negative_pixels": 18286
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 91000,
+      "method": "mf_spatial_platt",
+      "nll": 0.028131341750958147,
+      "brier": 0.007378357482311238,
+      "ece": 0.003356937480040384,
+      "auc": 0.9975204927172922,
+      "pd_at_far": 0.9233296823658269,
+      "positive_pixels": 2739,
+      "negative_pixels": 18286
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 91000,
+      "method": "learned_temperature",
+      "nll": 0.029730841487002467,
+      "brier": 0.00787063602529106,
+      "ece": 0.002794282988363377,
+      "auc": 0.9975442920898593,
+      "pd_at_far": 0.9058050383351588,
+      "positive_pixels": 2739,
+      "negative_pixels": 18286
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 91000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.029225682918868984,
+      "brier": 0.00776004622475293,
+      "ece": 0.003221659710070097,
+      "auc": 0.9977362444118894,
+      "pd_at_far": 0.9087258123402702,
+      "positive_pixels": 2739,
+      "negative_pixels": 18286
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 91001,
+      "method": "mf_platt",
+      "nll": 0.10206500833349257,
+      "brier": 0.027168163546204296,
+      "ece": 0.019096667511827394,
+      "auc": 0.9705433878605334,
+      "pd_at_far": 0.6189773844641101,
+      "positive_pixels": 2034,
+      "negative_pixels": 18991
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 91001,
+      "method": "mf_spatial_platt",
+      "nll": 0.027969373937741484,
+      "brier": 0.008039231445654207,
+      "ece": 0.0047941567461609,
+      "auc": 0.9988369225457776,
+      "pd_at_far": 0.8348082595870207,
+      "positive_pixels": 2034,
+      "negative_pixels": 18991
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 91001,
+      "method": "learned_temperature",
+      "nll": 0.025071280108391554,
+      "brier": 0.007546599657279728,
+      "ece": 0.0026826970043102483,
+      "auc": 0.9989775988180915,
+      "pd_at_far": 0.852015732546706,
+      "positive_pixels": 2034,
+      "negative_pixels": 18991
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 91001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.02487648890057869,
+      "brier": 0.007491469874902386,
+      "ece": 0.0025792551386662026,
+      "auc": 0.9989871774380319,
+      "pd_at_far": 0.8559488692232055,
+      "positive_pixels": 2034,
+      "negative_pixels": 18991
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 91002,
+      "method": "mf_platt",
+      "nll": 0.1415556261388929,
+      "brier": 0.039877344390655045,
+      "ece": 0.02008164984834954,
+      "auc": 0.9681009144131736,
+      "pd_at_far": 0.5668261562998405,
+      "positive_pixels": 3135,
+      "negative_pixels": 17890
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 91002,
+      "method": "mf_spatial_platt",
+      "nll": 0.0490945087143459,
+      "brier": 0.014735271704791277,
+      "ece": 0.008127143601631803,
+      "auc": 0.9972904592392103,
+      "pd_at_far": 0.8159489633173844,
+      "positive_pixels": 3135,
+      "negative_pixels": 17890
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 91002,
+      "method": "learned_temperature",
+      "nll": 0.049480838121034855,
+      "brier": 0.015107490791940457,
+      "ece": 0.009533778071307035,
+      "auc": 0.9974137360780884,
+      "pd_at_far": 0.8079744816586922,
+      "positive_pixels": 3135,
+      "negative_pixels": 17890
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 91002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.04934622462034488,
+      "brier": 0.015018990098815339,
+      "ece": 0.009664465050609649,
+      "auc": 0.997430817248416,
+      "pd_at_far": 0.8146730462519937,
+      "positive_pixels": 3135,
+      "negative_pixels": 17890
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 91003,
+      "method": "mf_platt",
+      "nll": 0.12089960637089298,
+      "brier": 0.031787447799188885,
+      "ece": 0.011206166133321763,
+      "auc": 0.9721977892277678,
+      "pd_at_far": 0.6698520345252774,
+      "positive_pixels": 3244,
+      "negative_pixels": 17781
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 91003,
+      "method": "mf_spatial_platt",
+      "nll": 0.04000628257624796,
+      "brier": 0.010170837577329485,
+      "ece": 0.008087709456984539,
+      "auc": 0.9957884983839898,
+      "pd_at_far": 0.9035141800246609,
+      "positive_pixels": 3244,
+      "negative_pixels": 17781
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 91003,
+      "method": "learned_temperature",
+      "nll": 0.045631984032383915,
+      "brier": 0.011889185292295735,
+      "ece": 0.01372715075152684,
+      "auc": 0.9963975664737523,
+      "pd_at_far": 0.9035141800246609,
+      "positive_pixels": 3244,
+      "negative_pixels": 17781
+    },
+    {
+      "scene": "indian_pines",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 91003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.04474632367488254,
+      "brier": 0.01171532800728716,
+      "ece": 0.013503133340340983,
+      "auc": 0.996743708266995,
+      "pd_at_far": 0.908138101109741,
+      "positive_pixels": 3244,
+      "negative_pixels": 17781
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 100000,
+      "method": "mf_platt",
+      "nll": 0.05570848442592871,
+      "brier": 0.014400922005059526,
+      "ece": 0.007529836256832019,
+      "auc": 0.9881365537032505,
+      "pd_at_far": 0.7487437185929648,
+      "positive_pixels": 8557,
+      "negative_pixels": 102547
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 100000,
+      "method": "mf_spatial_platt",
+      "nll": 0.028283153525403167,
+      "brier": 0.007770946643764142,
+      "ece": 0.0044003215953357265,
+      "auc": 0.9978818800335996,
+      "pd_at_far": 0.8396634334463012,
+      "positive_pixels": 8557,
+      "negative_pixels": 102547
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 100000,
+      "method": "learned_temperature",
+      "nll": 0.030249742930577684,
+      "brier": 0.008467458485117214,
+      "ece": 0.006506848204878526,
+      "auc": 0.9980125856694796,
+      "pd_at_far": 0.8387285263526937,
+      "positive_pixels": 8557,
+      "negative_pixels": 102547
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 100000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.030047588637516887,
+      "brier": 0.008404260099391376,
+      "ece": 0.006622877276253679,
+      "auc": 0.9980249475678017,
+      "pd_at_far": 0.8404814771532079,
+      "positive_pixels": 8557,
+      "negative_pixels": 102547
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 100001,
+      "method": "mf_platt",
+      "nll": 0.03703603723476381,
+      "brier": 0.009015674696685965,
+      "ece": 0.0041943675169933406,
+      "auc": 0.9931588311938746,
+      "pd_at_far": 0.768025078369906,
+      "positive_pixels": 6061,
+      "negative_pixels": 105043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 100001,
+      "method": "mf_spatial_platt",
+      "nll": 0.014347525288016973,
+      "brier": 0.0038809105064930133,
+      "ece": 0.00282530158559472,
+      "auc": 0.9995569118391052,
+      "pd_at_far": 0.9046361986470879,
+      "positive_pixels": 6061,
+      "negative_pixels": 105043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 100001,
+      "method": "learned_temperature",
+      "nll": 0.016693347170728318,
+      "brier": 0.0045251334559238375,
+      "ece": 0.004268702327249375,
+      "auc": 0.9994541703094278,
+      "pd_at_far": 0.8919320244184128,
+      "positive_pixels": 6061,
+      "negative_pixels": 105043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 100001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.01579614125010626,
+      "brier": 0.0044550721359249024,
+      "ece": 0.004216278080168473,
+      "auc": 0.9994815873700785,
+      "pd_at_far": 0.8953967992080515,
+      "positive_pixels": 6061,
+      "negative_pixels": 105043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 100002,
+      "method": "mf_platt",
+      "nll": 0.03307318043518457,
+      "brier": 0.008208433928073012,
+      "ece": 0.0046442033199639,
+      "auc": 0.9937076498075949,
+      "pd_at_far": 0.7504219409282701,
+      "positive_pixels": 4740,
+      "negative_pixels": 106364
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 100002,
+      "method": "mf_spatial_platt",
+      "nll": 0.009928063786283393,
+      "brier": 0.002864425066041651,
+      "ece": 0.0019606948901042757,
+      "auc": 0.9996770801548127,
+      "pd_at_far": 0.9320675105485232,
+      "positive_pixels": 4740,
+      "negative_pixels": 106364
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 100002,
+      "method": "learned_temperature",
+      "nll": 0.023233352073560646,
+      "brier": 0.0068421960033132456,
+      "ece": 0.01053185359694332,
+      "auc": 0.999576186670183,
+      "pd_at_far": 0.9145569620253164,
+      "positive_pixels": 4740,
+      "negative_pixels": 106364
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 100002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.022309799191648133,
+      "brier": 0.006727752560030086,
+      "ece": 0.010246691438545102,
+      "auc": 0.9996156231360283,
+      "pd_at_far": 0.919831223628692,
+      "positive_pixels": 4740,
+      "negative_pixels": 106364
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 100003,
+      "method": "mf_platt",
+      "nll": 0.04142865374737768,
+      "brier": 0.010695996055222312,
+      "ece": 0.0037372102191754507,
+      "auc": 0.9936134198568957,
+      "pd_at_far": 0.7696839850026781,
+      "positive_pixels": 7468,
+      "negative_pixels": 103636
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 100003,
+      "method": "mf_spatial_platt",
+      "nll": 0.011302538001033077,
+      "brier": 0.0032696386155809027,
+      "ece": 0.0014725630798722974,
+      "auc": 0.9997251347021237,
+      "pd_at_far": 0.9366630958757365,
+      "positive_pixels": 7468,
+      "negative_pixels": 103636
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 100003,
+      "method": "learned_temperature",
+      "nll": 0.012742453788260548,
+      "brier": 0.003560429849565192,
+      "ece": 0.0020831611370294542,
+      "auc": 0.9996709221532089,
+      "pd_at_far": 0.9305034815211569,
+      "positive_pixels": 7468,
+      "negative_pixels": 103636
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 100003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.01166613359641375,
+      "brier": 0.0033821944064768216,
+      "ece": 0.0022076074167333413,
+      "auc": 0.9997188539642363,
+      "pd_at_far": 0.934654525977504,
+      "positive_pixels": 7468,
+      "negative_pixels": 103636
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 101000,
+      "method": "mf_platt",
+      "nll": 0.08233804299950212,
+      "brier": 0.02022723429433949,
+      "ece": 0.018597725570709513,
+      "auc": 0.9610492199585436,
+      "pd_at_far": 0.564975450081833,
+      "positive_pixels": 6110,
+      "negative_pixels": 104994
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 101000,
+      "method": "mf_spatial_platt",
+      "nll": 0.026992018093264146,
+      "brier": 0.006713659346115933,
+      "ece": 0.006110033314459021,
+      "auc": 0.9956799978625542,
+      "pd_at_far": 0.8327332242225859,
+      "positive_pixels": 6110,
+      "negative_pixels": 104994
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 101000,
+      "method": "learned_temperature",
+      "nll": 0.039299688429910336,
+      "brier": 0.010147041188390328,
+      "ece": 0.013784853461942713,
+      "auc": 0.9955909303460471,
+      "pd_at_far": 0.8106382978723404,
+      "positive_pixels": 6110,
+      "negative_pixels": 104994
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 101000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.038428968598799636,
+      "brier": 0.010074774449712621,
+      "ece": 0.013610085875325376,
+      "auc": 0.9957046356978329,
+      "pd_at_far": 0.8152209492635024,
+      "positive_pixels": 6110,
+      "negative_pixels": 104994
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 101001,
+      "method": "mf_platt",
+      "nll": 0.06912753605426566,
+      "brier": 0.016608981720000585,
+      "ece": 0.01519760599274227,
+      "auc": 0.9705429462779472,
+      "pd_at_far": 0.5642386530014641,
+      "positive_pixels": 5464,
+      "negative_pixels": 105640
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 101001,
+      "method": "mf_spatial_platt",
+      "nll": 0.026263148919448684,
+      "brier": 0.006917807835756983,
+      "ece": 0.007576463316150315,
+      "auc": 0.9988580636993064,
+      "pd_at_far": 0.7981332357247438,
+      "positive_pixels": 5464,
+      "negative_pixels": 105640
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 101001,
+      "method": "learned_temperature",
+      "nll": 0.043363573941605976,
+      "brier": 0.01055811588799312,
+      "ece": 0.016291411327501282,
+      "auc": 0.9986166310844367,
+      "pd_at_far": 0.7789165446559297,
+      "positive_pixels": 5464,
+      "negative_pixels": 105640
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 101001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.04250322005790038,
+      "brier": 0.010488835287042628,
+      "ece": 0.016079642501628758,
+      "auc": 0.9986550291245774,
+      "pd_at_far": 0.7847730600292826,
+      "positive_pixels": 5464,
+      "negative_pixels": 105640
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 101002,
+      "method": "mf_platt",
+      "nll": 0.07679166865867725,
+      "brier": 0.020062269443431223,
+      "ece": 0.010044900492074977,
+      "auc": 0.9783778214709783,
+      "pd_at_far": 0.5975685398833892,
+      "positive_pixels": 8061,
+      "negative_pixels": 103043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 101002,
+      "method": "mf_spatial_platt",
+      "nll": 0.01988022706655527,
+      "brier": 0.00549964585590866,
+      "ece": 0.0043514319531670655,
+      "auc": 0.9993198039362485,
+      "pd_at_far": 0.8640367200099244,
+      "positive_pixels": 8061,
+      "negative_pixels": 103043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 101002,
+      "method": "learned_temperature",
+      "nll": 0.028927050265752634,
+      "brier": 0.008612647497463953,
+      "ece": 0.011443098092604064,
+      "auc": 0.9990996522646292,
+      "pd_at_far": 0.8448083364346856,
+      "positive_pixels": 8061,
+      "negative_pixels": 103043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 101002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.027797595008413955,
+      "brier": 0.008466435526482956,
+      "ece": 0.011344777243286995,
+      "auc": 0.9991760774224158,
+      "pd_at_far": 0.8565934747549931,
+      "positive_pixels": 8061,
+      "negative_pixels": 103043
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 101003,
+      "method": "mf_platt",
+      "nll": 0.05448586803327469,
+      "brier": 0.013018305821600584,
+      "ece": 0.012606657227410873,
+      "auc": 0.9860801035766068,
+      "pd_at_far": 0.6975847031197585,
+      "positive_pixels": 5962,
+      "negative_pixels": 105142
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 101003,
+      "method": "mf_spatial_platt",
+      "nll": 0.013571742838164765,
+      "brier": 0.0034693268632418647,
+      "ece": 0.006110670529689959,
+      "auc": 0.999754825905926,
+      "pd_at_far": 0.9379402884937941,
+      "positive_pixels": 5962,
+      "negative_pixels": 105142
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 101003,
+      "method": "learned_temperature",
+      "nll": 0.027132723898661882,
+      "brier": 0.007964233205924575,
+      "ece": 0.013688483645460162,
+      "auc": 0.9996087733646977,
+      "pd_at_far": 0.9169741697416974,
+      "positive_pixels": 5962,
+      "negative_pixels": 105142
+    },
+    {
+      "scene": "salinas",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 101003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.026176316735485962,
+      "brier": 0.007854698469079298,
+      "ece": 0.013447167481853404,
+      "auc": 0.9996520424310629,
+      "pd_at_far": 0.919490103991949,
+      "positive_pixels": 5962,
+      "negative_pixels": 105142
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 110000,
+      "method": "mf_platt",
+      "nll": 0.20859080178439074,
+      "brier": 0.055960162933898945,
+      "ece": 0.01911098359815635,
+      "auc": 0.8624407756636429,
+      "pd_at_far": 0.04008103816459508,
+      "positive_pixels": 18263,
+      "negative_pixels": 189137
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 110000,
+      "method": "mf_spatial_platt",
+      "nll": 0.10221802958361223,
+      "brier": 0.02615989705128488,
+      "ece": 0.011432884650977873,
+      "auc": 0.979830021178588,
+      "pd_at_far": 0.2818813995510048,
+      "positive_pixels": 18263,
+      "negative_pixels": 189137
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 110000,
+      "method": "learned_temperature",
+      "nll": 0.11285789154754322,
+      "brier": 0.030198452498838648,
+      "ece": 0.011850802033577988,
+      "auc": 0.9728309230397586,
+      "pd_at_far": 0.255763018124076,
+      "positive_pixels": 18263,
+      "negative_pixels": 189137
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 110000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.10217739856739103,
+      "brier": 0.029646869523061812,
+      "ece": 0.01115902598558934,
+      "auc": 0.976570448466296,
+      "pd_at_far": 0.26041723703663144,
+      "positive_pixels": 18263,
+      "negative_pixels": 189137
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 110001,
+      "method": "mf_platt",
+      "nll": 0.2161620578924802,
+      "brier": 0.0585181555140079,
+      "ece": 0.026589019577574122,
+      "auc": 0.859311550364894,
+      "pd_at_far": 0.054775280898876406,
+      "positive_pixels": 18512,
+      "negative_pixels": 188888
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 110001,
+      "method": "mf_spatial_platt",
+      "nll": 0.10872359975069806,
+      "brier": 0.02673437812983611,
+      "ece": 0.016661745737607692,
+      "auc": 0.9740754269623021,
+      "pd_at_far": 0.2679883318928263,
+      "positive_pixels": 18512,
+      "negative_pixels": 188888
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 110001,
+      "method": "learned_temperature",
+      "nll": 0.11453809654514799,
+      "brier": 0.029716545401754328,
+      "ece": 0.016337439522248476,
+      "auc": 0.9700533248391249,
+      "pd_at_far": 0.21591400172860847,
+      "positive_pixels": 18512,
+      "negative_pixels": 188888
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 110001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.10497624520549828,
+      "brier": 0.028860546372384152,
+      "ece": 0.014216350283937336,
+      "auc": 0.9728524447117181,
+      "pd_at_far": 0.0,
+      "positive_pixels": 18512,
+      "negative_pixels": 188888
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 110002,
+      "method": "mf_platt",
+      "nll": 0.22446686617078865,
+      "brier": 0.06067791971387999,
+      "ece": 0.05314697326859688,
+      "auc": 0.8250168766161602,
+      "pd_at_far": 0.0650221209277383,
+      "positive_pixels": 14918,
+      "negative_pixels": 192482
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 110002,
+      "method": "mf_spatial_platt",
+      "nll": 0.11836849398862981,
+      "brier": 0.029148116866046004,
+      "ece": 0.02669832536410501,
+      "auc": 0.960947826491891,
+      "pd_at_far": 0.2980962595522188,
+      "positive_pixels": 14918,
+      "negative_pixels": 192482
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 110002,
+      "method": "learned_temperature",
+      "nll": 0.12728849265328487,
+      "brier": 0.032525723912741285,
+      "ece": 0.022323730415149606,
+      "auc": 0.9491780504286857,
+      "pd_at_far": 0.22382356884300844,
+      "positive_pixels": 14918,
+      "negative_pixels": 192482
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 110002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.11827838379043112,
+      "brier": 0.032188968011378875,
+      "ece": 0.0220128946053326,
+      "auc": 0.9552614363270479,
+      "pd_at_far": 0.0,
+      "positive_pixels": 14918,
+      "negative_pixels": 192482
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 110003,
+      "method": "mf_platt",
+      "nll": 0.21933415418413485,
+      "brier": 0.059589446722264114,
+      "ece": 0.02439421891046804,
+      "auc": 0.8394635661936775,
+      "pd_at_far": 0.09136109384711001,
+      "positive_pixels": 17699,
+      "negative_pixels": 189701
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 110003,
+      "method": "mf_spatial_platt",
+      "nll": 0.10324011823053493,
+      "brier": 0.028828453802431576,
+      "ece": 0.014821900250822697,
+      "auc": 0.9729528574300876,
+      "pd_at_far": 0.4807616249505622,
+      "positive_pixels": 17699,
+      "negative_pixels": 189701
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 110003,
+      "method": "learned_temperature",
+      "nll": 0.13091319909548166,
+      "brier": 0.036441945031476033,
+      "ece": 0.014583667955635177,
+      "auc": 0.9531268695962692,
+      "pd_at_far": 0.3398497090231086,
+      "positive_pixels": 17699,
+      "negative_pixels": 189701
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 110003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.12401383145291096,
+      "brier": 0.036175226075681514,
+      "ece": 0.01540215543585126,
+      "auc": 0.9617345332062954,
+      "pd_at_far": 0.33860670094355616,
+      "positive_pixels": 17699,
+      "negative_pixels": 189701
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 111000,
+      "method": "mf_platt",
+      "nll": 0.2869100007555044,
+      "brier": 0.08196629219554553,
+      "ece": 0.017383592973766106,
+      "auc": 0.8118391858027444,
+      "pd_at_far": 0.019226860696719646,
+      "positive_pixels": 24601,
+      "negative_pixels": 182799
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 111000,
+      "method": "mf_spatial_platt",
+      "nll": 0.138008232445749,
+      "brier": 0.037098166040588555,
+      "ece": 0.012020292722244367,
+      "auc": 0.9675669092531984,
+      "pd_at_far": 0.17621234909150035,
+      "positive_pixels": 24601,
+      "negative_pixels": 182799
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 111000,
+      "method": "learned_temperature",
+      "nll": 0.17803105179913895,
+      "brier": 0.051173550978749385,
+      "ece": 0.027658673031268625,
+      "auc": 0.9470965764638372,
+      "pd_at_far": 0.15023779521157676,
+      "positive_pixels": 24601,
+      "negative_pixels": 182799
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "implantation_seed": 111000,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.1628431130241621,
+      "brier": 0.0484771312490092,
+      "ece": 0.027055442964713648,
+      "auc": 0.9582403032418627,
+      "pd_at_far": 0.14759562619405714,
+      "positive_pixels": 24601,
+      "negative_pixels": 182799
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 111001,
+      "method": "mf_platt",
+      "nll": 0.20442127547581512,
+      "brier": 0.053477194087632664,
+      "ece": 0.03274938065507298,
+      "auc": 0.7954909909577453,
+      "pd_at_far": 0.044420941300899,
+      "positive_pixels": 13237,
+      "negative_pixels": 194163
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 111001,
+      "method": "mf_spatial_platt",
+      "nll": 0.1051997909311536,
+      "brier": 0.028259129507139928,
+      "ece": 0.024148749177014456,
+      "auc": 0.965338368557095,
+      "pd_at_far": 0.394349172773287,
+      "positive_pixels": 13237,
+      "negative_pixels": 194163
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 111001,
+      "method": "learned_temperature",
+      "nll": 0.15390550169361858,
+      "brier": 0.04032739866294983,
+      "ece": 0.025327139549994417,
+      "auc": 0.9025163952524496,
+      "pd_at_far": 0.18591825942434087,
+      "positive_pixels": 13237,
+      "negative_pixels": 194163
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "implantation_seed": 111001,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.14334495286440485,
+      "brier": 0.0404559038405432,
+      "ece": 0.025631779374822222,
+      "auc": 0.9247102115289105,
+      "pd_at_far": 0.16725844224522174,
+      "positive_pixels": 13237,
+      "negative_pixels": 194163
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 111002,
+      "method": "mf_platt",
+      "nll": 0.2779329949280401,
+      "brier": 0.07755942343475694,
+      "ece": 0.011523973347389384,
+      "auc": 0.7710997598364513,
+      "pd_at_far": 0.03475013001749326,
+      "positive_pixels": 21151,
+      "negative_pixels": 186249
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 111002,
+      "method": "mf_spatial_platt",
+      "nll": 0.16500660111133142,
+      "brier": 0.04462374950542836,
+      "ece": 0.012465427548360084,
+      "auc": 0.9289355895506626,
+      "pd_at_far": 0.36674388917781664,
+      "positive_pixels": 21151,
+      "negative_pixels": 186249
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 111002,
+      "method": "learned_temperature",
+      "nll": 0.20063707107794668,
+      "brier": 0.055232989792664965,
+      "ece": 0.010259222477793668,
+      "auc": 0.8999613980733691,
+      "pd_at_far": 0.20637322112429674,
+      "positive_pixels": 21151,
+      "negative_pixels": 186249
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "implantation_seed": 111002,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.19193217282511657,
+      "brier": 0.054093409289829086,
+      "ece": 0.012590396758194294,
+      "auc": 0.9121788621846592,
+      "pd_at_far": 0.2021653822514302,
+      "positive_pixels": 21151,
+      "negative_pixels": 186249
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 111003,
+      "method": "mf_platt",
+      "nll": 0.2314554424556328,
+      "brier": 0.061873605479422764,
+      "ece": 0.01972558482607505,
+      "auc": 0.7584866965565911,
+      "pd_at_far": 0.007464178607130957,
+      "positive_pixels": 15005,
+      "negative_pixels": 192395
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 111003,
+      "method": "mf_spatial_platt",
+      "nll": 0.13910495147841404,
+      "brier": 0.035906225417173455,
+      "ece": 0.010604073800445226,
+      "auc": 0.9360781531809017,
+      "pd_at_far": 0.06631122959013662,
+      "positive_pixels": 15005,
+      "negative_pixels": 192395
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 111003,
+      "method": "learned_temperature",
+      "nll": 0.19061037676640605,
+      "brier": 0.05003052204608422,
+      "ece": 0.022366384457581115,
+      "auc": 0.8691750964722129,
+      "pd_at_far": 0.07844051982672443,
+      "positive_pixels": 15005,
+      "negative_pixels": 192395
+    },
+    {
+      "scene": "paviaU",
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "implantation_seed": 111003,
+      "method": "learned_ensemble_temperature",
+      "nll": 0.1788658381571429,
+      "brier": 0.05022069336491661,
+      "ece": 0.02408891511565542,
+      "auc": 0.890970437455384,
+      "pd_at_far": 0.0,
+      "positive_pixels": 15005,
+      "negative_pixels": 192395
+    }
+  ],
+  "summary": {
+    "overall": {
+      "mf_platt": {
+        "nll": {
+          "mean": 0.12953398557745563,
+          "ci_low": 0.057164921395884055,
+          "ci_high": 0.23007277887575123
+        },
+        "brier": {
+          "mean": 0.03476909225645378,
+          "ci_low": 0.014236487617739725,
+          "ci_high": 0.0625164713206994
+        },
+        "ece": {
+          "mean": 0.01580762405336504,
+          "ci_low": 0.00950279841045929,
+          "ci_high": 0.024862018738524606
+        },
+        "auc": {
+          "mean": 0.925917957800384,
+          "ci_low": 0.8177896073062614,
+          "ci_high": 0.9835603005396654
+        },
+        "pd_at_far": {
+          "mean": 0.4706930281143136,
+          "ci_low": 0.04686131234585442,
+          "ci_high": 0.6952902531007797
+        }
+      },
+      "mf_spatial_platt": {
+        "nll": {
+          "mean": 0.05766295961963397,
+          "ci_low": 0.019352885642976755,
+          "ci_high": 0.12004319470087824
+        },
+        "brier": {
+          "mean": 0.015395176037033541,
+          "ci_low": 0.005173179716646437,
+          "ci_high": 0.03152059989762254
+        },
+        "ece": {
+          "mean": 0.008961251138769832,
+          "ci_low": 0.004411481153102946,
+          "ci_high": 0.015322509357573082
+        },
+        "auc": {
+          "mean": 0.9859363099502652,
+          "ci_low": 0.9625837824132005,
+          "ci_high": 0.9988957627282372
+        },
+        "pd_at_far": {
+          "mean": 0.6865276805670305,
+          "ci_low": 0.30400239158632003,
+          "ci_high": 0.8955889467210546
+        }
+      },
+      "learned_temperature": {
+        "nll": {
+          "mean": 0.07169157025013377,
+          "ci_low": 0.02790328639196012,
+          "ci_high": 0.14910052523171155
+        },
+        "brier": {
+          "mean": 0.019677363193490713,
+          "ci_low": 0.007698127937732535,
+          "ci_high": 0.040083907511323076
+        },
+        "ece": {
+          "mean": 0.012905916572233542,
+          "ci_low": 0.009092362732842411,
+          "ci_high": 0.01814262725694515
+        },
+        "auc": {
+          "mean": 0.9766895975344738,
+          "ci_low": 0.9357716606541252,
+          "ci_high": 0.9988282144265028
+        },
+        "pd_at_far": {
+          "mean": 0.650610051972403,
+          "ci_low": 0.21355094242213069,
+          "ci_high": 0.8847413804700521
+        }
+      },
+      "learned_ensemble_temperature": {
+        "nll": {
+          "mean": 0.06792003274785746,
+          "ci_low": 0.02709698436892199,
+          "ci_high": 0.13866405758763187
+        },
+        "brier": {
+          "mean": 0.019403968290673375,
+          "ci_low": 0.007602518896840326,
+          "ci_high": 0.03943634329008439
+        },
+        "ece": {
+          "mean": 0.012933277047589314,
+          "ci_low": 0.009059351104596937,
+          "ci_high": 0.018365779028676383
+        },
+        "auc": {
+          "mean": 0.9804212225131513,
+          "ci_low": 0.9464378214339595,
+          "ci_high": 0.9988783528671276
+        },
+        "pd_at_far": {
+          "mean": 0.63045181732378,
+          "ci_low": 0.1557173669400211,
+          "ci_high": 0.8876941997483214
+        }
+      }
+    },
+    "by_snr": {
+      "5": {
+        "mf_platt": {
+          "nll": {
+            "mean": 0.11298653095286033,
+            "ci_low": 0.04287392977954762,
+            "ci_high": 0.21638580585337086
+          },
+          "brier": {
+            "mean": 0.030316001243508087,
+            "ci_low": 0.010889000500413304,
+            "ci_high": 0.05847325517267032
+          },
+          "ece": {
+            "mean": 0.015206670713785767,
+            "ci_low": 0.005228777298162031,
+            "ci_high": 0.029843475361016586
+          },
+          "auc": {
+            "mean": 0.9421527980327228,
+            "ci_low": 0.8488898106611655,
+            "ci_high": 0.9921698734670017
+          },
+          "pd_at_far": {
+            "mean": 0.5185145975867176,
+            "ci_low": 0.06403149141627791,
+            "ci_high": 0.7592186807234548
+          }
+        },
+        "mf_spatial_platt": {
+          "nll": {
+            "mean": 0.050390234250653414,
+            "ci_low": 0.016500750817254252,
+            "ci_high": 0.10690186075481684
+          },
+          "brier": {
+            "mean": 0.01338940135894709,
+            "ci_low": 0.004719670527290388,
+            "ci_high": 0.027547481511784284
+          },
+          "ece": {
+            "mean": 0.008943078140343988,
+            "ci_low": 0.0028308848274883726,
+            "ci_high": 0.016697035448453783
+          },
+          "auc": {
+            "mean": 0.9901252794978502,
+            "ci_low": 0.973189968753513,
+            "ci_high": 0.9993876516983815
+          },
+          "pd_at_far": {
+            "mean": 0.7135502616025042,
+            "ci_low": 0.3360372992243223,
+            "ci_high": 0.9161293384988678
+          }
+        },
+        "learned_temperature": {
+          "nll": {
+            "mean": 0.059064642031779725,
+            "ci_low": 0.021603965514556806,
+            "ci_high": 0.12035336840139618
+          },
+          "brier": {
+            "mean": 0.016316358801395814,
+            "ci_low": 0.006122284961292211,
+            "ci_high": 0.031894314951308005
+          },
+          "ece": {
+            "mean": 0.011682068572829286,
+            "ci_low": 0.006183058432530569,
+            "ci_high": 0.016444892742850464
+          },
+          "auc": {
+            "mean": 0.9865459745038249,
+            "ci_low": 0.9626102281656183,
+            "ci_high": 0.9993675070178891
+          },
+          "pd_at_far": {
+            "mean": 0.6810853892067384,
+            "ci_low": 0.2628101211617596,
+            "ci_high": 0.904344534652937
+          }
+        },
+        "learned_ensemble_temperature": {
+          "nll": {
+            "mean": 0.05583282404687314,
+            "ci_low": 0.020841887801857455,
+            "ci_high": 0.11124176066142938
+          },
+          "brier": {
+            "mean": 0.0161314602744823,
+            "ci_low": 0.006021116313251903,
+            "ci_high": 0.03132018739437823
+          },
+          "ece": {
+            "mean": 0.011465160715581374,
+            "ci_low": 0.006125348066449435,
+            "ci_high": 0.015952503562844934
+          },
+          "auc": {
+            "mean": 0.9883269828219663,
+            "ci_low": 0.9677588685410311,
+            "ci_high": 0.9993860507554811
+          },
+          "pd_at_far": {
+            "mean": 0.6458550623429228,
+            "ci_low": 0.17145742091476615,
+            "ci_high": 0.9063417678872352
+          }
+        }
+      },
+      "0": {
+        "mf_platt": {
+          "nll": {
+            "mean": 0.1460814402020509,
+            "ci_low": 0.07190293635260468,
+            "ci_high": 0.24879927946085703
+          },
+          "brier": {
+            "mean": 0.03922218326939948,
+            "ci_low": 0.017792110430877115,
+            "ci_high": 0.0682619455936454
+          },
+          "ece": {
+            "mean": 0.01640857739294431,
+            "ci_low": 0.012719962030591378,
+            "ci_high": 0.02134572366123002
+          },
+          "auc": {
+            "mean": 0.9096831175680449,
+            "ci_low": 0.7866425964654548,
+            "ci_high": 0.9758101459054327
+          },
+          "pd_at_far": {
+            "mean": 0.42287145864190984,
+            "ci_low": 0.02762007373020835,
+            "ci_high": 0.6448619502257394
+          }
+        },
+        "mf_spatial_platt": {
+          "nll": {
+            "mean": 0.06493568498861453,
+            "ci_low": 0.022202491248390757,
+            "ci_high": 0.13560175790841356
+          },
+          "brier": {
+            "mean": 0.017400950715119993,
+            "ci_low": 0.00581930322464476,
+            "ci_high": 0.03618593540660539
+          },
+          "ece": {
+            "mean": 0.008979424137195676,
+            "ci_low": 0.005407556109403824,
+            "ci_high": 0.014617428430846818
+          },
+          "auc": {
+            "mean": 0.9817473404026802,
+            "ci_low": 0.9511325382631685,
+            "ci_high": 0.9986317598399316
+          },
+          "pd_at_far": {
+            "mean": 0.6595050995315568,
+            "ci_low": 0.2646623840182094,
+            "ci_high": 0.8843390988404366
+          }
+        },
+        "learned_temperature": {
+          "nll": {
+            "mean": 0.08431849846848782,
+            "ci_low": 0.032533257347070736,
+            "ci_high": 0.17996044247498252
+          },
+          "brier": {
+            "mean": 0.023038367585585612,
+            "ci_low": 0.008994467890643634,
+            "ci_high": 0.04898524331354708
+          },
+          "ece": {
+            "mean": 0.014129764571637796,
+            "ci_low": 0.007494783905333378,
+            "ci_high": 0.021455290013421047
+          },
+          "auc": {
+            "mean": 0.9668332205651224,
+            "ci_low": 0.907465808130487,
+            "ci_high": 0.9985213938887728
+          },
+          "pd_at_far": {
+            "mean": 0.6201347147380675,
+            "ci_low": 0.16247261290844606,
+            "ci_high": 0.8744298978772527
+          }
+        },
+        "learned_ensemble_temperature": {
+          "nll": {
+            "mean": 0.08000724144884179,
+            "ci_low": 0.03177353383339407,
+            "ci_high": 0.1681576579953755
+          },
+          "brier": {
+            "mean": 0.02267647630686445,
+            "ci_low": 0.00889482929894697,
+            "ci_high": 0.04816648759308224
+          },
+          "ece": {
+            "mean": 0.014401393379597255,
+            "ci_low": 0.007512568699472984,
+            "ci_high": 0.022084737844879583
+          },
+          "auc": {
+            "mean": 0.9725154622043365,
+            "ci_low": 0.9243366014421647,
+            "ci_high": 0.9986081943281494
+          },
+          "pd_at_far": {
+            "mean": 0.6150485723046372,
+            "ci_low": 0.14028415452592838,
+            "ci_high": 0.8791145760691028
+          }
+        }
+      }
+    }
+  },
+  "comparison": {
+    "nll": {
+      "mean": 0.010257073128223486,
+      "ci_low": 0.004475697166032544,
+      "ci_high": 0.017783510227755112
+    },
+    "brier": {
+      "mean": 0.004008792253639833,
+      "ci_low": 0.0016570124437098373,
+      "ci_high": 0.00765724251455376
+    },
+    "ece": {
+      "mean": 0.003972025908819481,
+      "ci_low": 0.002077926952244071,
+      "ci_high": 0.00560326159898998
+    },
+    "auc": {
+      "mean": -0.005515087437113861,
+      "ci_low": -0.01544805680285034,
+      "ci_high": 0.00016087867164457246
+    },
+    "pd_at_far": {
+      "mean": -0.056075863243250534,
+      "ci_low": -0.14035346616131272,
+      "ci_high": -0.0052732543124012635
+    },
+    "significant_calibration_advantage": false
+  },
+  "reliability": {
+    "5": {
+      "mf_platt": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          970172,
+          146709,
+          67164,
+          38133,
+          24979,
+          17494,
+          12809,
+          9945,
+          7915,
+          6852,
+          6012,
+          5499,
+          5654,
+          6476,
+          32303
+        ],
+        "mean_probability": [
+          0.015561197019201488,
+          0.09479292977938325,
+          0.16318850190477455,
+          0.23073644281163438,
+          0.2979452213090101,
+          0.36493724645464415,
+          0.43182817156971387,
+          0.4984145221784329,
+          0.5658904177051043,
+          0.6322870763785465,
+          0.6997155586379812,
+          0.7667779399868782,
+          0.8341174276689151,
+          0.9009453751793187,
+          0.9894082350251068
+        ],
+        "event_rate": [
+          0.013018310155312665,
+          0.06431098296628018,
+          0.10527961407897088,
+          0.14753625468754097,
+          0.19336242443652668,
+          0.24985709386075225,
+          0.30775236162073544,
+          0.37516339869281046,
+          0.4485154769425142,
+          0.5242265032107414,
+          0.6006320691949435,
+          0.6952173122385888,
+          0.7888220728687655,
+          0.8673563928350834,
+          0.9672166671826146
+        ]
+      },
+      "mf_spatial_platt": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1144392,
+          52579,
+          22390,
+          13178,
+          9124,
+          7125,
+          5797,
+          5165,
+          4415,
+          4288,
+          4027,
+          4077,
+          4543,
+          6262,
+          70754
+        ],
+        "mean_probability": [
+          0.007905356503582837,
+          0.09398821818891544,
+          0.16340953832009844,
+          0.2309050230756021,
+          0.29845815153824257,
+          0.36514342663637567,
+          0.43276246499729637,
+          0.4993555866522586,
+          0.5661019206451012,
+          0.6333646599805304,
+          0.6999005534480157,
+          0.7670516649894971,
+          0.8343899451798265,
+          0.902529246867433,
+          0.9936143067941146
+        ],
+        "event_rate": [
+          0.0034988011101091234,
+          0.06544437893455562,
+          0.13072800357302367,
+          0.18447412353923207,
+          0.2490135905304691,
+          0.304140350877193,
+          0.3337933413834742,
+          0.3953533397870281,
+          0.44280860702151753,
+          0.4783115671641791,
+          0.5338962006456419,
+          0.6379690949227373,
+          0.7217697556680608,
+          0.8203449377195784,
+          0.9772027023207168
+        ]
+      },
+      "learned_temperature": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1121724,
+          49135,
+          28625,
+          21268,
+          15536,
+          11508,
+          8844,
+          7200,
+          6211,
+          5576,
+          5037,
+          5097,
+          5781,
+          7400,
+          59174
+        ],
+        "mean_probability": [
+          0.005844972785043024,
+          0.09602261131687263,
+          0.16481924004390433,
+          0.23180876426902353,
+          0.2981685618386398,
+          0.36501424138296423,
+          0.4322250489946586,
+          0.4988983945037247,
+          0.565990163325407,
+          0.6332376821080967,
+          0.6993693970490653,
+          0.7665898550611819,
+          0.8340387998415827,
+          0.9023050303765611,
+          0.9915101766610053
+        ],
+        "event_rate": [
+          0.003974239652534848,
+          0.05786099521725857,
+          0.1039650655021834,
+          0.14947338724844839,
+          0.20706745623069,
+          0.2840632603406326,
+          0.35029398462234285,
+          0.41944444444444445,
+          0.48446304942843343,
+          0.5489598278335724,
+          0.6212030970815962,
+          0.694526191877575,
+          0.7820446289569278,
+          0.8662162162162163,
+          0.9768310406597492
+        ]
+      },
+      "learned_ensemble_temperature": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1129536,
+          45130,
+          25851,
+          18482,
+          13975,
+          10971,
+          8736,
+          7317,
+          6464,
+          5925,
+          5453,
+          5316,
+          6106,
+          7863,
+          60991
+        ],
+        "mean_probability": [
+          0.0047084326516984845,
+          0.09603666177229371,
+          0.16436095561575023,
+          0.23168469089949484,
+          0.29848863183460905,
+          0.3657550610342064,
+          0.4321211330415342,
+          0.4990063721794385,
+          0.5660363625725535,
+          0.6332335455253839,
+          0.6998183515723237,
+          0.7664445635384404,
+          0.8340525770899785,
+          0.9022298134361993,
+          0.9888521945974368
+        ],
+        "event_rate": [
+          0.0036377769278712674,
+          0.06693995125193884,
+          0.10680437894085335,
+          0.14673736608592144,
+          0.20114490161001788,
+          0.26241910491295234,
+          0.32623626373626374,
+          0.3875905425720924,
+          0.4563737623762376,
+          0.5117299578059071,
+          0.5903172565560242,
+          0.6619638826185101,
+          0.7517196200458566,
+          0.8534910339565052,
+          0.9760948336639832
+        ]
+      }
+    },
+    "0": {
+      "mf_platt": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          923034,
+          204163,
+          85027,
+          43791,
+          25350,
+          15814,
+          10723,
+          7734,
+          5828,
+          4531,
+          3648,
+          3086,
+          2907,
+          3132,
+          19348
+        ],
+        "mean_probability": [
+          0.021053811417788854,
+          0.09447127600009171,
+          0.16251032374439692,
+          0.23014988846565373,
+          0.2973233307641077,
+          0.36429772960811724,
+          0.43114931264662854,
+          0.4984937498715542,
+          0.5649972640372282,
+          0.6321248386264724,
+          0.6990635895856452,
+          0.7662281702426041,
+          0.8327513660381771,
+          0.901469810945213,
+          0.9899913049446113
+        ],
+        "event_rate": [
+          0.02014660348372866,
+          0.0790740731670283,
+          0.13438084373199102,
+          0.19355575346532392,
+          0.2650887573964497,
+          0.3331225496395599,
+          0.4163014081880071,
+          0.5024566847685544,
+          0.5911118737131091,
+          0.672478481571397,
+          0.7332785087719298,
+          0.7990926766040182,
+          0.8410732714138287,
+          0.8872924648786717,
+          0.9771552615257391
+        ]
+      },
+      "mf_spatial_platt": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1141820,
+          57788,
+          24684,
+          14733,
+          10190,
+          7929,
+          6334,
+          5593,
+          4865,
+          4684,
+          4229,
+          4579,
+          5413,
+          7316,
+          57959
+        ],
+        "mean_probability": [
+          0.00940811973541106,
+          0.09388661416080488,
+          0.16309560856853494,
+          0.23095915964614167,
+          0.298164933071579,
+          0.3657028681604151,
+          0.43254262035592633,
+          0.49973923789208957,
+          0.5659157944217581,
+          0.63296402377552,
+          0.6999057671076329,
+          0.7673729865294434,
+          0.8348011592393175,
+          0.9026397124209794,
+          0.9911674067581354
+        ],
+        "event_rate": [
+          0.007151740204235343,
+          0.09687132276597217,
+          0.17225733268514018,
+          0.23410031901174236,
+          0.30058881256133463,
+          0.35931391095976795,
+          0.4194821597726555,
+          0.4457357411049526,
+          0.5134635149023639,
+          0.5864645602049531,
+          0.646252069047056,
+          0.7060493557545315,
+          0.7808978385368557,
+          0.8574357572443958,
+          0.974913300781587
+        ]
+      },
+      "learned_temperature": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1080067,
+          71844,
+          42171,
+          32048,
+          22075,
+          14705,
+          10803,
+          8215,
+          6851,
+          5771,
+          5382,
+          4995,
+          5394,
+          6667,
+          41128
+        ],
+        "mean_probability": [
+          0.009251143869787681,
+          0.09565619199366997,
+          0.16474758504221246,
+          0.23192543028352688,
+          0.297717862491265,
+          0.3645871730107295,
+          0.43177412829007755,
+          0.49886967764931295,
+          0.5659914038072275,
+          0.632547836908432,
+          0.6996881117196349,
+          0.7666401486535347,
+          0.8339127849261857,
+          0.901645284524848,
+          0.9904126558359643
+        ],
+        "event_rate": [
+          0.009031847098374454,
+          0.07985357162741495,
+          0.1384600792013469,
+          0.19224288567149275,
+          0.2636919592298981,
+          0.3488609316558994,
+          0.42154956956401,
+          0.4853317102860621,
+          0.5393373230185374,
+          0.6163576503205683,
+          0.6441843180973615,
+          0.7167167167167167,
+          0.78587319243604,
+          0.8462576871156442,
+          0.9623370939505933
+        ]
+      },
+      "learned_ensemble_temperature": {
+        "bin_edges": [
+          0.0,
+          0.06666666666666667,
+          0.13333333333333333,
+          0.2,
+          0.26666666666666666,
+          0.3333333333333333,
+          0.4,
+          0.4666666666666667,
+          0.5333333333333333,
+          0.6,
+          0.6666666666666666,
+          0.7333333333333333,
+          0.8,
+          0.8666666666666667,
+          0.9333333333333333,
+          1.0
+        ],
+        "counts": [
+          1093084,
+          62314,
+          36402,
+          27045,
+          20724,
+          15478,
+          11612,
+          9331,
+          7751,
+          6775,
+          6058,
+          5693,
+          6111,
+          7705,
+          42033
+        ],
+        "mean_probability": [
+          0.00721712287228127,
+          0.09619913345091875,
+          0.1644128940516887,
+          0.23216018314274425,
+          0.29850754149076075,
+          0.36504627887688146,
+          0.43228375816310305,
+          0.49846720058277855,
+          0.5658870707050112,
+          0.6330881246000081,
+          0.699563683360842,
+          0.7666427507079784,
+          0.8342234070032131,
+          0.9044402497108072,
+          0.9817418753720618
+        ],
+        "event_rate": [
+          0.007828309626707554,
+          0.1036845652662323,
+          0.14056919949453328,
+          0.18739138472915512,
+          0.2429067747539085,
+          0.30578886161002716,
+          0.3830520151567344,
+          0.45268459972135894,
+          0.5081924912914463,
+          0.5718081180811808,
+          0.6350280620666887,
+          0.6906727560161602,
+          0.7568319423989527,
+          0.8398442569759896,
+          0.9614588537577617
+        ]
+      }
+    }
+  }
+}
