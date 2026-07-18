@@ -55,6 +55,17 @@ processa o arquivo localmente e permite variar o limiar de visualização. O
 brilho do pixel é tratado como score. Isso não é inferência sobre RGB e não
 substitui o pipeline hiperespectral.
 
+O storytelling vertical agora apresenta o benchmark como um dossiê causal em
+cinco capítulos: baixo sinal, realismo físico, variabilidade, aprendizado do
+fundo e unmixing. Cada capítulo encerra com a pergunta que abre o próximo. O Map
+Studio foi movido para depois das evidências, antes dos limites finais.
+
+Os valores curados também incluem T7a. MF espacial obteve AUC 0,987 [0,968,
+0,997] e Pd@FAR 0,650 [0,227, 0,872]; o autoencoder espacial obteve 0,976
+[0,945, 0,994] e 0,324 [0,087, 0,544]. A interface registra que os intervalos
+das diferenças ficaram abaixo de zero e não generaliza essa falha para todo
+estimador possível de fundo.
+
 O site preserva a conclusão atual: neste protocolo, o matched filter espacial
 lidera ou empata com o detector aprendido. Ele não executa inferência no
 navegador e não se apresenta como leaderboard sincronizado automaticamente.

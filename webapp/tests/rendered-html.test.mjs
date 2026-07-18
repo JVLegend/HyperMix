@@ -31,7 +31,11 @@ test("server-renders the HyperMix Observatory", async () => {
   const html = await response.text();
   assert.match(html, /<title>HyperMix Observatory<\/title>/i);
   assert.match(html, /Detection without/);
+  assert.match(html, /THE CASE FILE/);
+  assert.match(html, /Five ways to test it/);
   assert.match(html, /AUDITED LEADERBOARD/);
+  assert.match(html, /No causal advantage/);
+  assert.match(html, /Both 95% confidence intervals are below zero/);
   assert.match(html, /READ BEFORE CLAIMING/);
   assert.match(html, /The original gain mixed spectral information/);
   assert.match(html, /aria-label="English"/);
@@ -56,7 +60,12 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /🇧🇷/);
   assert.match(page, /aria-label="Target SNR"/);
   assert.match(page, /role="tablist"/);
-  assert.match(page, /TARGET VARIABILITY/);
+  assert.match(page, /CHAPTER 03 · VARIATION/);
+  assert.match(page, /BACKGROUND =/);
+  assert.match(page, /auc: 0\.987, pd: 0\.650/);
+  assert.match(page, /CHAPTER 04 · BACKGROUND/);
+  assert.match(page, /function StoryBridge/);
+  assert.match(page, />29</);
   assert.match(page, /function ScoreMapStudio/);
   assert.match(page, /image\/png,image\/jpeg,image\/webp/);
   assert.match(page, /getImageData/);

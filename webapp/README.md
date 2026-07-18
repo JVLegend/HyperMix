@@ -15,6 +15,8 @@ detector aprendido.
 - sensibilidade a mismatch espectral de 0% a 5%;
 - diferença entre alvo oráculo e alvo laboratorial sob sensor e atmosfera;
 - três tracks de variabilidade medida do alvo;
+- experimento T7a de aprendizado auto-supervisionado do fundo, com AUC,
+  Pd@FAR e intervalos de 95%;
 - target MAE do unmixing em três cenas;
 - limitações que devem acompanhar qualquer interpretação dos resultados.
 - interface completa em inglês por padrão, com alternância 🇺🇸/🇧🇷 no topo.
@@ -24,6 +26,23 @@ detector aprendido.
 O idioma inicial é inglês. Os botões `EN` e `PT` atualizam todo o conteúdo da
 página e também o atributo de idioma do documento, sem trocar a URL nem perder a
 âncora que está sendo visualizada.
+
+## Storytelling editorial
+
+A página segue uma ordem causal explícita. O dossiê inicial apresenta cinco
+perguntas e cada seção entrega uma resposta antes de conduzir à próxima:
+
+1. baixo sinal e mismatch espectral;
+2. realismo físico do laboratório ao sensor;
+3. variabilidade medida do alvo;
+4. aprendizado auto-supervisionado do fundo;
+5. utilidade no unmixing, seguida pelo Map Studio e pelos limites.
+
+O experimento T7a permanece sem inflação. MF espacial obteve AUC 0,987
+[0,968, 0,997] e Pd@FAR 0,650 [0,227, 0,872]. O autoencoder espacial obteve
+0,976 [0,945, 0,994] e 0,324 [0,087, 0,544]. Os intervalos das diferenças
+pareadas ficaram abaixo de zero nas duas métricas. A página registra que essa
+instanciação simples falhou, sem extrapolar para todo estimador de fundo.
 
 ## Map Studio
 
