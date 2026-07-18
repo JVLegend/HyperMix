@@ -17,6 +17,11 @@ detector aprendido.
 - três tracks de variabilidade medida do alvo;
 - target MAE do unmixing em três cenas;
 - limitações que devem acompanhar qualquer interpretação dos resultados.
+- interface completa em inglês por padrão, com alternância 🇺🇸/🇧🇷 no topo.
+
+O idioma inicial é inglês. Os botões `EN` e `PT` atualizam todo o conteúdo da
+página e também o atributo de idioma do documento, sem trocar a URL nem perder a
+âncora que está sendo visualizada.
 
 Os números exibidos são uma fotografia curada dos artefatos auditados em
 `results/`. O site não executa treinamento nem inferência no navegador e não é

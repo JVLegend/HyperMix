@@ -94,6 +94,10 @@ O painel permite variar target SNR, mismatch espectral e tracks de
 variabilidade, além de comparar alvo oráculo e alvo laboratorial sob os
 controles físicos da Fase B.
 
+A interface abre em inglês e oferece as bandeiras dos Estados Unidos e do
+Brasil no topo para alternar todo o conteúdo entre inglês e português sem sair
+da página.
+
 O observatório é uma visualização interativa dos artefatos em `results/`. Ele
 não treina o modelo nem executa inferência no navegador, e os números não são
 sincronizados automaticamente. A conclusão honesta permanece visível no

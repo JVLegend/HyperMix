@@ -9,6 +9,10 @@ https://hypermix-observatory.vercel.app, publicada na Vercel. O painel reúne a
 fotografia auditada do leaderboard, target SNR, mismatch espectral, realismo
 físico, variabilidade T1, unmixing e limitações.
 
+A interface agora usa inglês como idioma inicial e inclui um seletor 🇺🇸/🇧🇷 no
+topo. A troca atualiza todo o conteúdo e o idioma acessível do documento sem
+alterar a rota ou a âncora ativa.
+
 O site preserva a conclusão atual: neste protocolo, o matched filter espacial
 lidera ou empata com o detector aprendido. Ele não executa inferência no
 navegador e não se apresenta como leaderboard sincronizado automaticamente.
