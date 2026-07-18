@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "HyperMix Observatory",
     description: "Honest hyperspectral biology benchmark",
-    images: [{ url: "/og.png", width: 1672, height: 941 }],
+    images: [{ url: "/og-v2.png", width: 1672, height: 941 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "HyperMix Observatory",
     description: "Honest hyperspectral biology benchmark",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
   icons: {
     icon: "/favicon.svg",

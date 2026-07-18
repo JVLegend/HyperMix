@@ -1,6 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+/* User-selected blob URLs cannot be optimized by next/image. */
+/* eslint-disable @next/next/no-img-element */
+
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Language = "en" | "pt";
 
@@ -45,14 +48,30 @@ const COPY = {
     documentLanguage: "en",
     languageLabel: "Switch language",
     navLabel: "Primary navigation",
-    nav: ["Benchmark", "Physics", "Variability", "Limits"],
+    nav: ["Map Studio", "Benchmark", "Physics", "Variability", "Limits"],
     brandLabel: "HyperMix, home",
     hero: {
       eyebrow: "OPEN BENCHMARK · AUDITED 18 JUL 2026",
       lead: "An interactive observatory for testing what HyperMix actually demonstrates: in this benchmark, a well-calibrated spatial matched filter leads or ties the learned detector.",
-      explore: "Explore the evidence",
-      status: "Read scientific STATUS",
+      explore: "Open Map Studio",
+      status: "Explore the benchmark",
       proof: ["passing tests", "real backgrounds", "seeds in T1", "open source"],
+    },
+    studio: {
+      overline: "LOCAL RESULT VIEWER",
+      title: <>Bring your own<br /><em>score map.</em></>,
+      intro: "Drop a detector score map and inspect candidate pixels at different thresholds. Processing stays entirely in your browser.",
+      uploadTitle: "Drop an image here",
+      uploadText: "PNG, JPEG, or WebP · up to 12 MB",
+      choose: "Choose image",
+      source: "SOURCE MAP",
+      result: "THRESHOLDED VIEW",
+      empty: "Awaiting a score map",
+      threshold: "DISPLAY THRESHOLD",
+      local: "Local only",
+      localText: "Your image never leaves this device.",
+      disclaimer: "Visualization only. Pixel brightness is treated as detector score. This does not run HyperMix inference on an RGB image.",
+      invalid: "Choose a PNG, JPEG, or WebP image up to 12 MB.",
     },
     leaderboard: {
       aria: "Audited leaderboard",
@@ -130,14 +149,30 @@ const COPY = {
     documentLanguage: "pt-BR",
     languageLabel: "Mudar idioma",
     navLabel: "Navegação principal",
-    nav: ["Benchmark", "Física", "Variabilidade", "Limites"],
+    nav: ["Map Studio", "Benchmark", "Física", "Variabilidade", "Limites"],
     brandLabel: "HyperMix, início",
     hero: {
       eyebrow: "BENCHMARK ABERTO · AUDITADO EM 18 JUL 2026",
       lead: "Um observatório interativo para testar o que o HyperMix realmente demonstra: neste benchmark, um matched filter espacial bem calibrado lidera ou empata com o detector aprendido.",
-      explore: "Explorar evidência",
-      status: "Ler STATUS científico",
+      explore: "Abrir Map Studio",
+      status: "Explorar o benchmark",
       proof: ["testes verdes", "fundos reais", "seeds em T1", "código aberto"],
+    },
+    studio: {
+      overline: "VISUALIZADOR LOCAL DE RESULTADOS",
+      title: <>Traga seu próprio<br /><em>mapa de scores.</em></>,
+      intro: "Envie um mapa de scores do detector e inspecione pixels candidatos em diferentes limiares. O processamento acontece inteiramente no navegador.",
+      uploadTitle: "Solte uma imagem aqui",
+      uploadText: "PNG, JPEG ou WebP · até 12 MB",
+      choose: "Escolher imagem",
+      source: "MAPA ORIGINAL",
+      result: "VISÃO LIMIARIZADA",
+      empty: "Aguardando um mapa de scores",
+      threshold: "LIMIAR DE EXIBIÇÃO",
+      local: "Somente local",
+      localText: "Sua imagem nunca sai deste dispositivo.",
+      disclaimer: "Apenas visualização. O brilho do pixel é tratado como score do detector. Isto não executa inferência HyperMix em uma imagem RGB.",
+      invalid: "Escolha uma imagem PNG, JPEG ou WebP de até 12 MB.",
     },
     leaderboard: {
       aria: "Leaderboard auditado",
@@ -218,6 +253,85 @@ function EvidenceBar({ label, value, tone = "teal" }: { label: string; value: nu
   return <div className="evidence-row"><div className="evidence-label"><span>{label}</span><strong>{value.toFixed(3)}</strong></div><div className="bar-track" aria-label={`${label}: AUC ${value.toFixed(3)}`}><div className={`bar-fill ${tone}`} style={{ width: `${visualWidth}%` }} /></div></div>;
 }
 
+function ScoreMapStudio({ copy }: { copy: typeof COPY.en.studio | typeof COPY.pt.studio }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [threshold, setThreshold] = useState(72);
+  const [error, setError] = useState<string | null>(null);
+
+  const acceptFile = (file?: File) => {
+    if (!file || !["image/png", "image/jpeg", "image/webp"].includes(file.type) || file.size > 12 * 1024 * 1024) {
+      setError(copy.invalid);
+      return;
+    }
+    setError(null);
+    setFileName(file.name);
+    setPreviewUrl((current) => {
+      if (current) URL.revokeObjectURL(current);
+      return URL.createObjectURL(file);
+    });
+  };
+
+  useEffect(() => {
+    if (!previewUrl || !canvasRef.current) return;
+    const image = new Image();
+    image.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const scale = Math.min(1, 1000 / image.naturalWidth);
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) return;
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
+      const cutoff = threshold * 2.55;
+      for (let index = 0; index < pixels.data.length; index += 4) {
+        const luminance = 0.2126 * pixels.data[index] + 0.7152 * pixels.data[index + 1] + 0.0722 * pixels.data[index + 2];
+        if (luminance >= cutoff) {
+          const strength = Math.min(1, (luminance - cutoff) / Math.max(1, 255 - cutoff));
+          pixels.data[index] = 255;
+          pixels.data[index + 1] = Math.round(118 - strength * 62);
+          pixels.data[index + 2] = Math.round(42 + strength * 18);
+        } else {
+          const muted = Math.round(luminance * 0.42);
+          pixels.data[index] = muted;
+          pixels.data[index + 1] = muted;
+          pixels.data[index + 2] = muted;
+        }
+      }
+      context.putImageData(pixels, 0, 0);
+    };
+    image.src = previewUrl;
+  }, [previewUrl, threshold]);
+
+  useEffect(() => () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+  }, [previewUrl]);
+
+  return <div className="studio-shell">
+    <div className="studio-upload" onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); acceptFile(event.dataTransfer.files[0]); }}>
+      <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => acceptFile(event.target.files?.[0])} />
+      <div className="upload-orbit" aria-hidden="true"><span>+</span></div>
+      <h3>{copy.uploadTitle}</h3>
+      <p>{copy.uploadText}</p>
+      <button type="button" onClick={() => inputRef.current?.click()}>{copy.choose} <span>↗</span></button>
+      {error && <p className="upload-error" role="alert">{error}</p>}
+    </div>
+    <div className="studio-viewer">
+      <div className="viewer-head"><span>{fileName ?? copy.empty}</span><strong><i /> {copy.local}</strong></div>
+      <div className="viewer-grid">
+        <figure><figcaption>{copy.source}</figcaption>{previewUrl ? <img src={previewUrl} alt={fileName ?? copy.source} /> : <div className="empty-map"><span>H</span></div>}</figure>
+        <figure><figcaption>{copy.result}</figcaption>{previewUrl ? <canvas ref={canvasRef} aria-label={copy.result} /> : <div className="empty-map result"><span>72</span></div>}</figure>
+      </div>
+      <div className="threshold-control"><div><span>{copy.threshold}</span><strong>{threshold}%</strong></div><input aria-label={copy.threshold} type="range" min="1" max="99" value={threshold} onChange={(event) => setThreshold(Number(event.target.value))} /></div>
+      <div className="viewer-note"><strong>{copy.localText}</strong><p>{copy.disclaimer}</p></div>
+    </div>
+  </div>;
+}
+
 export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
   const [snrIndex, setSnrIndex] = useState(3);
@@ -234,10 +348,12 @@ export default function Home() {
   }, [copy.documentLanguage]);
 
   return <main>
-    <header className="topbar"><a className="brand" href="#top" aria-label={copy.brandLabel}><span className="brand-mark">H</span><span><strong>HYPERMIX</strong><small>OBSERVATORY</small></span></a><nav aria-label={copy.navLabel}><a href="#benchmark">{copy.nav[0]}</a><a href="#physics">{copy.nav[1]}</a><a href="#variability">{copy.nav[2]}</a><a href="#limits">{copy.nav[3]}</a></nav><div className="top-actions"><div className="language-switcher" role="group" aria-label={copy.languageLabel}><button type="button" aria-label="English" aria-pressed={language === "en"} className={language === "en" ? "active" : ""} onClick={() => setLanguage("en")}><span aria-hidden="true">🇺🇸</span><small>EN</small></button><button type="button" aria-label="Português" aria-pressed={language === "pt"} className={language === "pt" ? "active" : ""} onClick={() => setLanguage("pt")}><span aria-hidden="true">🇧🇷</span><small>PT</small></button></div><a className="github-link" href="https://github.com/JVLegend/HyperMix" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></div></header>
+    <header className="topbar"><a className="brand" href="#top" aria-label={copy.brandLabel}><span className="brand-mark">H</span><span><strong>HYPERMIX</strong><small>OBSERVATORY</small></span></a><nav aria-label={copy.navLabel}><a href="#studio">{copy.nav[0]}</a><a href="#benchmark">{copy.nav[1]}</a><a href="#physics">{copy.nav[2]}</a><a href="#variability">{copy.nav[3]}</a><a href="#limits">{copy.nav[4]}</a></nav><div className="top-actions"><div className="language-switcher" role="group" aria-label={copy.languageLabel}><button type="button" aria-label="English" aria-pressed={language === "en"} className={language === "en" ? "active" : ""} onClick={() => setLanguage("en")}><span aria-hidden="true">🇺🇸</span><small>EN</small></button><button type="button" aria-label="Português" aria-pressed={language === "pt"} className={language === "pt" ? "active" : ""} onClick={() => setLanguage("pt")}><span aria-hidden="true">🇧🇷</span><small>PT</small></button></div><a className="github-link" href="https://github.com/JVLegend/HyperMix" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></div></header>
 
-    <section className="hero" id="top"><div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>Detection without<br />the <em>victory lap.</em></h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#benchmark">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="https://github.com/JVLegend/HyperMix/blob/main/STATUS.md" target="_blank" rel="noreferrer">{copy.hero.status}</a></div><div className="proof-strip"><div><strong>25</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>6</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+    <section className="hero" id="top"><div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>Detection without<br />the <em>victory lap.</em></h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#studio">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#benchmark">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>25</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>6</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside></section>
+
+    <section className="studio-section" id="studio"><div className="studio-heading"><div><p className="overline">{copy.studio.overline}</p><h2>{copy.studio.title}</h2></div><p>{copy.studio.intro}</p></div><ScoreMapStudio copy={copy.studio} /></section>
 
     <section className="section" id="benchmark"><div className="section-heading"><div><span className="section-number">01</span><p className="overline">DETECTION LAB</p><h2>{copy.benchmark.title}</h2></div><p>{copy.benchmark.intro}</p></div>
       <div className="lab-grid"><div className="control-panel"><div className="control-head"><span>TARGET SNR</span><strong>{snr} dB</strong></div><input aria-label="Target SNR" type="range" min="0" max="3" step="1" value={snrIndex} onChange={(event) => setSnrIndex(Number(event.target.value))} /><div className="range-labels">{SNR_LEVELS.map((level) => <button key={level} onClick={() => setSnrIndex(SNR_LEVELS.indexOf(level))}>{level}</button>)}</div><div className="definition"><span>{copy.benchmark.definition}</span><code>{copy.benchmark.formula}</code></div></div><div className="results-panel"><div className="panel-meta"><span>{copy.benchmark.aggregate}</span><span>INDIAN PINES · SALINAS · PAVIA U.</span></div>{DETECTION[snr].map((value, index) => <EvidenceBar key={copy.benchmark.methods[index]} label={copy.benchmark.methods[index]} value={value} tone={METHOD_TONES[index]} />)}<div className="axis"><span>{copy.benchmark.axis[0]}</span><span>{copy.benchmark.axis[1]}</span></div></div></div>

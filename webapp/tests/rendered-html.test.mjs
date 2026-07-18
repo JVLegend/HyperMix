@@ -36,6 +36,9 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /The original gain mixed spectral information/);
   assert.match(html, /aria-label="English"/);
   assert.match(html, /aria-label="Português"/);
+  assert.match(html, /Bring your own/);
+  assert.match(html, /Visualization only/);
+  assert.match(html, /type="file"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Codex is working/i);
 });
 
@@ -54,7 +57,12 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /aria-label="Target SNR"/);
   assert.match(page, /role="tablist"/);
   assert.match(page, /TARGET VARIABILITY/);
+  assert.match(page, /function ScoreMapStudio/);
+  assert.match(page, /image\/png,image\/jpeg,image\/webp/);
+  assert.match(page, /getImageData/);
+  assert.match(page, /This does not run HyperMix inference/);
   assert.match(layout, /lang="en"/);
+  assert.match(layout, /og-v2\.png/);
   assert.match(layout, /title: "HyperMix Observatory"/);
   assert.doesNotMatch(page, /_sites-preview|SkeletonPreview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
