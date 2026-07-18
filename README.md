@@ -28,7 +28,7 @@ the answer out is an **algorithm** problem, and that is what HyperMix is for.
 
 HyperMix treats detection and spectral unmixing as one regularized inverse
 problem, designed from the start for **unknown natural backgrounds, sparse
-reference libraries, and low SNR**. It is developed by a physician working in
+reference libraries, and low SNR**. It is developed by a statistician working in
 medical imaging, porting the low-SNR, cross-device reconstruction toolkit from
 retinal OCT to biology at a distance. Everything here is MIT licensed.
 
