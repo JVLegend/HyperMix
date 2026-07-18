@@ -85,7 +85,13 @@ const COPY = {
       lead: "An interactive observatory for testing what HyperMix actually demonstrates: in this benchmark, a well-calibrated spatial matched filter leads or ties the learned detector.",
       explore: "Follow the evidence",
       status: "Open Map Studio",
-      proof: ["passing tests", "real backgrounds", "seeds in T7a", "open source"],
+      proof: ["passing tests", "real backgrounds", "calibration / eval seeds", "open source"],
+      latest: "LATEST AUDIT · T7B/T7C",
+      findings: [
+        ["CALIBRATION", "Classical wins", "NLL 0.05766 vs 0.06792"],
+        ["BAND ELBOW", "20 bands", "within 0.005 of the full mean"],
+      ],
+      readLatest: "Inspect the new evidence",
     },
     story: {
       overline: "THE CASE FILE",
@@ -269,7 +275,13 @@ const COPY = {
       lead: "Um observatório interativo para testar o que o HyperMix realmente demonstra: neste benchmark, um matched filter espacial bem calibrado lidera ou empata com o detector aprendido.",
       explore: "Seguir as evidências",
       status: "Abrir Map Studio",
-      proof: ["testes verdes", "fundos reais", "seeds em T7a", "código aberto"],
+      proof: ["testes verdes", "fundos reais", "seeds calibração / avaliação", "código aberto"],
+      latest: "AUDITORIA MAIS RECENTE · T7B/T7C",
+      findings: [
+        ["CALIBRAÇÃO", "Clássico vence", "NLL 0,05766 vs 0,06792"],
+        ["COTOVELO DE BANDAS", "20 bandas", "a até 0,005 da média completa"],
+      ],
+      readLatest: "Inspecionar novas evidências",
     },
     story: {
       overline: "O DOSSIÊ",
@@ -644,13 +656,14 @@ export default function Home() {
     </header>
 
     <section className="hero" id="top">
-      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>33</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>33</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside>
+      <a className="latest-audit" href="#uncertainty" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
     </section>
 
     <section className="story-section" id="story">
       <div className="story-intro"><p className="overline">{copy.story.overline}</p><h2>{copy.story.title}</h2><p>{copy.story.intro}</p></div>
-      <div className="story-chapters">{copy.story.chapters.map((chapter, index) => <a href={`#${CHAPTER_IDS[index]}`} className="story-chapter" data-reveal="left" key={chapter[0]}><span>{chapter[0]}</span><small>{chapter[1]}</small><strong>{chapter[2]}</strong><b>{chapter[3]}</b></a>)}</div>
+      <div className="story-chapters">{copy.story.chapters.map((chapter, index) => <a href={`#${CHAPTER_IDS[index]}`} className={`story-chapter ${index >= 4 ? "latest" : ""}`} data-reveal="left" key={chapter[0]}><span>{chapter[0]}</span><small>{chapter[1]}</small><strong>{chapter[2]}</strong><b>{chapter[3]}</b></a>)}</div>
     </section>
 
     <section className="section" id="benchmark">
@@ -693,7 +706,7 @@ export default function Home() {
 
     <section className="section sparsity-section" id="sparsity">
       <div className="section-heading compact" data-reveal="up"><div><span className="section-number">06</span><p className="overline">{copy.sparsity.overline}</p><h2>{copy.sparsity.title}</h2></div><p>{copy.sparsity.intro}</p></div>
-      <div className="sparsity-dashboard" data-reveal="scale"><div className="sparsity-chart"><span>{copy.sparsity.chart}</span><div className="band-bars">{BAND_SPARSITY.map((item) => <div className={item.k === "3" ? "band-column focus" : "band-column"} key={item.k}><strong>{item.auc.toFixed(3)}</strong><div><i style={{ height: `${Math.max(8, (item.auc - 0.8) * 500)}%` }} /></div><small>{item.k}</small></div>)}</div><div className="band-axis"><span>top-k</span><span>all = 103–204 bands</span></div></div><div className="sparsity-notes"><article><span>{copy.sparsity.difference}</span><strong>{copy.sparsity.differenceValue}</strong></article><article className="threshold-note"><strong>{copy.sparsity.threshold}</strong><p>{copy.sparsity.thresholdText}</p></article><p>{copy.sparsity.concentration}</p></div></div>
+      <div className="sparsity-dashboard" data-reveal="scale"><div className="sparsity-chart"><span>{copy.sparsity.chart}</span><div className="band-bars">{BAND_SPARSITY.map((item) => <div className={`band-column ${item.k === "3" ? "focus" : ""} ${item.k === "20" ? "elbow" : ""} ${item.k === "all" ? "full" : ""}`} data-k={item.k} key={item.k}><strong>{item.auc.toFixed(3)}</strong><div><i style={{ height: `${Math.max(8, (item.auc - 0.8) * 500)}%` }} /></div><small>{item.k}</small></div>)}</div><div className="band-axis"><span>top-k</span><span>all = 103–204 bands</span></div></div><div className="sparsity-notes"><article><span>{copy.sparsity.difference}</span><strong>{copy.sparsity.differenceValue}</strong></article><article className="threshold-note"><strong>{copy.sparsity.threshold}</strong><p>{copy.sparsity.thresholdText}</p></article><p>{copy.sparsity.concentration}</p></div></div>
       <div className="sparsity-verdict" data-reveal="up"><span>RESULT</span><p>{copy.sparsity.verdict}</p></div>
       <StoryBridge content={copy.bridges.sparsity} nextId="unmixing" />
     </section>

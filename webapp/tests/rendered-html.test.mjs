@@ -33,6 +33,9 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /Detection without/);
   assert.match(html, /THE CASE FILE/);
   assert.match(html, /Seven ways to test it/);
+  assert.match(html, /LATEST AUDIT/);
+  assert.match(html, /Classical wins/);
+  assert.match(html, /BAND ELBOW/);
   assert.match(html, /class="scroll-progress"/);
   assert.match(html, /aria-label="Story progress"/);
   assert.match(html, /data-reveal="scale"/);
@@ -77,11 +80,16 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /UNCERTAINTY =/);
   assert.match(page, /nll: 0\.05766, brier: 0\.01540, ece: 0\.00896/);
   assert.match(page, /BAND_SPARSITY =/);
+  assert.match(page, /className="latest-audit"/);
+  assert.match(page, /item\.k === "20" \? "elbow"/);
   assert.match(page, /differenceValue: "−0\.036 AUC \[−0\.092, −0\.000\]"/);
   assert.match(page, /IntersectionObserver/);
   assert.match(page, /requestAnimationFrame/);
   assert.match(page, /prefers-reduced-motion: reduce/);
   assert.match(styles, /\.chapter-rail/);
+  assert.match(styles, /Editorial dossier refresh/);
+  assert.match(styles, /\.latest-audit/);
+  assert.match(styles, /\.band-column\.elbow/);
   assert.match(styles, /html\.motion-ready \[data-reveal\]/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(page, /function ScoreMapStudio/);
