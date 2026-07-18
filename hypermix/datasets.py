@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import numpy as np
 
+from .simulate import _target_noise_std
+
 __all__ = ["load_mat_cube", "load_envi_cube", "synthetic_target", "implant_target"]
 
 
@@ -74,7 +76,9 @@ def implant_target(
 
     Returns (scene, detection_gt, abundance_gt, target_used). The target is
     scaled to the background's mean magnitude so detection depends on
-    spectral *shape*, not brightness (the honest, hard case).
+    spectral *shape*, not brightness (the honest, hard case). ``snr_db`` is
+    target-relative: RMS of the target contribution over positive target pixels
+    divided by additive-noise RMS. It is not scene-versus-noise SNR.
     """
     h, w, b = cube.shape
     if target is None:
@@ -92,12 +96,12 @@ def implant_target(
         ab += amp * np.exp(-(((yy - cy) ** 2 + (xx - cx) ** 2) / (2 * rad ** 2)))
     ab = np.clip(ab, 0.0, max_abundance)
 
-    scene = (1.0 - ab[..., None]) * cube + ab[..., None] * tgt[None, None, :]
-
-    rms = float(np.sqrt(np.mean(scene ** 2)))
-    noise_std = rms / (10.0 ** (snr_db / 20.0))
-    scene = scene + rng.normal(0.0, noise_std, size=scene.shape)
+    target_signal = ab[..., None] * (tgt[None, None, :] - cube)
+    scene = cube + target_signal
 
     gt = ab > detection_threshold
+    noise_std = _target_noise_std(target_signal, gt, snr_db)
+    scene = scene + rng.normal(0.0, noise_std, size=scene.shape)
+
     return (scene.astype(np.float32), gt,
             ab.astype(np.float32), tgt.astype(np.float32))

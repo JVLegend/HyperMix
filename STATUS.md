@@ -2,7 +2,32 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
-## Now: Phase 0 shipped (Milestone 0) — 2026-07-16
+## Agora: endurecimento de validade científica, Fase A - 2026-07-18
+
+- [x] A1: adicionado `smoothed_matched_filter`, com blur gaussiano fixo de
+      `sigma=1,5` pixel, ao benchmark e ao leaderboard.
+- [x] A2: o ruído agora é calibrado pela contribuição do alvo, não pelo RMS da
+      cena. Target SNR = `20 log10(RMS do alvo / RMS do ruído)`, com RMS do alvo
+      calculado nos pixels cuja abundância excede o limiar de detecção.
+- [ ] A3: medir robustez a mismatch espectral.
+- [ ] A4: substituir Pearson r em todos os pixels por correlação nos pixels de
+      alvo e MAE de abundância.
+
+Números atuais, re-medidos com 3 seeds, três fundos reais e target SNR de 20,
+10, 5 e 0 dB:
+
+- MF espacial: AUC média 0,990; AUC a 0 dB 0,982.
+- Detector aprendido: AUC média 0,987; AUC a 0 dB 0,972.
+- MF por pixel: AUC média 0,943; AUC a 0 dB 0,908.
+
+Conclusão atual: o detector aprendido não supera o comparador espacial. O ganho
+anterior sobre o MF por pixel confundia informação espectral com o prior espacial
+dos blobs. A troca de fundos simulados por fundos reais testa robustez ao fundo,
+não generalização completa: treino e teste ainda compartilham repórter sintético,
+blobs gaussianos e mistura linear. Os resultados históricos abaixo descrevem o
+estado anterior à correção de target SNR e não devem ser citados como atuais.
+
+## Histórico: Phase 0 shipped (Milestone 0) - 2026-07-16
 
 Working, tested, reproducible on Python 3.10+ (built on 3.14.6, numpy 2.5.1).
 
@@ -17,7 +42,7 @@ Working, tested, reproducible on Python 3.10+ (built on 3.14.6, numpy 2.5.1).
 Baseline result (matched filter, seed 0): AUC 0.947 @ 30 dB down to 0.626 @ 0 dB.
 The low-SNR collapse is the motivation for Milestone 2.
 
-## Done: Milestone 1 — real backgrounds + benchmark (2026-07-16)
+## Histórico: Milestone 1 - real backgrounds + benchmark (2026-07-16)
 
 - [x] Real HSI loader (`datasets.load_mat_cube`) + implanted-target adapter
       (`datasets.implant_target`) on a real AVIRIS cube (Indian Pines).
@@ -36,7 +61,7 @@ AUC 0.920 @ 30 dB → 0.630 @ 0 dB.
 Still open for later polish: ENVI/USGS/ECOSTRESS loaders exist but untested on
 real files; add linear-unmixing / NNLS abundance baseline; more scenes.
 
-## Done: Milestone 2 — learned detector (2026-07-16)
+## Histórico: Milestone 2 - learned detector (2026-07-16)
 
 - [x] `hypermix/detector.py`: physics-informed learned detector (PyTorch, lazy
       import). Features per pixel = scene-adaptive detector outputs (matched
@@ -62,7 +87,7 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
   test scene's own unlabeled pixels.
 - Reporter spectra still approximate (paper maxima); wire in measured spectra.
 
-## In progress: Milestone 3 — public release
+## Histórico: Milestone 3 - public release
 
 - [x] Colab quickstart notebook (`notebooks/quickstart.ipynb`): simulate ->
       matched filter -> AUC-vs-SNR -> train learned detector, all in-browser.

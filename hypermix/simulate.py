@@ -156,7 +156,7 @@ class SceneResult:
     wavelengths: np.ndarray       # (B,)
     reporter: np.ndarray          # (B,) reporter signature (target vector)
     endmembers: dict[str, np.ndarray]
-    snr_db: float
+    snr_db: float                 # target-contribution SNR, retained for API compatibility
 
     @property
     def shape(self) -> tuple[int, int, int]:
@@ -177,8 +177,10 @@ def simulate_scene(
     """Simulate a remote hyperspectral scene with a faint engineered reporter.
 
     Parameters mirror the physical knobs the detector must be robust to:
-    ``snr_db`` (cheap/distant sensors), ``psf_sigma`` (optical blur),
-    ``reporter_max_abundance`` (how faint the target is).
+    ``snr_db`` (target-contribution SNR for cheap/distant sensors),
+    ``psf_sigma`` (optical blur), ``reporter_max_abundance`` (how faint the
+    target is). Target SNR is the RMS reporter contribution over positive
+    target pixels divided by the additive-noise RMS.
     """
     rng = np.random.default_rng(seed)
     wl, lib = endmember_library(n_bands)
@@ -210,19 +212,20 @@ def simulate_scene(
 
     # Linear mixing: convex combination of background + reporter.
     bg = np.einsum("khw,kb->hwb", frac, E)           # (H, W, B)
-    cube = (1.0 - reporter_ab[..., None]) * bg + reporter_ab[..., None] * R[None, None, :]
 
-    # Smooth illumination gain, then optical blur.
+    # Smooth illumination gain and optical blur. Keeping background and target
+    # contribution separate makes the requested SNR scientifically explicit.
     illum = 0.75 + 0.5 * _smooth_field(height, width, scale=max(height, width) / 4.0, rng=rng)
-    cube = cube * illum[..., None]
-    cube = _gaussian_blur(cube, psf_sigma)
+    bg_observed = _gaussian_blur(bg * illum[..., None], psf_sigma)
+    target_signal = reporter_ab[..., None] * (R[None, None, :] - bg)
+    target_signal = _gaussian_blur(target_signal * illum[..., None], psf_sigma)
+    cube = bg_observed + target_signal
 
-    # Additive sensor noise scaled to the target SNR.
-    signal_rms = float(np.sqrt(np.mean(cube ** 2)))
-    noise_std = signal_rms / (10.0 ** (snr_db / 20.0))
+    # Additive sensor noise scaled to target-contribution SNR, not scene SNR.
+    detection_gt = reporter_ab > detection_threshold
+    noise_std = _target_noise_std(target_signal, detection_gt, snr_db)
     cube = cube + rng.normal(0.0, noise_std, size=cube.shape)
 
-    detection_gt = reporter_ab > detection_threshold
     return SceneResult(
         cube=cube.astype(np.float32),
         detection_gt=detection_gt,
@@ -232,6 +235,22 @@ def simulate_scene(
         endmembers=lib,
         snr_db=snr_db,
     )
+
+
+def _target_noise_std(
+    target_signal: np.ndarray,
+    target_mask: np.ndarray,
+    target_snr_db: float,
+) -> float:
+    """Noise standard deviation for a requested target-contribution SNR."""
+    if not np.isfinite(target_snr_db) and not np.isposinf(target_snr_db):
+        raise ValueError("target SNR must be finite or positive infinity")
+    if not np.any(target_mask):
+        return 0.0
+    target_rms = float(np.sqrt(np.mean(np.asarray(target_signal)[target_mask] ** 2)))
+    if np.isposinf(target_snr_db):
+        return 0.0
+    return target_rms / (10.0 ** (target_snr_db / 20.0))
 
 
 def false_color(cube: np.ndarray) -> np.ndarray:

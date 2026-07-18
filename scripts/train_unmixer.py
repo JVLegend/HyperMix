@@ -51,8 +51,8 @@ def main() -> None:
     os.makedirs(os.path.join(HERE, "models"), exist_ok=True)
     unmix.net  # noqa: B018
 
-    results = {"target": "bacteriochlorophyll_a", "snr_db": SNR, "scenes": {}}
-    print(f"\nAbundance recovery (Pearson r vs true abundance) at {SNR:.0f} dB:")
+    results = {"target": "bacteriochlorophyll_a", "target_snr_db": SNR, "scenes": {}}
+    print(f"\nAbundance recovery (Pearson r vs true abundance) at target SNR {SNR:.0f} dB:")
     print(f"{'scene':<16} | {'matched filter':>14} | {'unmixer':>8}")
     print("-" * 44)
     for fname in REAL_CUBES:

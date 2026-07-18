@@ -1,18 +1,18 @@
 {
   "target": "bacteriochlorophyll_a",
-  "snr_db": 10.0,
+  "target_snr_db": 10.0,
   "scenes": {
     "indian_pines": {
-      "matched_filter_r": 0.4347723604827142,
-      "unmixer_r": 0.921787834715181
+      "matched_filter_r": 0.9400244028103346,
+      "unmixer_r": 0.9901076696729058
     },
     "salinas": {
-      "matched_filter_r": 0.23621618381346923,
-      "unmixer_r": 0.8592367776722521
+      "matched_filter_r": 0.9304287209093681,
+      "unmixer_r": 0.9912606722715904
     },
     "paviaU": {
-      "matched_filter_r": 0.08946506909410001,
-      "unmixer_r": 0.3021453821106251
+      "matched_filter_r": 0.5751122512277812,
+      "unmixer_r": 0.8960214210197757
     }
   }
 }

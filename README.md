@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-11%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-13%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -78,7 +78,7 @@ python examples/run_demo.py         # simulator + baseline, AUC vs SNR
 python scripts/fetch_data.py        # download the real AVIRIS cube
 python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
-pytest -q                           # 11 tests
+pytest -q                           # 13 tests
 ```
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
@@ -93,64 +93,68 @@ robustez à troca de fundo, não generalização completa para alvos reais. It s
 
 <div align="center">
 <img src="assets/detector_real.png" alt="Learned detector on real background" width="920">
-<br><em>Real Indian Pines background, implanted target at 5 dB SNR. The classical matched filter drowns in real clutter; the learned detector recovers the targets and flags its own uncertainty.</em>
+<br><em>Fundo real Indian Pines com alvo implantado a target SNR de 5 dB. O painel compara o matched filter por pixel, o detector aprendido e a incerteza estimada.</em>
 </div>
 
 ## 📊 Benchmarks
 
 Detection AUC on the **real** Indian Pines background (implanted target, 3 seeds):
 
-| SNR (dB) | Matched filter | Matched filter (spatial) | ACE | 🧠 **Learned** |
-|---------:|:--------------:|:------------------------:|:---:|:--------------:|
-| 20 | 0.919 | 0.995 | 0.789 | **0.997** |
-| 10 | 0.769 | 0.947 | 0.639 | **0.970** |
-| 5  | 0.688 | 0.881 | 0.570 | **0.910** |
-| 0  | 0.627 | 0.797 | 0.530 | **0.828** |
+| Target SNR (dB) | Matched filter | Matched filter (spatial) | ACE | 🧠 **Learned** |
+|----------------:|:--------------:|:------------------------:|:---:|:--------------:|
+| 20 | 0.991 | 0.998 | 0.878 | **0.999** |
+| 10 | 0.990 | 0.999 | 0.878 | **0.999** |
+| 5  | 0.985 | 0.998 | 0.870 | **0.999** |
+| 0  | 0.970 | 0.998 | 0.849 | **0.998** |
 
-O baseline espacial aplica ao matched filter um blur gaussiano fixo com
-`sigma=1,5` pixel. Na média das três cenas e quatro níveis de SNR, o delta do
-detector cai de 0,165 AUC sobre o matched filter por pixel para 0,020 sobre o
-matched filter espacial. Em 0 dB, o delta cai de 0,149 para 0,023. Assim, a maior
-parte da vantagem observada no protocolo antigo vem do prior espacial dos alvos
-em blob, não de uma vantagem espectral demonstrada.
+Target SNR é definido como a razão entre o RMS da contribuição espectral do
+alvo, medido nos pixels positivos, e o RMS do ruído aditivo. O baseline espacial
+aplica ao matched filter um blur gaussiano fixo com `sigma=1,5` pixel. Na média
+das três cenas e quatro níveis de target SNR, o matched filter espacial alcança
+0,990 AUC e o detector aprendido 0,987. Portanto, o detector não supera o
+comparador espacial neste protocolo. A vantagem sobre o MF por pixel, 0,943
+AUC, não isola uma vantagem espectral.
 
 ## 🏆 Leaderboard
 
 Detection AUC across **3 real hyperspectral scenes of different sensors and band
 counts** (Indian Pines & Salinas: AVIRIS; Pavia University: ROSIS), 3 seeds.
-`Mean AUC` averages over all scenes and SNR = 20, 10, 5, 0 dB. The learned
-detector is trained **only on simulation**. Reproduce: `python scripts/make_leaderboard.py`.
+`Mean AUC` averages over all scenes and target SNR = 20, 10, 5, 0 dB. O detector
+é treinado apenas em simulação, mas treino e teste compartilham o espectro do
+repórter, a mistura linear e o prior de blobs. Reproduce:
+`python scripts/make_leaderboard.py`.
 
 | Rank | Method | Mean AUC | AUC @ 0 dB |
 |-----:|--------|:--------:|:----------:|
-| 1 | 🧠 Learned detector (HyperMix) | **0.854** | **0.742** |
-| 2 | Matched filter (spatial) | 0.834 | 0.719 |
-| 3 | Matched filter | 0.689 | 0.593 |
-| 4 | Spectral Angle Mapper | 0.595 | 0.542 |
-| 5 | ACE | 0.595 | 0.519 |
+| 1 | Matched filter (spatial) | **0.990** | **0.982** |
+| 2 | 🧠 Learned detector (HyperMix) | 0.987 | 0.972 |
+| 3 | Matched filter | 0.943 | 0.908 |
+| 4 | ACE | 0.860 | 0.811 |
+| 5 | Spectral Angle Mapper | 0.656 | 0.655 |
 
-Per-scene AUC @ 0 dB (hardest case). Note it wins even on Pavia (a ROSIS sensor,
-unlike the AVIRIS scenes), evidence of cross-sensor generalization:
+Per-scene AUC @ target SNR de 0 dB. Pavia usa ROSIS; Indian Pines e Salinas usam
+AVIRIS. A troca de sensor também altera o número de bandas, mas não torna real o
+alvo implantado:
 
 | Method | Indian Pines | Salinas | Pavia U. |
 |--------|:---:|:---:|:---:|
-| 🧠 Learned detector | **0.828** | **0.759** | **0.640** |
-| Matched filter (spatial) | 0.797 | 0.736 | 0.625 |
-| Matched filter | 0.627 | 0.588 | 0.562 |
+| Matched filter (spatial) | **0.998** | **0.998** | **0.951** |
+| 🧠 Learned detector | **0.998** | **0.998** | 0.919 |
+| Matched filter | 0.970 | 0.969 | 0.786 |
 
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
 adds a regression head (same scene-adaptive features) that estimates the target's
-fractional abundance. Recovery, measured as Pearson r between the predicted and
-true abundance on each real scene at 10 dB, versus the matched filter as an
-abundance proxy:
+fractional abundance. Resultado provisório re-medido a target SNR de 10 dB,
+usando Pearson r em todos os pixels. Essa métrica ainda é dominada pelos zeros
+do fundo e será substituída na Fase A4 por correlação nos pixels de alvo e MAE:
 
 | Scene | Matched filter r | 🧠 Unmixer r |
 |---|:---:|:---:|
-| Indian Pines | 0.435 | **0.922** |
-| Salinas | 0.236 | **0.859** |
-| Pavia University | 0.089 | **0.302** |
+| Indian Pines | 0.940 | **0.990** |
+| Salinas | 0.930 | **0.991** |
+| Pavia University | 0.575 | **0.896** |
 
 Reproduce: `python scripts/train_unmixer.py`.
 
@@ -165,7 +169,7 @@ and the two paper-grounded reporters (biliverdin IXα, bacteriochlorophyll a) on
 
 - [x] **Milestone 0** — scene simulator, classical baselines, metrics
 - [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
-- [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty (beats baselines at low SNR, generalizes sim → real)
+- [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty, avaliado em troca de fundo simulado para real
 - [ ] **Milestone 3** — public release (in progress): ✅ Colab notebook · ✅ open spectral dataset + leaderboard · ✅ 3-scene cross-sensor benchmark · ✅ build + CITATION/Zenodo metadata · ⏳ PyPI publish · ⏳ DOI
 
 ## 💾 Data
@@ -182,8 +186,11 @@ Indian Pines is a public AVIRIS scene (Purdue University).
 
 - Reporter spectra are modeled from published absorption maxima, not yet the
   measured spectra. They drop in without any API change once available.
-- Part of the learned detector's gain is spatial regularization of extended
-  (blob) targets; the edge shrinks for point-like targets.
+- O matched filter espacial supera o detector aprendido no leaderboard atual;
+  a vantagem sobre baselines por pixel é explicada em grande parte pelo prior
+  espacial de alvos em blob.
+- Treino e teste compartilham repórter aproximado, gerador de blobs e mistura
+  linear. Os fundos são reais a jusante, mas os alvos implantados não são.
 - The first learned model is a small MLP; richer models and a true unmixing head
   are future work. All numbers, including failures, are tracked in [STATUS.md](STATUS.md).
 

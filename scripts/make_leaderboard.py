@@ -61,7 +61,7 @@ def main() -> None:
     per = {m: {} for m in PRETTY}
     for name, rows in scenes.items():
         for r in rows:
-            per[r["detector"]].setdefault(name, {})[r["snr_db"]] = r["auc_mean"]
+            per[r["detector"]].setdefault(name, {})[r["target_snr_db"]] = r["auc_mean"]
         cube = load_mat_cube(os.path.join(HERE, "data", f"{name}.mat"))
         target = reporter_library(cube.shape[2])["bacteriochlorophyll_a"]
         per["spectral_angle_mapper"][name] = _fresh_rows(
@@ -83,24 +83,25 @@ def main() -> None:
     board = sorted(PRETTY, key=mean_all, reverse=True)
 
     lines = [
-        "# HyperMix detection leaderboard",
+        "# Leaderboard de detecção do HyperMix",
         "",
-        f"Detection AUC across **{len(scene_names)} real hyperspectral scenes** "
-        f"({', '.join(scene_names)}) with an implanted bacteriochlorophyll-a target,",
-        "averaged over 3 seeds. Different sensors and band counts. The spatial matched",
-        "filter applies a fixed Gaussian blur with sigma = 1.5 pixels. `Mean AUC` averages",
-        "over all scenes and SNR = 20, 10, 5, 0 dB. The learned detector is trained",
-        "**only on simulation**. Reproduce: `python scripts/make_leaderboard.py`.",
+        f"AUC de detecção em **{len(scene_names)} cenas hiperespectrais reais** "
+        f"({', '.join(scene_names)}) com alvo de bacterioclorofila-a implantado,",
+        "média de 3 seeds. Os sensores e números de bandas diferem. O matched filter",
+        "espacial aplica blur gaussiano fixo com sigma = 1,5 pixel. `AUC média` agrega",
+        "todas as cenas e target SNR = 20, 10, 5 e 0 dB. O detector aprendido usa apenas",
+        "fundos simulados no treino, mas o alvo e o modelo de implante são compartilhados.",
+        "Reproduza com `python scripts/make_leaderboard.py`.",
         "",
-        "| Rank | Method | Mean AUC | AUC @ 0 dB |",
-        "|-----:|--------|:--------:|:----------:|",
+        "| Posição | Método | AUC média | AUC a 0 dB |",
+        "|--------:|--------|:---------:|:-----------:|",
     ]
     for i, m in enumerate(board, 1):
         star = " 🧠" if m == "learned" else ""
         lines.append(f"| {i} | {PRETTY[m]}{star} | {mean_all(m):.3f} | {mean_at0(m):.3f} |")
 
-    lines += ["", "## Per-scene AUC @ 0 dB (hardest case)", "",
-              "| Method | " + " | ".join(scene_names) + " |",
+    lines += ["", "## AUC por cena a target SNR de 0 dB", "",
+              "| Método | " + " | ".join(scene_names) + " |",
               "|--------|" + "|".join([":---:"] * len(scene_names)) + "|"]
     for m in board:
         cells = " | ".join(f"{per[m][s][0.0]:.3f}" for s in scene_names)

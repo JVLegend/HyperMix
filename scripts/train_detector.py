@@ -46,7 +46,7 @@ def _rows(detector, scene_fn, target, seed_offset):
             auc["ace"].append(roc_auc(ace(scene, tgt), gt))
             auc["learned"].append(roc_auc(detector.score_map(scene, tgt), gt))
         for det, vals in auc.items():
-            rows.append({"detector": det, "snr_db": snr,
+            rows.append({"detector": det, "target_snr_db": snr,
                          "auc_mean": float(np.mean(vals)),
                          "auc_std": float(np.std(vals))})
     return rows
@@ -99,13 +99,13 @@ def _print(results):
     def block(title, rows):
         by = {}
         for r in rows:
-            by.setdefault(r["snr_db"], {})[r["detector"]] = r["auc_mean"]
+            by.setdefault(r["target_snr_db"], {})[r["detector"]] = r["auc_mean"]
         print(f"\n=== {title} ===")
-        print(f"{'SNR':>5} | {'matched_filter':>14} | {'ace':>8} | {'learned':>8}")
+        print(f"{'target SNR':>10} | {'matched_filter':>14} | {'ace':>8} | {'learned':>8}")
         print("-" * 46)
         for snr in sorted(by, reverse=True):
             d = by[snr]
-            print(f"{snr:>5.0f} | {d['matched_filter']:>14.3f} | {d['ace']:>8.3f} | {d['learned']:>8.3f}")
+            print(f"{snr:>10.0f} | {d['matched_filter']:>14.3f} | {d['ace']:>8.3f} | {d['learned']:>8.3f}")
 
     block("SYNTHETIC", results["synthetic"])
     for name, rows in results["scenes"].items():

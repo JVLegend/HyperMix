@@ -2,211 +2,211 @@
   {
     "dataset": "synthetic",
     "detector": "matched_filter",
-    "snr_db": 30.0,
-    "auc_mean": 0.9485187606368486,
-    "auc_std": 0.020412646834092874
+    "target_snr_db": 30.0,
+    "auc_mean": 0.9837110377424151,
+    "auc_std": 0.010646544162838908
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter_spatial",
-    "snr_db": 30.0,
-    "auc_mean": 0.9777164148334618,
-    "auc_std": 0.013800774063034161
+    "target_snr_db": 30.0,
+    "auc_mean": 0.9905678520628055,
+    "auc_std": 0.006566203336322385
   },
   {
     "dataset": "synthetic",
     "detector": "ace",
-    "snr_db": 30.0,
-    "auc_mean": 0.7546246246719045,
-    "auc_std": 0.09172043012901372
+    "target_snr_db": 30.0,
+    "auc_mean": 0.7931460892993779,
+    "auc_std": 0.12302115593888373
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter",
-    "snr_db": 20.0,
-    "auc_mean": 0.8851463697555709,
-    "auc_std": 0.037156125727783096
+    "target_snr_db": 20.0,
+    "auc_mean": 0.9811889994475136,
+    "auc_std": 0.011391756364553222
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter_spatial",
-    "snr_db": 20.0,
-    "auc_mean": 0.9376996111307268,
-    "auc_std": 0.03527157967705042
+    "target_snr_db": 20.0,
+    "auc_mean": 0.9901813998487053,
+    "auc_std": 0.006622571796235125
   },
   {
     "dataset": "synthetic",
     "detector": "ace",
-    "snr_db": 20.0,
-    "auc_mean": 0.6891147256873715,
-    "auc_std": 0.06589986584848553
+    "target_snr_db": 20.0,
+    "auc_mean": 0.7909497058000171,
+    "auc_std": 0.11911453163792883
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter",
-    "snr_db": 10.0,
-    "auc_mean": 0.7543639141949484,
-    "auc_std": 0.04302614809577178
+    "target_snr_db": 10.0,
+    "auc_mean": 0.9611401126474366,
+    "auc_std": 0.015319586306037816
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter_spatial",
-    "snr_db": 10.0,
-    "auc_mean": 0.8919455334522951,
-    "auc_std": 0.059013440038815
+    "target_snr_db": 10.0,
+    "auc_mean": 0.9841100679038992,
+    "auc_std": 0.009511504291255215
   },
   {
     "dataset": "synthetic",
     "detector": "ace",
-    "snr_db": 10.0,
-    "auc_mean": 0.5923421132833012,
-    "auc_std": 0.032288163298101635
-  },
-  {
-    "dataset": "synthetic",
-    "detector": "matched_filter",
-    "snr_db": 5.0,
-    "auc_mean": 0.669105552019983,
-    "auc_std": 0.04028051128139821
-  },
-  {
-    "dataset": "synthetic",
-    "detector": "matched_filter_spatial",
-    "snr_db": 5.0,
-    "auc_mean": 0.8357258849749071,
-    "auc_std": 0.06833663050244078
-  },
-  {
-    "dataset": "synthetic",
-    "detector": "ace",
-    "snr_db": 5.0,
-    "auc_mean": 0.5397290765619213,
-    "auc_std": 0.00889535177134404
+    "target_snr_db": 10.0,
+    "auc_mean": 0.7698962525296253,
+    "auc_std": 0.0985636015979648
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter",
-    "snr_db": 0.0,
-    "auc_mean": 0.6019822208515709,
-    "auc_std": 0.030638565853198713
+    "target_snr_db": 5.0,
+    "auc_mean": 0.9361205401042776,
+    "auc_std": 0.021019668039052516
   },
   {
     "dataset": "synthetic",
     "detector": "matched_filter_spatial",
-    "snr_db": 0.0,
-    "auc_mean": 0.7669735878749099,
-    "auc_std": 0.0733836721877184
+    "target_snr_db": 5.0,
+    "auc_mean": 0.9704351902708126,
+    "auc_std": 0.015216830509540374
   },
   {
     "dataset": "synthetic",
     "detector": "ace",
-    "snr_db": 0.0,
-    "auc_mean": 0.5125712122211579,
-    "auc_std": 0.0020437169506833056
+    "target_snr_db": 5.0,
+    "auc_mean": 0.7408276979245465,
+    "auc_std": 0.08392754350421264
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter",
+    "target_snr_db": 0.0,
+    "auc_mean": 0.9048037013266478,
+    "auc_std": 0.029340247204705027
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "auc_mean": 0.9492459163290704,
+    "auc_std": 0.02593553000231601
+  },
+  {
+    "dataset": "synthetic",
+    "detector": "ace",
+    "target_snr_db": 0.0,
+    "auc_mean": 0.706764741463003,
+    "auc_std": 0.07124879818182499
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter",
-    "snr_db": 30.0,
-    "auc_mean": 0.9200076408109238,
-    "auc_std": 0.0025482362868889134
+    "target_snr_db": 30.0,
+    "auc_mean": 0.9846582618147725,
+    "auc_std": 0.008277339963605322
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter_spatial",
-    "snr_db": 30.0,
-    "auc_mean": 0.989318713413818,
-    "auc_std": 0.004092904154497995
+    "target_snr_db": 30.0,
+    "auc_mean": 0.9969450261749525,
+    "auc_std": 0.001910531462013131
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "ace",
-    "snr_db": 30.0,
-    "auc_mean": 0.8031343179033407,
-    "auc_std": 0.0021568688981803037
+    "target_snr_db": 30.0,
+    "auc_mean": 0.9041217104691452,
+    "auc_std": 0.012327345886061153
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter",
-    "snr_db": 20.0,
-    "auc_mean": 0.8330198397607403,
-    "auc_std": 0.009018778078765914
+    "target_snr_db": 20.0,
+    "auc_mean": 0.9802177165061366,
+    "auc_std": 0.006504741973440997
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter_spatial",
-    "snr_db": 20.0,
-    "auc_mean": 0.9566312468026034,
-    "auc_std": 0.00890314182844865
+    "target_snr_db": 20.0,
+    "auc_mean": 0.9972394703226168,
+    "auc_std": 0.00160941069081314
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "ace",
-    "snr_db": 20.0,
-    "auc_mean": 0.7042022996048871,
-    "auc_std": 0.014374295747160915
+    "target_snr_db": 20.0,
+    "auc_mean": 0.8936002704711905,
+    "auc_std": 0.010258407034322249
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter",
-    "snr_db": 10.0,
-    "auc_mean": 0.7148887395602893,
-    "auc_std": 0.01913976093458673
+    "target_snr_db": 10.0,
+    "auc_mean": 0.9466671458711354,
+    "auc_std": 0.005060921933949089
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter_spatial",
-    "snr_db": 10.0,
-    "auc_mean": 0.858735048942637,
-    "auc_std": 0.02746813975293624
+    "target_snr_db": 10.0,
+    "auc_mean": 0.9944349065673439,
+    "auc_std": 0.0032282868932409633
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "ace",
-    "snr_db": 10.0,
-    "auc_mean": 0.5851975062898185,
-    "auc_std": 0.020707541329210263
+    "target_snr_db": 10.0,
+    "auc_mean": 0.83873663677995,
+    "auc_std": 0.0077911862456405655
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter",
-    "snr_db": 5.0,
-    "auc_mean": 0.6670909590258599,
-    "auc_std": 0.030566985768893988
+    "target_snr_db": 5.0,
+    "auc_mean": 0.9128530784623307,
+    "auc_std": 0.005922945177334247
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter_spatial",
-    "snr_db": 5.0,
-    "auc_mean": 0.7794890378493026,
-    "auc_std": 0.04471863116350375
+    "target_snr_db": 5.0,
+    "auc_mean": 0.9871093547899624,
+    "auc_std": 0.004990622693173881
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "ace",
-    "snr_db": 5.0,
-    "auc_mean": 0.546429311130002,
-    "auc_std": 0.024272712680128487
+    "target_snr_db": 5.0,
+    "auc_mean": 0.7946611835439686,
+    "auc_std": 0.007092497894570341
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter",
-    "snr_db": 0.0,
-    "auc_mean": 0.6301847043413471,
-    "auc_std": 0.03490796142855171
+    "target_snr_db": 0.0,
+    "auc_mean": 0.871807466722292,
+    "auc_std": 0.009160066819098806
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "matched_filter_spatial",
-    "snr_db": 0.0,
-    "auc_mean": 0.7320970457785837,
-    "auc_std": 0.054124286377402825
+    "target_snr_db": 0.0,
+    "auc_mean": 0.9726716161539869,
+    "auc_std": 0.007908457893361687
   },
   {
     "dataset": "indian_pines (real bg)",
     "detector": "ace",
-    "snr_db": 0.0,
-    "auc_mean": 0.5253912364276819,
-    "auc_std": 0.019806482145853267
+    "target_snr_db": 0.0,
+    "auc_mean": 0.7457409959495616,
+    "auc_std": 0.01278066206413405
   }
 ]

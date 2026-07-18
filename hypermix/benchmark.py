@@ -37,7 +37,8 @@ def run_synthetic(seeds=(0, 1, 2), snrs=SNRS) -> list[dict]:
             for s in seeds:
                 sc = simulate_scene(snr_db=snr, seed=s)
                 aucs.append(roc_auc(fn(sc.cube, sc.reporter), sc.detection_gt))
-            rows.append({"dataset": "synthetic", "detector": name, "snr_db": snr,
+            rows.append({"dataset": "synthetic", "detector": name,
+                         "target_snr_db": snr,
                          "auc_mean": float(np.mean(aucs)), "auc_std": float(np.std(aucs))})
     return rows
 
@@ -53,16 +54,16 @@ def run_real(cube_path: str, seeds=(0, 1, 2), snrs=SNRS) -> list[dict]:
                 scene, gt, _, tgt = implant_target(cube, rng, snr_db=snr)
                 aucs.append(roc_auc(fn(scene, tgt), gt))
             rows.append({"dataset": "indian_pines (real bg)", "detector": name,
-                         "snr_db": snr, "auc_mean": float(np.mean(aucs)),
+                         "target_snr_db": snr, "auc_mean": float(np.mean(aucs)),
                          "auc_std": float(np.std(aucs))})
     return rows
 
 
 def _print_table(rows: list[dict]) -> None:
-    print(f"{'dataset':<24} {'detector':<24} {'SNR':>5} {'AUC':>7} {'±std':>6}")
+    print(f"{'dataset':<24} {'detector':<24} {'target SNR':>10} {'AUC':>7} {'±std':>6}")
     print("-" * 70)
     for r in rows:
-        print(f"{r['dataset']:<24} {r['detector']:<24} {r['snr_db']:>5.0f} "
+        print(f"{r['dataset']:<24} {r['detector']:<24} {r['target_snr_db']:>10.0f} "
               f"{r['auc_mean']:>7.3f} {r['auc_std']:>6.3f}")
 
 
@@ -78,7 +79,7 @@ def _figure_real(cube_path: str, out: str) -> None:
         import matplotlib.pyplot as plt
 
         fig, ax = plt.subplots(1, 3, figsize=(12, 4))
-        ax[0].imshow(false_color(scene)); ax[0].set_title("Real background + implanted target (SNR 5 dB)")
+        ax[0].imshow(false_color(scene)); ax[0].set_title("Real background + implanted target (target SNR 5 dB)")
         ax[1].imshow(gt, cmap="magma"); ax[1].set_title("Ground truth")
         im = ax[2].imshow(score, cmap="magma"); ax[2].set_title(f"Matched filter (AUC {auc:.3f})")
         for a in ax:

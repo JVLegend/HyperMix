@@ -61,6 +61,40 @@ def test_implant_target_on_synthetic_background():
     assert auc > 0.7, f"implanted target should be detectable at high SNR, got {auc:.3f}"
 
 
+def test_implant_noise_uses_target_contribution_snr():
+    bg = np.random.default_rng(8).uniform(0.1, 0.6, size=(80, 80, 30)).astype(np.float32)
+    clean, gt, ab, tgt = implant_target(
+        bg, np.random.default_rng(12), snr_db=np.inf, n_blobs=5
+    )
+    noisy, _, _, _ = implant_target(
+        bg, np.random.default_rng(12), snr_db=6.0, n_blobs=5
+    )
+    target_signal = ab[..., None] * (tgt[None, None, :] - bg)
+    target_rms = np.sqrt(np.mean(target_signal[gt] ** 2))
+    noise_rms = np.sqrt(np.mean((noisy - clean) ** 2))
+    measured_snr = 20.0 * np.log10(target_rms / noise_rms)
+    assert np.isclose(measured_snr, 6.0, atol=0.15), measured_snr
+
+
+def test_simulator_noise_uses_target_contribution_snr():
+    clean = simulate_scene(height=64, width=64, n_bands=30, snr_db=np.inf, seed=21)
+    noisy = simulate_scene(height=64, width=64, n_bands=30, snr_db=4.0, seed=21)
+    background = simulate_scene(
+        height=64,
+        width=64,
+        n_bands=30,
+        snr_db=np.inf,
+        reporter_max_abundance=0.0,
+        seed=21,
+    )
+    target_signal = clean.cube - background.cube
+    noise = noisy.cube - clean.cube
+    target_rms = np.sqrt(np.mean(target_signal[clean.detection_gt] ** 2))
+    noise_rms = np.sqrt(np.mean(noise ** 2))
+    measured_snr = 20.0 * np.log10(target_rms / noise_rms)
+    assert np.isclose(measured_snr, 4.0, atol=0.2), measured_snr
+
+
 def test_spectral_angle_mapper_ranks_target_higher():
     from hypermix import spectral_angle_mapper
 

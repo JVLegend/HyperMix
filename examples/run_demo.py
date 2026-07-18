@@ -24,14 +24,14 @@ def main() -> None:
     assets = os.path.join(here, "assets")
     os.makedirs(assets, exist_ok=True)
 
-    print("HyperMix Phase 0 - matched-filter detection vs SNR")
-    print(f"{'SNR (dB)':>9} | {'AUC':>6}")
+    print("HyperMix Phase 0 - matched-filter detection vs target SNR")
+    print(f"{'target SNR (dB)':>15} | {'AUC':>6}")
     print("-" * 20)
     for snr in (30.0, 20.0, 10.0, 5.0, 0.0):
         scene = simulate_scene(snr_db=snr, seed=0)
         score = spectral_matched_filter(scene.cube, scene.reporter)
         auc = roc_auc(score, scene.detection_gt)
-        print(f"{snr:>9.0f} | {auc:>6.3f}")
+        print(f"{snr:>15.0f} | {auc:>6.3f}")
 
     # Figure at a deliberately hard SNR.
     scene = simulate_scene(snr_db=5.0, seed=0)
@@ -46,7 +46,7 @@ def main() -> None:
 
         fig, ax = plt.subplots(1, 3, figsize=(12, 4))
         ax[0].imshow(false_color(scene.cube))
-        ax[0].set_title(f"Simulated cube (SNR {scene.snr_db:.0f} dB)")
+        ax[0].set_title(f"Simulated cube (target SNR {scene.snr_db:.0f} dB)")
         ax[1].imshow(scene.detection_gt, cmap="magma")
         ax[1].set_title("Ground truth: reporter present")
         im = ax[2].imshow(score, cmap="magma")
