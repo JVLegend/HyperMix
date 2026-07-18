@@ -47,7 +47,8 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 - 🌍 **Physics-based scene simulator** with exact ground truth (NumPy only, deterministic).
 - 🛰️ **Real-data benchmark** on a real AVIRIS cube (Indian Pines) via implanted targets.
 - 🧬 **Targets grounded on the paper**: biliverdin IXα and bacteriochlorophyll a.
-- 🧠 **Learned detector** that beats the classical matched filter at low SNR and generalizes sim → real.
+- 🧠 **Learned detector** that beats the classical matched filter at low SNR and generalizes sim → real (3 real scenes, cross-sensor).
+- 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
 - 🎯 **Calibrated uncertainty** via MC-dropout (know where to trust the map).
 - 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
 
@@ -128,6 +129,22 @@ unlike the AVIRIS scenes), evidence of cross-sensor generalization:
 |--------|:---:|:---:|:---:|
 | 🧠 Learned detector | **0.828** | **0.759** | **0.640** |
 | Matched filter | 0.627 | 0.588 | 0.562 |
+
+## 🧪 Unmixing: how much, not just whether
+
+Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
+adds a regression head (same scene-adaptive features) that estimates the target's
+fractional abundance. Recovery, measured as Pearson r between the predicted and
+true abundance on each real scene at 10 dB, versus the matched filter as an
+abundance proxy:
+
+| Scene | Matched filter r | 🧠 Unmixer r |
+|---|:---:|:---:|
+| Indian Pines | 0.435 | **0.922** |
+| Salinas | 0.236 | **0.859** |
+| Pavia University | 0.089 | **0.302** |
+
+Reproduce: `python scripts/train_unmixer.py`.
 
 ## 📦 Open spectral dataset
 

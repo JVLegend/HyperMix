@@ -96,6 +96,26 @@ def test_learned_detector_matches_or_beats_matched_filter():
     assert auc_learned >= auc_mf - 0.02, f"learned {auc_learned:.3f} vs mf {auc_mf:.3f}"
 
 
+def test_abundance_unmixer_recovers_abundance():
+    import pytest
+
+    pytest.importorskip("torch")
+    from hypermix import implant_target, reporter_library, simulate_scene
+    from hypermix.detector import AbundanceUnmixer, make_training_set
+
+    target = reporter_library(60)["bacteriochlorophyll_a"]
+    x, _, ab = make_training_set(target, n_scenes=10, hw=48, with_abundance=True)
+    unmix = AbundanceUnmixer(n_features=x.shape[1], seed=0).fit(x, ab, epochs=20)
+
+    bg = simulate_scene(height=48, width=48, n_bands=60, snr_db=40.0,
+                        reporter_max_abundance=0.0, seed=888).cube
+    rng = np.random.default_rng(5)
+    scene, _, ab_gt, tgt = implant_target(bg, rng, target=target, snr_db=30.0)
+    pred = unmix.predict_map(scene, tgt)
+    r = np.corrcoef(pred.ravel(), ab_gt.ravel())[0, 1]
+    assert r > 0.4, f"unmixer should track true abundance, got r={r:.3f}"
+
+
 def test_auc_bounds_and_degradation():
     hi = simulate_scene(snr_db=30.0, seed=2)
     lo = simulate_scene(snr_db=0.0, seed=2)

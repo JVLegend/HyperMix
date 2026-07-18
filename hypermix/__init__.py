@@ -22,7 +22,7 @@ from .baselines import ace, spectral_angle_mapper, spectral_matched_filter
 from .metrics import roc_auc, roc_curve
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
-__version__ = "0.2.0"
+__version__ = "0.4.0"
 
 __all__ = [
     "SceneResult",

@@ -78,8 +78,14 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
       Leaderboard mean AUC: learned 0.854 > matched filter 0.689 > SAM/ACE 0.595.
 - [x] Packaging: `python -m build` produces a clean sdist + wheel (PyPI-ready).
 - [x] CITATION.cff + .zenodo.json added (DOI-ready).
-- [ ] PyPI publish: author runs `twine upload dist/*` with their token.
-- [ ] DOI: connect the GitHub repo to Zenodo and cut a release (or upload dist).
+- [x] Unmixing head (`AbundanceUnmixer`): estimates fractional abundance, not
+      just detection. Pearson r vs true abundance at 10 dB (real scenes):
+      Indian Pines 0.922, Salinas 0.859, Pavia 0.302 (matched filter proxy:
+      0.435 / 0.236 / 0.089). `scripts/train_unmixer.py`. Delivers the
+      "detection + unmixing" promise. 10 tests passing.
+- [x] `RELEASE.md`: step-by-step PyPI + Zenodo instructions for the author.
+- [ ] PyPI publish: author runs `twine upload dist/*` with their token (see RELEASE.md).
+- [ ] DOI: connect the GitHub repo to Zenodo and cut a release (see RELEASE.md).
 
 ## Grant / admin (tracked in the vault, not here)
 

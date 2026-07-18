@@ -21,7 +21,8 @@ import numpy as np
 from .baselines import ace, spectral_matched_filter
 from .simulate import _gaussian_blur
 
-__all__ = ["pixel_features", "SpectralDetector", "make_training_set"]
+__all__ = ["pixel_features", "SpectralDetector", "AbundanceUnmixer",
+           "make_training_set"]
 
 
 def _blur2d(m: np.ndarray, sigma: float) -> np.ndarray:
@@ -131,19 +132,83 @@ class SpectralDetector:
 
 
 def make_training_set(target: np.ndarray, n_scenes: int = 24, hw: int = 96,
-                      snrs=(0.0, 5.0, 10.0, 20.0), seed0: int = 100):
-    """Build (features, labels) by implanting the target into simulated backgrounds."""
+                      snrs=(0.0, 5.0, 10.0, 20.0), seed0: int = 100,
+                      with_abundance: bool = False):
+    """Build training data by implanting the target into simulated backgrounds.
+
+    Returns (features, detection_labels), or (features, detection_labels,
+    abundance) when ``with_abundance`` is True (for the unmixing head).
+    """
     from .datasets import implant_target
     from .simulate import simulate_scene
 
     b = int(target.shape[0])
-    feats, labs = [], []
+    feats, labs, abund = [], [], []
     for k in range(n_scenes):
         snr = snrs[k % len(snrs)]
         bg = simulate_scene(height=hw, width=hw, n_bands=b, snr_db=40.0,
                             reporter_max_abundance=0.0, seed=seed0 + k).cube
         rng = np.random.default_rng(1000 + k)
-        scene, gt, _, tgt = implant_target(bg, rng, target=target, snr_db=snr)
+        scene, gt, ab, tgt = implant_target(bg, rng, target=target, snr_db=snr)
         feats.append(pixel_features(scene, tgt))
         labs.append(gt.reshape(-1))
+        abund.append(ab.reshape(-1))
+    if with_abundance:
+        return np.concatenate(feats), np.concatenate(labs), np.concatenate(abund)
     return np.concatenate(feats), np.concatenate(labs)
+
+
+class AbundanceUnmixer:
+    """Estimate *how much* target is present per pixel, not just whether.
+
+    Same scene-adaptive spatial-spectral features as the detector, but a
+    regression head trained on the known implanted abundance. This is the
+    unmixing side of the toolkit: an abundance map, not only a detection map.
+    """
+
+    def __init__(self, n_features: int, hidden: int = 128,
+                 dropout: float = 0.2, seed: int = 0):
+        import torch
+        import torch.nn as nn
+
+        torch.manual_seed(seed)
+        self._torch = torch
+        self.net = nn.Sequential(
+            nn.Linear(n_features, hidden), nn.ReLU(), nn.Dropout(dropout),
+            nn.Linear(hidden, hidden), nn.ReLU(), nn.Dropout(dropout),
+            nn.Linear(hidden, 1),
+        )
+        self.mean_ = None
+        self.std_ = None
+
+    def _scale(self, x, fit=False):
+        if fit:
+            self.mean_ = x.mean(axis=0, keepdims=True)
+            self.std_ = x.std(axis=0, keepdims=True) + 1e-6
+        return ((x - self.mean_) / self.std_).astype(np.float32)
+
+    def fit(self, features, abundance, epochs: int = 30, batch: int = 8192,
+            lr: float = 1e-3) -> "AbundanceUnmixer":
+        torch = self._torch
+        xs = torch.from_numpy(self._scale(features, fit=True))
+        ys = torch.from_numpy(abundance.astype(np.float32).reshape(-1, 1))
+        lossfn = torch.nn.MSELoss()
+        opt = torch.optim.Adam(self.net.parameters(), lr=lr)
+        n = len(abundance)
+        self.net.train()
+        for _ in range(epochs):
+            perm = torch.randperm(n)
+            for i in range(0, n, batch):
+                idx = perm[i:i + batch]
+                opt.zero_grad()
+                lossfn(self.net(xs[idx]), ys[idx]).backward()
+                opt.step()
+        return self
+
+    def predict_map(self, cube, target):
+        torch = self._torch
+        h, w, _ = cube.shape
+        xs = torch.from_numpy(self._scale(pixel_features(cube, target)))
+        self.net.eval()
+        with torch.no_grad():
+            return self.net(xs).numpy().reshape(h, w)
