@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-23%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-25%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -80,7 +80,8 @@ python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
-pytest -q                           # 23 tests
+python scripts/target_variability_experiment.py  # measured target variability
+pytest -q                           # 25 tests
 ```
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
@@ -190,6 +191,31 @@ sob mistura bilinear, 0,989 vs 0,992, empate dentro da margem de 0,005. Esses
 MAT não carregam centros de banda, então o teste não linear real usa alvo por
 índice espectral e deve ser interpretado apenas como análise de sensibilidade.
 
+### Variabilidade do alvo medido
+
+O último teste da arquitetura atual usa um alvo sorteado de bibliotecas medidas,
+enquanto o MF e as cinco features do detector aprendido recebem apenas um alvo
+nominal fixo. O baseline de subespaço segue a formulação clássica de
+[matched subspace detection](https://doi.org/10.1109/78.301849). AUC média em
+target SNR de 20, 10, 5 e 0 dB, com 6 seeds estratificadas por ponto:
+
+| Track | MF espacial nominal | Subespaço espacial | Aprendido | MF espacial oráculo |
+|-------|:-------------------:|:------------------:|:---------:|:-------------------:|
+| Hospedeiro, SmURFP/biliverdina | 0.996 | 0.967 | 0.997 | 0.997 |
+| Hospedeiro + sensor + atmosfera | 0.993 | 0.910 | 0.996 | 0.995 |
+| Qualquer repórter, BChl ou biliverdina | 0.907 | **0.948** | 0.928 | 0.996 |
+
+Nos dois tracks intra-SmURFP, o detector aprendido fica em empate com o MF
+espacial nominal pela margem de 0,005. No track heterogêneo de qualquer
+repórter, o subespaço espacial supera o aprendido por 0,020 AUC. Portanto,
+variabilidade do alvo também não fornece uma vitória robusta para o MLP atual.
+O track de família não deve ser descrito como variabilidade intra-molécula.
+
+O experimento usa endmembers USGS em cenas implantadas, com grade calibrada de
+400-1000 nm. Ele não é validação remota de expressão biológica naturalmente
+observada. Resultados completos em
+[results/target_variability.md](results/target_variability.md).
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -256,6 +282,9 @@ et al.; URLs, licença e checksums estão em
 - O leaderboard da Fase A ainda compartilha repórter aproximado, gerador de
   blobs e mistura linear entre treino e teste. Os fundos são reais a jusante,
   mas os alvos implantados não são.
+- Mesmo treinado sobre variabilidade medida, o MLP atual só recebe MF, ACE e
+  versões suavizadas calculadas com o alvo nominal. Ele não acessa informação
+  espectral que esses detectores descartam.
 - Um deslocamento espectral de 5% reduz a AUC do detector aprendido em 0,277;
   ainda não há validação remota independente com variabilidade biológica.
 - Os cubos MAT atuais não incluem os centros de banda. A avaliação física

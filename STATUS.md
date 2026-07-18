@@ -2,7 +2,41 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
-## Agora: Fase B concluída, realismo físico opt-in - 2026-07-18
+## Agora: T1 concluído, variabilidade do alvo medido - 2026-07-18
+
+Novo baseline clássico `matched_subspace_detector`, com projeção no subespaço
+alvo após whitening pela covariância da cena, e versão espacial comparável. Com
+uma única assinatura, o score reduz numericamente ao ACE. Referência conceitual:
+Scharf e Friedlander, *Matched Subspace Detectors*, IEEE TSP 1994.
+
+Experimento determinístico em `scripts/target_variability_experiment.py`, com
+endmembers USGS, grade calibrada de 400-1000 nm, target SNR de 20, 10, 5 e 0 dB
+e 6 seeds estratificadas por ponto:
+
+| Track | MF espacial nominal | Subespaço espacial | Aprendido | Oráculo |
+|---|:---:|:---:|:---:|:---:|
+| Hospedeiro SmURFP/biliverdina | 0,996 | 0,967 | 0,997 | 0,997 |
+| Hospedeiro + sensor + atmosfera | 0,993 | 0,910 | 0,996 | 0,995 |
+| Qualquer repórter, BChl ou biliverdina | 0,907 | 0,948 | 0,928 | 0,996 |
+
+Nos dois tracks intra-SmURFP, o aprendido empata com o MF espacial nominal pela
+margem de 0,005. No track de qualquer repórter, o subespaço espacial supera o
+aprendido por 0,020 AUC. Esse terceiro track combina classes químicas e não é
+variabilidade intra-repórter. A abundância aleatória representa nível de
+expressão; o track de sensor sorteia FWHM de 6-14 nm e força atmosférica de
+0,7-1,3.
+
+Conclusão: **a variabilidade medida também não produz vantagem robusta para o
+detector aprendido atual**. As features do MLP continuam sendo MF, ACE e suas
+versões suavizadas com o alvo nominal; o modelo não vê sinal espectral que esses
+métodos descartam. Um método aprendido só terá teste causal legítimo quando
+consumir cubo bruto ou estatística de fundo adicional.
+
+Artefatos: `results/target_variability.json` e
+`results/target_variability.md`. Hash do JSON foi idêntico em duas execuções.
+25 testes passando.
+
+## Fase B concluída, realismo físico opt-in - 2026-07-18
 
 Implementação opt-in, sem alterar os defaults nem os números auditados da Fase A:
 
