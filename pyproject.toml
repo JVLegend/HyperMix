@@ -24,3 +24,6 @@ Homepage = "https://experiment.com/projects/cldzyecslnphmynjenmv"
 
 [tool.setuptools]
 packages = ["hypermix"]
+
+[tool.setuptools.package-data]
+hypermix = ["data/*.csv", "data/*.md"]

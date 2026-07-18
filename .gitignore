@@ -10,6 +10,8 @@ dist/
 .ipynb_checkpoints/
 # datasets are downloaded, not committed
 data/
+!hypermix/data/
+!hypermix/data/**
 # keep committed figures, ignore ad-hoc outputs
 assets/*.png
 !assets/demo_detection.png
