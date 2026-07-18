@@ -26,6 +26,8 @@ __all__ = [
     "endmember_library",
     "reporter_signature",
     "reporter_library",
+    "atmospheric_transmittance",
+    "apply_srf",
     "simulate_scene",
     "false_color",
 ]
@@ -115,6 +117,44 @@ def reporter_library(n_bands: int = 60, baseline: float = 0.45) -> dict[str, np.
 
 
 # --------------------------------------------------------------------------- #
+# Sensor and atmosphere (Phase B realism, opt-in)
+# --------------------------------------------------------------------------- #
+# Approximate atmospheric absorption bands within 400-1000 nm: O2 at 760 nm and
+# water vapour near 720, 820 and 940 nm. Centres/depths are illustrative, not a
+# radiative-transfer model; the point is spectrally structured transmittance.
+_ATMOSPHERE_BANDS = [(720.0, 12.0, 0.15), (760.0, 6.0, 0.35),
+                     (820.0, 15.0, 0.20), (940.0, 25.0, 0.55)]
+
+
+def atmospheric_transmittance(n_bands: int = 60) -> np.ndarray:
+    """Spectral atmospheric transmittance in [0.05, 1], with absorption dips."""
+    wl = _wavelengths(n_bands)
+    tau = np.ones(n_bands)
+    for center, width, depth in _ATMOSPHERE_BANDS:
+        tau -= depth * np.exp(-(((wl - center) / width) ** 2))
+    return np.clip(tau, 0.05, 1.0)
+
+
+def apply_srf(spectra: np.ndarray, fwhm_bands: float = 1.5) -> np.ndarray:
+    """Model finite spectral resolution: Gaussian smoothing along the band axis.
+
+    ``spectra`` has the band dimension last. ``fwhm_bands`` is the response
+    full-width-half-max in band units; 0 leaves the input unchanged.
+    """
+    if fwhm_bands <= 0:
+        return spectra
+    sigma = fwhm_bands / 2.3548
+    radius = max(1, int(np.ceil(3 * sigma)))
+    x = np.arange(-radius, radius + 1)
+    kernel = np.exp(-0.5 * (x / sigma) ** 2)
+    kernel /= kernel.sum()
+    pad = [(0, 0)] * (spectra.ndim - 1) + [(radius, radius)]
+    padded = np.pad(spectra, pad, mode="edge")
+    return np.apply_along_axis(
+        lambda m: np.convolve(m, kernel, mode="valid"), -1, padded)
+
+
+# --------------------------------------------------------------------------- #
 # Spatial helpers (NumPy only)
 # --------------------------------------------------------------------------- #
 def _smooth_field(h: int, w: int, scale: float, rng: np.random.Generator) -> np.ndarray:
@@ -172,6 +212,8 @@ def simulate_scene(
     n_reporter_blobs: int = 5,
     reporter_max_abundance: float = 0.30,
     detection_threshold: float = 0.03,
+    atmosphere: bool = False,
+    srf_fwhm: float = 0.0,
     seed: int = 0,
 ) -> SceneResult:
     """Simulate a remote hyperspectral scene with a faint engineered reporter.
@@ -209,6 +251,17 @@ def simulate_scene(
     reporter_ab = np.clip(reporter_ab, 0.0, reporter_max_abundance)
 
     R = reporter_signature(n_bands)
+
+    # Optional Phase-B realism: finite spectral resolution then atmosphere,
+    # applied to both endmembers and reporter so the target vector stays
+    # consistent with what a detector would see.
+    if srf_fwhm > 0:
+        E = apply_srf(E, srf_fwhm)
+        R = apply_srf(R, srf_fwhm)
+    if atmosphere:
+        tau = atmospheric_transmittance(n_bands)
+        E = E * tau
+        R = R * tau
 
     # Linear mixing: convex combination of background + reporter.
     bg = np.einsum("khw,kb->hwb", frac, E)           # (H, W, B)

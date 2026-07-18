@@ -1,0 +1,12 @@
+{
+  "linear": {
+    "spatial_mf": 0.9861115814596153,
+    "learned": 0.9795426188689758,
+    "winner": "spatial MF"
+  },
+  "bilinear": {
+    "spatial_mf": 0.990233231168728,
+    "learned": 0.9943331641633019,
+    "winner": "tie"
+  }
+}

@@ -133,7 +133,7 @@ class SpectralDetector:
 
 def make_training_set(target: np.ndarray, n_scenes: int = 24, hw: int = 96,
                       snrs=(0.0, 5.0, 10.0, 20.0), seed0: int = 100,
-                      with_abundance: bool = False):
+                      with_abundance: bool = False, mixing: str = "linear"):
     """Build training data by implanting the target into simulated backgrounds.
 
     Returns (features, detection_labels), or (features, detection_labels,
@@ -149,7 +149,8 @@ def make_training_set(target: np.ndarray, n_scenes: int = 24, hw: int = 96,
         bg = simulate_scene(height=hw, width=hw, n_bands=b, snr_db=40.0,
                             reporter_max_abundance=0.0, seed=seed0 + k).cube
         rng = np.random.default_rng(1000 + k)
-        scene, gt, ab, tgt = implant_target(bg, rng, target=target, snr_db=snr)
+        scene, gt, ab, tgt = implant_target(bg, rng, target=target, snr_db=snr,
+                                            mixing=mixing)
         feats.append(pixel_features(scene, tgt))
         labs.append(gt.reshape(-1))
         abund.append(ab.reshape(-1))

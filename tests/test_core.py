@@ -174,6 +174,45 @@ def test_abundance_unmixer_recovers_abundance():
     assert r > 0.4, f"unmixer should track true abundance, got r={r:.3f}"
 
 
+def test_atmosphere_and_srf():
+    from hypermix import apply_srf, atmospheric_transmittance
+    from hypermix.simulate import reporter_signature
+
+    tau = atmospheric_transmittance(120)
+    assert tau.shape == (120,)
+    assert tau.min() >= 0.05 and tau.max() <= 1.0
+    assert tau.min() < 0.9  # has absorption dips
+
+    r = reporter_signature(120)
+    smoothed = apply_srf(r, fwhm_bands=3.0)
+    assert smoothed.shape == r.shape
+    # smoothing a sharp absorption makes its minimum shallower
+    assert smoothed.min() > r.min()
+
+
+def test_simulate_scene_realistic_mode_runs():
+    from hypermix import roc_auc, spectral_matched_filter
+
+    s = simulate_scene(snr_db=20.0, seed=0, atmosphere=True, srf_fwhm=1.5)
+    assert s.cube.shape[2] == 60
+    auc = roc_auc(spectral_matched_filter(s.cube, s.reporter), s.detection_gt)
+    assert auc > 0.5  # target still detectable under atmosphere + SRF
+
+
+def test_bilinear_mixing_shapes_and_gt():
+    from hypermix import implant_target, reporter_library
+
+    bg = np.random.default_rng(0).uniform(0.1, 0.6, size=(48, 48, 60)).astype(np.float32)
+    target = reporter_library(60)["bacteriochlorophyll_a"]
+    lin = implant_target(np.array(bg), np.random.default_rng(1), target=target,
+                         snr_db=20.0, mixing="linear")
+    bil = implant_target(np.array(bg), np.random.default_rng(1), target=target,
+                         snr_db=20.0, mixing="bilinear")
+    # same seed -> same abundance ground truth; scenes differ (non-linear term)
+    assert np.array_equal(lin[1], bil[1])
+    assert not np.allclose(lin[0], bil[0])
+
+
 def test_auc_bounds_and_degradation():
     hi = simulate_scene(snr_db=30.0, seed=2)
     lo = simulate_scene(snr_db=0.0, seed=2)

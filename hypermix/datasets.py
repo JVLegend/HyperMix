@@ -71,6 +71,8 @@ def implant_target(
     max_abundance: float = 0.15,
     snr_db: float = 10.0,
     detection_threshold: float = 0.02,
+    mixing: str = "linear",
+    nonlinearity: float = 0.5,
 ):
     """Implant a known target into a real background cube.
 
@@ -79,6 +81,12 @@ def implant_target(
     spectral *shape*, not brightness (the honest, hard case). ``snr_db`` is
     target-relative: RMS of the target contribution over positive target pixels
     divided by additive-noise RMS. It is not scene-versus-noise SNR.
+
+    ``mixing`` is "linear" (convex combination) or "bilinear", which adds a
+    Fan-style interaction term (background times target, scaled by
+    ``nonlinearity``). The bilinear term breaks the linear-additive assumption
+    the matched filter relies on, so it is the regime where a learned or
+    adaptive detector could earn its keep.
     """
     h, w, b = cube.shape
     if target is None:
@@ -97,6 +105,13 @@ def implant_target(
     ab = np.clip(ab, 0.0, max_abundance)
 
     target_signal = ab[..., None] * (tgt[None, None, :] - cube)
+    if mixing == "bilinear":
+        scale = float(cube.reshape(-1, b).mean()) + 1e-9
+        interaction = (nonlinearity * (ab * (1.0 - ab))[..., None]
+                       * (cube * (tgt / scale)[None, None, :]))
+        target_signal = target_signal + interaction
+    elif mixing != "linear":
+        raise ValueError(f"unknown mixing: {mixing!r}")
     scene = cube + target_signal
 
     gt = ab > detection_threshold

@@ -12,6 +12,8 @@ Planned:
 
 from .simulate import (
     SceneResult,
+    apply_srf,
+    atmospheric_transmittance,
     endmember_library,
     false_color,
     reporter_library,
@@ -35,6 +37,8 @@ __all__ = [
     "endmember_library",
     "reporter_signature",
     "reporter_library",
+    "atmospheric_transmittance",
+    "apply_srf",
     "false_color",
     "spectral_matched_filter",
     "smoothed_matched_filter",

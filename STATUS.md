@@ -2,7 +2,31 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
-## Agora: endurecimento de validade científica, Fase A - 2026-07-18
+## Agora: Fase B, realismo físico e a pergunta decisiva - 2026-07-18
+
+Adicionada física opt-in ao forward model (não invalida os números da Fase A,
+que usam os defaults antigos):
+- `atmospheric_transmittance` (transmitância espectral com bandas de absorção de
+  O2/vapor de água) e `apply_srf` (resolução espectral finita via suavização no
+  eixo de bandas), plugáveis em `simulate_scene(atmosphere=, srf_fwhm=)`.
+- `implant_target(mixing="bilinear")`: termo de interação Fan (fundo x alvo), que
+  quebra a premissa linear-aditiva do matched filter. É o regime onde um detector
+  aprendido poderia justificar sua existência.
+
+Experimento decisivo (`scripts/nonlinear_experiment.py`), MF espacial vs detector
+aprendido treinado no mesmo modelo de mistura, 3 cenas reais, target SNR 5 e 0 dB:
+- Mistura linear: MF espacial 0,986 vs aprendido 0,980 (MF espacial vence).
+- Mistura bilinear: MF espacial 0,990 vs aprendido 0,994 (empate, dentro de 0,005).
+
+Conclusão honesta: em nenhum regime testado o detector aprendido supera de forma
+robusta o matched filter espacial bem calibrado. **A contribuição científica do
+HyperMix não é um detector superior; é o benchmark físico aberto e reprodutível,
+o simulador, e a avaliação honesta que mostra que, aqui, métodos clássicos bastam.**
+Isso é field-building legítimo e não deve ser vendido como "nosso modelo vence".
+Não perseguir um regime artificial só para fabricar uma vitória (benchmark-hacking).
+Artefatos: `results/nonlinear.json` e `results/nonlinear.md`. 18 testes passando.
+
+## Fase A: endurecimento de validade científica - 2026-07-18
 
 - [x] A1: adicionado `smoothed_matched_filter`, com blur gaussiano fixo de
       `sigma=1,5` pixel, ao benchmark e ao leaderboard.
