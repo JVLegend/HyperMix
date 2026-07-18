@@ -82,13 +82,16 @@ def implant_target(
     target-relative: RMS of the target contribution over positive target pixels
     divided by additive-noise RMS. It is not scene-versus-noise SNR.
 
-    ``mixing`` is "linear" (convex combination) or "bilinear", which adds a
-    Fan-style interaction term (background times target, scaled by
-    ``nonlinearity``). The bilinear term breaks the linear-additive assumption
-    the matched filter relies on, so it is the regime where a learned or
-    adaptive detector could earn its keep.
+    ``mixing`` is "linear" (convex combination) or "bilinear", which uses the
+    two-endmember generalized bilinear model with interaction coefficient
+    ``nonlinearity``. The latter breaks the matched filter's linear-additive
+    assumption and is intended for controlled sensitivity analysis.
     """
     h, w, b = cube.shape
+    if mixing not in {"linear", "bilinear"}:
+        raise ValueError(f"unknown mixing: {mixing!r}")
+    if not 0.0 <= nonlinearity <= 1.0:
+        raise ValueError("nonlinearity must lie in [0, 1]")
     if target is None:
         target = synthetic_target(b)
     tgt = np.asarray(target, dtype=np.float64)
@@ -106,12 +109,9 @@ def implant_target(
 
     target_signal = ab[..., None] * (tgt[None, None, :] - cube)
     if mixing == "bilinear":
-        scale = float(cube.reshape(-1, b).mean()) + 1e-9
         interaction = (nonlinearity * (ab * (1.0 - ab))[..., None]
-                       * (cube * (tgt / scale)[None, None, :]))
+                       * cube * tgt[None, None, :])
         target_signal = target_signal + interaction
-    elif mixing != "linear":
-        raise ValueError(f"unknown mixing: {mixing!r}")
     scene = cube + target_signal
 
     gt = ab > detection_threshold

@@ -190,6 +190,59 @@ def test_atmosphere_and_srf():
     assert smoothed.min() > r.min()
 
 
+def test_measured_spectral_libraries_have_published_peaks():
+    from hypermix import (
+        measured_endmember_library,
+        measured_reporter_absorbance_library,
+    )
+
+    wavelengths, endmembers = measured_endmember_library(601)
+    assert set(endmembers) == {"vegetation", "dry_vegetation", "soil", "water"}
+    for spectrum in endmembers.values():
+        assert spectrum.shape == wavelengths.shape
+        assert np.all((0.0 <= spectrum) & (spectrum <= 1.0))
+
+    wavelengths, reporters = measured_reporter_absorbance_library(
+        601, baseline_correct=False
+    )
+    bchl_peak = wavelengths[np.argmax(reporters["bacteriochlorophyll_a_yf10"])]
+    ecoli_peak = wavelengths[np.argmax(reporters["smurfp_biliverdin_ecoli"])]
+    pputida_peak = wavelengths[np.argmax(reporters["smurfp_biliverdin_pputida"])]
+    assert abs(bchl_peak - 866.0) <= 1.0
+    assert abs(ecoli_peak - 641.0) <= 1.0
+    assert abs(pputida_peak - 642.0) <= 1.0
+
+
+def test_physical_srf_is_normalized_and_preserves_constant_spectrum():
+    from hypermix import apply_srf, gaussian_srf
+
+    wavelengths = np.arange(400.0, 1001.0)
+    centers = np.arange(405.0, 996.0, 10.0)
+    response = gaussian_srf(wavelengths, centers, fwhm_nm=10.0)
+    assert response.shape == (centers.size, wavelengths.size)
+    assert np.allclose(response.sum(axis=1), 1.0)
+    observed = apply_srf(
+        np.ones(wavelengths.size),
+        wavelengths=wavelengths,
+        centers_nm=centers,
+        fwhm_nm=10.0,
+    )
+    assert np.allclose(observed, 1.0)
+
+
+def test_simple_atmosphere_has_transparent_limit_and_path_term():
+    from hypermix import apply_atmosphere, atmospheric_transmittance
+
+    wavelengths = np.linspace(400.0, 1000.0, 121)
+    clear = atmospheric_transmittance(wavelengths=wavelengths, strength=0.0)
+    assert np.array_equal(clear, np.ones_like(clear))
+    tau = atmospheric_transmittance(wavelengths=wavelengths, strength=1.0)
+    surface = np.full(wavelengths.size, 0.4)
+    observed = apply_atmosphere(surface, tau, path_radiance=0.02)
+    assert np.all(observed <= surface)
+    assert np.all(observed >= 0.02)
+
+
 def test_simulate_scene_realistic_mode_runs():
     from hypermix import roc_auc, spectral_matched_filter
 
@@ -197,6 +250,25 @@ def test_simulate_scene_realistic_mode_runs():
     assert s.cube.shape[2] == 60
     auc = roc_auc(spectral_matched_filter(s.cube, s.reporter), s.detection_gt)
     assert auc > 0.5  # target still detectable under atmosphere + SRF
+
+
+def test_measured_scene_with_physical_sensor_is_deterministic():
+    kwargs = dict(
+        height=32,
+        width=32,
+        n_bands=61,
+        spectral_source="measured",
+        sensor_fwhm_nm=10.0,
+        atmosphere=True,
+        mixing="bilinear",
+        snr_db=10.0,
+        seed=91,
+    )
+    first = simulate_scene(**kwargs)
+    second = simulate_scene(**kwargs)
+    assert first.cube.shape == (32, 32, 61)
+    assert np.array_equal(first.cube, second.cube)
+    assert min(first.endmembers["water"]) >= 0.0
 
 
 def test_bilinear_mixing_shapes_and_gt():
@@ -211,6 +283,20 @@ def test_bilinear_mixing_shapes_and_gt():
     # same seed -> same abundance ground truth; scenes differ (non-linear term)
     assert np.array_equal(lin[1], bil[1])
     assert not np.allclose(lin[0], bil[0])
+
+
+def test_zero_bilinearity_recovers_linear_implant_exactly():
+    bg = np.random.default_rng(7).uniform(0.1, 0.6, size=(32, 32, 30)).astype(np.float32)
+    linear = implant_target(bg, np.random.default_rng(8), snr_db=np.inf, mixing="linear")
+    bilinear = implant_target(
+        bg,
+        np.random.default_rng(8),
+        snr_db=np.inf,
+        mixing="bilinear",
+        nonlinearity=0.0,
+    )
+    for left, right in zip(linear, bilinear):
+        assert np.array_equal(left, right)
 
 
 def test_auc_bounds_and_degradation():

@@ -12,13 +12,20 @@ Planned:
 
 from .simulate import (
     SceneResult,
+    apply_atmosphere,
     apply_srf,
     atmospheric_transmittance,
     endmember_library,
     false_color,
+    gaussian_srf,
     reporter_library,
     reporter_signature,
     simulate_scene,
+)
+from .spectra import (
+    measured_endmember_library,
+    measured_reporter_absorbance_library,
+    measured_reporter_library,
 )
 from .baselines import (
     ace,
@@ -37,7 +44,12 @@ __all__ = [
     "endmember_library",
     "reporter_signature",
     "reporter_library",
+    "measured_endmember_library",
+    "measured_reporter_absorbance_library",
+    "measured_reporter_library",
+    "gaussian_srf",
     "atmospheric_transmittance",
+    "apply_atmosphere",
     "apply_srf",
     "false_color",
     "spectral_matched_filter",

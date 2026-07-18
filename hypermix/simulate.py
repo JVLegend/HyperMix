@@ -21,12 +21,16 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from .spectra import measured_endmember_library, measured_reporter_library
+
 __all__ = [
     "SceneResult",
     "endmember_library",
     "reporter_signature",
     "reporter_library",
+    "gaussian_srf",
     "atmospheric_transmittance",
+    "apply_atmosphere",
     "apply_srf",
     "simulate_scene",
     "false_color",
@@ -126,30 +130,104 @@ _ATMOSPHERE_BANDS = [(720.0, 12.0, 0.15), (760.0, 6.0, 0.35),
                      (820.0, 15.0, 0.20), (940.0, 25.0, 0.55)]
 
 
-def atmospheric_transmittance(n_bands: int = 60) -> np.ndarray:
-    """Spectral atmospheric transmittance in [0.05, 1], with absorption dips."""
-    wl = _wavelengths(n_bands)
-    tau = np.ones(n_bands)
+def atmospheric_transmittance(
+    n_bands: int = 60,
+    *,
+    wavelengths: np.ndarray | None = None,
+    strength: float = 1.0,
+) -> np.ndarray:
+    """Simple structured atmospheric transmittance for 400-1000 nm.
+
+    This is a sensitivity model, not line-by-line radiative transfer. A value
+    of zero for ``strength`` gives a transparent atmosphere; one gives the
+    documented default O2 and water-vapour bands.
+    """
+    if strength < 0:
+        raise ValueError("atmospheric strength must be non-negative")
+    wl = _wavelengths(n_bands) if wavelengths is None else np.asarray(wavelengths)
+    if wl.ndim != 1:
+        raise ValueError("wavelengths must be one-dimensional")
+    tau = np.ones(wl.size)
     for center, width, depth in _ATMOSPHERE_BANDS:
-        tau -= depth * np.exp(-(((wl - center) / width) ** 2))
+        tau -= strength * depth * np.exp(-(((wl - center) / width) ** 2))
     return np.clip(tau, 0.05, 1.0)
 
 
-def apply_srf(spectra: np.ndarray, fwhm_bands: float = 1.5) -> np.ndarray:
-    """Model finite spectral resolution: Gaussian smoothing along the band axis.
+def apply_atmosphere(
+    spectra: np.ndarray,
+    transmittance: np.ndarray,
+    path_radiance: float = 0.02,
+) -> np.ndarray:
+    """Apply a one-layer atmosphere with a spectrally flat path term."""
+    values = np.asarray(spectra)
+    tau = np.asarray(transmittance, dtype=np.float64)
+    if tau.ndim != 1 or tau.size != values.shape[-1]:
+        raise ValueError("transmittance must match the last spectral dimension")
+    if path_radiance < 0:
+        raise ValueError("path_radiance must be non-negative")
+    return values * tau + path_radiance * (1.0 - tau)
 
-    ``spectra`` has the band dimension last. ``fwhm_bands`` is the response
-    full-width-half-max in band units; 0 leaves the input unchanged.
+
+def gaussian_srf(
+    wavelengths: np.ndarray,
+    centers_nm: np.ndarray,
+    fwhm_nm: float | np.ndarray,
+) -> np.ndarray:
+    """Return normalized Gaussian spectral-response weights.
+
+    Rows correspond to output sensor bands and columns to input wavelengths.
+    AVIRIS response functions are commonly represented from measured centers
+    and FWHM values with this Gaussian approximation.
     """
+    wl = np.asarray(wavelengths, dtype=np.float64)
+    centers = np.atleast_1d(np.asarray(centers_nm, dtype=np.float64))
+    fwhm = np.broadcast_to(np.asarray(fwhm_nm, dtype=np.float64), centers.shape)
+    if wl.ndim != 1 or centers.ndim != 1 or np.any(np.diff(wl) <= 0):
+        raise ValueError("wavelengths and centers must be one-dimensional")
+    if np.any(fwhm <= 0):
+        raise ValueError("FWHM values must be positive")
+    sigma = fwhm / (2.0 * np.sqrt(2.0 * np.log(2.0)))
+    response = np.exp(-0.5 * ((wl[None, :] - centers[:, None]) / sigma[:, None]) ** 2)
+    normalizer = response.sum(axis=1, keepdims=True)
+    if np.any(normalizer == 0):
+        raise ValueError("sensor response does not overlap the input wavelengths")
+    return response / normalizer
+
+
+def apply_srf(
+    spectra: np.ndarray,
+    fwhm_bands: float = 1.5,
+    *,
+    wavelengths: np.ndarray | None = None,
+    centers_nm: np.ndarray | None = None,
+    fwhm_nm: float | np.ndarray | None = None,
+) -> np.ndarray:
+    """Apply a Gaussian sensor spectral response along the last axis.
+
+    For a physical response, pass input ``wavelengths``, output ``centers_nm``
+    and ``fwhm_nm``. The older ``fwhm_bands`` interface remains available for
+    same-grid smoothing and preserves the Phase A API.
+    """
+    values = np.asarray(spectra)
+    if wavelengths is not None or centers_nm is not None or fwhm_nm is not None:
+        if wavelengths is None or fwhm_nm is None:
+            raise ValueError("physical SRF requires wavelengths and fwhm_nm")
+        wl = np.asarray(wavelengths, dtype=np.float64)
+        centers = wl if centers_nm is None else np.asarray(centers_nm, dtype=np.float64)
+        if values.shape[-1] != wl.size:
+            raise ValueError("input wavelengths must match the last dimension")
+        response = gaussian_srf(wl, centers, fwhm_nm)
+        return np.tensordot(values, response, axes=([-1], [1]))
+
     if fwhm_bands <= 0:
-        return spectra
+        return values
     sigma = fwhm_bands / 2.3548
     radius = max(1, int(np.ceil(3 * sigma)))
     x = np.arange(-radius, radius + 1)
     kernel = np.exp(-0.5 * (x / sigma) ** 2)
     kernel /= kernel.sum()
-    pad = [(0, 0)] * (spectra.ndim - 1) + [(radius, radius)]
-    padded = np.pad(spectra, pad, mode="edge")
+    pad = [(0, 0)] * (values.ndim - 1) + [(radius, radius)]
+    padded = np.pad(values, pad, mode="edge")
     return np.apply_along_axis(
         lambda m: np.convolve(m, kernel, mode="valid"), -1, padded)
 
@@ -214,6 +292,13 @@ def simulate_scene(
     detection_threshold: float = 0.03,
     atmosphere: bool = False,
     srf_fwhm: float = 0.0,
+    spectral_source: str = "stylized",
+    reporter_name: str = "bacteriochlorophyll_a",
+    sensor_fwhm_nm: float = 0.0,
+    atmosphere_strength: float = 1.0,
+    path_radiance: float = 0.02,
+    mixing: str = "linear",
+    nonlinearity: float = 0.5,
     seed: int = 0,
 ) -> SceneResult:
     """Simulate a remote hyperspectral scene with a faint engineered reporter.
@@ -224,10 +309,56 @@ def simulate_scene(
     target is). Target SNR is the RMS reporter contribution over positive
     target pixels divided by the additive-noise RMS.
     """
+    if spectral_source not in {"stylized", "measured"}:
+        raise ValueError("spectral_source must be 'stylized' or 'measured'")
+    if mixing not in {"linear", "bilinear"}:
+        raise ValueError("mixing must be 'linear' or 'bilinear'")
+    if not 0.0 <= nonlinearity <= 1.0:
+        raise ValueError("nonlinearity must lie in [0, 1]")
+    if srf_fwhm > 0 and sensor_fwhm_nm > 0:
+        raise ValueError("choose srf_fwhm or sensor_fwhm_nm, not both")
+
     rng = np.random.default_rng(seed)
-    wl, lib = endmember_library(n_bands)
-    names = list(lib)
-    E = np.stack([lib[n] for n in names], axis=0)  # (K, B)
+    wl = _wavelengths(n_bands)
+    if sensor_fwhm_nm > 0:
+        native_wl = _wavelengths(601)
+        if spectral_source == "measured":
+            _, native_lib = measured_endmember_library(wavelengths=native_wl)
+            _, reporters = measured_reporter_library(wavelengths=native_wl)
+            if reporter_name not in reporters:
+                raise ValueError(f"unknown measured reporter: {reporter_name!r}")
+            native_reporter = reporters[reporter_name]
+        else:
+            _, native_lib = endmember_library(601)
+            native_reporter = reporter_signature(601)
+        names = list(native_lib)
+        native_endmembers = np.stack([native_lib[name] for name in names], axis=0)
+        E = apply_srf(
+            native_endmembers,
+            wavelengths=native_wl,
+            centers_nm=wl,
+            fwhm_nm=sensor_fwhm_nm,
+        )
+        R = apply_srf(
+            native_reporter,
+            wavelengths=native_wl,
+            centers_nm=wl,
+            fwhm_nm=sensor_fwhm_nm,
+        )
+    elif spectral_source == "measured":
+        _, lib = measured_endmember_library(n_bands)
+        _, reporters = measured_reporter_library(n_bands)
+        if reporter_name not in reporters:
+            raise ValueError(f"unknown measured reporter: {reporter_name!r}")
+        names = list(lib)
+        E = np.stack([lib[name] for name in names], axis=0)
+        R = reporters[reporter_name]
+    else:
+        _, lib = endmember_library(n_bands)
+        names = list(lib)
+        E = np.stack([lib[name] for name in names], axis=0)
+        R = reporter_signature(n_bands)
+
 
     # Background fractions: smooth fields -> softmax so they sum to 1 per pixel.
     fields = np.stack(
@@ -250,8 +381,6 @@ def simulate_scene(
         reporter_ab += amp * np.exp(-(((yy - cy) ** 2 + (xx - cx) ** 2) / (2 * rad ** 2)))
     reporter_ab = np.clip(reporter_ab, 0.0, reporter_max_abundance)
 
-    R = reporter_signature(n_bands)
-
     # Optional Phase-B realism: finite spectral resolution then atmosphere,
     # applied to both endmembers and reporter so the target vector stays
     # consistent with what a detector would see.
@@ -259,9 +388,11 @@ def simulate_scene(
         E = apply_srf(E, srf_fwhm)
         R = apply_srf(R, srf_fwhm)
     if atmosphere:
-        tau = atmospheric_transmittance(n_bands)
-        E = E * tau
-        R = R * tau
+        tau = atmospheric_transmittance(
+            n_bands, wavelengths=wl, strength=atmosphere_strength
+        )
+        E = apply_atmosphere(E, tau, path_radiance=path_radiance)
+        R = apply_atmosphere(R, tau, path_radiance=path_radiance)
 
     # Linear mixing: convex combination of background + reporter.
     bg = np.einsum("khw,kb->hwb", frac, E)           # (H, W, B)
@@ -271,6 +402,13 @@ def simulate_scene(
     illum = 0.75 + 0.5 * _smooth_field(height, width, scale=max(height, width) / 4.0, rng=rng)
     bg_observed = _gaussian_blur(bg * illum[..., None], psf_sigma)
     target_signal = reporter_ab[..., None] * (R[None, None, :] - bg)
+    if mixing == "bilinear":
+        target_signal += (
+            nonlinearity
+            * (reporter_ab * (1.0 - reporter_ab))[..., None]
+            * bg
+            * R[None, None, :]
+        )
     target_signal = _gaussian_blur(target_signal * illum[..., None], psf_sigma)
     cube = bg_observed + target_signal
 
@@ -285,7 +423,7 @@ def simulate_scene(
         abundance_gt=reporter_ab.astype(np.float32),
         wavelengths=wl,
         reporter=R.astype(np.float32),
-        endmembers=lib,
+        endmembers={name: E[index].astype(np.float32) for index, name in enumerate(names)},
         snr_db=snr_db,
     )
 
