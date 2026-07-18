@@ -72,8 +72,14 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
       `scripts/export_dataset.py`.
 - [x] Leaderboard: `scripts/make_leaderboard.py` -> `results/leaderboard.md`.
       Learned 0.926 mean AUC > matched filter 0.751 > SAM 0.642 > ACE 0.632 (real bg).
-- [ ] PyPI package publish (author to run twine; version tagged on GitHub).
-- [ ] DOI archive (Zenodo) of the dataset + a tagged release.
+- [x] Multi-scene real evaluation: learned detector beats baselines on 3 real
+      cubes (Indian Pines, Salinas = AVIRIS; Pavia U. = ROSIS), i.e. cross-sensor
+      and cross-band-count generalization, trained only on simulation.
+      Leaderboard mean AUC: learned 0.854 > matched filter 0.689 > SAM/ACE 0.595.
+- [x] Packaging: `python -m build` produces a clean sdist + wheel (PyPI-ready).
+- [x] CITATION.cff + .zenodo.json added (DOI-ready).
+- [ ] PyPI publish: author runs `twine upload dist/*` with their token.
+- [ ] DOI: connect the GitHub repo to Zenodo and cut a release (or upload dist).
 
 ## Grant / admin (tracked in the vault, not here)
 

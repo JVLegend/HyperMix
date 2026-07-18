@@ -1,11 +1,11 @@
-"""Build the HyperMix detection leaderboard.
+"""Build the HyperMix detection leaderboard across all real scenes.
 
     python scripts/make_leaderboard.py
 
-Runs the classical baselines on the real Indian Pines implanted-target
-benchmark, folds in the learned detector's numbers from
-results/detector_eval.json (if present), ranks everyone by mean AUC, and
-writes results/leaderboard.md.
+Reads matched-filter / ACE / learned results from results/detector_eval.json
+(one entry per real scene), computes the Spectral Angle Mapper baseline fresh,
+aggregates across every real cube in ./data and the SNR sweep, and writes a
+ranked results/leaderboard.md with a per-scene breakdown.
 """
 
 from __future__ import annotations
@@ -16,80 +16,91 @@ import os
 import numpy as np
 
 from hypermix import (
-    ace,
     implant_target,
     load_mat_cube,
     reporter_library,
     roc_auc,
     spectral_angle_mapper,
-    spectral_matched_filter,
 )
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNRS = (20.0, 10.0, 5.0, 0.0)
 SEEDS = (0, 1, 2)
-CLASSICAL = {
-    "Matched filter": spectral_matched_filter,
-    "ACE": ace,
-    "Spectral Angle Mapper": spectral_angle_mapper,
+PRETTY = {
+    "matched_filter": "Matched filter",
+    "ace": "ACE",
+    "spectral_angle_mapper": "Spectral Angle Mapper",
+    "learned": "Learned detector (HyperMix)",
 }
 
 
-def _eval_real(fn, cube, target):
-    per_snr = {}
+def _sam_rows(cube, target):
+    out = {}
     for snr in SNRS:
         aucs = []
         for s in SEEDS:
             rng = np.random.default_rng(9000 + s)
             scene, gt, _, tgt = implant_target(cube, rng, target=target, snr_db=snr)
-            aucs.append(roc_auc(fn(scene, tgt), gt))
-        per_snr[snr] = float(np.mean(aucs))
-    return per_snr
+            aucs.append(roc_auc(spectral_angle_mapper(scene, tgt), gt))
+        out[snr] = float(np.mean(aucs))
+    return out
 
 
 def main() -> None:
-    real_path = os.path.join(HERE, "data", "indian_pines.mat")
-    if not os.path.exists(real_path):
-        raise SystemExit("Real cube missing. Run: python scripts/fetch_data.py")
-    cube = load_mat_cube(real_path)
-    target = reporter_library(cube.shape[2])["bacteriochlorophyll_a"]
-
-    board = []  # (name, mean_auc, auc0, learned?)
-    for name, fn in CLASSICAL.items():
-        per = _eval_real(fn, cube, target)
-        board.append((name, float(np.mean(list(per.values()))), per[0.0], False))
-
-    # Fold in the learned detector from its saved evaluation.
     eval_path = os.path.join(HERE, "results", "detector_eval.json")
-    if os.path.exists(eval_path):
-        data = json.load(open(eval_path))
-        real = [r for r in data.get("real", []) if r["detector"] == "learned"]
-        if real:
-            by_snr = {r["snr_db"]: r["auc_mean"] for r in real}
-            mean = float(np.mean([by_snr[s] for s in SNRS if s in by_snr]))
-            board.append(("Learned detector (HyperMix)", mean,
-                          by_snr.get(0.0, float("nan")), True))
+    if not os.path.exists(eval_path):
+        raise SystemExit("Run scripts/train_detector.py first.")
+    data = json.load(open(eval_path))
+    scenes = data.get("scenes", {})
+    if not scenes:
+        raise SystemExit("No real scenes in detector_eval.json.")
 
-    board.sort(key=lambda r: r[1], reverse=True)
+    # method -> scene -> {snr: auc}
+    per = {m: {} for m in PRETTY}
+    for name, rows in scenes.items():
+        for r in rows:
+            per[r["detector"]].setdefault(name, {})[r["snr_db"]] = r["auc_mean"]
+        cube = load_mat_cube(os.path.join(HERE, "data", f"{name}.mat"))
+        target = reporter_library(cube.shape[2])["bacteriochlorophyll_a"]
+        per["spectral_angle_mapper"][name] = _sam_rows(cube, target)
+
+    scene_names = list(scenes)
+
+    def mean_all(method):
+        vals = [per[method][s][snr] for s in scene_names for snr in SNRS]
+        return float(np.mean(vals))
+
+    def mean_at0(method):
+        return float(np.mean([per[method][s][0.0] for s in scene_names]))
+
+    board = sorted(PRETTY, key=mean_all, reverse=True)
 
     lines = [
         "# HyperMix detection leaderboard",
         "",
-        "Detection AUC on the **real Indian Pines** background (AVIRIS) with an",
-        "implanted bacteriochlorophyll-a target, averaged over 3 seeds.",
-        "`Mean AUC` averages over SNR = 20, 10, 5, 0 dB; `AUC @ 0 dB` is the",
-        "hardest, low-SNR case. Reproduce with `python scripts/make_leaderboard.py`.",
+        f"Detection AUC across **{len(scene_names)} real hyperspectral scenes** "
+        f"({', '.join(scene_names)}) with an implanted bacteriochlorophyll-a target,",
+        "averaged over 3 seeds. Different sensors and band counts. `Mean AUC` averages",
+        "over all scenes and SNR = 20, 10, 5, 0 dB. The learned detector is trained",
+        "**only on simulation**. Reproduce: `python scripts/make_leaderboard.py`.",
         "",
         "| Rank | Method | Mean AUC | AUC @ 0 dB |",
         "|-----:|--------|:--------:|:----------:|",
     ]
-    for i, (name, mean, auc0, learned) in enumerate(board, 1):
-        star = " 🧠" if learned else ""
-        lines.append(f"| {i} | {name}{star} | {mean:.3f} | {auc0:.3f} |")
+    for i, m in enumerate(board, 1):
+        star = " 🧠" if m == "learned" else ""
+        lines.append(f"| {i} | {PRETTY[m]}{star} | {mean_all(m):.3f} | {mean_at0(m):.3f} |")
+
+    lines += ["", "## Per-scene AUC @ 0 dB (hardest case)", "",
+              "| Method | " + " | ".join(scene_names) + " |",
+              "|--------|" + "|".join([":---:"] * len(scene_names)) + "|"]
+    for m in board:
+        cells = " | ".join(f"{per[m][s][0.0]:.3f}" for s in scene_names)
+        star = " 🧠" if m == "learned" else ""
+        lines.append(f"| {PRETTY[m]}{star} | {cells} |")
     lines.append("")
 
     out = os.path.join(HERE, "results", "leaderboard.md")
-    os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w") as fh:
         fh.write("\n".join(lines))
     print("\n".join(lines))

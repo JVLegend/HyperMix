@@ -15,10 +15,18 @@ import urllib.request
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(HERE, "data")
 
-# name -> list of mirror URLs (tried in order)
+# name -> list of mirror URLs (tried in order). Public benchmark scenes:
+# Indian Pines & Salinas are AVIRIS; Pavia University is ROSIS. Different
+# sensors and band counts, which is exactly what we want for a robustness test.
 SOURCES = {
     "indian_pines.mat": [
         "https://github.com/gokriznastic/HybridSN/raw/master/data/Indian_pines_corrected.mat",
+    ],
+    "salinas.mat": [
+        "https://github.com/gokriznastic/HybridSN/raw/master/data/Salinas_corrected.mat",
+    ],
+    "paviaU.mat": [
+        "https://github.com/gokriznastic/HybridSN/raw/master/data/PaviaU.mat",
     ],
 }
 

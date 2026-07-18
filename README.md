@@ -109,15 +109,25 @@ where the classical matched filter approaches chance.
 
 ## 🏆 Leaderboard
 
-Detection AUC on the real Indian Pines background (3 seeds), ranked. `Mean AUC`
-averages over SNR = 20, 10, 5, 0 dB. Reproduce: `python scripts/make_leaderboard.py`.
+Detection AUC across **3 real hyperspectral scenes of different sensors and band
+counts** (Indian Pines & Salinas: AVIRIS; Pavia University: ROSIS), 3 seeds.
+`Mean AUC` averages over all scenes and SNR = 20, 10, 5, 0 dB. The learned
+detector is trained **only on simulation**. Reproduce: `python scripts/make_leaderboard.py`.
 
 | Rank | Method | Mean AUC | AUC @ 0 dB |
 |-----:|--------|:--------:|:----------:|
-| 1 | 🧠 Learned detector (HyperMix) | **0.926** | **0.828** |
-| 2 | Matched filter | 0.751 | 0.627 |
-| 3 | Spectral Angle Mapper | 0.642 | 0.562 |
-| 4 | ACE | 0.632 | 0.530 |
+| 1 | 🧠 Learned detector (HyperMix) | **0.854** | **0.742** |
+| 2 | Matched filter | 0.689 | 0.593 |
+| 3 | Spectral Angle Mapper | 0.595 | 0.542 |
+| 4 | ACE | 0.595 | 0.519 |
+
+Per-scene AUC @ 0 dB (hardest case). Note it wins even on Pavia (a ROSIS sensor,
+unlike the AVIRIS scenes), evidence of cross-sensor generalization:
+
+| Method | Indian Pines | Salinas | Pavia U. |
+|--------|:---:|:---:|:---:|
+| 🧠 Learned detector | **0.828** | **0.759** | **0.640** |
+| Matched filter | 0.627 | 0.588 | 0.562 |
 
 ## 📦 Open spectral dataset
 
@@ -131,7 +141,7 @@ and the two paper-grounded reporters (biliverdin IXα, bacteriochlorophyll a) on
 - [x] **Milestone 0** — scene simulator, classical baselines, metrics
 - [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
 - [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty (beats baselines at low SNR, generalizes sim → real)
-- [ ] **Milestone 3** — public release (in progress): ✅ Colab notebook · ✅ open spectral dataset + leaderboard · ⏳ PyPI package · ⏳ DOI
+- [ ] **Milestone 3** — public release (in progress): ✅ Colab notebook · ✅ open spectral dataset + leaderboard · ✅ 3-scene cross-sensor benchmark · ✅ build + CITATION/Zenodo metadata · ⏳ PyPI publish · ⏳ DOI
 
 ## 💾 Data
 
@@ -151,6 +161,11 @@ Indian Pines is a public AVIRIS scene (Purdue University).
   (blob) targets; the edge shrinks for point-like targets.
 - The first learned model is a small MLP; richer models and a true unmixing head
   are future work. All numbers, including failures, are tracked in [STATUS.md](STATUS.md).
+
+## 📚 Cite
+
+If you use HyperMix, please cite it (see [CITATION.cff](CITATION.cff)). A Zenodo
+DOI is planned for the next release.
 
 ## 📄 License
 

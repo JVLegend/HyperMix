@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "HyperMix: open detection of engineered biosignatures in remote hyperspectral imagery"
+message: "If you use this software, please cite it."
+type: software
+authors:
+  - given-names: "João Victor"
+    family-names: Dias
+repository-code: "https://github.com/JVLegend/HyperMix"
+url: "https://github.com/JVLegend/HyperMix"
+license: MIT
+version: 0.3.0
+keywords:
+  - hyperspectral
+  - remote sensing
+  - biosensing
+  - target detection
+  - spectral unmixing
+  - synthetic biology
+abstract: >-
+  An open-source toolkit that detects a faint engineered reporter against
+  complex natural backgrounds in noisy remote hyperspectral imagery, with
+  calibrated uncertainty. Includes a physics-based scene simulator, an
+  implanted-target benchmark on real airborne data, classical baselines, and a
+  physics-informed learned detector that generalizes from simulation to real
+  backgrounds. Developed under the Experiment Foundation Hyperspectral Biology
+  grant.
