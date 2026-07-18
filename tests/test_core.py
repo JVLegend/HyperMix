@@ -136,6 +136,63 @@ def test_spectral_angle_mapper_ranks_target_higher():
     assert roc_auc(sam, scene.detection_gt) >= 0.5
 
 
+def test_rx_detector_ranks_anomalous_pixel_highest():
+    from hypermix import rx_detector
+
+    rng = np.random.default_rng(41)
+    cube = rng.normal(0.0, 0.05, size=(18, 18, 12)).astype(np.float32)
+    cube[7, 9] += 3.0
+    score = rx_detector(cube)
+    assert score.shape == cube.shape[:2]
+    assert np.all(score >= -1e-9)
+    assert np.unravel_index(np.argmax(score), score.shape) == (7, 9)
+
+
+def test_pd_at_far_uses_conservative_negative_threshold():
+    from hypermix import pd_at_far
+
+    negatives = np.linspace(0.0, 0.999, 1000)
+    positives = np.array([0.5, 1.1, 1.2, 1.3])
+    scores = np.concatenate([negatives, positives])
+    labels = np.concatenate([
+        np.zeros(negatives.size, dtype=bool),
+        np.ones(positives.size, dtype=bool),
+    ])
+    assert pd_at_far(scores, labels, 1e-3) == 0.75
+
+
+def test_pd_at_far_validates_inputs():
+    import pytest
+
+    from hypermix import pd_at_far
+
+    with pytest.raises(ValueError, match="far"):
+        pd_at_far([0.0, 1.0], [0, 1], 1.0)
+    with pytest.raises(ValueError, match="positive and negative"):
+        pd_at_far([0.0, 1.0], [1, 1], 1e-3)
+
+
+def test_background_detector_is_deterministic_and_spatial():
+    import pytest
+
+    pytest.importorskip("torch")
+    from hypermix import background_detector, smoothed_background_detector
+
+    scene = simulate_scene(height=24, width=24, n_bands=16, snr_db=10.0, seed=33)
+    options = {"epochs": 3, "sample_size": 400, "batch_size": 128, "seed": 7}
+    first = background_detector(scene.cube, scene.reporter, **options)
+    second = background_detector(scene.cube, scene.reporter, **options)
+    spatial = smoothed_background_detector(
+        scene.cube, scene.reporter, sigma=1.5, **options
+    )
+    assert first.shape == scene.detection_gt.shape
+    assert np.all(np.isfinite(first))
+    assert np.all((0.0 <= first) & (first <= 1.0))
+    assert np.array_equal(first, second)
+    assert spatial.shape == first.shape
+    assert not np.array_equal(spatial, first)
+
+
 def test_synthetic_target_shape():
     t = synthetic_target(80, center_frac=0.5)
     assert t.shape == (80,)

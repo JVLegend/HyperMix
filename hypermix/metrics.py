@@ -4,7 +4,13 @@ from __future__ import annotations
 
 import numpy as np
 
-__all__ = ["roc_auc", "roc_curve", "pearson_r", "mean_absolute_error"]
+__all__ = [
+    "roc_auc",
+    "roc_curve",
+    "pd_at_far",
+    "pearson_r",
+    "mean_absolute_error",
+]
 
 
 def roc_auc(scores: np.ndarray, labels: np.ndarray) -> float:
@@ -41,6 +47,34 @@ def roc_curve(scores: np.ndarray, labels: np.ndarray):
     tpr = np.concatenate([[0.0], tp / max(tp[-1], 1)])
     fpr = np.concatenate([[0.0], fp / max(fp[-1], 1)])
     return fpr, tpr
+
+
+def pd_at_far(
+    scores: np.ndarray,
+    labels: np.ndarray,
+    far: float,
+) -> float:
+    """Probability of detection at a fixed empirical false-alarm rate.
+
+    The threshold is selected only from negative examples. Scores must exceed
+    the threshold strictly, which makes the achieved empirical FAR conservative
+    when scores are tied. ``far`` must lie in ``[0, 1)``. Both classes must be
+    present because a fixed-FAR operating point is undefined otherwise.
+    """
+    if not 0.0 <= far < 1.0:
+        raise ValueError("far must lie in [0, 1)")
+    values = np.asarray(scores, dtype=np.float64).ravel()
+    truth = np.asarray(labels).ravel().astype(bool)
+    if values.shape != truth.shape:
+        raise ValueError("scores and labels must have the same size")
+    positives = values[truth]
+    negatives = values[~truth]
+    if positives.size == 0 or negatives.size == 0:
+        raise ValueError("pd_at_far requires positive and negative examples")
+    allowed_false_alarms = int(np.floor(far * negatives.size))
+    ordered_negatives = np.sort(negatives)
+    threshold = ordered_negatives[-(allowed_false_alarms + 1)]
+    return float(np.mean(positives > threshold))
 
 
 def _selected_pair(

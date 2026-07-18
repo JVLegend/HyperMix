@@ -1,13 +1,10 @@
 """HyperMix: open detection of engineered biosignatures in remote hyperspectral imagery.
 
-Phase 0 (this release):
+Implemented toolkit components include:
   - physics-based remote-scene simulator with full ground truth
-  - classical detection baselines (matched filter, ACE)
-  - detection metrics (ROC AUC)
-
-Planned:
-  - physics-informed, self-supervised detector + uncertainty (Milestone 2)
-  - open spectral dataset + public benchmark (Milestone 3)
+  - classical detection baselines (matched filter, ACE, RX)
+  - self-supervised spectral background detector
+  - detection metrics and an open benchmark
 """
 
 from .simulate import (
@@ -30,12 +27,14 @@ from .spectra import (
 from .baselines import (
     ace,
     matched_subspace_detector,
+    rx_detector,
     smoothed_matched_filter,
     smoothed_matched_subspace_detector,
     spectral_angle_mapper,
     spectral_matched_filter,
 )
-from .metrics import mean_absolute_error, pearson_r, roc_auc, roc_curve
+from .metrics import mean_absolute_error, pd_at_far, pearson_r, roc_auc, roc_curve
+from .background import background_detector, smoothed_background_detector
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
 __version__ = "0.4.0"
@@ -58,12 +57,16 @@ __all__ = [
     "smoothed_matched_filter",
     "matched_subspace_detector",
     "smoothed_matched_subspace_detector",
+    "rx_detector",
     "ace",
     "spectral_angle_mapper",
     "roc_auc",
     "roc_curve",
+    "pd_at_far",
     "pearson_r",
     "mean_absolute_error",
+    "background_detector",
+    "smoothed_background_detector",
     "load_mat_cube",
     "load_envi_cube",
     "synthetic_target",

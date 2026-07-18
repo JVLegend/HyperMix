@@ -13,6 +13,7 @@ __all__ = [
     "smoothed_matched_filter",
     "matched_subspace_detector",
     "smoothed_matched_subspace_detector",
+    "rx_detector",
     "ace",
     "spectral_angle_mapper",
 ]
@@ -139,6 +140,31 @@ def smoothed_matched_subspace_detector(
     from scipy.ndimage import gaussian_filter
 
     return gaussian_filter(score, sigma=float(sigma), mode="reflect")
+
+
+def rx_detector(cube: np.ndarray) -> np.ndarray:
+    """Global Reed-Xiaoli anomaly score, shape ``(H, W)``.
+
+    RX estimates one Gaussian background model from every unlabeled pixel in
+    the scene and returns the squared Mahalanobis distance
+    ``(x - mu)^T C^-1 (x - mu)``. It is target-agnostic and therefore complements
+    target-aware matched filtering in the background-model experiment.
+    """
+    values = np.asarray(cube)
+    if values.ndim != 3:
+        raise ValueError("cube must have shape (height, width, bands)")
+    h, w, bands = values.shape
+    pixels = values.reshape(-1, bands).astype(np.float64)
+    if pixels.shape[0] < 2:
+        raise ValueError("cube must contain at least two pixels")
+    centered = pixels - pixels.mean(axis=0)
+    covariance = (centered.T @ centered) / pixels.shape[0]
+    ridge = max(1e-12, 1e-6 * float(np.trace(covariance)) / bands)
+    inverse = np.linalg.pinv(
+        covariance + ridge * np.eye(bands), hermitian=True
+    )
+    score = np.einsum("nb,nb->n", centered @ inverse, centered)
+    return score.reshape(h, w)
 
 
 def ace(cube: np.ndarray, target: np.ndarray) -> np.ndarray:
