@@ -5,8 +5,8 @@
     "winner": "spatial MF"
   },
   "bilinear": {
-    "spatial_mf": 0.990233231168728,
-    "learned": 0.9943331641633019,
+    "spatial_mf": 0.9887477984771132,
+    "learned": 0.9916941832992376,
     "winner": "tie"
   }
 }

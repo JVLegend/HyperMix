@@ -1,0 +1,902 @@
+[
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9884167828806832,
+    "auc_std": 0.0068337207822062205
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9961359515104553,
+    "auc_std": 0.0031280766791031145
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.7186793918351564,
+    "auc_std": 0.027593534175800013
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9134252377673434,
+    "auc_std": 0.01757248686683065
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9961359515104553,
+    "auc_std": 0.0031280766791031145
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9660532506172181,
+    "auc_std": 0.009599143002203183
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9937320585488376,
+    "auc_std": 0.003738522940238331
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.7227630480948987,
+    "auc_std": 0.02520183745965917
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9116129581642101,
+    "auc_std": 0.016959082932681856
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9937320585488376,
+    "auc_std": 0.003738522940238331
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9406175206207641,
+    "auc_std": 0.010257578832882999
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.981871225754495,
+    "auc_std": 0.005849059311371652
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.7164635810709046,
+    "auc_std": 0.022115211589065282
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9076225919264964,
+    "auc_std": 0.015625204862557675
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.981871225754495,
+    "auc_std": 0.005849059311371652
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9120062595272372,
+    "auc_std": 0.009325529493474252
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.961784102560207,
+    "auc_std": 0.0083032942315828
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.70391519884751,
+    "auc_std": 0.019871385689644586
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.8962154386513366,
+    "auc_std": 0.012436016727965469
+  },
+  {
+    "scenario": "stylized_control",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.961784102560207,
+    "auc_std": 0.0083032942315828
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9919838864548419,
+    "auc_std": 0.004653892076303245
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9972527285035158,
+    "auc_std": 0.001976260185434307
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.7149100031671448,
+    "auc_std": 0.025501859023199923
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9779258485298922,
+    "auc_std": 0.008864469128341759
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9972527285035158,
+    "auc_std": 0.001976260185434307
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.986126772374536,
+    "auc_std": 0.005015178206429874
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.996336853933905,
+    "auc_std": 0.002183026831772552
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.7185149869966005,
+    "auc_std": 0.027767409936930807
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.975014472656536,
+    "auc_std": 0.008431188080674898
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.996336853933905,
+    "auc_std": 0.002183026831772552
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.974768113398237,
+    "auc_std": 0.005423934412617094
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9942882528188003,
+    "auc_std": 0.0030982987158866427
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.7226041113392188,
+    "auc_std": 0.02737500768117101
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.968502609502629,
+    "auc_std": 0.007269054682806046
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9942882528188003,
+    "auc_std": 0.0030982987158866427
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9515233873198635,
+    "auc_std": 0.005496667418793257
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9902380205857148,
+    "auc_std": 0.004665567409212734
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.7203597891420624,
+    "auc_std": 0.026160653687688162
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9501938787388765,
+    "auc_std": 0.004430675604137046
+  },
+  {
+    "scenario": "measured_linear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9902380205857148,
+    "auc_std": 0.004665567409212734
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9919697473745192,
+    "auc_std": 0.004656033215977997
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9972473638148542,
+    "auc_std": 0.0019791305432996175
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.714925881829203,
+    "auc_std": 0.02548987436983427
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.977650219692032,
+    "auc_std": 0.00895332777439873
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9966089029759377,
+    "auc_std": 0.002665865738625338
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9860332404317308,
+    "auc_std": 0.0050256516018339715
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9963033850685639,
+    "auc_std": 0.0021995412685576338
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.7186047701516439,
+    "auc_std": 0.02776581152687395
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9747438565676975,
+    "auc_std": 0.008518647554094948
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9966770954349116,
+    "auc_std": 0.002032703026171248
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9746140069941365,
+    "auc_std": 0.005437576759716048
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9942076477397471,
+    "auc_std": 0.003141055440822878
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.7226542898203918,
+    "auc_std": 0.02738928948865262
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9682541631415278,
+    "auc_std": 0.007346452772604747
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9946224932545379,
+    "auc_std": 0.0029185907108357245
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9513761048465682,
+    "auc_std": 0.005503174320143228
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9901059731776671,
+    "auc_std": 0.00472025934441543
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.7203214528565691,
+    "auc_std": 0.02615810764882309
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9500130732302065,
+    "auc_std": 0.0044863623750346065
+  },
+  {
+    "scenario": "measured_srf_10nm",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9904139332362751,
+    "auc_std": 0.004550319025487884
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9919802614347063,
+    "auc_std": 0.004295616481557531
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9972446793885794,
+    "auc_std": 0.0019132943644526762
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.7153457045073972,
+    "auc_std": 0.025995562010743885
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9779268350143514,
+    "auc_std": 0.008872736831201815
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.7539123984200008,
+    "auc_std": 0.0288195015676935
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9855859655560207,
+    "auc_std": 0.004772633624777795
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9959513934472444,
+    "auc_std": 0.002347248078240458
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.7192181986168548,
+    "auc_std": 0.028177259971329357
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9750561363663275,
+    "auc_std": 0.008456874808908953
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9347127417333864,
+    "auc_std": 0.0194638974521448
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9743033320217294,
+    "auc_std": 0.005321817782670516
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9937172500665088,
+    "auc_std": 0.0034404926985004253
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.7227320956369343,
+    "auc_std": 0.027652417920797555
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.968615728016165,
+    "auc_std": 0.007322673936856019
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.976784965892929,
+    "auc_std": 0.007943758907315808
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.951577358430524,
+    "auc_std": 0.005471007730467294
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9897228142198801,
+    "auc_std": 0.004960674972599213
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.7202719103919824,
+    "auc_std": 0.02624972632103309
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.95048344912133,
+    "auc_std": 0.004480581345460469
+  },
+  {
+    "scenario": "measured_srf_atmosphere",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9861435585104186,
+    "auc_std": 0.0047777150102781205
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9109998865865074,
+    "auc_std": 0.01110450666390021
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9656891934889362,
+    "auc_std": 0.009665501029312734
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.6963444907157496,
+    "auc_std": 0.021008981362913466
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.9792812957952478,
+    "auc_std": 0.008411182193530358
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 20.0,
+    "seeds": 5,
+    "auc_mean": 0.7280106473100108,
+    "auc_std": 0.03346766047364599
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9654988344730576,
+    "auc_std": 0.008689297218900877
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9892674632329799,
+    "auc_std": 0.005974329450220167
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.7208007920464555,
+    "auc_std": 0.028933449543669807
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9762125861000623,
+    "auc_std": 0.008014943043792064
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 10.0,
+    "seeds": 5,
+    "auc_mean": 0.9350880968785507,
+    "auc_std": 0.0226903522549019
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9647181175511801,
+    "auc_std": 0.008993422856436936
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9900185421439286,
+    "auc_std": 0.006454526738234236
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.7216697256106126,
+    "auc_std": 0.0278814074787079
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9692953469082756,
+    "auc_std": 0.006860441259870093
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 5.0,
+    "seeds": 5,
+    "auc_mean": 0.9764250905500088,
+    "auc_std": 0.010076180717037513
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9456284712621968,
+    "auc_std": 0.008050742456659559
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9877838440566986,
+    "auc_std": 0.007159347571075667
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "ace",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.7177628083398832,
+    "auc_std": 0.02731704609847914
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "at_sensor_oracle",
+    "method": "spectral_angle_mapper",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9500057821089183,
+    "auc_std": 0.004138332424381108
+  },
+  {
+    "scenario": "measured_full_bilinear",
+    "target": "laboratory_untransformed",
+    "method": "matched_filter_spatial",
+    "target_snr_db": 0.0,
+    "seeds": 5,
+    "auc_mean": 0.9862578624139271,
+    "auc_std": 0.005480029227760632
+  }
+]

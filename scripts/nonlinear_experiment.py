@@ -2,8 +2,8 @@
 
     python scripts/nonlinear_experiment.py
 
-The matched filter assumes linear additive mixing. Under bilinear (Fan-style)
-mixing that assumption breaks, so this is the regime where a learned detector,
+The matched filter assumes linear additive mixing. Under a two-endmember
+generalized bilinear model that assumption breaks, so this is the regime where a learned detector,
 trained in-domain, could beat the fair spatial matched-filter baseline. For
 each mixing model we train the detector on that model and compare, on the real
 scenes, the learned detector to the spatial matched filter. Honest either way:
@@ -83,6 +83,9 @@ def main() -> None:
         "",
         "AUC de detecção média em 3 cenas reais, target SNR de 5 e 0 dB, 3 seeds.",
         "O detector é treinado no mesmo modelo de mistura em que é avaliado.",
+        "A mistura bilinear usa gamma = 0,5. Os arquivos MAT não contêm centros de",
+        "banda, então este teste mantém o alvo aproximado por índice espectral e não",
+        "é o benchmark calibrado em comprimento de onda de `realism.md`.",
         "",
         "| Mistura | MF espacial | Detector aprendido | Vencedor |",
         "|---------|:-----------:|:------------------:|----------|",
