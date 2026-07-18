@@ -2,6 +2,24 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## Observatório web publicado - 2026-07-18
+
+O benchmark agora possui uma interface web interativa em
+https://hypermix-observatory.vercel.app, publicada na Vercel. O painel reúne a
+fotografia auditada do leaderboard, target SNR, mismatch espectral, realismo
+físico, variabilidade T1, unmixing e limitações.
+
+O site preserva a conclusão atual: neste protocolo, o matched filter espacial
+lidera ou empata com o detector aprendido. Ele não executa inferência no
+navegador e não se apresenta como leaderboard sincronizado automaticamente.
+Os valores curados devem ser atualizados em `webapp/app/page.tsx` quando os
+artefatos científicos em `results/` mudarem.
+
+Implementação em `webapp/`, com preview local via vinext e build Next.js nativo
+para a Vercel. Verificação da interface: build vinext, testes de renderização,
+build Vercel e lint. Instruções de desenvolvimento e deploy em
+`webapp/README.md`.
+
 ## Agora: T1 concluído, variabilidade do alvo medido - 2026-07-18
 
 Novo baseline clássico `matched_subspace_detector`, com projeção no subespaço

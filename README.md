@@ -11,6 +11,7 @@
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
 [![Tests](https://img.shields.io/badge/tests-25%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
+[![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
 *Pulling a faint engineered reporter out of noisy remote hyperspectral cubes, with an MC-dropout uncertainty estimate.*
@@ -36,6 +37,7 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 
 - [✨ Highlights](#-highlights)
 - [🚀 Quickstart](#-quickstart)
+- [🌐 Web Observatory](#-web-observatory)
 - [🧪 The learned detector](#-milestone-2-detector-aprendido-com-contexto-espacial)
 - [📊 Benchmarks](#-benchmarks)
 - [🗺️ Roadmap](#️-roadmap)
@@ -83,6 +85,22 @@ python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
 pytest -q                           # 25 tests
 ```
+
+## 🌐 Web Observatory
+
+Explore a fotografia auditada dos resultados em
+[hypermix-observatory.vercel.app](https://hypermix-observatory.vercel.app).
+O painel permite variar target SNR, mismatch espectral e tracks de
+variabilidade, além de comparar alvo oráculo e alvo laboratorial sob os
+controles físicos da Fase B.
+
+O observatório é uma visualização interativa dos artefatos em `results/`. Ele
+não treina o modelo nem executa inferência no navegador, e os números não são
+sincronizados automaticamente. A conclusão honesta permanece visível no
+produto: o detector aprendido não supera de forma robusta um matched filter
+espacial bem calibrado neste benchmark.
+
+Para executar ou publicar o app, consulte [webapp/README.md](webapp/README.md).
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
 
