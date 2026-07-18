@@ -2,9 +2,9 @@
 
     python scripts/export_dataset.py
 
-Writes a small, citable open dataset: the background endmembers and the two
-paper-grounded reporter signatures on a canonical 400-1000 nm grid, plus a
-data card. This is the seed of the open spectral dataset (Milestone 3).
+Writes a small, citable open dataset: measured USGS background endmembers,
+measured bioHSI reporter absorbance, and documented reflectance-like reporter
+surrogates on a canonical 400-1000 nm grid, plus a data card.
 """
 
 from __future__ import annotations
@@ -13,8 +13,11 @@ import os
 
 import numpy as np
 
-from hypermix import endmember_library, reporter_library
-from hypermix.simulate import _wavelengths
+from hypermix import (
+    measured_endmember_library,
+    measured_reporter_absorbance_library,
+    measured_reporter_library,
+)
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(HERE, "dataset")
@@ -23,13 +26,24 @@ N_BANDS = 61  # 400-1000 nm at 10 nm steps
 
 def main() -> None:
     os.makedirs(OUT, exist_ok=True)
-    wl = _wavelengths(N_BANDS)
-    _, endmembers = endmember_library(N_BANDS)
-    reporters = reporter_library(N_BANDS)
+    wl, endmembers = measured_endmember_library(N_BANDS)
+    _, all_reporters = measured_reporter_library(wavelengths=wl)
+    reporters = {
+        "bacteriochlorophyll_a_reflectance_surrogate": (
+            all_reporters["bacteriochlorophyll_a"]
+        ),
+        "biliverdin_ixalpha_reflectance_surrogate": (
+            all_reporters["biliverdin_ixalpha"]
+        ),
+    }
+    _, absorbance = measured_reporter_absorbance_library(
+        wavelengths=wl, baseline_correct=False
+    )
 
     columns = {"wavelength_nm": wl}
     columns.update(endmembers)
     columns.update(reporters)
+    columns.update(absorbance)
     names = list(columns)
 
     # CSV

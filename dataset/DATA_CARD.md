@@ -1,41 +1,60 @@
-# HyperMix open spectral library
+# Biblioteca espectral aberta do HyperMix
 
-A small, open spectral library for hyperspectral biosignature detection:
-natural background endmembers and the two engineered reporters from the
-founding paper, on a canonical wavelength grid.
+Biblioteca compacta para detecção hiperespectral de biossinais: endmembers
+naturais medidos pelo USGS e absorbâncias de repórteres publicadas com o código
+bioHSI de Chemla et al., em uma grade canônica.
 
-## Files
-- `hypermix_spectral_library.csv` — one row per wavelength; columns are the
-  spectra.
-- `hypermix_spectral_library.npz` — same data as NumPy arrays keyed by name.
+## Arquivos
 
-## Grid
-- 61 bands, 400-1000 nm, 10 nm steps (`wavelength_nm` column).
+- `hypermix_spectral_library.csv`: uma linha por comprimento de onda;
+- `hypermix_spectral_library.npz`: os mesmos dados como arrays NumPy.
 
-## Spectra (reflectance, 0-1)
-| Name | Type | Provenance |
+## Grade
+
+- 61 bandas, 400-1000 nm, passo de 10 nm, coluna `wavelength_nm`;
+- a fonte empacotada em `hypermix/data/reference_spectra.csv` preserva passo de
+  1 nm.
+
+## Espectros
+
+| Nome | Unidade/tipo | Proveniência |
 |---|---|---|
-| `vegetation` | background endmember | stylized (green bump + red edge + NIR plateau) |
-| `soil` | background endmember | stylized (smooth rise) |
-| `dry_vegetation` | background endmember | stylized |
-| `water` | background endmember | stylized (NIR absorption) |
-| `bacteriochlorophyll_a` | engineered reporter | modeled from published absorption maxima (Qx ~600 nm, Qy ~770 nm) |
-| `biliverdin_ixalpha` | engineered reporter | modeled from published absorption maxima (~670 nm band) |
+| `vegetation` | reflectância | USGS Aspen-1 green-top |
+| `dry_vegetation` | reflectância | USGS Grass Golden Dry GDS480 |
+| `soil` | reflectância | USGS Sand DWO-3-DEL2ar1 |
+| `water` | reflectância | USGS Seawater Open Ocean SW2 |
+| `bacteriochlorophyll_a_reflectance_surrogate` | alvo modelado | absorbância YF10 convertida por Beer-Lambert |
+| `biliverdin_ixalpha_reflectance_surrogate` | alvo modelado | média das absorbâncias SmURFP/biliverdina em dois hospedeiros |
+| `bacteriochlorophyll_a_yf10` | absorbância | pellet YF10, bioHSI |
+| `smurfp_biliverdin_ecoli` | absorbância | pellet de *E. coli*, bioHSI |
+| `smurfp_biliverdin_pputida` | absorbância | pellet de *P. putida*, bioHSI |
 
-## Important honesty notes
-- The **background endmembers are stylized**, not measured, standing in for
-  soil/vegetation/water until measured libraries (USGS, ECOSTRESS) are wired in.
-- The **reporter signatures are modeled** from the reported absorption maxima of
-  the two molecules Chemla et al. (*Nature Biotechnology*, 2026) selected,
-  biliverdin IXα and bacteriochlorophyll a. They are approximate placeholders
-  for the measured spectra; drop measured spectra in when available.
+## Notas essenciais de validade
 
-## Reproduce
+- Os endmembers são amostras medidas, mas quatro amostras não representam toda
+  a variabilidade de vegetação, solo e água.
+- As curvas bioHSI são absorbâncias inferidas de pellets, não reflectância
+  absoluta de uma superfície observada remotamente.
+- Os alvos semelhantes a reflectância removem o quinto percentil da absorbância
+  e aplicam `0,45 * 10**(-A)`. O formato e a magnitude de absorbância são
+  medidos; a conversão é uma hipótese explícita do HyperMix.
+- O pico medido de YF10 fica em aproximadamente 866 nm. Os picos de
+  SmURFP/biliverdina ficam em 641-642 nm, nos dados empacotados a 1 nm.
+
+## Fontes e reconstrução
+
+- USGS Spectral Library Version 7, domínio público, ScienceBase
+  `586e8c88e4b0f5ce109fccae`;
+- `VoigtLab/bioHSI-v.1.0.0`, licença MIT, Zenodo `14827801`;
+- detalhes, membros dos arquivos e checksums em
+  `hypermix/data/REFERENCE_SPECTRA.md`.
+
 ```bash
+python scripts/fetch_reference_spectra.py
 python scripts/export_dataset.py
 ```
 
-## License
-Released under MIT together with the HyperMix repository. Attribution
-appreciated: HyperMix (github.com/JVLegend/HyperMix). Reporter molecule choices
-follow Chemla et al., *Nature Biotechnology*, 2026.
+## Licença
+
+O código e as transformações do HyperMix usam MIT. Os dados do USGS são domínio
+público; os dados bioHSI são redistribuídos sob MIT com atribuição aos autores.
