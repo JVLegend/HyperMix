@@ -13,6 +13,12 @@ A interface agora usa inglês como idioma inicial e inclui um seletor 🇺🇸/�
 topo. A troca atualiza todo o conteúdo e o idioma acessível do documento sem
 alterar a rota ou a âncora ativa.
 
+Redesign editorial publicado com navegação flutuante, hierarquia mais clara e
+cards responsivos. O novo Map Studio aceita PNG, JPEG e WebP de até 12 MB,
+processa o arquivo localmente e permite variar o limiar de visualização. O
+brilho do pixel é tratado como score. Isso não é inferência sobre RGB e não
+substitui o pipeline hiperespectral.
+
 O site preserva a conclusão atual: neste protocolo, o matched filter espacial
 lidera ou empata com o detector aprendido. Ele não executa inferência no
 navegador e não se apresenta como leaderboard sincronizado automaticamente.

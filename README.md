@@ -98,6 +98,11 @@ A interface abre em inglês e oferece as bandeiras dos Estados Unidos e do
 Brasil no topo para alternar todo o conteúdo entre inglês e português sem sair
 da página.
 
+O Map Studio permite enviar localmente um PNG, JPEG ou WebP de um mapa de scores
+e explorar a máscara em diferentes limiares. O brilho é interpretado como score
+apenas para visualização; imagens RGB não executam inferência HyperMix e nunca
+são enviadas ao servidor.
+
 O observatório é uma visualização interativa dos artefatos em `results/`. Ele
 não treina o modelo nem executa inferência no navegador, e os números não são
 sincronizados automaticamente. A conclusão honesta permanece visível no

@@ -18,10 +18,23 @@ detector aprendido.
 - target MAE do unmixing em três cenas;
 - limitações que devem acompanhar qualquer interpretação dos resultados.
 - interface completa em inglês por padrão, com alternância 🇺🇸/🇧🇷 no topo.
+- Map Studio local para enviar um mapa de scores e visualizar uma máscara por
+  limiar.
 
 O idioma inicial é inglês. Os botões `EN` e `PT` atualizam todo o conteúdo da
 página e também o atributo de idioma do documento, sem trocar a URL nem perder a
 âncora que está sendo visualizada.
+
+## Map Studio
+
+O Map Studio aceita PNG, JPEG e WebP de até 12 MB. O arquivo é processado
+somente no navegador e não é enviado à Vercel. O brilho de cada pixel é tratado
+como score, e o controle de limiar destaca os pixels candidatos.
+
+Esse recurso é um visualizador de mapas já produzidos, não um endpoint de
+inferência. Uma imagem RGB não contém o cubo hiperespectral nem a assinatura de
+alvo necessários para executar o HyperMix. A interface informa essa limitação
+junto ao resultado para evitar uma interpretação científica incorreta.
 
 Os números exibidos são uma fotografia curada dos artefatos auditados em
 `results/`. O site não executa treinamento nem inferência no navegador e não é
@@ -79,6 +92,6 @@ A pasta `.vercel/` é local e ignorada pelo Git. Nenhum token deve ser commitado
 - `app/page.tsx`: conteúdo, dados curados e interações;
 - `app/globals.css`: sistema visual e responsividade;
 - `app/layout.tsx`: metadados, fontes e social card;
-- `public/og.png`: imagem de compartilhamento;
+- `public/og-v2.png`: imagem de compartilhamento do redesign editorial;
 - `tests/rendered-html.test.mjs`: testes do HTML renderizado e do escopo do app;
 - `vercel.json`: configuração do deploy de produção.
