@@ -7,6 +7,7 @@ from hypermix import (
     reporter_signature,
     roc_auc,
     simulate_scene,
+    smoothed_matched_filter,
     spectral_matched_filter,
     synthetic_target,
 )
@@ -34,6 +35,17 @@ def test_matched_filter_separates_at_high_snr():
     score = spectral_matched_filter(scene.cube, scene.reporter)
     auc = roc_auc(score, scene.detection_gt)
     assert auc > 0.85, f"expected strong detection at high SNR, got AUC={auc:.3f}"
+
+
+def test_smoothed_matched_filter_adds_spatial_context():
+    scene = simulate_scene(height=48, width=48, n_bands=40, snr_db=20.0, seed=4)
+    mf = spectral_matched_filter(scene.cube, scene.reporter)
+    spatial = smoothed_matched_filter(scene.cube, scene.reporter, sigma=1.5)
+    assert spatial.shape == mf.shape
+    assert not np.array_equal(spatial, mf)
+    assert np.array_equal(
+        smoothed_matched_filter(scene.cube, scene.reporter, sigma=0), mf
+    )
 
 
 def test_implant_target_on_synthetic_background():

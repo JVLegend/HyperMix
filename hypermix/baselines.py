@@ -8,7 +8,12 @@ from __future__ import annotations
 
 import numpy as np
 
-__all__ = ["spectral_matched_filter", "ace", "spectral_angle_mapper"]
+__all__ = [
+    "spectral_matched_filter",
+    "smoothed_matched_filter",
+    "ace",
+    "spectral_angle_mapper",
+]
 
 
 def _prepare(cube: np.ndarray, target: np.ndarray):
@@ -32,6 +37,28 @@ def spectral_matched_filter(cube: np.ndarray, target: np.ndarray) -> np.ndarray:
     num = xc @ (cinv @ t)
     den = float(t @ (cinv @ t)) + 1e-12
     return (num / den).reshape(h, w)
+
+
+def smoothed_matched_filter(
+    cube: np.ndarray,
+    target: np.ndarray,
+    sigma: float = 1.5,
+) -> np.ndarray:
+    """Matched-filter score followed by spatial Gaussian smoothing.
+
+    This baseline receives the same kind of spatial prior available to the
+    learned detector. ``sigma`` is measured in pixels and must be non-negative;
+    zero recovers the ordinary per-pixel matched filter.
+    """
+    if sigma < 0:
+        raise ValueError("sigma must be non-negative")
+    score = spectral_matched_filter(cube, target)
+    if sigma == 0:
+        return score
+
+    from scipy.ndimage import gaussian_filter
+
+    return gaussian_filter(score, sigma=float(sigma), mode="reflect")
 
 
 def ace(cube: np.ndarray, target: np.ndarray) -> np.ndarray:

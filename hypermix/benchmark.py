@@ -16,13 +16,17 @@ import os
 
 import numpy as np
 
-from .baselines import ace, spectral_matched_filter
+from .baselines import ace, smoothed_matched_filter, spectral_matched_filter
 from .datasets import implant_target, load_mat_cube
 from .metrics import roc_auc
 from .simulate import false_color, simulate_scene
 
 SNRS = (30.0, 20.0, 10.0, 5.0, 0.0)
-DETECTORS = {"matched_filter": spectral_matched_filter, "ace": ace}
+DETECTORS = {
+    "matched_filter": spectral_matched_filter,
+    "matched_filter_spatial": smoothed_matched_filter,
+    "ace": ace,
+}
 
 
 def run_synthetic(seeds=(0, 1, 2), snrs=SNRS) -> list[dict]:
@@ -55,10 +59,10 @@ def run_real(cube_path: str, seeds=(0, 1, 2), snrs=SNRS) -> list[dict]:
 
 
 def _print_table(rows: list[dict]) -> None:
-    print(f"{'dataset':<24} {'detector':<16} {'SNR':>5} {'AUC':>7} {'±std':>6}")
-    print("-" * 62)
+    print(f"{'dataset':<24} {'detector':<24} {'SNR':>5} {'AUC':>7} {'±std':>6}")
+    print("-" * 70)
     for r in rows:
-        print(f"{r['dataset']:<24} {r['detector']:<16} {r['snr_db']:>5.0f} "
+        print(f"{r['dataset']:<24} {r['detector']:<24} {r['snr_db']:>5.0f} "
               f"{r['auc_mean']:>7.3f} {r['auc_std']:>6.3f}")
 
 

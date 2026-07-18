@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-8%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-11%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -47,7 +47,7 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 - 🌍 **Physics-based scene simulator** with exact ground truth (NumPy only, deterministic).
 - 🛰️ **Real-data benchmark** on a real AVIRIS cube (Indian Pines) via implanted targets.
 - 🧬 **Targets grounded on the paper**: biliverdin IXα and bacteriochlorophyll a.
-- 🧠 **Learned detector** that beats the classical matched filter at low SNR and generalizes sim → real (3 real scenes, cross-sensor).
+- 🧠 **Detector aprendido**, avaliado contra baselines por pixel e com suavização espacial em 3 fundos reais.
 - 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
 - 🎯 **Calibrated uncertainty** via MC-dropout (know where to trust the map).
 - 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
@@ -78,16 +78,18 @@ python examples/run_demo.py         # simulator + baseline, AUC vs SNR
 python scripts/fetch_data.py        # download the real AVIRIS cube
 python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
-pytest -q                           # 8 tests
+pytest -q                           # 11 tests
 ```
 
-## 🧠 Milestone 2: a learned detector that beats the baselines
+## 🧠 Milestone 2: detector aprendido com contexto espacial
 
 `hypermix.detector` feeds each pixel the scene's **own** adaptive detector
 outputs (matched filter, ACE) plus spatial context, z-scored per scene, and a
-small PyTorch network learns a nonlinear combination. Because every feature is
-scene-relative, a model **trained only on physics-simulated backgrounds
-generalizes to real ones**. It ships **MC-dropout uncertainty**.
+small PyTorch network learns a nonlinear combination. O treinamento usa apenas
+fundos simulados; os testes usam fundos reais com o mesmo alvo sintético, modelo
+de mistura linear e gerador de blobs do treino. Portanto, este experimento mede
+robustez à troca de fundo, não generalização completa para alvos reais. It ships
+**MC-dropout uncertainty**.
 
 <div align="center">
 <img src="assets/detector_real.png" alt="Learned detector on real background" width="920">
@@ -98,15 +100,19 @@ generalizes to real ones**. It ships **MC-dropout uncertainty**.
 
 Detection AUC on the **real** Indian Pines background (implanted target, 3 seeds):
 
-| SNR (dB) | Matched filter | ACE | 🧠 **Learned** |
-|---------:|:--------------:|:---:|:--------------:|
-| 20 | 0.919 | 0.789 | **0.997** |
-| 10 | 0.769 | 0.639 | **0.970** |
-| 5  | 0.688 | 0.570 | **0.910** |
-| 0  | 0.627 | 0.530 | **0.828** |
+| SNR (dB) | Matched filter | Matched filter (spatial) | ACE | 🧠 **Learned** |
+|---------:|:--------------:|:------------------------:|:---:|:--------------:|
+| 20 | 0.919 | 0.995 | 0.789 | **0.997** |
+| 10 | 0.769 | 0.947 | 0.639 | **0.970** |
+| 5  | 0.688 | 0.881 | 0.570 | **0.910** |
+| 0  | 0.627 | 0.797 | 0.530 | **0.828** |
 
-The gain is largest exactly where long-range biosensing is hardest: at low SNR,
-where the classical matched filter approaches chance.
+O baseline espacial aplica ao matched filter um blur gaussiano fixo com
+`sigma=1,5` pixel. Na média das três cenas e quatro níveis de SNR, o delta do
+detector cai de 0,165 AUC sobre o matched filter por pixel para 0,020 sobre o
+matched filter espacial. Em 0 dB, o delta cai de 0,149 para 0,023. Assim, a maior
+parte da vantagem observada no protocolo antigo vem do prior espacial dos alvos
+em blob, não de uma vantagem espectral demonstrada.
 
 ## 🏆 Leaderboard
 
@@ -118,9 +124,10 @@ detector is trained **only on simulation**. Reproduce: `python scripts/make_lead
 | Rank | Method | Mean AUC | AUC @ 0 dB |
 |-----:|--------|:--------:|:----------:|
 | 1 | 🧠 Learned detector (HyperMix) | **0.854** | **0.742** |
-| 2 | Matched filter | 0.689 | 0.593 |
-| 3 | Spectral Angle Mapper | 0.595 | 0.542 |
-| 4 | ACE | 0.595 | 0.519 |
+| 2 | Matched filter (spatial) | 0.834 | 0.719 |
+| 3 | Matched filter | 0.689 | 0.593 |
+| 4 | Spectral Angle Mapper | 0.595 | 0.542 |
+| 5 | ACE | 0.595 | 0.519 |
 
 Per-scene AUC @ 0 dB (hardest case). Note it wins even on Pavia (a ROSIS sensor,
 unlike the AVIRIS scenes), evidence of cross-sensor generalization:
@@ -128,6 +135,7 @@ unlike the AVIRIS scenes), evidence of cross-sensor generalization:
 | Method | Indian Pines | Salinas | Pavia U. |
 |--------|:---:|:---:|:---:|
 | 🧠 Learned detector | **0.828** | **0.759** | **0.640** |
+| Matched filter (spatial) | 0.797 | 0.736 | 0.625 |
 | Matched filter | 0.627 | 0.588 | 0.562 |
 
 ## 🧪 Unmixing: how much, not just whether

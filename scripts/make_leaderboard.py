@@ -20,6 +20,7 @@ from hypermix import (
     load_mat_cube,
     reporter_library,
     roc_auc,
+    smoothed_matched_filter,
     spectral_angle_mapper,
 )
 
@@ -28,20 +29,21 @@ SNRS = (20.0, 10.0, 5.0, 0.0)
 SEEDS = (0, 1, 2)
 PRETTY = {
     "matched_filter": "Matched filter",
+    "matched_filter_spatial": "Matched filter (spatial)",
     "ace": "ACE",
     "spectral_angle_mapper": "Spectral Angle Mapper",
     "learned": "Learned detector (HyperMix)",
 }
 
 
-def _sam_rows(cube, target):
+def _fresh_rows(cube, target, detector):
     out = {}
     for snr in SNRS:
         aucs = []
         for s in SEEDS:
             rng = np.random.default_rng(9000 + s)
             scene, gt, _, tgt = implant_target(cube, rng, target=target, snr_db=snr)
-            aucs.append(roc_auc(spectral_angle_mapper(scene, tgt), gt))
+            aucs.append(roc_auc(detector(scene, tgt), gt))
         out[snr] = float(np.mean(aucs))
     return out
 
@@ -62,7 +64,12 @@ def main() -> None:
             per[r["detector"]].setdefault(name, {})[r["snr_db"]] = r["auc_mean"]
         cube = load_mat_cube(os.path.join(HERE, "data", f"{name}.mat"))
         target = reporter_library(cube.shape[2])["bacteriochlorophyll_a"]
-        per["spectral_angle_mapper"][name] = _sam_rows(cube, target)
+        per["spectral_angle_mapper"][name] = _fresh_rows(
+            cube, target, spectral_angle_mapper
+        )
+        per["matched_filter_spatial"][name] = _fresh_rows(
+            cube, target, smoothed_matched_filter
+        )
 
     scene_names = list(scenes)
 
@@ -80,7 +87,8 @@ def main() -> None:
         "",
         f"Detection AUC across **{len(scene_names)} real hyperspectral scenes** "
         f"({', '.join(scene_names)}) with an implanted bacteriochlorophyll-a target,",
-        "averaged over 3 seeds. Different sensors and band counts. `Mean AUC` averages",
+        "averaged over 3 seeds. Different sensors and band counts. The spatial matched",
+        "filter applies a fixed Gaussian blur with sigma = 1.5 pixels. `Mean AUC` averages",
         "over all scenes and SNR = 20, 10, 5, 0 dB. The learned detector is trained",
         "**only on simulation**. Reproduce: `python scripts/make_leaderboard.py`.",
         "",
