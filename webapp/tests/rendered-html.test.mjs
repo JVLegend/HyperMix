@@ -90,6 +90,10 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(styles, /Editorial dossier refresh/);
   assert.match(styles, /\.latest-audit/);
   assert.match(styles, /\.band-column\.elbow/);
+  assert.match(styles, /safe-area-inset-bottom/);
+  assert.match(styles, /@media \(max-width: 370px\)/);
+  assert.match(styles, /@media \(hover: none\) and \(pointer: coarse\)/);
+  assert.match(styles, /\.unmix-table \{ overflow-x: auto/);
   assert.match(styles, /html\.motion-ready \[data-reveal\]/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(page, /function ScoreMapStudio/);
@@ -97,6 +101,7 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /getImageData/);
   assert.match(page, /This does not run HyperMix inference/);
   assert.match(layout, /lang="en"/);
+  assert.match(layout, /viewportFit: "cover"/);
   assert.match(layout, /og-v2\.png/);
   assert.match(layout, /title: "HyperMix Observatory"/);
   assert.doesNotMatch(page, /_sites-preview|SkeletonPreview/);
