@@ -31,9 +31,11 @@ test("server-renders the HyperMix Observatory", async () => {
   const html = await response.text();
   assert.match(html, /<title>HyperMix Observatory<\/title>/i);
   assert.match(html, /Detection without/);
-  assert.match(html, /LEADERBOARD AUDITADO/);
+  assert.match(html, /AUDITED LEADERBOARD/);
   assert.match(html, /READ BEFORE CLAIMING/);
-  assert.match(html, /O ganho original confundia informação espectral/);
+  assert.match(html, /The original gain mixed spectral information/);
+  assert.match(html, /aria-label="English"/);
+  assert.match(html, /aria-label="Português"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Codex is working/i);
 });
 
@@ -45,11 +47,14 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   ]);
 
   assert.match(page, /useState/);
+  assert.match(page, /useState<Language>\("en"\)/);
+  assert.match(page, /setLanguage\("pt"\)/);
+  assert.match(page, /🇺🇸/);
+  assert.match(page, /🇧🇷/);
   assert.match(page, /aria-label="Target SNR"/);
-  assert.match(page, /aria-label="Deslocamento espectral"/);
   assert.match(page, /role="tablist"/);
   assert.match(page, /TARGET VARIABILITY/);
-  assert.match(layout, /lang="pt-BR"/);
+  assert.match(layout, /lang="en"/);
   assert.match(layout, /title: "HyperMix Observatory"/);
   assert.doesNotMatch(page, /_sites-preview|SkeletonPreview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

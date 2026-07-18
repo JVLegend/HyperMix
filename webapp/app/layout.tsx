@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hypermix-observatory.vercel.app"),
   title: "HyperMix Observatory",
   description:
-    "Explore o benchmark aberto e honesto de detecção de biossinais hiperespectrais.",
+    "Explore an open and honest benchmark for hyperspectral biosignal detection.",
   openGraph: {
     title: "HyperMix Observatory",
     description: "Honest hyperspectral biology benchmark",
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
