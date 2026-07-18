@@ -33,6 +33,9 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /Detection without/);
   assert.match(html, /THE CASE FILE/);
   assert.match(html, /Five ways to test it/);
+  assert.match(html, /class="scroll-progress"/);
+  assert.match(html, /aria-label="Story progress"/);
+  assert.match(html, /data-reveal="scale"/);
   assert.match(html, /AUDITED LEADERBOARD/);
   assert.match(html, /No causal advantage/);
   assert.match(html, /Both 95% confidence intervals are below zero/);
@@ -47,8 +50,9 @@ test("server-renders the HyperMix Observatory", async () => {
 });
 
 test("keeps the dashboard interactive and free of starter assets", async () => {
-  const [page, layout, packageJson] = await Promise.all([
+  const [page, styles, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -66,6 +70,12 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /CHAPTER 04 · BACKGROUND/);
   assert.match(page, /function StoryBridge/);
   assert.match(page, />29</);
+  assert.match(page, /IntersectionObserver/);
+  assert.match(page, /requestAnimationFrame/);
+  assert.match(page, /prefers-reduced-motion: reduce/);
+  assert.match(styles, /\.chapter-rail/);
+  assert.match(styles, /html\.motion-ready \[data-reveal\]/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(page, /function ScoreMapStudio/);
   assert.match(page, /image\/png,image\/jpeg,image\/webp/);
   assert.match(page, /getImageData/);

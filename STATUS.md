@@ -60,6 +60,12 @@ cinco capítulos: baixo sinal, realismo físico, variabilidade, aprendizado do
 fundo e unmixing. Cada capítulo encerra com a pergunta que abre o próximo. O Map
 Studio foi movido para depois das evidências, antes dos limites finais.
 
+A experiência por scroll adiciona barra de progresso, trilho do capítulo ativo,
+parallax leve no hero e reveals de elementos-chave. O scroll natural não é
+interceptado. Parallax e trilho são removidos em telas compactas, e
+`prefers-reduced-motion` desativa as transformações decorativas sem ocultar
+conteúdo.
+
 Os valores curados também incluem T7a. MF espacial obteve AUC 0,987 [0,968,
 0,997] e Pd@FAR 0,650 [0,227, 0,872]; o autoencoder espacial obteve 0,976
 [0,945, 0,994] e 0,324 [0,087, 0,544]. A interface registra que os intervalos

@@ -44,6 +44,23 @@ O experimento T7a permanece sem inflação. MF espacial obteve AUC 0,987
 pareadas ficaram abaixo de zero nas duas métricas. A página registra que essa
 instanciação simples falhou, sem extrapolar para todo estimador de fundo.
 
+## Experiência por scroll
+
+O scroll permanece nativo e controla apenas efeitos de apoio à leitura:
+
+- barra fina de progresso global;
+- trilho lateral com o capítulo científico ativo;
+- parallax leve no hero, limitado ao primeiro viewport;
+- reveals de entrada para títulos, painéis e conclusões;
+- contexto sticky no dossiê inicial;
+- stagger curto em sequências de cards e limitações.
+
+Não há scroll hijacking, smooth-scroll artificial ou snapping. Em telas
+compactas, o trilho lateral e o parallax são removidos. Com
+`prefers-reduced-motion: reduce`, o conteúdo permanece imediatamente visível e
+as transformações decorativas são desativadas. Sem `IntersectionObserver`, a
+página também faz fallback para conteúdo estático.
+
 ## Map Studio
 
 O Map Studio aceita PNG, JPEG e WebP de até 12 MB. O arquivo é processado

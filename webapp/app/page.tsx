@@ -57,6 +57,7 @@ const COPY = {
     documentLanguage: "en",
     languageLabel: "Switch language",
     navLabel: "Primary navigation",
+    progressLabel: "Story progress",
     nav: ["Story", "Benchmark", "Physics", "Background", "Limits"],
     brandLabel: "HyperMix, home",
     hero: {
@@ -204,6 +205,7 @@ const COPY = {
     documentLanguage: "pt-BR",
     languageLabel: "Mudar idioma",
     navLabel: "Navegação principal",
+    progressLabel: "Progresso da história",
     nav: ["História", "Benchmark", "Física", "Fundo", "Limites"],
     brandLabel: "HyperMix, início",
     hero: {
@@ -355,7 +357,7 @@ function EvidenceBar({ label, value, tone = "teal" }: { label: string; value: nu
 }
 
 function StoryBridge({ content, nextId }: { content: readonly [string, string, string]; nextId: string }) {
-  return <a className="story-bridge" href={`#${nextId}`}>
+  return <a className="story-bridge" href={`#${nextId}`} data-reveal="up">
     <span>{content[0]}</span>
     <strong>{content[1]}</strong>
     <p>{content[2]}</p>
@@ -421,7 +423,7 @@ function ScoreMapStudio({ copy }: { copy: typeof COPY.en.studio | typeof COPY.pt
     if (previewUrl) URL.revokeObjectURL(previewUrl);
   }, [previewUrl]);
 
-  return <div className="studio-shell">
+  return <div className="studio-shell" data-reveal="scale">
     <div className="studio-upload" onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); acceptFile(event.dataTransfer.files[0]); }}>
       <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => acceptFile(event.target.files?.[0])} />
       <div className="upload-orbit" aria-hidden="true"><span>+</span></div>
@@ -447,6 +449,7 @@ export default function Home() {
   const [snrIndex, setSnrIndex] = useState(3);
   const [mismatchIndex, setMismatchIndex] = useState(0);
   const [trackId, setTrackId] = useState<keyof typeof TRACK_VALUES>("family");
+  const [activeChapter, setActiveChapter] = useState(0);
   const copy = COPY[language];
   const snr = SNR_LEVELS[snrIndex];
   const mismatch = MISMATCH[mismatchIndex];
@@ -457,7 +460,77 @@ export default function Home() {
     document.documentElement.lang = copy.documentLanguage;
   }, [copy.documentLanguage]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compactViewport = window.matchMedia("(max-width: 700px)").matches;
+    const supportsObservers = "IntersectionObserver" in window;
+    let frame = 0;
+
+    if (!reducedMotion && supportsObservers) root.classList.add("motion-ready");
+
+    const updateScrollEffects = () => {
+      frame = 0;
+      const scrollable = Math.max(1, root.scrollHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, window.scrollY / scrollable));
+      root.style.setProperty("--page-progress", progress.toFixed(4));
+
+      if (!reducedMotion && !compactViewport) {
+        const heroTravel = Math.min(window.scrollY, window.innerHeight * 1.1);
+        root.style.setProperty("--hero-copy-y", `${heroTravel * 0.075}px`);
+        root.style.setProperty("--hero-card-y", `${heroTravel * -0.035}px`);
+        root.style.setProperty("--hero-orbit-y", `${heroTravel * -0.09}px`);
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateScrollEffects);
+    };
+    updateScrollEffects();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const revealObserver = reducedMotion || !supportsObservers ? null : new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver?.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.12, rootMargin: "0px 0px -8%" },
+    );
+    revealObserver?.observe(document.querySelector("#story .story-intro") as Element);
+    document.querySelectorAll("[data-reveal]").forEach((element) => revealObserver?.observe(element));
+
+    const chapterObserver = supportsObservers ? new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const chapter = CHAPTER_IDS.indexOf(entry.target.id as typeof CHAPTER_IDS[number]);
+          if (chapter >= 0) setActiveChapter(chapter);
+        }
+      }),
+      { threshold: 0, rootMargin: "-28% 0px -58%" },
+    ) : null;
+    CHAPTER_IDS.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) chapterObserver?.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+      revealObserver?.disconnect();
+      chapterObserver?.disconnect();
+      root.classList.remove("motion-ready");
+      root.style.removeProperty("--page-progress");
+      root.style.removeProperty("--hero-copy-y");
+      root.style.removeProperty("--hero-card-y");
+      root.style.removeProperty("--hero-orbit-y");
+    };
+  }, []);
+
   return <main>
+    <div className="scroll-progress" aria-hidden="true"><span /></div>
+    <nav className="chapter-rail" aria-label={copy.progressLabel}>{copy.story.chapters.map((chapter, index) => <a key={chapter[0]} href={`#${CHAPTER_IDS[index]}`} aria-current={activeChapter === index ? "step" : undefined}><span>{chapter[1]}</span><i /><small>{chapter[0]}</small></a>)}</nav>
     <header className="topbar">
       <a className="brand" href="#top" aria-label={copy.brandLabel}><span className="brand-mark">H</span><span><strong>HYPERMIX</strong><small>OBSERVATORY</small></span></a>
       <nav aria-label={copy.navLabel}><a href="#story">{copy.nav[0]}</a><a href="#benchmark">{copy.nav[1]}</a><a href="#physics">{copy.nav[2]}</a><a href="#background">{copy.nav[3]}</a><a href="#limits">{copy.nav[4]}</a></nav>
@@ -471,50 +544,50 @@ export default function Home() {
 
     <section className="story-section" id="story">
       <div className="story-intro"><p className="overline">{copy.story.overline}</p><h2>{copy.story.title}</h2><p>{copy.story.intro}</p></div>
-      <div className="story-chapters">{copy.story.chapters.map((chapter, index) => <a href={`#${CHAPTER_IDS[index]}`} className="story-chapter" key={chapter[0]}><span>{chapter[0]}</span><small>{chapter[1]}</small><strong>{chapter[2]}</strong><b>{chapter[3]}</b></a>)}</div>
+      <div className="story-chapters">{copy.story.chapters.map((chapter, index) => <a href={`#${CHAPTER_IDS[index]}`} className="story-chapter" data-reveal="left" key={chapter[0]}><span>{chapter[0]}</span><small>{chapter[1]}</small><strong>{chapter[2]}</strong><b>{chapter[3]}</b></a>)}</div>
     </section>
 
     <section className="section" id="benchmark">
-      <div className="section-heading"><div><span className="section-number">01</span><p className="overline">{copy.benchmark.overline}</p><h2>{copy.benchmark.title}</h2></div><p>{copy.benchmark.intro}</p></div>
-      <div className="lab-grid"><div className="control-panel"><div className="control-head"><span>TARGET SNR</span><strong>{snr} dB</strong></div><input aria-label="Target SNR" type="range" min="0" max="3" step="1" value={snrIndex} onChange={(event) => setSnrIndex(Number(event.target.value))} /><div className="range-labels">{SNR_LEVELS.map((level) => <button key={level} onClick={() => setSnrIndex(SNR_LEVELS.indexOf(level))}>{level}</button>)}</div><div className="definition"><span>{copy.benchmark.definition}</span><code>{copy.benchmark.formula}</code></div></div><div className="results-panel"><div className="panel-meta"><span>{copy.benchmark.aggregate}</span><span>INDIAN PINES · SALINAS · PAVIA U.</span></div>{DETECTION[snr].map((value, index) => <EvidenceBar key={copy.benchmark.methods[index]} label={copy.benchmark.methods[index]} value={value} tone={METHOD_TONES[index]} />)}<div className="axis"><span>{copy.benchmark.axis[0]}</span><span>{copy.benchmark.axis[1]}</span></div></div></div>
-      <div className="mismatch-card"><div className="mismatch-copy"><p className="overline">SPECTRAL MISMATCH</p><h3>{copy.benchmark.mismatchTitle}</h3><p>{copy.benchmark.mismatchText}</p><div className="chip-group" role="group" aria-label={copy.benchmark.mismatchLabel}>{MISMATCH.map((_, index) => <button className={index === mismatchIndex ? "active" : ""} key={copy.benchmark.mismatchShifts[index]} onClick={() => setMismatchIndex(index)}>{copy.benchmark.mismatchShifts[index]}</button>)}</div></div><div className="mismatch-values"><div><span>MF</span><strong>{mismatch.mf.toFixed(3)}</strong><small>AUC</small></div><div className="highlight"><span>{copy.benchmark.spatial}</span><strong>{mismatch.spatial.toFixed(3)}</strong><small>AUC</small></div><div><span>{copy.benchmark.learned}</span><strong>{mismatch.learned.toFixed(3)}</strong><small>AUC</small></div></div></div>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">01</span><p className="overline">{copy.benchmark.overline}</p><h2>{copy.benchmark.title}</h2></div><p>{copy.benchmark.intro}</p></div>
+      <div className="lab-grid" data-reveal="scale"><div className="control-panel"><div className="control-head"><span>TARGET SNR</span><strong>{snr} dB</strong></div><input aria-label="Target SNR" type="range" min="0" max="3" step="1" value={snrIndex} onChange={(event) => setSnrIndex(Number(event.target.value))} /><div className="range-labels">{SNR_LEVELS.map((level) => <button key={level} onClick={() => setSnrIndex(SNR_LEVELS.indexOf(level))}>{level}</button>)}</div><div className="definition"><span>{copy.benchmark.definition}</span><code>{copy.benchmark.formula}</code></div></div><div className="results-panel"><div className="panel-meta"><span>{copy.benchmark.aggregate}</span><span>INDIAN PINES · SALINAS · PAVIA U.</span></div>{DETECTION[snr].map((value, index) => <EvidenceBar key={copy.benchmark.methods[index]} label={copy.benchmark.methods[index]} value={value} tone={METHOD_TONES[index]} />)}<div className="axis"><span>{copy.benchmark.axis[0]}</span><span>{copy.benchmark.axis[1]}</span></div></div></div>
+      <div className="mismatch-card" data-reveal="up"><div className="mismatch-copy"><p className="overline">SPECTRAL MISMATCH</p><h3>{copy.benchmark.mismatchTitle}</h3><p>{copy.benchmark.mismatchText}</p><div className="chip-group" role="group" aria-label={copy.benchmark.mismatchLabel}>{MISMATCH.map((_, index) => <button className={index === mismatchIndex ? "active" : ""} key={copy.benchmark.mismatchShifts[index]} onClick={() => setMismatchIndex(index)}>{copy.benchmark.mismatchShifts[index]}</button>)}</div></div><div className="mismatch-values"><div><span>MF</span><strong>{mismatch.mf.toFixed(3)}</strong><small>AUC</small></div><div className="highlight"><span>{copy.benchmark.spatial}</span><strong>{mismatch.spatial.toFixed(3)}</strong><small>AUC</small></div><div><span>{copy.benchmark.learned}</span><strong>{mismatch.learned.toFixed(3)}</strong><small>AUC</small></div></div></div>
       <StoryBridge content={copy.bridges.benchmark} nextId="physics" />
     </section>
 
     <section className="section physics-section" id="physics">
-      <div className="section-heading compact"><div><span className="section-number">02</span><p className="overline">{copy.physics.overline}</p><h2>{copy.physics.title}</h2></div><p>{copy.physics.intro}</p></div>
-      <div className="realism-grid">{REALISM_VALUES.map((item, index) => <article className={`realism-card ${index >= 3 ? "risk" : ""}`} key={copy.physics.cards[index][0]}><div className="step-index">0{index + 1}</div><p>{copy.physics.cards[index][1]}</p><h3>{copy.physics.cards[index][0]}</h3><div className="dual-metric"><div><span>{copy.physics.oracle}</span><strong>{item.oracle.toFixed(3)}</strong></div><div><span>{copy.physics.lab}</span><strong>{item.lab.toFixed(3)}</strong></div></div><div className="delta">Δ {(item.lab - item.oracle).toFixed(3)}</div></article>)}</div>
-      <div className="insight-banner"><span className="signal-dot" /><strong>{copy.physics.evidence}</strong><p>{copy.physics.insight}</p></div>
+      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">02</span><p className="overline">{copy.physics.overline}</p><h2>{copy.physics.title}</h2></div><p>{copy.physics.intro}</p></div>
+      <div className="realism-grid">{REALISM_VALUES.map((item, index) => <article className={`realism-card ${index >= 3 ? "risk" : ""}`} data-reveal="up" key={copy.physics.cards[index][0]}><div className="step-index">0{index + 1}</div><p>{copy.physics.cards[index][1]}</p><h3>{copy.physics.cards[index][0]}</h3><div className="dual-metric"><div><span>{copy.physics.oracle}</span><strong>{item.oracle.toFixed(3)}</strong></div><div><span>{copy.physics.lab}</span><strong>{item.lab.toFixed(3)}</strong></div></div><div className="delta">Δ {(item.lab - item.oracle).toFixed(3)}</div></article>)}</div>
+      <div className="insight-banner" data-reveal="scale"><span className="signal-dot" /><strong>{copy.physics.evidence}</strong><p>{copy.physics.insight}</p></div>
       <StoryBridge content={copy.bridges.physics} nextId="variability" />
     </section>
 
     <section className="section" id="variability">
-      <div className="section-heading"><div><span className="section-number">03</span><p className="overline">{copy.variability.overline}</p><h2>{copy.variability.title}</h2></div><p>{copy.variability.intro}</p></div>
-      <div className="track-tabs" role="tablist" aria-label={copy.variability.tabLabel}>{(Object.keys(TRACK_VALUES) as Array<keyof typeof TRACK_VALUES>).map((id) => <button role="tab" aria-selected={id === trackId} className={id === trackId ? "active" : ""} key={id} onClick={() => setTrackId(id)}><span>{tracks[id].name}</span><small>{tracks[id].verdict}</small></button>)}</div><div className="track-display"><div className="track-context"><p className="overline">{copy.variability.selected}</p><h3>{track.name}</h3><p>{track.detail}</p><div className="track-verdict">{track.verdict}</div></div><div className="track-bars">{TRACK_VALUES[trackId].map((value, index) => <EvidenceBar key={copy.variability.methods[index]} label={copy.variability.methods[index]} value={value} tone={index === 1 ? "amber" : index === 2 ? "ice" : "teal"} />)}</div></div><p className="honesty-note">{copy.variability.honesty}</p>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">03</span><p className="overline">{copy.variability.overline}</p><h2>{copy.variability.title}</h2></div><p>{copy.variability.intro}</p></div>
+      <div className="track-tabs" data-reveal="up" role="tablist" aria-label={copy.variability.tabLabel}>{(Object.keys(TRACK_VALUES) as Array<keyof typeof TRACK_VALUES>).map((id) => <button role="tab" aria-selected={id === trackId} className={id === trackId ? "active" : ""} key={id} onClick={() => setTrackId(id)}><span>{tracks[id].name}</span><small>{tracks[id].verdict}</small></button>)}</div><div className="track-display" data-reveal="scale"><div className="track-context"><p className="overline">{copy.variability.selected}</p><h3>{track.name}</h3><p>{track.detail}</p><div className="track-verdict">{track.verdict}</div></div><div className="track-bars">{TRACK_VALUES[trackId].map((value, index) => <EvidenceBar key={copy.variability.methods[index]} label={copy.variability.methods[index]} value={value} tone={index === 1 ? "amber" : index === 2 ? "ice" : "teal"} />)}</div></div><p className="honesty-note" data-reveal="up">{copy.variability.honesty}</p>
       <StoryBridge content={copy.bridges.variability} nextId="background" />
     </section>
 
     <section className="section background-section" id="background">
-      <div className="section-heading"><div><span className="section-number">04</span><p className="overline">{copy.background.overline}</p><h2>{copy.background.title}</h2></div><p>{copy.background.intro}</p></div>
-      <div className="background-question"><span>{copy.background.questionLabel}</span><p>{copy.background.question}</p></div>
-      <div className="background-comparison">{[BACKGROUND.mf, BACKGROUND.model].map((method, index) => <article className={index === 0 ? "method-card winner" : "method-card"} key={copy.background.methods[index]}><div className="method-head"><span>0{index + 1}</span><h3>{copy.background.methods[index]}</h3></div><div className="method-metrics"><div><span>{copy.background.auc}</span><strong>{method.auc.toFixed(3)}</strong><small>{copy.background.interval} {method.aucCi}</small></div><div><span>{copy.background.pd}</span><strong>{method.pd.toFixed(3)}</strong><small>{copy.background.interval} {method.pdCi}</small></div></div></article>)}</div>
-      <div className="background-difference"><div><span>{copy.background.difference}</span><strong>{copy.background.differenceValue}</strong></div><p>{copy.background.differenceCi}</p></div>
-      <div className="background-foot"><div className="background-verdict"><span>{copy.background.verdict}</span><p>{copy.background.verdictText}</p></div><div className="secondary-checks"><span>{copy.background.secondary}</span><div><p>{copy.background.rx}</p><strong>{BACKGROUND.rx.auc.toFixed(3)}</strong><small>AUC · Pd {BACKGROUND.rx.pd.toFixed(3)}</small></div><div><p>{copy.background.raw}</p><strong>{BACKGROUND.rawModel.auc.toFixed(3)}</strong><small>AUC · Pd {BACKGROUND.rawModel.pd.toFixed(3)}</small></div></div></div>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">04</span><p className="overline">{copy.background.overline}</p><h2>{copy.background.title}</h2></div><p>{copy.background.intro}</p></div>
+      <div className="background-question" data-reveal="scale"><span>{copy.background.questionLabel}</span><p>{copy.background.question}</p></div>
+      <div className="background-comparison">{[BACKGROUND.mf, BACKGROUND.model].map((method, index) => <article className={index === 0 ? "method-card winner" : "method-card"} data-reveal={index === 0 ? "left" : "right"} key={copy.background.methods[index]}><div className="method-head"><span>0{index + 1}</span><h3>{copy.background.methods[index]}</h3></div><div className="method-metrics"><div><span>{copy.background.auc}</span><strong>{method.auc.toFixed(3)}</strong><small>{copy.background.interval} {method.aucCi}</small></div><div><span>{copy.background.pd}</span><strong>{method.pd.toFixed(3)}</strong><small>{copy.background.interval} {method.pdCi}</small></div></div></article>)}</div>
+      <div className="background-difference" data-reveal="up"><div><span>{copy.background.difference}</span><strong>{copy.background.differenceValue}</strong></div><p>{copy.background.differenceCi}</p></div>
+      <div className="background-foot" data-reveal="scale"><div className="background-verdict"><span>{copy.background.verdict}</span><p>{copy.background.verdictText}</p></div><div className="secondary-checks"><span>{copy.background.secondary}</span><div><p>{copy.background.rx}</p><strong>{BACKGROUND.rx.auc.toFixed(3)}</strong><small>AUC · Pd {BACKGROUND.rx.pd.toFixed(3)}</small></div><div><p>{copy.background.raw}</p><strong>{BACKGROUND.rawModel.auc.toFixed(3)}</strong><small>AUC · Pd {BACKGROUND.rawModel.pd.toFixed(3)}</small></div></div></div>
       <StoryBridge content={copy.bridges.background} nextId="unmixing" />
     </section>
 
     <section className="section unmix-section" id="unmixing">
-      <div className="section-heading compact"><div><span className="section-number">05</span><p className="overline">{copy.unmixing.overline}</p><h2>{copy.unmixing.title}</h2></div><p>{copy.unmixing.intro}</p></div>
-      <div className="unmix-table"><div className="unmix-row head"><span>{copy.unmixing.columns[0]}</span><span>{copy.unmixing.columns[1]}</span><span>{copy.unmixing.columns[2]}</span><span>{copy.unmixing.columns[3]}</span></div>{UNMIXING.map((item) => <div className="unmix-row" key={item.scene}><strong>{item.scene}</strong><span>{item.mf.toFixed(4)}</span><span>{item.model.toFixed(4)}</span><b>{item.winner}</b></div>)}</div>
+      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">05</span><p className="overline">{copy.unmixing.overline}</p><h2>{copy.unmixing.title}</h2></div><p>{copy.unmixing.intro}</p></div>
+      <div className="unmix-table" data-reveal="scale"><div className="unmix-row head"><span>{copy.unmixing.columns[0]}</span><span>{copy.unmixing.columns[1]}</span><span>{copy.unmixing.columns[2]}</span><span>{copy.unmixing.columns[3]}</span></div>{UNMIXING.map((item) => <div className="unmix-row" key={item.scene}><strong>{item.scene}</strong><span>{item.mf.toFixed(4)}</span><span>{item.model.toFixed(4)}</span><b>{item.winner}</b></div>)}</div>
       <StoryBridge content={copy.bridges.unmixing} nextId="studio" />
     </section>
 
     <section className="studio-section" id="studio">
-      <div className="studio-heading"><div><p className="overline">{copy.studio.overline}</p><h2>{copy.studio.title}</h2></div><p>{copy.studio.intro}</p></div><ScoreMapStudio copy={copy.studio} />
+      <div className="studio-heading" data-reveal="up"><div><p className="overline">{copy.studio.overline}</p><h2>{copy.studio.title}</h2></div><p>{copy.studio.intro}</p></div><ScoreMapStudio copy={copy.studio} />
       <StoryBridge content={copy.bridges.studio} nextId="limits" />
     </section>
 
-    <section className="limits" id="limits"><div><p className="overline">{copy.limits.overline}</p><h2>{copy.limits.title}</h2></div><ol>{copy.limits.items.map((item, index) => <li key={item[0]}><span>0{index + 1}</span><p><strong>{item[0]}</strong> {item[1]}</p></li>)}</ol></section>
+    <section className="limits" id="limits"><div data-reveal="left"><p className="overline">{copy.limits.overline}</p><h2>{copy.limits.title}</h2></div><ol>{copy.limits.items.map((item, index) => <li data-reveal="right" key={item[0]}><span>0{index + 1}</span><p><strong>{item[0]}</strong> {item[1]}</p></li>)}</ol></section>
     <footer><div className="footer-brand"><span className="brand-mark">H</span><div><strong>HyperMix Observatory</strong><p>{copy.footer.tagline}</p></div></div><div className="footer-links"><a href="https://github.com/JVLegend/HyperMix" target="_blank" rel="noreferrer">{copy.footer.links[0]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/results/leaderboard.md" target="_blank" rel="noreferrer">{copy.footer.links[1]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/dataset/DATA_CARD.md" target="_blank" rel="noreferrer">{copy.footer.links[2]}</a></div><p className="footer-note">{copy.footer.note}</p></footer>
   </main>;
 }
