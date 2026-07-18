@@ -1,16 +1,16 @@
 """Milestone 2: a physics-informed, learned detector with uncertainty.
 
 Design principle: don't throw away the physics. Each pixel is described by
-its mean-removed spectrum plus the classical matched-filter score, and a
-small network learns a nonlinear correction on top. Because the matched
-filter is an input feature, the network can always recover it, so it should
-match or beat the classical baseline, and it can exploit non-Gaussian real
-background structure that the matched filter cannot.
+scene-adaptive matched-filter and ACE scores plus spatially smoothed versions,
+and a small network learns a nonlinear combination. Its performance must be
+measured against both per-pixel and spatially comparable baselines.
 
 Uncertainty comes from MC-dropout: keep dropout active at inference, run T
 stochastic passes, report mean (detection) and std (confidence).
 
-Trained purely on physics-simulated backgrounds, evaluated on real ones.
+Trained on physics-simulated backgrounds and evaluated on real backgrounds with
+implanted synthetic targets. This tests background shift, not complete
+generalization to real engineered reporters.
 PyTorch is imported lazily so the rest of the package works without it.
 """
 

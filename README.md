@@ -13,7 +13,7 @@
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
-*Pulling a faint engineered reporter out of noisy remote hyperspectral cubes, with calibrated uncertainty.*
+*Pulling a faint engineered reporter out of noisy remote hyperspectral cubes, with an MC-dropout uncertainty estimate.*
 
 </div>
 
@@ -36,7 +36,7 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 
 - [✨ Highlights](#-highlights)
 - [🚀 Quickstart](#-quickstart)
-- [🧪 The learned detector](#-milestone-2-a-learned-detector-that-beats-the-baselines)
+- [🧪 The learned detector](#-milestone-2-detector-aprendido-com-contexto-espacial)
 - [📊 Benchmarks](#-benchmarks)
 - [🗺️ Roadmap](#️-roadmap)
 - [💾 Data](#-data)
@@ -45,11 +45,11 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 ## ✨ Highlights
 
 - 🌍 **Physics-based scene simulator** with exact ground truth (NumPy only, deterministic).
-- 🛰️ **Real-data benchmark** on a real AVIRIS cube (Indian Pines) via implanted targets.
+- 🛰️ **Real-background benchmark** on an AVIRIS cube (Indian Pines) via implanted synthetic targets.
 - 🧬 **Targets grounded on the paper**: biliverdin IXα and bacteriochlorophyll a.
 - 🧠 **Detector aprendido**, avaliado contra baselines por pixel e com suavização espacial em 3 fundos reais.
 - 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
-- 🎯 **Calibrated uncertainty** via MC-dropout (know where to trust the map).
+- 🎯 **Uncertainty estimate** via MC-dropout, ainda sem calibração empírica.
 - 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
 
 ## 🚀 Quickstart

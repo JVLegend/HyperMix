@@ -1,7 +1,7 @@
-"""Classical detection baselines: the floor HyperMix must beat.
+"""Classical target detectors used as transparent comparison points.
 
-These are the standard tools the field uses today. The physics-informed,
-self-supervised detector (Milestone 2) is measured against them.
+These established methods are useful reference baselines, but this small set is
+not presented as an exhaustive comparison with the state of the art.
 """
 
 from __future__ import annotations

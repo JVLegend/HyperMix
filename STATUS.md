@@ -93,9 +93,9 @@ real files; add linear-unmixing / NNLS abundance baseline; more scenes.
 - [x] `scripts/train_detector.py`: train on simulated backgrounds, evaluate on
       held-out synthetic AND real Indian Pines; writes results/detector_eval.json
       + assets/detector_real.png (with uncertainty map).
-- [x] Trained purely on simulation, generalizes to real background.
-      Real Indian Pines AUC (learned vs matched filter): 0.997/0.919 @20dB,
-      0.910/0.688 @5dB, 0.828/0.627 @0dB. Biggest gain at low SNR.
+- [x] Avaliação original treinou em fundo simulado e testou em fundo real. A
+      auditoria de 18/07 mostrou que isso mede robustez ao fundo e que o ganho
+      publicado contra o MF por pixel não sobrevive ao MF espacial.
 - [x] MC-dropout uncertainty map shipped.
 - [x] 8 tests passing (torch test skips when torch absent).
 
@@ -118,19 +118,15 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
 - [x] SAM baseline (`spectral_angle_mapper`) added; now 3 classical baselines.
 - [x] Open spectral library exported to `dataset/` (CSV + NPZ + DATA_CARD),
       `scripts/export_dataset.py`.
-- [x] Leaderboard: `scripts/make_leaderboard.py` -> `results/leaderboard.md`.
-      Learned 0.926 mean AUC > matched filter 0.751 > SAM 0.642 > ACE 0.632 (real bg).
-- [x] Multi-scene real evaluation: learned detector beats baselines on 3 real
-      cubes (Indian Pines, Salinas = AVIRIS; Pavia U. = ROSIS), i.e. cross-sensor
-      and cross-band-count generalization, trained only on simulation.
-      Leaderboard mean AUC: learned 0.854 > matched filter 0.689 > SAM/ACE 0.595.
+- [x] Leaderboard criado em `results/leaderboard.md`; números originais foram
+      substituídos após correção de target SNR e inclusão do MF espacial.
+- [x] Avaliação multi-cena cobre Indian Pines e Salinas (AVIRIS) e Pavia U.
+      (ROSIS). A troca de sensor não remove a circularidade do alvo implantado.
 - [x] Packaging: `python -m build` produces a clean sdist + wheel (PyPI-ready).
 - [x] CITATION.cff + .zenodo.json added (DOI-ready).
-- [x] Unmixing head (`AbundanceUnmixer`): estimates fractional abundance, not
-      just detection. Pearson r vs true abundance at 10 dB (real scenes):
-      Indian Pines 0.922, Salinas 0.859, Pavia 0.302 (matched filter proxy:
-      0.435 / 0.236 / 0.089). `scripts/train_unmixer.py`. Delivers the
-      "detection + unmixing" promise. 10 tests passing.
+- [x] Unmixing head (`AbundanceUnmixer`) estima abundância fracionária. A métrica
+      original em todos os pixels foi substituída por target r e target MAE;
+      valores atuais estão na seção de Fase A e em `results/unmix_eval.md`.
 - [x] `RELEASE.md`: step-by-step PyPI + Zenodo instructions for the author.
 - [ ] PyPI publish: author runs `twine upload dist/*` with their token (see RELEASE.md).
 - [ ] DOI: connect the GitHub repo to Zenodo and cut a release (see RELEASE.md).
