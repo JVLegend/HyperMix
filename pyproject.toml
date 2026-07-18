@@ -23,7 +23,7 @@ dev = ["pytest>=7", "matplotlib>=3.6", "spectral>=0.23"]
 Homepage = "https://experiment.com/projects/cldzyecslnphmynjenmv"
 
 [tool.setuptools]
-packages = ["hypermix"]
+packages = ["hypermix", "hypermix.data"]
 
 [tool.setuptools.package-data]
-hypermix = ["data/*.csv", "data/*.md"]
+"hypermix.data" = ["*.csv", "*.md"]
