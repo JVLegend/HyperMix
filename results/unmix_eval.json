@@ -1,18 +1,43 @@
 {
   "target": "bacteriochlorophyll_a",
   "target_snr_db": 10.0,
+  "target_threshold": 0.02,
   "scenes": {
     "indian_pines": {
-      "matched_filter_r": 0.9400244028103346,
-      "unmixer_r": 0.9901076696729058
+      "matched_filter": {
+        "target_pearson_r": 0.9659361224861173,
+        "target_mae": 0.01415861447675814,
+        "all_pixel_mae": 0.003444078701247903
+      },
+      "unmixer": {
+        "target_pearson_r": 0.9820450531745033,
+        "target_mae": 0.008125024596047737,
+        "all_pixel_mae": 0.002919084144166134
+      }
     },
     "salinas": {
-      "matched_filter_r": 0.9304287209093681,
-      "unmixer_r": 0.9912606722715904
+      "matched_filter": {
+        "target_pearson_r": 0.9785757742842552,
+        "target_mae": 0.007337736417814193,
+        "all_pixel_mae": 0.0015841241229855435
+      },
+      "unmixer": {
+        "target_pearson_r": 0.9883092924808253,
+        "target_mae": 0.02370866895009723,
+        "all_pixel_mae": 0.004038814893164581
+      }
     },
     "paviaU": {
-      "matched_filter_r": 0.5751122512277812,
-      "unmixer_r": 0.8960214210197757
+      "matched_filter": {
+        "target_pearson_r": 0.7957772083674709,
+        "target_mae": 0.017681134307647402,
+        "all_pixel_mae": 0.00828705313717576
+      },
+      "unmixer": {
+        "target_pearson_r": 0.9381413976297243,
+        "target_mae": 0.009336949823213302,
+        "all_pixel_mae": 0.005444398052957318
+      }
     }
   }
 }

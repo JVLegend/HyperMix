@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 
-__all__ = ["roc_auc", "roc_curve"]
+__all__ = ["roc_auc", "roc_curve", "pearson_r", "mean_absolute_error"]
 
 
 def roc_auc(scores: np.ndarray, labels: np.ndarray) -> float:
@@ -41,3 +41,46 @@ def roc_curve(scores: np.ndarray, labels: np.ndarray):
     tpr = np.concatenate([[0.0], tp / max(tp[-1], 1)])
     fpr = np.concatenate([[0.0], fp / max(fp[-1], 1)])
     return fpr, tpr
+
+
+def _selected_pair(
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray | None,
+) -> tuple[np.ndarray, np.ndarray]:
+    predicted = np.asarray(predicted, dtype=np.float64)
+    truth = np.asarray(truth, dtype=np.float64)
+    if predicted.shape != truth.shape:
+        raise ValueError("predicted and truth must have the same shape")
+    if mask is not None:
+        mask = np.asarray(mask, dtype=bool)
+        if mask.shape != truth.shape:
+            raise ValueError("mask and truth must have the same shape")
+        predicted, truth = predicted[mask], truth[mask]
+    else:
+        predicted, truth = predicted.ravel(), truth.ravel()
+    if predicted.size == 0:
+        raise ValueError("metric selection must contain at least one value")
+    return predicted, truth
+
+
+def pearson_r(
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray | None = None,
+) -> float:
+    """Pearson correlation, optionally restricted to a declared mask."""
+    predicted, truth = _selected_pair(predicted, truth, mask)
+    if predicted.std() < 1e-9 or truth.std() < 1e-9:
+        return 0.0
+    return float(np.corrcoef(predicted, truth)[0, 1])
+
+
+def mean_absolute_error(
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray | None = None,
+) -> float:
+    """Mean absolute error, optionally restricted to a declared mask."""
+    predicted, truth = _selected_pair(predicted, truth, mask)
+    return float(np.mean(np.abs(predicted - truth)))

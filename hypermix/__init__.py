@@ -24,7 +24,7 @@ from .baselines import (
     spectral_angle_mapper,
     spectral_matched_filter,
 )
-from .metrics import roc_auc, roc_curve
+from .metrics import mean_absolute_error, pearson_r, roc_auc, roc_curve
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
 __version__ = "0.4.0"
@@ -42,6 +42,8 @@ __all__ = [
     "spectral_angle_mapper",
     "roc_auc",
     "roc_curve",
+    "pearson_r",
+    "mean_absolute_error",
     "load_mat_cube",
     "load_envi_cube",
     "synthetic_target",

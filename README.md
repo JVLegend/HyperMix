@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-14%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-15%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -79,7 +79,7 @@ python scripts/fetch_data.py        # download the real AVIRIS cube
 python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
-pytest -q                           # 14 tests
+pytest -q                           # 15 tests
 ```
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
@@ -165,15 +165,21 @@ medidos. Resultados completos em [results/mismatch.md](results/mismatch.md).
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
 adds a regression head (same scene-adaptive features) that estimates the target's
-fractional abundance. Resultado provisório re-medido a target SNR de 10 dB,
-usando Pearson r em todos os pixels. Essa métrica ainda é dominada pelos zeros
-do fundo e será substituída na Fase A4 por correlação nos pixels de alvo e MAE:
+fractional abundance. A avaliação usa apenas pixels com abundância maior que
+`0,02` para Pearson r e target MAE, evitando que os zeros do fundo dominem o
+resultado. Target SNR de 10 dB, média de 3 seeds:
 
-| Scene | Matched filter r | 🧠 Unmixer r |
-|---|:---:|:---:|
-| Indian Pines | 0.940 | **0.990** |
-| Salinas | 0.930 | **0.991** |
-| Pavia University | 0.575 | **0.896** |
+| Cena | MF target r | Unmixer target r | MF target MAE | Unmixer target MAE |
+|---|:---:|:---:|:---:|:---:|
+| Indian Pines | 0.966 | **0.982** | 0.0142 | **0.0081** |
+| Salinas | 0.979 | **0.988** | **0.0073** | 0.0237 |
+| Pavia University | 0.796 | **0.938** | 0.0177 | **0.0093** |
+
+O unmixer tem maior correlação nas três cenas e menor target MAE em duas. Em
+Salinas, porém, sua target MAE é mais de três vezes a do MF, evidenciando viés
+de escala que a correlação isolada esconderia. A MAE em todos os pixels também
+é preservada em [results/unmix_eval.md](results/unmix_eval.md) como diagnóstico
+secundário.
 
 Reproduce: `python scripts/train_unmixer.py`.
 
@@ -212,6 +218,8 @@ Indian Pines is a public AVIRIS scene (Purdue University).
   linear. Os fundos são reais a jusante, mas os alvos implantados não são.
 - Um deslocamento espectral de 5% reduz a AUC do detector aprendido em 0,277;
   ainda não há teste com variabilidade biológica ou espectro medido.
+- No unmixing de Salinas, maior correlação não implica menor erro: target MAE
+  de 0,0237 no unmixer contra 0,0073 no MF.
 - The first learned model is a small MLP; richer models and a true unmixing head
   are future work. All numbers, including failures, are tracked in [STATUS.md](STATUS.md).
 

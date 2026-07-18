@@ -10,8 +10,8 @@ Source of progress truth for the repo. Read before starting a phase, update at t
       cena. Target SNR = `20 log10(RMS do alvo / RMS do ruído)`, com RMS do alvo
       calculado nos pixels cuja abundância excede o limiar de detecção.
 - [x] A3: mismatch espectral medido por deslocamento controlado da assinatura.
-- [ ] A4: substituir Pearson r em todos os pixels por correlação nos pixels de
-      alvo e MAE de abundância.
+- [x] A4: Pearson r e MAE calculados nos pixels de alvo (`ab_gt > 0,02`), com
+      MAE em todos os pixels mantida apenas como diagnóstico secundário.
 
 Números atuais, re-medidos com 3 seeds, três fundos reais e target SNR de 20,
 10, 5 e 0 dB:
@@ -38,6 +38,17 @@ O MF espacial permaneceu acima do detector aprendido em todos os níveis. O
 deslocamento usa a faixa normalizada de índices porque as cenas têm grades
 espectrais diferentes. Artefatos: `results/mismatch.json` e
 `results/mismatch.md`.
+
+Unmixing a target SNR de 10 dB, média de 3 seeds:
+
+- Indian Pines: target r 0,982 no unmixer e 0,966 no MF; target MAE 0,0081 e
+  0,0142, respectivamente.
+- Salinas: target r 0,988 no unmixer e 0,979 no MF; target MAE 0,0237 e 0,0073.
+  A correlação favorece o unmixer, mas a MAE mostra viés de escala e favorece o
+  MF nesta cena.
+- Pavia U.: target r 0,938 no unmixer e 0,796 no MF; target MAE 0,0093 e 0,0177.
+
+Artefatos: `results/unmix_eval.json` e `results/unmix_eval.md`.
 
 ## Histórico: Phase 0 shipped (Milestone 0) - 2026-07-16
 

@@ -158,7 +158,7 @@ def test_abundance_unmixer_recovers_abundance():
     import pytest
 
     pytest.importorskip("torch")
-    from hypermix import implant_target, reporter_library, simulate_scene
+    from hypermix import implant_target, pearson_r, reporter_library, simulate_scene
     from hypermix.detector import AbundanceUnmixer, make_training_set
 
     target = reporter_library(60)["bacteriochlorophyll_a"]
@@ -170,7 +170,7 @@ def test_abundance_unmixer_recovers_abundance():
     rng = np.random.default_rng(5)
     scene, _, ab_gt, tgt = implant_target(bg, rng, target=target, snr_db=30.0)
     pred = unmix.predict_map(scene, tgt)
-    r = np.corrcoef(pred.ravel(), ab_gt.ravel())[0, 1]
+    r = pearson_r(pred, ab_gt, mask=ab_gt > 0.02)
     assert r > 0.4, f"unmixer should track true abundance, got r={r:.3f}"
 
 
@@ -181,3 +181,14 @@ def test_auc_bounds_and_degradation():
     auc_lo = roc_auc(spectral_matched_filter(lo.cube, lo.reporter), lo.detection_gt)
     assert 0.0 <= auc_lo <= 1.0 and 0.0 <= auc_hi <= 1.0
     assert auc_hi >= auc_lo   # detection should not improve as SNR drops
+
+
+def test_abundance_metrics_respect_target_mask():
+    from hypermix import mean_absolute_error, pearson_r
+
+    truth = np.array([0.0, 0.0, 0.03, 0.08, 0.12])
+    predicted = np.array([0.8, 0.7, 0.04, 0.07, 0.11])
+    mask = truth > 0.02
+    assert pearson_r(predicted, truth, mask=mask) > 0.95
+    assert mean_absolute_error(predicted, truth, mask=mask) < 0.02
+    assert mean_absolute_error(predicted, truth) > 0.25
