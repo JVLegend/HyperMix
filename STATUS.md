@@ -1,6 +1,42 @@
-# STATUS — HyperMix
+# STATUS - HyperMix
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
+
+## T7a concluído: modelo auto-supervisionado do fundo - 2026-07-18
+
+Foi implementado um autoencoder espectral raso que aprende apenas com os pixels
+não rotulados da própria cena de teste. O ajuste não recebe máscara, rótulos nem
+a assinatura do alvo. Depois do treino, o score combina o quantil do erro de
+reconstrução com o quantil do matched filter por uma regra fixa. Também foram
+adicionados o baseline RX global e a métrica Pd@FAR.
+
+O protocolo usa Indian Pines, Salinas e Pavia University, target SNR de 5 e 0
+dB, 4 seeds por ponto e 5000 réplicas de bootstrap hierárquico sobre cenas e
+seeds. Resultados agregados:
+
+| Método | AUC média [IC 95%] | Pd@FAR 1e-3 [IC 95%] |
+|---|:---:|:---:|
+| MF espacial | 0,987 [0,968, 0,997] | 0,650 [0,227, 0,872] |
+| RX global | 0,539 [0,494, 0,593] | 0,001 [0,001, 0,002] |
+| Autoencoder de fundo | 0,869 [0,776, 0,923] | 0,108 [0,003, 0,203] |
+| Autoencoder de fundo espacial | 0,976 [0,945, 0,994] | 0,324 [0,087, 0,544] |
+
+Na comparação pareada pré-especificada, autoencoder espacial menos MF
+espacial, a diferença foi -0,011 [-0,023, -0,003] em AUC e -0,325 [-0,517,
+-0,142] em Pd@FAR. Os dois intervalos ficaram abaixo de zero.
+
+Conclusão: **o modelo de fundo simples não produziu a primeira vantagem causal
+legítima do aprendizado**. Neste protocolo, ele foi significativamente inferior
+ao MF espacial nas duas métricas. Isso fecha a instanciação pré-especificada do
+autoencoder raso, mas não prova que todo estimador possível de fundo falhará. A
+contribuição continua sendo o benchmark aberto, os baselines reproduzíveis e o
+registro de resultados negativos sem seleção por rótulos.
+
+Artefatos: `scripts/background_experiment.py`, `results/background.json` e
+`results/background.md`. O SHA-256 do JSON foi
+`3e77d71fba3ff6d575c10cb74586df876f6c0ec318f2a27ac9b68741d423fa51` em duas
+execuções independentes. A documentação pública e o observatório não foram
+alterados porque o critério de vantagem não foi satisfeito. 29 testes passando.
 
 ## Observatório web publicado - 2026-07-18
 
@@ -163,13 +199,13 @@ Artefatos: `results/unmix_eval.json` e `results/unmix_eval.md`.
 
 Working, tested, reproducible on Python 3.10+ (built on 3.14.6, numpy 2.5.1).
 
-- `hypermix/simulate.py` — physics-based scene simulator (`simulate_scene`) with
+- `hypermix/simulate.py` - physics-based scene simulator (`simulate_scene`) with
   full ground truth: linear background mixing, reporter blobs, illumination gain,
   FFT PSF blur, SNR-scaled noise. Deterministic per seed, NumPy only.
-- `hypermix/baselines.py` — `spectral_matched_filter`, `ace`.
-- `hypermix/metrics.py` — `roc_auc` (Mann-Whitney), `roc_curve`.
-- `examples/run_demo.py` — AUC-vs-SNR table + `assets/demo_detection.png`.
-- `tests/test_core.py` — 4 tests, all passing (`pytest -q`).
+- `hypermix/baselines.py` - `spectral_matched_filter`, `ace`.
+- `hypermix/metrics.py` - `roc_auc` (Mann-Whitney), `roc_curve`.
+- `examples/run_demo.py` - AUC-vs-SNR table + `assets/demo_detection.png`.
+- `tests/test_core.py` - 4 tests, all passing (`pytest -q`).
 
 Baseline result (matched filter, seed 0): AUC 0.947 @ 30 dB down to 0.626 @ 0 dB.
 The low-SNR collapse is the motivation for Milestone 2.
@@ -208,7 +244,7 @@ medida além das quatro amostras USGS atuais, adicionar baseline NNLS e mais cen
 - [x] MC-dropout uncertainty map shipped.
 - [x] 8 tests passing (torch test skips when torch absent).
 
-Training env: Python 3.11 (`.venv-train`) with `torch` — torch has no 3.14
+Training env: Python 3.11 (`.venv-train`) with `torch` - torch has no 3.14
 wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
 
 ### Honest caveats / next
