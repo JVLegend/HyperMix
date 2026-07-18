@@ -9,7 +9,7 @@ Source of progress truth for the repo. Read before starting a phase, update at t
 - [x] A2: o ruído agora é calibrado pela contribuição do alvo, não pelo RMS da
       cena. Target SNR = `20 log10(RMS do alvo / RMS do ruído)`, com RMS do alvo
       calculado nos pixels cuja abundância excede o limiar de detecção.
-- [ ] A3: medir robustez a mismatch espectral.
+- [x] A3: mismatch espectral medido por deslocamento controlado da assinatura.
 - [ ] A4: substituir Pearson r em todos os pixels por correlação nos pixels de
       alvo e MAE de abundância.
 
@@ -26,6 +26,18 @@ dos blobs. A troca de fundos simulados por fundos reais testa robustez ao fundo,
 não generalização completa: treino e teste ainda compartilham repórter sintético,
 blobs gaussianos e mistura linear. Os resultados históricos abaixo descrevem o
 estado anterior à correção de target SNR e não devem ser citados como atuais.
+
+Mismatch a target SNR de 5 dB, média de 3 cenas e 3 seeds:
+
+- Deslocamento de 1%: queda de AUC de 0,041 no MF, 0,007 no MF espacial e
+  0,014 no detector aprendido.
+- Deslocamento de 2,5%: quedas de 0,159, 0,070 e 0,080, respectivamente.
+- Deslocamento de 5%: quedas de 0,293, 0,260 e 0,277, respectivamente.
+
+O MF espacial permaneceu acima do detector aprendido em todos os níveis. O
+deslocamento usa a faixa normalizada de índices porque as cenas têm grades
+espectrais diferentes. Artefatos: `results/mismatch.json` e
+`results/mismatch.md`.
 
 ## Histórico: Phase 0 shipped (Milestone 0) - 2026-07-16
 

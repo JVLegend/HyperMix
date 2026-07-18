@@ -112,6 +112,18 @@ def test_synthetic_target_shape():
     assert np.isclose(t.max(), 1.0, atol=1e-6)
 
 
+def test_spectral_shift_is_controlled_and_deterministic():
+    from hypermix.mismatch import shift_spectrum
+
+    target = synthetic_target(100, center_frac=0.5)
+    exact = shift_spectrum(target, 0.0)
+    shifted = shift_spectrum(target, 0.05)
+    assert np.array_equal(exact, target)
+    assert shifted.shape == target.shape
+    assert not np.array_equal(shifted, target)
+    assert np.argmax(shifted) > np.argmax(target)
+
+
 def test_reporter_library_matches_paper():
     from hypermix import reporter_library
 

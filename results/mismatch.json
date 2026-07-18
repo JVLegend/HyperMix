@@ -1,0 +1,379 @@
+{
+  "target": "bacteriochlorophyll_a",
+  "target_snr_db": 5.0,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "shift_fractions": [
+    0.0,
+    0.01,
+    0.025,
+    0.05
+  ],
+  "rows": [
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9850865211966969,
+      "auc_std": 0.004163993464213563
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9984839846197976,
+      "auc_std": 0.0004972633503547717
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "learned",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.998692658375924,
+      "auc_std": 0.00036114593204895337
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9303081958255928,
+      "auc_std": 0.01326207395388689
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9950447445615834,
+      "auc_std": 0.0006438307528630831
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "learned",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9960584427414672,
+      "auc_std": 0.0004421156722411788
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.8188373960559714,
+      "auc_std": 0.02551339884017165
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9760006017030033,
+      "auc_std": 0.00559374980893444
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "learned",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9720100840663584,
+      "auc_std": 0.007830612878312961
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.7310886126891779,
+      "auc_std": 0.02308777244220016
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9490821062433822,
+      "auc_std": 0.013499462500100754
+    },
+    {
+      "scene": "indian_pines",
+      "detector": "learned",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.922726174281222,
+      "auc_std": 0.013904990326050647
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9893578194521221,
+      "auc_std": 0.0030072222954159664
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9990299177656077,
+      "auc_std": 0.000590723600976958
+    },
+    {
+      "scene": "salinas",
+      "detector": "learned",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9990299308816649,
+      "auc_std": 0.0005205375327687494
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9720242775738316,
+      "auc_std": 0.006765478087395477
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9981342251132164,
+      "auc_std": 0.001154677540220794
+    },
+    {
+      "scene": "salinas",
+      "detector": "learned",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.998174951349157,
+      "auc_std": 0.0010073312371820463
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9103794530286949,
+      "auc_std": 0.015621562415016868
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9930711857944848,
+      "auc_std": 0.003962285797265289
+    },
+    {
+      "scene": "salinas",
+      "detector": "learned",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.991878706698765,
+      "auc_std": 0.0038227738542247532
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.8300972292477905,
+      "auc_std": 0.02281582672822182
+    },
+    {
+      "scene": "salinas",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9818727134021735,
+      "auc_std": 0.009714242715075356
+    },
+    {
+      "scene": "salinas",
+      "detector": "learned",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9547813143582099,
+      "auc_std": 0.01440305551977021
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.8457434325222707,
+      "auc_std": 0.012708282133277227
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9718957653233242,
+      "auc_std": 0.007649954945227979
+    },
+    {
+      "scene": "paviaU",
+      "detector": "learned",
+      "shift_fraction": 0.0,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9646796281806312,
+      "auc_std": 0.007098721791267822
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.7957988769865568,
+      "auc_std": 0.015016471796058247
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9564816608978504,
+      "auc_std": 0.015599350332905942
+    },
+    {
+      "scene": "paviaU",
+      "detector": "learned",
+      "shift_fraction": 0.01,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.9259330968519269,
+      "auc_std": 0.014516299029549075
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.6135725715604863,
+      "auc_std": 0.018068674082317635
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.7900270606574925,
+      "auc_std": 0.04991159421410225
+    },
+    {
+      "scene": "paviaU",
+      "detector": "learned",
+      "shift_fraction": 0.025,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.757248572853658,
+      "auc_std": 0.04467345005919584
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.37932430388492816,
+      "auc_std": 0.02438613490997968
+    },
+    {
+      "scene": "paviaU",
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.2582762098039673,
+      "auc_std": 0.03559310278304773
+    },
+    {
+      "scene": "paviaU",
+      "detector": "learned",
+      "shift_fraction": 0.05,
+      "target_snr_db": 5.0,
+      "auc_mean": 0.25304321536566693,
+      "auc_std": 0.0367114327624739
+    }
+  ],
+  "summary": [
+    {
+      "detector": "matched_filter",
+      "shift_fraction": 0.0,
+      "auc_mean": 0.9400625910570299,
+      "auc_drop": 0.0
+    },
+    {
+      "detector": "matched_filter",
+      "shift_fraction": 0.01,
+      "auc_mean": 0.8993771167953271,
+      "auc_drop": 0.04068547426170288
+    },
+    {
+      "detector": "matched_filter",
+      "shift_fraction": 0.025,
+      "auc_mean": 0.7809298068817176,
+      "auc_drop": 0.1591327841753123
+    },
+    {
+      "detector": "matched_filter",
+      "shift_fraction": 0.05,
+      "auc_mean": 0.6468367152739655,
+      "auc_drop": 0.29322587578306447
+    },
+    {
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.0,
+      "auc_mean": 0.9898032225695766,
+      "auc_drop": 0.0
+    },
+    {
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.01,
+      "auc_mean": 0.9832202101908835,
+      "auc_drop": 0.006583012378693187
+    },
+    {
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.025,
+      "auc_mean": 0.9196996160516603,
+      "auc_drop": 0.07010360651791636
+    },
+    {
+      "detector": "matched_filter_spatial",
+      "shift_fraction": 0.05,
+      "auc_mean": 0.7297436764831743,
+      "auc_drop": 0.26005954608640236
+    },
+    {
+      "detector": "learned",
+      "shift_fraction": 0.0,
+      "auc_mean": 0.98746740581274,
+      "auc_drop": 0.0
+    },
+    {
+      "detector": "learned",
+      "shift_fraction": 0.01,
+      "auc_mean": 0.9733888303141838,
+      "auc_drop": 0.014078575498556178
+    },
+    {
+      "detector": "learned",
+      "shift_fraction": 0.025,
+      "auc_mean": 0.9070457878729271,
+      "auc_drop": 0.08042161793981284
+    },
+    {
+      "detector": "learned",
+      "shift_fraction": 0.05,
+      "auc_mean": 0.7101835680016997,
+      "auc_drop": 0.27728383781104027
+    }
+  ]
+}

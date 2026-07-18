@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-13%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-14%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -78,7 +78,8 @@ python examples/run_demo.py         # simulator + baseline, AUC vs SNR
 python scripts/fetch_data.py        # download the real AVIRIS cube
 python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
-pytest -q                           # 13 tests
+python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
+pytest -q                           # 14 tests
 ```
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
@@ -142,6 +143,24 @@ alvo implantado:
 | 🧠 Learned detector | **0.998** | **0.998** | 0.919 |
 | Matched filter | 0.970 | 0.969 | 0.786 |
 
+### Robustez a mismatch espectral
+
+O alvo implantado permanece fixo, mas a assinatura entregue aos detectores é
+deslocada no eixo normalizado de índices de bandas. AUC média em três cenas,
+três seeds e target SNR de 5 dB:
+
+| Deslocamento | MF AUC (queda) | MF espacial AUC (queda) | Detector AUC (queda) |
+|-------------:|:--------------:|:-----------------------:|:--------------------:|
+| 0% | 0.940 (0.000) | **0.990 (0.000)** | 0.987 (0.000) |
+| 1% | 0.899 (0.041) | **0.983 (0.007)** | 0.973 (0.014) |
+| 2,5% | 0.781 (0.159) | **0.920 (0.070)** | 0.907 (0.080) |
+| 5% | 0.647 (0.293) | **0.730 (0.260)** | 0.710 (0.277) |
+
+O deslocamento é uma fração da faixa de índices, não uma distância em
+nanômetros, pois as grades espectrais dos sensores diferem. O experimento mede
+sensibilidade a mismatch controlado, não substitui validação com espectros
+medidos. Resultados completos em [results/mismatch.md](results/mismatch.md).
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -191,6 +210,8 @@ Indian Pines is a public AVIRIS scene (Purdue University).
   espacial de alvos em blob.
 - Treino e teste compartilham repórter aproximado, gerador de blobs e mistura
   linear. Os fundos são reais a jusante, mas os alvos implantados não são.
+- Um deslocamento espectral de 5% reduz a AUC do detector aprendido em 0,277;
+  ainda não há teste com variabilidade biológica ou espectro medido.
 - The first learned model is a small MLP; richer models and a true unmixing head
   are future work. All numbers, including failures, are tracked in [STATUS.md](STATUS.md).
 
