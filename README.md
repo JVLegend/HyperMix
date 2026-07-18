@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-15%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-23%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
@@ -46,7 +46,7 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 
 - 🌍 **Physics-based scene simulator** with exact ground truth (NumPy only, deterministic).
 - 🛰️ **Real-background benchmark** on an AVIRIS cube (Indian Pines) via implanted synthetic targets.
-- 🧬 **Targets grounded on the paper**: biliverdin IXα and bacteriochlorophyll a.
+- 🧬 **Espectros medidos**: endmembers USGS e absorbância de pellets bioHSI para biliverdina/SmURFP e bacterioclorofila a.
 - 🧠 **Detector aprendido**, avaliado contra baselines por pixel e com suavização espacial em 3 fundos reais.
 - 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
 - 🎯 **Uncertainty estimate** via MC-dropout, ainda sem calibração empírica.
@@ -79,7 +79,8 @@ python scripts/fetch_data.py        # download the real AVIRIS cube
 python -m hypermix.benchmark        # full benchmark (synthetic + real)
 python scripts/train_detector.py    # train the learned detector (needs ".[train]")
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
-pytest -q                           # 15 tests
+python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
+pytest -q                           # 23 tests
 ```
 
 ## 🧠 Milestone 2: detector aprendido com contexto espacial
@@ -161,6 +162,34 @@ nanômetros, pois as grades espectrais dos sensores diferem. O experimento mede
 sensibilidade a mismatch controlado, não substitui validação com espectros
 medidos. Resultados completos em [results/mismatch.md](results/mismatch.md).
 
+### Realismo físico opt-in
+
+A Fase B adiciona quatro controles sem alterar os defaults usados nos números
+da Fase A: espectros medidos, SRF gaussiana parametrizada em nanômetros,
+atmosfera simples com absorções estruturadas e mistura bilinear generalizada.
+O artefato [results/realism.md](results/realism.md) usa uma grade simulada
+calibrada em comprimento de onda, target SNR de 20, 10, 5 e 0 dB e 5 seeds.
+
+| Cenário | MF | MF espacial | ACE | SAM | MF espacial com alvo lab |
+|---------|:--:|:-----------:|:---:|:---:|:------------------------:|
+| Controle estilizado, linear | 0.952 | 0.983 | 0.715 | 0.907 | 0.983 |
+| Espectros medidos, linear | 0.976 | 0.995 | 0.719 | 0.968 | 0.995 |
+| Medidos + SRF 10 nm | 0.976 | 0.994 | 0.719 | 0.968 | 0.995 |
+| Medidos + SRF + atmosfera | 0.976 | 0.994 | 0.719 | 0.968 | 0.913 |
+| Medidos + SRF + atmosfera + bilinear | 0.947 | 0.983 | 0.714 | 0.969 | 0.906 |
+
+O alvo oráculo é a assinatura exata depois do sensor e da atmosfera. O alvo
+laboratorial usa a absorbância medida convertida antes dessas transformações.
+Por isso, SRF e atmosfera quase não penalizam o MF oráculo, mas o mismatch
+atmosférico reduz o MF espacial de 0,994 para 0,913. A mistura bilinear reduz o
+MF espacial oráculo de 0,994 para 0,983.
+
+No teste separado com três fundos reais, o detector aprendido também não obtém
+vantagem robusta: sob mistura linear, MF espacial 0,986 vs aprendido 0,980;
+sob mistura bilinear, 0,989 vs 0,992, empate dentro da margem de 0,005. Esses
+MAT não carregam centros de banda, então o teste não linear real usa alvo por
+índice espectral e deve ser interpretado apenas como análise de sensibilidade.
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -185,10 +214,12 @@ Reproduce: `python scripts/train_unmixer.py`.
 
 ## 📦 Open spectral dataset
 
-`dataset/` ships an open spectral library (CSV + NPZ): the background endmembers
-and the two paper-grounded reporters (biliverdin IXα, bacteriochlorophyll a) on a
-400-1000 nm grid, with a [data card](dataset/DATA_CARD.md). Regenerate with
-`python scripts/export_dataset.py`.
+`dataset/` contém uma biblioteca aberta em CSV e NPZ: quatro endmembers medidos
+do USGS, absorbâncias de pellets publicadas no bioHSI e os dois alvos semelhantes
+a reflectância derivados por Beer-Lambert. A grade de conveniência tem 400-1000
+nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
+[data card](dataset/DATA_CARD.md). Reconstrua com
+`python scripts/fetch_reference_spectra.py` e `python scripts/export_dataset.py`.
 
 ## 🗺️ Roadmap
 
@@ -207,17 +238,29 @@ python scripts/fetch_data.py
 
 Indian Pines is a public AVIRIS scene (Purdue University).
 
+Os espectros compactos de referência são versionados no pacote. As fontes são
+USGS Spectral Library Version 7 e o arquivo oficial bioHSI associado a Chemla
+et al.; URLs, licença e checksums estão em
+[hypermix/data/REFERENCE_SPECTRA.md](hypermix/data/REFERENCE_SPECTRA.md).
+
 ## ⚠️ Honest limitations
 
-- Reporter spectra are modeled from published absorption maxima, not yet the
-  measured spectra. They drop in without any API change once available.
+- Os repórteres medidos são absorbâncias inferidas de pellets, não reflectância
+  absoluta de uma superfície observada remotamente. A conversão por Beer-Lambert
+  é explícita, mas ainda é uma hipótese do simulador.
+- Os endmembers USGS são quatro amostras medidas e não cobrem a variabilidade
+  natural de solo, vegetação e água.
 - O matched filter espacial supera o detector aprendido no leaderboard atual;
   a vantagem sobre baselines por pixel é explicada em grande parte pelo prior
   espacial de alvos em blob.
-- Treino e teste compartilham repórter aproximado, gerador de blobs e mistura
-  linear. Os fundos são reais a jusante, mas os alvos implantados não são.
+- O leaderboard da Fase A ainda compartilha repórter aproximado, gerador de
+  blobs e mistura linear entre treino e teste. Os fundos são reais a jusante,
+  mas os alvos implantados não são.
 - Um deslocamento espectral de 5% reduz a AUC do detector aprendido em 0,277;
-  ainda não há teste com variabilidade biológica ou espectro medido.
+  ainda não há validação remota independente com variabilidade biológica.
+- Os cubos MAT atuais não incluem os centros de banda. A avaliação física
+  calibrada em nanômetros permanece simulada até obter metadados espectrais
+  rastreáveis para cada cena real.
 - No unmixing de Salinas, maior correlação não implica menor erro: target MAE
   de 0,0237 no unmixer contra 0,0073 no MF.
 - The first learned model is a small MLP; richer models and a true unmixing head

@@ -11,8 +11,8 @@ blur is the instrument point-spread function, illumination is a smooth
 multiplicative gain, and noise is set to hit a target SNR.
 
 Everything is deterministic given ``seed`` and depends only on NumPy, so a
-scene can be reproduced anywhere with no external data. Real reporter
-spectra can later replace the synthetic signature without touching the API.
+scene can be reproduced anywhere with no external data. Measured references
+are packaged locally and remain opt-in through ``spectral_source="measured"``.
 """
 
 from __future__ import annotations
@@ -90,11 +90,10 @@ def reporter_signature(
     return np.clip(baseline - dip, 0.0, 1.0)
 
 
-# Absorption features (approximate peak positions, nm) of the two reporters
-# selected by Chemla et al., Nature Biotechnology 2026. Modeled from
-# published absorption maxima; replace with the measured spectra when the
-# supplementary data is available. Each entry: list of (center_nm, width_nm,
-# depth) absorption bands within the 400-1000 nm window.
+# Legacy modeled absorption features of the two reporters selected by Chemla
+# et al., Nature Biotechnology 2026. These preserve the Phase A default and
+# its audited numbers. Use measured_reporter_library for the bioHSI pellet data.
+# Each entry lists (center_nm, width_nm, depth) within 400-1000 nm.
 _KNOWN_REPORTERS = {
     # bacteriochlorophyll a: Qx ~600 nm, Qy ~770 nm (Soret ~360 nm is out of range)
     "bacteriochlorophyll_a": [(600.0, 20.0, 0.18), (770.0, 16.0, 0.38)],
@@ -106,9 +105,9 @@ _KNOWN_REPORTERS = {
 def reporter_library(n_bands: int = 60, baseline: float = 0.45) -> dict[str, np.ndarray]:
     """Reflectance signatures for the reporters used by Chemla et al. (2026).
 
-    Grounded on the reported absorption maxima of biliverdin IXalpha and
-    bacteriochlorophyll a (approximate, pending measured spectra). Useful as
-    realistic detection targets instead of an arbitrary synthetic feature.
+    Legacy Phase A curves grounded on reported absorption maxima. These are
+    retained for reproducibility; use ``measured_reporter_library`` for the
+    measured bioHSI pellet absorbance shapes.
     """
     wl = _wavelengths(n_bands)
     lib = {}

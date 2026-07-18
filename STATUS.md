@@ -2,29 +2,52 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
-## Agora: Fase B, realismo físico e a pergunta decisiva - 2026-07-18
+## Agora: Fase B concluída, realismo físico opt-in - 2026-07-18
 
-Adicionada física opt-in ao forward model (não invalida os números da Fase A,
-que usam os defaults antigos):
-- `atmospheric_transmittance` (transmitância espectral com bandas de absorção de
-  O2/vapor de água) e `apply_srf` (resolução espectral finita via suavização no
-  eixo de bandas), plugáveis em `simulate_scene(atmosphere=, srf_fwhm=)`.
-- `implant_target(mixing="bilinear")`: termo de interação Fan (fundo x alvo), que
-  quebra a premissa linear-aditiva do matched filter. É o regime onde um detector
-  aprendido poderia justificar sua existência.
+Implementação opt-in, sem alterar os defaults nem os números auditados da Fase A:
 
-Experimento decisivo (`scripts/nonlinear_experiment.py`), MF espacial vs detector
-aprendido treinado no mesmo modelo de mistura, 3 cenas reais, target SNR 5 e 0 dB:
-- Mistura linear: MF espacial 0,986 vs aprendido 0,980 (MF espacial vence).
-- Mistura bilinear: MF espacial 0,990 vs aprendido 0,994 (empate, dentro de 0,005).
+- quatro endmembers medidos do USGS Spectral Library Version 7;
+- absorbância inferida de pellets YF10 e bpHO-smURFP em dois hospedeiros, obtida
+  do arquivo oficial bioHSI de Chemla et al.;
+- conversão explícita de absorbância para alvo semelhante a reflectância por
+  Beer-Lambert, sem apresentar a curva resultante como reflectância medida;
+- SRF gaussiana física com centros e FWHM em nanômetros, além da interface antiga
+  em número de bandas;
+- atmosfera simples com bandas estruturadas e path radiance, declarada como
+  análise de sensibilidade e não radiative transfer completo;
+- mistura generalizada bilinear em `simulate_scene` e `implant_target`.
+
+Reconstrução rastreável em `scripts/fetch_reference_spectra.py`, com SHA-256 das
+fontes. Biblioteca compacta em `hypermix/data/reference_spectra.csv` e exportação
+aberta em `dataset/`. Picos medidos na grade de 1 nm: YF10 em 866 nm,
+SmURFP/biliverdina em 641 nm para *E. coli* e 642 nm para *P. putida*.
+
+Experimento físico (`results/realism.md`), AUC média sobre target SNR 20, 10, 5
+e 0 dB, 5 seeds:
+
+- controle estilizado linear: MF espacial 0,983;
+- espectros medidos lineares: 0,995;
+- medidos + SRF de 10 nm: 0,994;
+- medidos + SRF + atmosfera: MF espacial oráculo 0,994, alvo laboratorial 0,913;
+- cenário completo bilinear: MF espacial oráculo 0,983, alvo laboratorial 0,906.
+
+O alvo oráculo já inclui sensor e atmosfera. A queda com o alvo laboratorial
+mostra que conhecimento do espectro no sensor é uma premissa forte. O experimento
+usa uma grade simulada calibrada; os MAT reais atuais não trazem centros de banda.
+
+Experimento não linear em três fundos reais (`scripts/nonlinear_experiment.py`),
+target SNR 5 e 0 dB, 3 seeds:
+
+- mistura linear: MF espacial 0,986 vs aprendido 0,980, MF espacial vence;
+- mistura bilinear: MF espacial 0,989 vs aprendido 0,992, empate dentro de 0,005.
 
 Conclusão honesta: em nenhum regime testado o detector aprendido supera de forma
 robusta o matched filter espacial bem calibrado. **A contribuição científica do
 HyperMix não é um detector superior; é o benchmark físico aberto e reprodutível,
 o simulador, e a avaliação honesta que mostra que, aqui, métodos clássicos bastam.**
-Isso é field-building legítimo e não deve ser vendido como "nosso modelo vence".
-Não perseguir um regime artificial só para fabricar uma vitória (benchmark-hacking).
-Artefatos: `results/nonlinear.json` e `results/nonlinear.md`. 18 testes passando.
+Não perseguir um regime artificial só para fabricar uma vitória.
+Artefatos: `results/nonlinear.json`, `results/nonlinear.md`,
+`results/realism.json` e `results/realism.md`. 23 testes passando.
 
 ## Fase A: endurecimento de validade científica - 2026-07-18
 
@@ -99,14 +122,14 @@ The low-SNR collapse is the motivation for Milestone 2.
       `results/benchmark.json`, saves `assets/benchmark_real.png`.
 - [x] Reporters grounded on Chemla et al. 2026: `reporter_library()` models
       biliverdin IXα + bacteriochlorophyll a from published absorption maxima
-      (approximate; swap for measured spectra when available).
+      (aproximação histórica; a Fase B adicionou as curvas medidas separadamente).
 - [x] 7 tests passing.
 
 Real-background result (matched filter, Indian Pines, 3 seeds):
 AUC 0.920 @ 30 dB → 0.630 @ 0 dB.
 
-Still open for later polish: ENVI/USGS/ECOSTRESS loaders exist but untested on
-real files; add linear-unmixing / NNLS abundance baseline; more scenes.
+Ainda aberto: testar o loader ENVI com arquivos rastreáveis, ampliar a biblioteca
+medida além das quatro amostras USGS atuais, adicionar baseline NNLS e mais cenas.
 
 ## Histórico: Milestone 2 - learned detector (2026-07-16)
 
@@ -132,7 +155,8 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
 - First learned model is a small MLP over 5 features. Next: richer model,
   a true forward-model / unmixing head, and self-supervised adaptation on the
   test scene's own unlabeled pixels.
-- Reporter spectra still approximate (paper maxima); wire in measured spectra.
+- Item histórico superado na Fase B: espectros medidos foram incorporados, mas
+  continuam sendo absorbâncias de pellets e não reflectância remota absoluta.
 
 ## Histórico: Milestone 3 - public release
 
