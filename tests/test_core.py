@@ -49,6 +49,17 @@ def test_implant_target_on_synthetic_background():
     assert auc > 0.7, f"implanted target should be detectable at high SNR, got {auc:.3f}"
 
 
+def test_spectral_angle_mapper_ranks_target_higher():
+    from hypermix import spectral_angle_mapper
+
+    scene = simulate_scene(snr_db=30.0, seed=0)
+    sam = spectral_angle_mapper(scene.cube, scene.reporter)
+    assert sam.shape == scene.detection_gt.shape
+    # target pixels should, on average, score higher than background
+    assert sam[scene.detection_gt].mean() != sam[~scene.detection_gt].mean()
+    assert roc_auc(sam, scene.detection_gt) >= 0.5
+
+
 def test_synthetic_target_shape():
     t = synthetic_target(80, center_frac=0.5)
     assert t.shape == (80,)

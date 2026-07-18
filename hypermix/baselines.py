@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import numpy as np
 
-__all__ = ["spectral_matched_filter", "ace"]
+__all__ = ["spectral_matched_filter", "ace", "spectral_angle_mapper"]
 
 
 def _prepare(cube: np.ndarray, target: np.ndarray):
@@ -42,3 +42,19 @@ def ace(cube: np.ndarray, target: np.ndarray) -> np.ndarray:
     tct = float(t @ ct) + 1e-12
     xcx = np.einsum("nb,nb->n", xc @ cinv, xc) + 1e-12
     return (num / (tct * xcx)).reshape(h, w)
+
+
+def spectral_angle_mapper(cube: np.ndarray, target: np.ndarray) -> np.ndarray:
+    """Spectral Angle Mapper score map (cosine similarity), shape (H, W).
+
+    Background-agnostic per-pixel baseline: the cosine of the spectral angle
+    between each pixel and the target. Higher means more target-like. Simple
+    and standard, but blind to background statistics (unlike the matched
+    filter), so it is a useful lower rung on the leaderboard.
+    """
+    h, w, b = cube.shape
+    x = cube.reshape(-1, b).astype(np.float64)
+    t = target.astype(np.float64)
+    xn = np.linalg.norm(x, axis=1) + 1e-12
+    tn = float(np.linalg.norm(t)) + 1e-12
+    return ((x @ t) / (xn * tn)).reshape(h, w)

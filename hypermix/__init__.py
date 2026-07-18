@@ -18,7 +18,7 @@ from .simulate import (
     reporter_signature,
     simulate_scene,
 )
-from .baselines import ace, spectral_matched_filter
+from .baselines import ace, spectral_angle_mapper, spectral_matched_filter
 from .metrics import roc_auc, roc_curve
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 
@@ -33,6 +33,7 @@ __all__ = [
     "false_color",
     "spectral_matched_filter",
     "ace",
+    "spectral_angle_mapper",
     "roc_auc",
     "roc_curve",
     "load_mat_cube",

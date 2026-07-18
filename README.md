@@ -107,12 +107,31 @@ Detection AUC on the **real** Indian Pines background (implanted target, 3 seeds
 The gain is largest exactly where long-range biosensing is hardest: at low SNR,
 where the classical matched filter approaches chance.
 
+## 🏆 Leaderboard
+
+Detection AUC on the real Indian Pines background (3 seeds), ranked. `Mean AUC`
+averages over SNR = 20, 10, 5, 0 dB. Reproduce: `python scripts/make_leaderboard.py`.
+
+| Rank | Method | Mean AUC | AUC @ 0 dB |
+|-----:|--------|:--------:|:----------:|
+| 1 | 🧠 Learned detector (HyperMix) | **0.926** | **0.828** |
+| 2 | Matched filter | 0.751 | 0.627 |
+| 3 | Spectral Angle Mapper | 0.642 | 0.562 |
+| 4 | ACE | 0.632 | 0.530 |
+
+## 📦 Open spectral dataset
+
+`dataset/` ships an open spectral library (CSV + NPZ): the background endmembers
+and the two paper-grounded reporters (biliverdin IXα, bacteriochlorophyll a) on a
+400-1000 nm grid, with a [data card](dataset/DATA_CARD.md). Regenerate with
+`python scripts/export_dataset.py`.
+
 ## 🗺️ Roadmap
 
 - [x] **Milestone 0** — scene simulator, classical baselines, metrics
 - [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
 - [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty (beats baselines at low SNR, generalizes sim → real)
-- [ ] **Milestone 3** — public release: PyPI package, Colab notebooks, open spectral dataset + leaderboard, DOI
+- [ ] **Milestone 3** — public release (in progress): ✅ Colab notebook · ✅ open spectral dataset + leaderboard · ⏳ PyPI package · ⏳ DOI
 
 ## 💾 Data
 

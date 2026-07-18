@@ -67,9 +67,13 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
 - [x] Colab quickstart notebook (`notebooks/quickstart.ipynb`): simulate ->
       matched filter -> AUC-vs-SNR -> train learned detector, all in-browser.
       "Open in Colab" badge in the README.
-- [ ] PyPI package polish + versioned release.
-- [ ] Open spectral dataset + public leaderboard.
-- [ ] DOI archive (Zenodo).
+- [x] SAM baseline (`spectral_angle_mapper`) added; now 3 classical baselines.
+- [x] Open spectral library exported to `dataset/` (CSV + NPZ + DATA_CARD),
+      `scripts/export_dataset.py`.
+- [x] Leaderboard: `scripts/make_leaderboard.py` -> `results/leaderboard.md`.
+      Learned 0.926 mean AUC > matched filter 0.751 > SAM 0.642 > ACE 0.632 (real bg).
+- [ ] PyPI package publish (author to run twine; version tagged on GitHub).
+- [ ] DOI archive (Zenodo) of the dataset + a tagged release.
 
 ## Grant / admin (tracked in the vault, not here)
 
