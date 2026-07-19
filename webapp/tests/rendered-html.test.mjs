@@ -90,6 +90,7 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(styles, /Editorial dossier refresh/);
   assert.match(styles, /\.latest-audit/);
   assert.match(styles, /\.band-column\.elbow/);
+  assert.match(styles, /\.story-chapter\.latest:hover,[\s\S]*background: var\(--lime\); color: var\(--ink\)/);
   assert.match(styles, /safe-area-inset-bottom/);
   assert.match(styles, /@media \(max-width: 370px\)/);
   assert.match(styles, /@media \(hover: none\) and \(pointer: coarse\)/);

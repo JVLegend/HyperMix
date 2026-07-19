@@ -694,6 +694,8 @@ h1 { max-width: 920px; font-size: clamp(68px, 7.9vw, 132px); }
 .story-chapter.latest { border-left: 3px solid var(--orange); background: rgba(255,99,56,.045); }
 .story-chapter.latest:nth-child(6) { border-left-color: var(--lime); background: rgba(200,240,75,.04); }
 .story-chapter:hover { padding-left: 28px; }
+.story-chapter.latest:hover,
+.story-chapter.latest:nth-child(6):hover { background: var(--lime); color: var(--ink); }
 .story-chapter:hover::after { color: #334000; }
 
 .section { position: relative; padding-top: 134px; padding-bottom: 134px; }
