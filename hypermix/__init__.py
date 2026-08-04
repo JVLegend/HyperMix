@@ -47,6 +47,12 @@ from .metrics import (
 )
 from .background import background_detector, smoothed_background_detector
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
+from .envi import (
+    EnviHeader,
+    envi_nodata_mask,
+    open_envi_cube,
+    parse_envi_header,
+)
 
 __version__ = "0.4.0"
 
@@ -85,6 +91,10 @@ __all__ = [
     "smoothed_background_detector",
     "load_mat_cube",
     "load_envi_cube",
+    "EnviHeader",
+    "parse_envi_header",
+    "open_envi_cube",
+    "envi_nodata_mask",
     "synthetic_target",
     "implant_target",
     "__version__",

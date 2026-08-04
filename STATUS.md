@@ -2,6 +2,46 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T8a concluído: cubo bioHSI de 54 m inspecionado e lido - 2026-08-04
+
+O ZIP de 54 m foi transferido de forma retomável e validado: 628.789.375 bytes e
+MD5 `a5e553d8f0634896b02750086e7eb4a1`, conferidos de forma independente. O
+inventário sem extração mostra apenas quatro membros: o binário ENVI de
+908.587.680 bytes, o cabeçalho, um PNG e um JSON de parâmetros.
+
+O cubo é ENVI `bsq`, float32, little-endian, sem deslocamento de cabeçalho, com
+682 samples, 1220 lines e 273 bands. O produto das dimensões pelo tipo bate
+exatamente com o tamanho do binário. Os comprimentos de onda são estritamente
+crescentes, de 398,411 nm a 1002,430 nm, passo médio de 2,2207 nm. A descrição
+declara a cadeia radiância, refletância e ortorretificação.
+
+Duas observações importam para o protocolo. O comentário do cabeçalho declara
+`mW/(cm2*sr*um)`, unidade de radiância, enquanto os valores medidos ficam entre
+0 e 1,0623, sem negativos, compatíveis com refletância. A ambiguidade é
+reportada, não resolvida por suposição. E exatos 18,00% dos pixels valem zero em
+todas as bandas amostradas, coincidindo banda a banda, o que é preenchimento da
+ortorretificação e não medição.
+
+`hypermix/envi.py` foi implementado somente após essa inspeção. Ele mapeia o
+binário em memória, devolve `(lines, samples, bands)` por transposição de vista,
+preserva escala, comprimentos de onda, unidade declarada e comentários, valida o
+tamanho contra as dimensões e recusa arquivos truncados. O loader antigo
+`datasets.load_envi_cube` foi mantido intacto, mas não serve aqui: ele aplica
+min-max global, que ancoraria o mínimo no preenchimento, descarta o cabeçalho e
+depende do pacote opcional `spectral`, ausente no ambiente. O leitor novo
+reproduziu exatamente as medições feitas à mão no arquivo real. A suíte passou de
+38 para 51 testes, todos verdes, sem depender do arquivo de 629 MB.
+
+Isto ainda não é um resultado de detecção. A inspeção revelou três lacunas que
+bloqueiam T8b: o ZIP não contém `plates_col1_labels.csv`, então os retângulos não
+têm nível de indução; `REF_SPECTRA_PATHS` aponta para `../infered_RG_on_sand.npy`
+fora do arquivo, que não é o mesmo `.npy` de pellets citado no notebook da Figura
+4; e os campos de controle positivo e negativo estão vazios. As coordenadas
+manuais, ao contrário do que se supunha, estão disponíveis, treze retângulos no
+referencial recortado e rotacionado. Com treze regiões pequenas e sem máscara
+pixel a pixel publicada, Pd@FAR fica descartada como métrica primária deste
+subconjunto. Detalhes em `dataset/BIOHSI_REAL_DATA.md`.
+
 ## Fase C iniciada: aquisição rastreável do bioHSI real - 2026-08-03
 
 O próximo eixo científico deixa de usar apenas alvos implantados. Foi criado um

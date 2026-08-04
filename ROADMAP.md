@@ -45,20 +45,36 @@ Fonte primária: Chemla et al., *Nature Biotechnology* 2026, DOI
 - [x] Auditar o notebook oficial da Figura 4 e documentar o contrato confirmado
       em `dataset/BIOHSI_REAL_DATA.md`.
 - [x] Implementar inventário e teste de integridade do ZIP sem extração.
-- [ ] Baixar `rg_on_sand_induction_54m.zip` para `data/biohsi/`.
-- [ ] Inventariar o conteúdo do ZIP sem assumir formato, orientação ou unidade.
-- [ ] Documentar cubos, comprimentos de onda, referências branco/escuro,
+- [x] Baixar `rg_on_sand_induction_54m.zip` para `data/biohsi/`.
+- [x] Inventariar o conteúdo do ZIP sem assumir formato, orientação ou unidade.
+- [x] Documentar cubos, comprimentos de onda, referências branco/escuro,
       controles, regiões experimentais e metadados ausentes.
-- [ ] Implementar o loader somente depois dessa inspeção.
+- [x] Implementar o loader somente depois dessa inspeção.
 
-Próxima ação bloqueante: concluir a transferência retomável do ZIP de 54 m,
-verificar o MD5 e executar `--inspect`. O código oficial confirma o caminho de
-um cubo ENVI, um CSV de níveis experimentais, uma assinatura independente de
-pellets e ROIs retangulares manuais. Dimensões, binário pareado, unidades e
-semântica completa dos rótulos continuam em aberto até a inspeção dos dados.
+T8a está concluído. O ZIP foi validado por tamanho e MD5, inventariado sem
+extração e inspecionado. O cubo é ENVI `bsq` float32 little-endian, 682 x 1220 x
+273, com 273 bandas de 398,411 nm a 1002,430 nm e 18,00% de preenchimento da
+ortorretificação. `hypermix/envi.py` lê esse cubo preservando escala, unidade e
+metadados, com testes sintéticos. Os fatos completos estão em
+`dataset/BIOHSI_REAL_DATA.md`.
+
+Três lacunas externas foram descobertas e mudam o planejamento de T8b. O ZIP não
+traz o CSV de níveis de indução, não traz a assinatura de referência citada em
+`REF_SPECTRA_PATHS` e não declara controles positivos ou negativos. As
+coordenadas manuais, ao contrário do que se supunha, **estão** disponíveis, em
+`TL_POINTS_COORDS` e `BR_POINTS_COORDS`, treze retângulos no referencial
+recortado e rotacionado.
+
+Próxima ação bloqueante de T8b: obter os rótulos de concentração e a assinatura
+de referência, em outro subconjunto do mesmo registro Zenodo ou junto aos
+autores. Sem eles não existe ground truth e nenhum confronto deve ser executado.
 
 ### T8b: ground truth e protocolo
 
+- [ ] **Bloqueante:** obter os rótulos de indução e a assinatura de referência,
+      ausentes no ZIP de 54 m.
+- [ ] Converter `TL_POINTS_COORDS` e `BR_POINTS_COORDS` do referencial recortado
+      e rotacionado para o referencial do cubo, com verificação visual.
 - [ ] Reconstruir o desenho experimental a partir dos arquivos e do material
       do artigo.
 - [ ] Definir regiões positivas, controles e exclusões antes de calcular score.
@@ -66,9 +82,11 @@ semântica completa dos rótulos continuam em aberto até a inspeção dos dados
 - [ ] Proibir extração da assinatura a partir da região de teste.
 - [ ] Escolher a unidade estatística correta. Pixels vizinhos não serão tratados
       como réplicas independentes.
-- [ ] Pré-especificar a métrica primária conforme o ground truth disponível:
-      contraste ou classificação por região; Pd@FAR somente com máscara pixel a
-      pixel defensável.
+- [ ] Pré-especificar a métrica primária conforme o ground truth disponível.
+      A inspeção já decide este ponto: com treze retângulos de poucos pixels,
+      sem máscara publicada e sem controles declarados, Pd@FAR não é defensível
+      aqui. A métrica primária será contraste ou classificação por região, com
+      intervalos sobre regiões e a limitação de n pequeno declarada.
 
 ### T8c: confronto e aceite
 
