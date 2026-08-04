@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "source_checked_at": "2026-08-03",
+  "record": {
+    "id": 14756889,
+    "doi": "10.5281/zenodo.14756889",
+    "version": "1.0.0",
+    "publication_date": "2025-02-25",
+    "license": "CC-BY-4.0",
+    "api_url": "https://zenodo.org/api/records/14756889",
+    "title": "Hyperspectral reporters for long-distance and wide-area detection of gene expression in living bacteria"
+  },
+  "files": {
+    "rg_on_sand_induction_54m.zip": {
+      "size": 628789375,
+      "checksum": "md5:a5e553d8f0634896b02750086e7eb4a1",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_on_sand_induction_54m.zip/content",
+      "role": "primary_real_target_54m"
+    },
+    "rg_on_sand_24m.zip": {
+      "size": 732053288,
+      "checksum": "md5:c236e15c7553109f08dc1892a46d7b6f",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_on_sand_24m.zip/content",
+      "role": "secondary_real_target_24m"
+    },
+    "rg_in_field_sensing_replicates.zip": {
+      "size": 718311874,
+      "checksum": "md5:c993679f0281c24c93052d78a7984828",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_in_field_sensing_replicates.zip/content",
+      "role": "field_replicates"
+    },
+    "rg_in_field_sensing.zip": {
+      "size": 2918379846,
+      "checksum": "md5:b095d78ea660223281712248e7e571f8",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_in_field_sensing.zip/content",
+      "role": "field_sensing"
+    },
+    "rg_yf10_gradient_varied_soils.zip": {
+      "size": 1700183058,
+      "checksum": "md5:a2a67c778cdf87660483087157f2c60b",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_yf10_gradient_varied_soils.zip/content",
+      "role": "soil_variability"
+    },
+    "rg_wt_aj1_yf6_pellets.zip": {
+      "size": 3191781144,
+      "checksum": "md5:732db24a8d53305b949c3dd2706d4d30",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_wt_aj1_yf6_pellets.zip/content",
+      "role": "independent_pellet_reference"
+    },
+    "rg_bchla_pellets_ctrl.zip": {
+      "size": 1540133184,
+      "checksum": "md5:a62e189eef22baaf36931d126e74c449",
+      "download_url": "https://zenodo.org/api/records/14756889/files/rg_bchla_pellets_ctrl.zip/content",
+      "role": "pellet_controls"
+    }
+  }
+}

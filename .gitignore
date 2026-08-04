@@ -12,6 +12,7 @@ dist/
 data/
 !hypermix/data/
 !hypermix/data/**
+hypermix/data/__pycache__/
 # keep committed figures, ignore ad-hoc outputs
 assets/*.png
 !assets/demo_detection.png

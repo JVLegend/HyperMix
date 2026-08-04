@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-25%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-38%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
@@ -51,7 +51,8 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 - 🧬 **Espectros medidos**: endmembers USGS e absorbância de pellets bioHSI para biliverdina/SmURFP e bacterioclorofila a.
 - 🧠 **Detector aprendido**, avaliado contra baselines por pixel e com suavização espacial em 3 fundos reais.
 - 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
-- 🎯 **Uncertainty estimate** via MC-dropout, ainda sem calibração empírica.
+- 🎯 **Calibrated uncertainty benchmark** with Platt scaling, temperature
+  scaling, NLL, Brier, ECE and reliability curves.
 - 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
 
 ## 🚀 Quickstart
@@ -83,7 +84,7 @@ python scripts/train_detector.py    # train the learned detector (needs ".[train
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
-pytest -q                           # 25 tests
+pytest -q                           # 38 tests
 ```
 
 ## 🌐 Web Observatory
@@ -276,10 +277,19 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
 
 ## 🗺️ Roadmap
 
-- [x] **Milestone 0** — scene simulator, classical baselines, metrics
-- [x] **Milestone 1** — real-background benchmark (AVIRIS), implanted-target harness, paper-grounded reporters
-- [x] **Milestone 2** — physics-informed learned detector with MC-dropout uncertainty, avaliado em troca de fundo simulado para real
-- [ ] **Milestone 3** — public release (in progress): ✅ Colab notebook · ✅ open spectral dataset + leaderboard · ✅ 3-scene cross-sensor benchmark · ✅ build + CITATION/Zenodo metadata · ⏳ PyPI publish · ⏳ DOI
+- [x] **Milestones 0–2**: simulador, baselines, três fundos reais, detector
+      aprendido, realismo físico e auditorias T1/T7.
+- [ ] **T8**: validar em cubos bioHSI com expressão biológica medida, sem
+      implantação digital. Manifesto e downloader rastreável já concluídos.
+- [ ] **T9**: transferir a assinatura de laboratório para o sensor sem rótulos
+      de avaliação.
+- [ ] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
+- [ ] **T10**: calibrar abundância e produzir intervalos de predição.
+- [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
+      software.
+
+O plano completo, com dependências, critérios de aceite e limites honestos,
+está em [ROADMAP.md](ROADMAP.md).
 
 ## 💾 Data
 
@@ -287,9 +297,19 @@ Datasets are downloaded, not committed:
 
 ```bash
 python scripts/fetch_data.py
+python scripts/fetch_biohsi.py --list
 ```
 
 Indian Pines is a public AVIRIS scene (Purdue University).
+
+Os cubos bioHSI de Chemla et al. são baixados sob demanda para `data/biohsi/`.
+O manifesto curado fixa DOI, versão, licença, tamanho e checksum. O download do
+primeiro conjunto real de 54 m é explícito porque o arquivo possui cerca de
+629 MB:
+
+```bash
+python scripts/fetch_biohsi.py --dataset rg_on_sand_induction_54m.zip
+```
 
 Os espectros compactos de referência são versionados no pacote. As fontes são
 USGS Spectral Library Version 7 e o arquivo oficial bioHSI associado a Chemla

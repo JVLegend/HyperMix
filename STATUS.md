@@ -2,6 +2,36 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## Fase C iniciada: aquisição rastreável do bioHSI real - 2026-08-03
+
+O próximo eixo científico deixa de usar apenas alvos implantados. Foi criado um
+roadmap executável em `ROADMAP.md`, cuja primeira fase usa os cubos publicados
+por Chemla et al. no Zenodo `10.5281/zenodo.14756889`, versão 1.0.0, CC BY 4.0.
+
+O manifesto curado em `hypermix/data/biohsi_manifest.json` registra sete
+subconjuntos relevantes com tamanho, MD5 e URL imutável do registro. O primeiro
+é `rg_on_sand_induction_54m.zip`, com 628.789.375 bytes e MD5
+`a5e553d8f0634896b02750086e7eb4a1`.
+
+`scripts/fetch_biohsi.py` lista os dados e faz download retomável para
+`data/biohsi/`, seguido obrigatoriamente por verificação de tamanho e checksum.
+A opção `--inspect` testa a integridade e inventaria o ZIP sem extração. Nenhum
+arquivo grande é commitado. Testes offline validam o manifesto, a verificação,
+o streaming, o progresso e o inventário sem depender do Zenodo.
+
+O código oficial, Zenodo `10.5281/zenodo.14827801`, foi auditado antes da
+implementação de um loader. Ele confirma um cubo ENVI, uma tabela CSV de níveis,
+uma assinatura independente de pellets e regiões retangulares definidas
+manualmente. A análise publicada interpola a assinatura para as bandas do cubo
+e confronta essa assinatura com endmembers do fundo aprendidos por K-means
+hierárquico em um unmixing UCLS. O contrato e as lacunas estão registrados em
+`dataset/BIOHSI_REAL_DATA.md`.
+
+Isto ainda não é um resultado de detecção. A transferência do ZIP de 54 m foi
+iniciada de forma retomável, mas o arquivo completo ainda precisa ser validado e
+inspecionado antes de definir loader, regiões, ground truth ou métrica. Essas
+decisões não serão tomadas a partir dos scores do detector.
+
 ## T7b concluído: incerteza calibrada - 2026-07-18
 
 A hipótese nova foi testada com split explícito entre calibração e avaliação.
