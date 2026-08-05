@@ -19,6 +19,8 @@ advanced since the draft date.
 | 10 | `10-the-release-now-fails-closed.md` | CI gate or metadata diagram | ready |
 | 11 | `11-hypermix-050-is-public.md` | PyPI project page or release badge | ready |
 | 12 | `12-a-citable-snapshot-without-rewriting-history.md` | Zenodo DOI record | ready |
+| 13 | `13-transfer-before-detection.md` | laboratory and sensor spectra | ready |
+| 14 | `14-the-narrow-physical-prior-won.md` | T9 comparison panel | ready |
 
 Public framing to preserve in every post:
 

@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-67%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-77%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -59,6 +59,8 @@ and its negative results are the contribution.
 - 🧪 **Unmixing head** that estimates fractional abundance (how much, not just whether).
 - 🎯 **Calibrated uncertainty benchmark** with Platt scaling, temperature
   scaling, NLL, Brier, ECE and reliability curves.
+- 🔭 **Laboratory-to-sensor target transfer** using declared sensor response
+  and a leakage-free atmospheric model.
 - 🔓 **100% open**, MIT licensed, reproducible from a clean clone.
 
 ## 🚀 Quickstart
@@ -90,7 +92,8 @@ python scripts/train_detector.py    # train the learned detector (needs ".[train
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
-pytest -q                           # 67 tests
+python scripts/target_transfer_experiment.py  # laboratory-to-sensor transfer
+pytest -q                           # 77 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
@@ -101,7 +104,8 @@ Explore a fotografia auditada dos resultados em
 [hypermix-observatory.vercel.app](https://hypermix-observatory.vercel.app).
 O painel permite variar target SNR, mismatch espectral e tracks de
 variabilidade, além de comparar alvo oráculo e alvo laboratorial sob os
-controles físicos da Fase B.
+controles físicos da Fase B e inspecionar o resultado T9 de transferência
+laboratório-sensor.
 
 A interface abre em inglês e oferece as bandeiras dos Estados Unidos e do
 Brasil no topo para alternar todo o conteúdo entre inglês e português sem sair
@@ -252,6 +256,29 @@ O experimento usa endmembers USGS em cenas implantadas, com grade calibrada de
 observada. Resultados completos em
 [results/target_variability.md](results/target_variability.md).
 
+### Transferência laboratório-sensor
+
+T9 transforma o espectro laboratorial usando somente o FWHM declarado do
+sensor, uma atmosfera fixa ou uma família pré-especificada e nenhum rótulo de
+avaliação. O experimento usa 45 casos pareados, com três respostas espectrais,
+cinco atmosferas por seed e target SNR de 10, 5 e 0 dB.
+
+| Alvo do detector | AUC [IC 95%] | Pd@FAR 1e-3 [IC 95%] |
+|---|:---:|:---:|
+| Laboratorial | 0.968 [0.962, 0.974] | 0.626 [0.587, 0.672] |
+| Transferência nominal | **0.990 [0.988, 0.992]** | **0.760 [0.727, 0.787]** |
+| Família física por subespaço | 0.777 [0.749, 0.799] | 0.369 [0.340, 0.394] |
+| Oráculo | 0.992 [0.991, 0.994] | 0.778 [0.744, 0.805] |
+
+O critério primário foi congelado para a família física contra o alvo
+laboratorial e falhou nas duas métricas. A transferência nominal, método
+declarado mas secundário para significância, melhorou AUC em 0.022
+`[0.016, 0.028]` e Pd em 0.134 `[0.097, 0.169]`, quase alcançando o oráculo.
+Esse resultado favorece uma correção física estreita, não aprendizado e nem uma
+família ampla de assinaturas. Ele ainda usa alvos implantados e precisa de
+validação independente. Resultados completos em
+[results/target_transfer.md](results/target_transfer.md).
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -289,8 +316,8 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
       aprendido, realismo físico e auditorias T1/T7.
 - [ ] **T8**: validar em cubos bioHSI com expressão biológica medida, sem
       implantação digital. Manifesto e downloader rastreável já concluídos.
-- [ ] **T9**: transferir a assinatura de laboratório para o sensor sem rótulos
-      de avaliação.
+- [x] **T9a**: transferência laboratório-sensor em simulador calibrado, sem
+      rótulos de avaliação. Validação bioHSI continua dependente de T8.
 - [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
 - [ ] **T10**: calibrar abundância e produzir intervalos de predição.
 - [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de

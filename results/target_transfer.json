@@ -1,0 +1,1946 @@
+{
+  "protocol": {
+    "reporter": "measured bacteriochlorophyll_a from bioHSI pellets",
+    "target_snrs_db": [
+      10.0,
+      5.0,
+      0.0
+    ],
+    "sensor_fwhm_nm": [
+      8.0,
+      10.0,
+      12.0
+    ],
+    "atmosphere_strength_by_seed": [
+      0.75,
+      0.875,
+      1.0,
+      1.125,
+      1.25
+    ],
+    "eval_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "mixing": "bilinear",
+    "nonlinearity": 0.5,
+    "far": 0.001,
+    "spatial_sigma_pixels": 1.5,
+    "transfer_family": {
+      "uses_labels": false,
+      "uses_detector_scores": false,
+      "sensor_fwhm_source": "declared sensor metadata",
+      "atmosphere_strength_grid": [
+        0.7,
+        1.0,
+        1.3
+      ],
+      "wavelength_shift_grid_nm": [
+        -2.0,
+        0.0,
+        2.0
+      ],
+      "path_radiance": 0.02,
+      "rank": 4
+    },
+    "bootstrap": {
+      "replicates": 4000,
+      "seed": 20260805,
+      "scheme": "resample sensor FWHM, then seeds within FWHM/SNR"
+    },
+    "significance_rule": "both 95% CIs for transfer_family_spatial - laboratory_spatial must be above zero"
+  },
+  "rows": [
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9798402135439813,
+      "pd_at_far": 0.7473853580048271
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9847354267889014,
+      "pd_at_far": 0.7184231697506034
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.7905906162559049,
+      "pd_at_far": 0.43845534995977475
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.996048921920124,
+      "pd_at_far": 0.8205953338696702
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9791784367227636,
+      "pd_at_far": 0.611984282907662
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9913253704089707,
+      "pd_at_far": 0.8398821218074656
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.8123732017162039,
+      "pd_at_far": 0.4223968565815324
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9959231198013293,
+      "pd_at_far": 0.8644400785854617
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9138227145114792,
+      "pd_at_far": 0.40946372239747636
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.992955105825926,
+      "pd_at_far": 0.7570977917981072
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7386606689730674,
+      "pd_at_far": 0.3419558359621451
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.992955105825926,
+      "pd_at_far": 0.7570977917981072
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9011468204369508,
+      "pd_at_far": 0.41459627329192544
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9842665913120002,
+      "pd_at_far": 0.7375776397515528
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7651048774344127,
+      "pd_at_far": 0.3951863354037267
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9844399655005293,
+      "pd_at_far": 0.7220496894409938
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9495547403519121,
+      "pd_at_far": 0.48602794411177647
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9924168878884985,
+      "pd_at_far": 0.7754491017964071
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8419717236975117,
+      "pd_at_far": 0.36227544910179643
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9891419933924595,
+      "pd_at_far": 0.8013972055888223
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9954156879132122,
+      "pd_at_far": 0.8463395012067578
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9865553111124403,
+      "pd_at_far": 0.7530168946098149
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.7940582971312785,
+      "pd_at_far": 0.4473049074818986
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9939565142570534,
+      "pd_at_far": 0.83266291230893
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9948203107389127,
+      "pd_at_far": 0.7819253438113949
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9938181857623742,
+      "pd_at_far": 0.831041257367387
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.815319449147227,
+      "pd_at_far": 0.431237721021611
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9960535139453354,
+      "pd_at_far": 0.8408644400785854
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9611288799990885,
+      "pd_at_far": 0.5848580441640379
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.991198571632674,
+      "pd_at_far": 0.7305993690851735
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7339246881582073,
+      "pd_at_far": 0.34069400630914826
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.991198571632674,
+      "pd_at_far": 0.7305993690851735
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9588306050480186,
+      "pd_at_far": 0.6141304347826086
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9890371714260207,
+      "pd_at_far": 0.7507763975155279
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7647198671674723,
+      "pd_at_far": 0.38354037267080743
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9879032643769051,
+      "pd_at_far": 0.7298136645962733
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9840834829623393,
+      "pd_at_far": 0.7085828343313373
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9923954100407506,
+      "pd_at_far": 0.8133732534930139
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8520240723717558,
+      "pd_at_far": 0.3522954091816367
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9891131176193763,
+      "pd_at_far": 0.8143712574850299
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9964284132221384,
+      "pd_at_far": 0.8358809332260659
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9863399462261437,
+      "pd_at_far": 0.7755430410297667
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.7922422914170663,
+      "pd_at_far": 0.4416733708769107
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9913813218014793,
+      "pd_at_far": 0.8077232502011263
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9962647854698009,
+      "pd_at_far": 0.8536345776031434
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9946187067730444,
+      "pd_at_far": 0.8280943025540275
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.8125417945063744,
+      "pd_at_far": 0.41453831041257366
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.995678837101166,
+      "pd_at_far": 0.8369351669941061
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9697811256719576,
+      "pd_at_far": 0.6157728706624606
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9865530470696819,
+      "pd_at_far": 0.6921135646687697
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7244767430139637,
+      "pd_at_far": 0.3211356466876972
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.9865530470696819,
+      "pd_at_far": 0.6921135646687697
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9864909622227607,
+      "pd_at_far": 0.7383540372670807
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.993540715433571,
+      "pd_at_far": 0.8051242236024845
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7684653474817299,
+      "pd_at_far": 0.3734472049689441
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9924811400767789,
+      "pd_at_far": 0.7841614906832298
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9933767090400738,
+      "pd_at_far": 0.7974051896207585
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9922013934827619,
+      "pd_at_far": 0.8313373253493014
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8483368031989583,
+      "pd_at_far": 0.34830339321357284
+    },
+    {
+      "sensor_fwhm_nm": 8.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9900089825132137,
+      "pd_at_far": 0.8353293413173652
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.960869276565117,
+      "pd_at_far": 0.47615756738078785
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9861365056545252,
+      "pd_at_far": 0.7525915687629579
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.8071305103950317,
+      "pd_at_far": 0.391845196959226
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9915699465125728,
+      "pd_at_far": 0.8127159640635798
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9381728008574965,
+      "pd_at_far": 0.4244776119402985
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9837121602021242,
+      "pd_at_far": 0.7629850746268657
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7176959885667133,
+      "pd_at_far": 0.3629850746268657
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9907584335376409,
+      "pd_at_far": 0.8232835820895522
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9772593017901254,
+      "pd_at_far": 0.5990396158463386
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.996076849494107,
+      "pd_at_far": 0.6746698679471789
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.8830551296593103,
+      "pd_at_far": 0.5342136854741897
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.996076849494107,
+      "pd_at_far": 0.6746698679471789
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.927571066529614,
+      "pd_at_far": 0.34542586750788645
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9928820691944075,
+      "pd_at_far": 0.7176656151419558
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.8205747350512175,
+      "pd_at_far": 0.3249211356466877
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9927741241142864,
+      "pd_at_far": 0.7168769716088328
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.8829283940709444,
+      "pd_at_far": 0.26854928017718716
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9835763886839933,
+      "pd_at_far": 0.6472868217054264
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.7071268261115012,
+      "pd_at_far": 0.29401993355481726
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9851081881525106,
+      "pd_at_far": 0.6738648947951273
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9875852506149398,
+      "pd_at_far": 0.6468555632342778
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9914948647594545,
+      "pd_at_far": 0.7671043538355218
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.8079569644706117,
+      "pd_at_far": 0.387007601935038
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9942630883122306,
+      "pd_at_far": 0.8182446440912232
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9789530546186139,
+      "pd_at_far": 0.6859701492537313
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9890965236513358,
+      "pd_at_far": 0.7910447761194029
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7143265717579104,
+      "pd_at_far": 0.3498507462686567
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9924764890282132,
+      "pd_at_far": 0.8280597014925373
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9926456447897477,
+      "pd_at_far": 0.7082833133253301
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9966725370911408,
+      "pd_at_far": 0.6926770708283313
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.8837162076965928,
+      "pd_at_far": 0.5330132052821128
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.9966725370911408,
+      "pd_at_far": 0.6926770708283313
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9752455347792603,
+      "pd_at_far": 0.5954258675078864
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9940753053879096,
+      "pd_at_far": 0.7089905362776026
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.8181892696145877,
+      "pd_at_far": 0.32965299684542587
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9936177471378442,
+      "pd_at_far": 0.694794952681388
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.950616227599994,
+      "pd_at_far": 0.5365448504983389
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.991455034104462,
+      "pd_at_far": 0.7414174972314507
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.7162176338722251,
+      "pd_at_far": 0.3034330011074197
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9914397898721911,
+      "pd_at_far": 0.730343300110742
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9940456101307846,
+      "pd_at_far": 0.8154803040774016
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9895985881671527,
+      "pd_at_far": 0.7498272287491361
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.8003063927304589,
+      "pd_at_far": 0.3158258465791292
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.992266949289673,
+      "pd_at_far": 0.783690393918452
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.992884140142831,
+      "pd_at_far": 0.8405970149253731
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9899735860452653,
+      "pd_at_far": 0.8047761194029851
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7135201167148016,
+      "pd_at_far": 0.3391044776119403
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.992010140236407,
+      "pd_at_far": 0.8250746268656717
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9936104986697046,
+      "pd_at_far": 0.7034813925570228
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9948002184095887,
+      "pd_at_far": 0.7046818727490997
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.8712373940612789,
+      "pd_at_far": 0.48739495798319327
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.9948002184095887,
+      "pd_at_far": 0.7046818727490997
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9896336472870341,
+      "pd_at_far": 0.6790220820189274
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9936711155076802,
+      "pd_at_far": 0.6561514195583596
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.8096489207103108,
+      "pd_at_far": 0.305205047318612
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9932918979967327,
+      "pd_at_far": 0.6482649842271293
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9759349304043426,
+      "pd_at_far": 0.6262458471760798
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9905811953707364,
+      "pd_at_far": 0.7059800664451827
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.7183905106785028,
+      "pd_at_far": 0.27851605758582504
+    },
+    {
+      "sensor_fwhm_nm": 10.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9904557992665721,
+      "pd_at_far": 0.7242524916943521
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9388107085100026,
+      "pd_at_far": 0.4179867143587123
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9544351369758136,
+      "pd_at_far": 0.6939192641798672
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.6300816168635898,
+      "pd_at_far": 0.20797138477261115
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9939807503722345,
+      "pd_at_far": 0.799182422074604
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9391839116145769,
+      "pd_at_far": 0.523884103367267
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9895126290803067,
+      "pd_at_far": 0.7768206734534064
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7915431591872027,
+      "pd_at_far": 0.4197337509788567
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9943865186654718,
+      "pd_at_far": 0.7893500391542678
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.8963766889369033,
+      "pd_at_far": 0.33755837224816543
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9861193758299291,
+      "pd_at_far": 0.7271514342895263
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7036493800027698,
+      "pd_at_far": 0.32221480987324885
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.9861193758299291,
+      "pd_at_far": 0.7271514342895263
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9263440780909463,
+      "pd_at_far": 0.41059147180192573
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9967070593831936,
+      "pd_at_far": 0.8349381017881705
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7644504758989715,
+      "pd_at_far": 0.36932599724896836
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.995665281316955,
+      "pd_at_far": 0.8349381017881705
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9442237266331843,
+      "pd_at_far": 0.438512869399428
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9924453876150834,
+      "pd_at_far": 0.7121067683508103
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8980769385941353,
+      "pd_at_far": 0.49571020019065776
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 10.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9932799476209853,
+      "pd_at_far": 0.7511916110581506
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9817720279470025,
+      "pd_at_far": 0.7358201328564129
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9861791453973476,
+      "pd_at_far": 0.7593254982115483
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.629512517261817,
+      "pd_at_far": 0.1936637710781809
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.996420879716508,
+      "pd_at_far": 0.8334184977005621
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9828520942773036,
+      "pd_at_far": 0.6977290524667189
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9907240362708621,
+      "pd_at_far": 0.8026624902114331
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7850415664593338,
+      "pd_at_far": 0.41268598277212215
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.9936493320925296,
+      "pd_at_far": 0.8167580266249022
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.964106690756298,
+      "pd_at_far": 0.552368245496998
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9864691341038757,
+      "pd_at_far": 0.7625083388925951
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7085496165240871,
+      "pd_at_far": 0.3295530353569046
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.9864691341038757,
+      "pd_at_far": 0.7625083388925951
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9744224124261075,
+      "pd_at_far": 0.6781292984869326
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9964542668648196,
+      "pd_at_far": 0.8452544704264099
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7683813903404125,
+      "pd_at_far": 0.3713892709766162
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.9957347946498704,
+      "pd_at_far": 0.8404401650618982
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9853555467693652,
+      "pd_at_far": 0.6282173498570067
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9962852858079844,
+      "pd_at_far": 0.782650142993327
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8962097834870084,
+      "pd_at_far": 0.4680648236415634
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 5.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9962460937635083,
+      "pd_at_far": 0.7998093422306959
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "laboratory_spatial",
+      "auc": 0.9926938632092942,
+      "pd_at_far": 0.7802759325498212
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9928596526592264,
+      "pd_at_far": 0.7956055186509964
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "transfer_family_spatial",
+      "auc": 0.6266741448740103,
+      "pd_at_far": 0.1773122125702606
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.75,
+      "target_snr_db": 0.0,
+      "seed": 0,
+      "method": "oracle_spatial",
+      "auc": 0.9962688664672865,
+      "pd_at_far": 0.8415942769545223
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "laboratory_spatial",
+      "auc": 0.9928792747751711,
+      "pd_at_far": 0.7666405638214565
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9904338116494319,
+      "pd_at_far": 0.7713390759592795
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "transfer_family_spatial",
+      "auc": 0.7774111442646865,
+      "pd_at_far": 0.38919342208300706
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 0.875,
+      "target_snr_db": 0.0,
+      "seed": 1,
+      "method": "oracle_spatial",
+      "auc": 0.992120642045811,
+      "pd_at_far": 0.7783868441660141
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "laboratory_spatial",
+      "auc": 0.9855806177433531,
+      "pd_at_far": 0.7631754503002002
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.987459753811451,
+      "pd_at_far": 0.7891927951967979
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "transfer_family_spatial",
+      "auc": 0.7063286876913872,
+      "pd_at_far": 0.3188792528352235
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.0,
+      "target_snr_db": 0.0,
+      "seed": 2,
+      "method": "oracle_spatial",
+      "auc": 0.987459753811451,
+      "pd_at_far": 0.7891927951967979
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "laboratory_spatial",
+      "auc": 0.9864131857757651,
+      "pd_at_far": 0.7152682255845942
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9943946808471408,
+      "pd_at_far": 0.8211829436038515
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "transfer_family_spatial",
+      "auc": 0.7689882030158092,
+      "pd_at_far": 0.35419532324621733
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.125,
+      "target_snr_db": 0.0,
+      "seed": 3,
+      "method": "oracle_spatial",
+      "auc": 0.994119393297956,
+      "pd_at_far": 0.8253094910591472
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "laboratory_spatial",
+      "auc": 0.9935727352473652,
+      "pd_at_far": 0.7464251668255482
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_nominal_spatial",
+      "auc": 0.9963526039079079,
+      "pd_at_far": 0.8169685414680649
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "transfer_family_spatial",
+      "auc": 0.8860235405862438,
+      "pd_at_far": 0.4356530028598665
+    },
+    {
+      "sensor_fwhm_nm": 12.0,
+      "atmosphere_strength": 1.25,
+      "target_snr_db": 0.0,
+      "seed": 4,
+      "method": "oracle_spatial",
+      "auc": 0.9961114575636612,
+      "pd_at_far": 0.8188751191611058
+    }
+  ],
+  "summary": {
+    "overall": {
+      "laboratory_spatial": {
+        "auc": {
+          "mean": 0.9680601517648575,
+          "ci_low": 0.9622916965424534,
+          "ci_high": 0.9741331260718032
+        },
+        "pd_at_far": {
+          "mean": 0.6264551249830526,
+          "ci_low": 0.5867245998668388,
+          "ci_high": 0.6719403946123476
+        }
+      },
+      "transfer_nominal_spatial": {
+        "auc": {
+          "mean": 0.9900576165136004,
+          "ci_low": 0.9875903054665476,
+          "ci_high": 0.9916216833800018
+        },
+        "pd_at_far": {
+          "mean": 0.7601983422497097,
+          "ci_low": 0.7271934306955713,
+          "ci_high": 0.7865369520685619
+        }
+      },
+      "transfer_family_spatial": {
+        "auc": {
+          "mean": 0.7774405728625255,
+          "ci_low": 0.7491761814822122,
+          "ci_high": 0.7994463848804357
+        },
+        "pd_at_far": {
+          "mean": 0.36926611944660487,
+          "ci_low": 0.3400844392042003,
+          "ci_high": 0.39355853250263084
+        }
+      },
+      "oracle_spatial": {
+        "auc": {
+          "mean": 0.9924100408134172,
+          "ci_low": 0.9911807137266432,
+          "ci_high": 0.9935494211451324
+        },
+        "pd_at_far": {
+          "mean": 0.7784390306950623,
+          "ci_low": 0.7442122869651168,
+          "ci_high": 0.8047109589497067
+        }
+      }
+    },
+    "by_snr": {
+      "10": {
+        "laboratory_spatial": {
+          "auc": {
+            "mean": 0.9370188586110666,
+            "ci_low": 0.9218316579373547,
+            "ci_high": 0.9535017145215592
+          },
+          "pd_at_far": {
+            "mean": 0.46077607031611106,
+            "ci_low": 0.39164610925828297,
+            "ci_high": 0.545921758843015
+          }
+        },
+        "transfer_nominal_spatial": {
+          "auc": {
+            "mean": 0.9871535296225188,
+            "ci_low": 0.9804617372346903,
+            "ci_high": 0.9911940003148086
+          },
+          "pd_at_far": {
+            "mean": 0.7419043343433533,
+            "ci_low": 0.7080176141942253,
+            "ci_high": 0.7765087064030637
+          }
+        },
+        "transfer_family_spatial": {
+          "auc": {
+            "mean": 0.778139056560503,
+            "ci_low": 0.7365514046622542,
+            "ci_high": 0.811678162706874
+          },
+          "pd_at_far": {
+            "mean": 0.37888073308900694,
+            "ci_low": 0.33458143566565934,
+            "ci_high": 0.41842983852496574
+          }
+        },
+        "oracle_spatial": {
+          "auc": {
+            "mean": 0.9918819014704707,
+            "ci_low": 0.9898370817949979,
+            "ci_high": 0.9937961494022429
+          },
+          "pd_at_far": {
+            "mean": 0.771253665876803,
+            "ci_low": 0.733376524876501,
+            "ci_high": 0.8039197167330198
+          }
+        }
+      },
+      "5": {
+        "laboratory_spatial": {
+          "auc": {
+            "mean": 0.9778555634160137,
+            "ci_low": 0.970820155232387,
+            "ci_high": 0.984296858224476
+          },
+          "pd_at_far": {
+            "mean": 0.6667453320853182,
+            "ci_low": 0.6189015416915434,
+            "ci_high": 0.7241889708114136
+          }
+        },
+        "transfer_nominal_spatial": {
+          "auc": {
+            "mean": 0.99146071889423,
+            "ci_low": 0.9895008832893472,
+            "ci_high": 0.9933599724860651
+          },
+          "pd_at_far": {
+            "mean": 0.7688294898065693,
+            "ci_low": 0.7373826859757396,
+            "ci_high": 0.7976845279742063
+          }
+        },
+        "transfer_family_spatial": {
+          "auc": {
+            "mean": 0.7792098596973686,
+            "ci_low": 0.738613234117839,
+            "ci_high": 0.8135575520714782
+          },
+          "pd_at_far": {
+            "mean": 0.3755591234619428,
+            "ci_low": 0.3325077671875688,
+            "ci_high": 0.4144359195503855
+          }
+        },
+        "oracle_spatial": {
+          "auc": {
+            "mean": 0.993014324506617,
+            "ci_low": 0.9910567946012679,
+            "ci_high": 0.994758957064871
+          },
+          "pd_at_far": {
+            "mean": 0.7843577122179243,
+            "ci_low": 0.7441744156045288,
+            "ci_high": 0.8159454968810451
+          }
+        }
+      },
+      "0": {
+        "laboratory_spatial": {
+          "auc": {
+            "mean": 0.9893060332674918,
+            "ci_low": 0.985231156519357,
+            "ci_high": 0.9925242484110817
+          },
+          "pd_at_far": {
+            "mean": 0.751843972547729,
+            "ci_low": 0.7118831180970249,
+            "ci_high": 0.7895070039055797
+          }
+        },
+        "transfer_nominal_spatial": {
+          "auc": {
+            "mean": 0.9915586010240524,
+            "ci_low": 0.9897922201921893,
+            "ci_high": 0.9932384731947989
+          },
+          "pd_at_far": {
+            "mean": 0.7698612025992069,
+            "ci_low": 0.7237152353055616,
+            "ci_high": 0.8059477072110481
+          }
+        },
+        "transfer_family_spatial": {
+          "auc": {
+            "mean": 0.7749728023297054,
+            "ci_low": 0.7341650083723362,
+            "ci_high": 0.8086413992782945
+          },
+          "pd_at_far": {
+            "mean": 0.3533585017888649,
+            "ci_low": 0.3109692039123842,
+            "ci_high": 0.39199948867374845
+          }
+        },
+        "oracle_spatial": {
+          "auc": {
+            "mean": 0.9923338964631638,
+            "ci_low": 0.9906102562515328,
+            "ci_high": 0.9939304908025733
+          },
+          "pd_at_far": {
+            "mean": 0.7797057139904594,
+            "ci_low": 0.732713752399193,
+            "ci_high": 0.8159713873615081
+          }
+        }
+      }
+    }
+  },
+  "comparison": {
+    "auc": {
+      "mean": -0.1906195789023317,
+      "ci_low": -0.21689532609123252,
+      "ci_high": -0.17148170538165267
+    },
+    "pd_at_far": {
+      "mean": -0.25718900553644775,
+      "ci_low": -0.2933691276720001,
+      "ci_high": -0.22146761699602466
+    },
+    "significant_advantage": false
+  },
+  "secondary_nominal_comparison": {
+    "auc": {
+      "mean": 0.021997464748743062,
+      "ci_low": 0.01604001736836854,
+      "ci_high": 0.02779071841936416
+    },
+    "pd_at_far": {
+      "mean": 0.13374321726665722,
+      "ci_low": 0.09657673312216744,
+      "ci_high": 0.16867046558697948
+    },
+    "both_intervals_above_zero": true
+  },
+  "distance_to_oracle": {
+    "laboratory_spatial": {
+      "auc": {
+        "mean": 0.024349889048559944,
+        "ci_low": 0.0183449117719653,
+        "ci_high": 0.02976891594591001
+      },
+      "pd_at_far": {
+        "mean": 0.15198390571200965,
+        "ci_low": 0.11544079427233643,
+        "ci_high": 0.18877953497022582
+      }
+    },
+    "transfer_nominal_spatial": {
+      "auc": {
+        "mean": 0.0023524242998168798,
+        "ci_low": 0.0007900936763547332,
+        "ci_high": 0.0051218498303725515
+      },
+      "pd_at_far": {
+        "mean": 0.01824068844535239,
+        "ci_low": 0.00970306209492636,
+        "ci_high": 0.027444968984553925
+      }
+    },
+    "transfer_family_spatial": {
+      "auc": {
+        "mean": 0.21496946795089164,
+        "ci_low": 0.19288891762929822,
+        "ci_high": 0.24362075022119548
+      },
+      "pd_at_far": {
+        "mean": 0.4091729112484573,
+        "ci_low": 0.36687033940192987,
+        "ci_high": 0.4541467941137425
+      }
+    }
+  }
+}

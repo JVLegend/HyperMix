@@ -69,7 +69,14 @@ const BAND_SPARSITY = [
   { k: "all", auc: 0.984 },
 ] as const;
 
-const CHAPTER_IDS = ["benchmark", "physics", "variability", "background", "uncertainty", "sparsity", "unmixing"] as const;
+const TARGET_TRANSFER = {
+  lab: { auc: 0.968, pd: 0.626, aucCi: "0.962–0.974", pdCi: "0.587–0.672" },
+  nominal: { auc: 0.990, pd: 0.760, aucCi: "0.988–0.992", pdCi: "0.727–0.787" },
+  family: { auc: 0.777, pd: 0.369, aucCi: "0.749–0.799", pdCi: "0.340–0.394" },
+  oracle: { auc: 0.992, pd: 0.778, aucCi: "0.991–0.994", pdCi: "0.744–0.805" },
+} as const;
+
+const CHAPTER_IDS = ["benchmark", "physics", "transfer", "variability", "background", "uncertainty", "sparsity", "unmixing"] as const;
 
 const COPY = {
   en: {
@@ -80,36 +87,38 @@ const COPY = {
     nav: ["Story", "Detection", "Calibration", "Bands", "Limits"],
     brandLabel: "HyperMix, home",
     hero: {
-      eyebrow: "OPEN BENCHMARK · AUDITED 18 JUL 2026",
+      eyebrow: "OPEN BENCHMARK · AUDITED 05 AUG 2026",
       title: <>Detection without<br />the <em>victory lap.</em></>,
       lead: "An interactive observatory for testing what HyperMix actually demonstrates: in this benchmark, a well-calibrated spatial matched filter leads or ties the learned detector.",
       explore: "Follow the evidence",
       status: "Open Map Studio",
       proof: ["passing tests", "real backgrounds", "calibration / eval seeds", "open source"],
-      latest: "LATEST AUDIT · T7B/T7C",
+      latest: "LATEST AUDIT · T9",
       findings: [
-        ["CALIBRATION", "Classical wins", "NLL 0.05766 vs 0.06792"],
-        ["BAND ELBOW", "20 bands", "within 0.005 of the full mean"],
+        ["NARROW PRIOR", "Near oracle", "nominal transfer +0.022 AUC"],
+        ["BROAD FAMILY", "Primary fails", "subspace −0.191 AUC"],
       ],
       readLatest: "Inspect the new evidence",
     },
     story: {
       overline: "THE CASE FILE",
-      title: <>One claim.<br /><em>Seven ways to test it.</em></>,
+      title: <>One claim.<br /><em>Eight ways to test it.</em></>,
       intro: "Read the evidence in order. Each chapter removes one convenient assumption and asks whether learning finally earns a robust advantage.",
       chapters: [
         ["01", "Signal", "Does learning hold when the target fades?", "Spatial MF leads"],
         ["02", "Physics", "Does sensor realism reverse the result?", "Mismatch dominates"],
-        ["03", "Variation", "Can measured target variation help?", "Mostly ties"],
-        ["04", "Background", "Can raw scene statistics rescue learning?", "Not in this test"],
-        ["05", "Calibration", "Can learning win on honest probabilities?", "MF still wins"],
-        ["06", "Bands", "Is the signal really carried by three bands?", "Not here"],
-        ["07", "Quantity", "What remains useful beyond ranking?", "Mixed by scene"],
+        ["03", "Transfer", "Can declared physics carry the lab target to the sensor?", "Narrow prior works"],
+        ["04", "Variation", "Can measured target variation help?", "Mostly ties"],
+        ["05", "Background", "Can raw scene statistics rescue learning?", "Not in this test"],
+        ["06", "Calibration", "Can learning win on honest probabilities?", "MF still wins"],
+        ["07", "Bands", "Is the signal really carried by three bands?", "Not here"],
+        ["08", "Quantity", "What remains useful beyond ranking?", "Mixed by scene"],
       ],
     },
     bridges: {
       benchmark: ["NEXT QUESTION", "The baseline survives low signal.", "Now remove the convenient assumption that the lab signature reaches the sensor unchanged."],
-      physics: ["NEXT QUESTION", "Physical mismatch hurts more than model choice.", "Give learning measured target variation and a classical subspace a fair chance."],
+      physics: ["TRANSFER TEST", "Physical mismatch hurts more than model choice.", "Use only declared sensor metadata to transform the lab signature before detection."],
+      transfer: ["NEXT QUESTION", "A narrow physical prior nearly reaches the oracle.", "Now widen the target family and give learning measured variation plus a fair classical subspace."],
       variability: ["FINAL CAUSAL TEST", "Still no robust learned advantage.", "Let a model consume the raw scene and learn its background statistics without labels."],
       background: ["NEW SCORECARD", "The last simple causal detection test also fails.", "Ariel rewards calibrated uncertainty, not AUC alone. Ask whether learning can win on probability quality."],
       uncertainty: ["BAND AUDIT", "Learning also loses on calibrated uncertainty.", "If detection is nearly saturated, inspect how many spectral channels actually carry the matched-filter result."],
@@ -174,8 +183,26 @@ const COPY = {
       evidence: "Key Phase B evidence",
       insight: <>With SRF + atmosphere, knowing the target at the sensor is worth <b>0.081 AUC</b>. Physical mismatch matters more than swapping the detector.</>,
     },
+    transfer: {
+      overline: "CHAPTER 03 · TRANSFER",
+      title: <>A narrow prior<br /><em>closes the gap.</em></>,
+      intro: "Across 45 paired cases, the detector receives no target labels or score feedback. It only transforms the measured lab spectrum using declared wavelength, SRF, atmosphere, and illumination metadata.",
+      questionLabel: "PRE-SPECIFIED TEST / T9",
+      question: "Can a physical target family improve over the unchanged lab signature and approach the sensor-space oracle?",
+      methods: ["Unchanged lab target", "Nominal metadata transfer", "Broad family subspace", "Sensor-space oracle"],
+      auc: "AUC",
+      pd: "Pd@FAR 1e-3",
+      interval: "95% CI",
+      primary: "PRIMARY · BROAD FAMILY MINUS LAB",
+      primaryValue: "AUC −0.191 [−0.217, −0.171] · Pd −0.257 [−0.293, −0.221]",
+      primaryVerdict: "Failed decisively",
+      secondary: "SECONDARY · NOMINAL TRANSFER MINUS LAB",
+      secondaryValue: "AUC +0.022 [0.016, 0.028] · Pd +0.134 [0.097, 0.169]",
+      secondaryVerdict: "Near oracle, but not the primary criterion",
+      honesty: "This is a deterministic physical transform on synthetic implants, not a learned win and not biological validation. The broad family was the pre-specified primary test, and it performed substantially worse.",
+    },
     variability: {
-      overline: "CHAPTER 03 · VARIATION",
+      overline: "CHAPTER 04 · VARIATION",
       title: <>The final<br />MLP-friendly test.</>,
       intro: "The detector is trained over measured variation, but its features still come from the nominal target. The classical subspace receives the library of plausible signatures.",
       tabLabel: "Variability tracks",
@@ -189,13 +216,13 @@ const COPY = {
       honesty: <><strong>Correct reading:</strong> the “any reporter” track combines chemical classes. It is not intra-molecule variability. Spatial subspace beats the MLP by 0.020 AUC.</>,
     },
     unmixing: {
-      overline: "CHAPTER 07 · QUANTITY",
+      overline: "CHAPTER 08 · QUANTITY",
       title: <>Detection is not enough.<br />How much is there?</>,
       intro: "Target MAE uses only pixels with abundance above 0.02. In Salinas, correlation concealed a relevant scale bias.",
       columns: ["SCENE", "MF MAE", "UNMIXER MAE", "LOWER ERROR"],
     },
     background: {
-      overline: "CHAPTER 04 · BACKGROUND",
+      overline: "CHAPTER 05 · BACKGROUND",
       title: <>The last<br /><em>honest test.</em></>,
       intro: "A shallow autoencoder learns only from unlabeled spectra in the test scene. It never receives labels, a target mask, or the target signature during training.",
       questionLabel: "RESEARCH QUESTION / T7A",
@@ -214,7 +241,7 @@ const COPY = {
       raw: "Raw background AE",
     },
     uncertainty: {
-      overline: "CHAPTER 05 · CALIBRATION",
+      overline: "CHAPTER 06 · CALIBRATION",
       title: <>A score is not<br /><em>a probability.</em></>,
       intro: "MF scores receive Platt scaling. The learned detector receives temperature scaling with bias correction, alone and as a three-member ensemble. Calibration and evaluation use disjoint target implants.",
       question: "Can the learned ensemble beat the spatial matched filter on calibrated uncertainty while detection remains tied?",
@@ -232,7 +259,7 @@ const COPY = {
       ideal: "ideal",
     },
     sparsity: {
-      overline: "CHAPTER 06 · BANDS",
+      overline: "CHAPTER 07 · BANDS",
       title: <>How sparse is<br /><em>the signal?</em></>,
       intro: "Bands are ranked without implanted labels by the absolute full-scene matched-filter coefficient |C⁻¹(t−μ)|. The spatial MF is then recomputed using only the top-k bands.",
       chart: "SPATIAL MF AUC · 95% CI IN RESULTS",
@@ -254,6 +281,7 @@ const COPY = {
         ["One background model is not the whole model class.", "T7a closes the pre-specified shallow autoencoder, not every density estimator."],
         ["A calibrated score is still benchmark-specific.", "The split uses independent implants in the same three real backgrounds, not a new sensor population."],
         ["Band sparsity is target-aware here.", "The ranking knows the target signature and does not establish a universal three-band sensor."],
+        ["The nominal transfer result is synthetic.", "It nearly reaches the oracle on implanted targets, but still needs independent sensor and biological validation."],
       ],
     },
     footer: {
@@ -270,36 +298,38 @@ const COPY = {
     nav: ["História", "Detecção", "Calibração", "Bandas", "Limites"],
     brandLabel: "HyperMix, início",
     hero: {
-      eyebrow: "BENCHMARK ABERTO · AUDITADO EM 18 JUL 2026",
+      eyebrow: "BENCHMARK ABERTO · AUDITADO EM 05 AGO 2026",
       title: <>Detecção sem<br /><em>volta da vitória.</em></>,
       lead: "Um observatório interativo para testar o que o HyperMix realmente demonstra: neste benchmark, um matched filter espacial bem calibrado lidera ou empata com o detector aprendido.",
       explore: "Seguir as evidências",
       status: "Abrir Map Studio",
       proof: ["testes verdes", "fundos reais", "seeds calibração / avaliação", "código aberto"],
-      latest: "AUDITORIA MAIS RECENTE · T7B/T7C",
+      latest: "AUDITORIA MAIS RECENTE · T9",
       findings: [
-        ["CALIBRAÇÃO", "Clássico vence", "NLL 0,05766 vs 0,06792"],
-        ["COTOVELO DE BANDAS", "20 bandas", "a até 0,005 da média completa"],
+        ["PRIOR ESTREITO", "Perto do oráculo", "transferência nominal +0,022 AUC"],
+        ["FAMÍLIA AMPLA", "Primário falha", "subespaço −0,191 AUC"],
       ],
       readLatest: "Inspecionar novas evidências",
     },
     story: {
       overline: "O DOSSIÊ",
-      title: <>Uma afirmação.<br /><em>Sete formas de testá-la.</em></>,
+      title: <>Uma afirmação.<br /><em>Oito formas de testá-la.</em></>,
       intro: "Leia as evidências em ordem. Cada capítulo remove uma premissa conveniente e pergunta se o aprendizado finalmente conquista uma vantagem robusta.",
       chapters: [
         ["01", "Sinal", "O aprendizado resiste quando o alvo enfraquece?", "MF espacial lidera"],
         ["02", "Física", "O realismo do sensor inverte o resultado?", "Mismatch domina"],
-        ["03", "Variação", "Variação medida do alvo ajuda?", "Predominam empates"],
-        ["04", "Fundo", "A estatística bruta da cena salva o aprendizado?", "Não neste teste"],
-        ["05", "Calibração", "O aprendizado vence em probabilidades honestas?", "MF ainda vence"],
-        ["06", "Bandas", "O sinal está mesmo em três bandas?", "Não aqui"],
-        ["07", "Quantidade", "O que segue útil além do ranking?", "Depende da cena"],
+        ["03", "Transferência", "A física declarada leva o alvo lab até o sensor?", "Prior estreito funciona"],
+        ["04", "Variação", "Variação medida do alvo ajuda?", "Predominam empates"],
+        ["05", "Fundo", "A estatística bruta da cena salva o aprendizado?", "Não neste teste"],
+        ["06", "Calibração", "O aprendizado vence em probabilidades honestas?", "MF ainda vence"],
+        ["07", "Bandas", "O sinal está mesmo em três bandas?", "Não aqui"],
+        ["08", "Quantidade", "O que segue útil além do ranking?", "Depende da cena"],
       ],
     },
     bridges: {
       benchmark: ["PRÓXIMA PERGUNTA", "O baseline resiste ao baixo sinal.", "Agora remova a premissa conveniente de que a assinatura do laboratório chega intacta ao sensor."],
-      physics: ["PRÓXIMA PERGUNTA", "Mismatch físico pesa mais que escolher outro modelo.", "Dê ao aprendizado variação medida do alvo e compare com um subespaço clássico justo."],
+      physics: ["TESTE DE TRANSFERÊNCIA", "Mismatch físico pesa mais que escolher outro modelo.", "Use apenas metadados declarados do sensor para transformar a assinatura lab antes da detecção."],
+      transfer: ["PRÓXIMA PERGUNTA", "Um prior físico estreito quase alcança o oráculo.", "Agora amplie a família do alvo e dê ao aprendizado variação medida mais um subespaço clássico justo."],
       variability: ["TESTE CAUSAL FINAL", "Ainda não há vantagem robusta do aprendizado.", "Deixe um modelo consumir a cena bruta e aprender a estatística do fundo sem rótulos."],
       background: ["NOVO PLACAR", "O último teste causal simples de detecção também falha.", "Ariel premia incerteza calibrada, não apenas AUC. Pergunte se o aprendizado vence na qualidade da probabilidade."],
       uncertainty: ["AUDITORIA DE BANDAS", "O aprendizado também perde em incerteza calibrada.", "Se a detecção está quase saturada, inspecione quantos canais espectrais realmente carregam o resultado do matched filter."],
@@ -364,8 +394,26 @@ const COPY = {
       evidence: "Principal evidência da Fase B",
       insight: <>Com SRF + atmosfera, conhecer o alvo no sensor vale <b>0,081 AUC</b>. O mismatch físico pesa mais que trocar o detector.</>,
     },
+    transfer: {
+      overline: "CAPÍTULO 03 · TRANSFERÊNCIA",
+      title: <>Um prior estreito<br /><em>fecha a lacuna.</em></>,
+      intro: "Em 45 casos pareados, o detector não recebe rótulos do alvo nem feedback de scores. Ele apenas transforma o espectro medido em laboratório usando metadados declarados de comprimento de onda, SRF, atmosfera e iluminação.",
+      questionLabel: "TESTE PRÉ-ESPECIFICADO / T9",
+      question: "Uma família física do alvo melhora sobre a assinatura lab inalterada e se aproxima do oráculo no espaço do sensor?",
+      methods: ["Alvo lab inalterado", "Transferência nominal por metadados", "Subespaço de família ampla", "Oráculo no espaço do sensor"],
+      auc: "AUC",
+      pd: "Pd@FAR 1e-3",
+      interval: "IC 95%",
+      primary: "PRIMÁRIO · FAMÍLIA AMPLA MENOS LAB",
+      primaryValue: "AUC −0,191 [−0,217, −0,171] · Pd −0,257 [−0,293, −0,221]",
+      primaryVerdict: "Falhou de forma decisiva",
+      secondary: "SECUNDÁRIO · TRANSFERÊNCIA NOMINAL MENOS LAB",
+      secondaryValue: "AUC +0,022 [0,016, 0,028] · Pd +0,134 [0,097, 0,169]",
+      secondaryVerdict: "Perto do oráculo, mas não era o critério primário",
+      honesty: "Esta é uma transformação física determinística sobre alvos implantados, não uma vitória do aprendizado nem validação biológica. A família ampla era o teste primário pré-especificado e teve desempenho substancialmente pior.",
+    },
     variability: {
-      overline: "CAPÍTULO 03 · VARIAÇÃO",
+      overline: "CAPÍTULO 04 · VARIAÇÃO",
       title: <>O último teste<br />favorável ao MLP.</>,
       intro: "O detector é treinado sobre variação medida, mas suas features continuam derivadas do alvo nominal. O subespaço clássico recebe a biblioteca de assinaturas plausíveis.",
       tabLabel: "Tracks de variabilidade",
@@ -379,13 +427,13 @@ const COPY = {
       honesty: <><strong>Leitura correta:</strong> o track “qualquer repórter” combina classes químicas. Não é variabilidade intra-molécula. Nele, o subespaço espacial supera o MLP por 0,020 AUC.</>,
     },
     unmixing: {
-      overline: "CAPÍTULO 07 · QUANTIDADE",
+      overline: "CAPÍTULO 08 · QUANTIDADE",
       title: <>Detectar é pouco.<br />Quanto existe?</>,
       intro: "Target MAE usa apenas pixels com abundância maior que 0,02. Em Salinas, a correlação escondia um viés de escala relevante.",
       columns: ["CENA", "MF MAE", "UNMIXER MAE", "MENOR ERRO"],
     },
     background: {
-      overline: "CAPÍTULO 04 · FUNDO",
+      overline: "CAPÍTULO 05 · FUNDO",
       title: <>O último teste<br /><em>honesto.</em></>,
       intro: "Um autoencoder raso aprende apenas com espectros não rotulados da cena de teste. O treino nunca recebe rótulos, máscara do alvo ou a assinatura do alvo.",
       questionLabel: "PERGUNTA DE PESQUISA / T7A",
@@ -404,7 +452,7 @@ const COPY = {
       raw: "AE de fundo sem blur",
     },
     uncertainty: {
-      overline: "CAPÍTULO 05 · CALIBRAÇÃO",
+      overline: "CAPÍTULO 06 · CALIBRAÇÃO",
       title: <>Score não é<br /><em>probabilidade.</em></>,
       intro: "Os scores do MF recebem Platt. O detector aprendido recebe temperature scaling com correção de viés, sozinho e em ensemble de três membros. Calibração e avaliação usam implantes distintos.",
       question: "O ensemble aprendido supera o matched filter espacial em incerteza calibrada mesmo sem vencer em detecção?",
@@ -422,7 +470,7 @@ const COPY = {
       ideal: "ideal",
     },
     sparsity: {
-      overline: "CAPÍTULO 06 · BANDAS",
+      overline: "CAPÍTULO 07 · BANDAS",
       title: <>Quão esparso é<br /><em>o sinal?</em></>,
       intro: "As bandas são ordenadas sem rótulos implantados pelo coeficiente absoluto do matched filter na cena completa, |C⁻¹(t−μ)|. Depois, o MF espacial é recalculado apenas nas top-k.",
       chart: "AUC DO MF ESPACIAL · IC 95% EM RESULTS",
@@ -444,6 +492,7 @@ const COPY = {
         ["Um modelo de fundo não é toda a classe.", "T7a fecha o autoencoder raso pré-especificado, não todo estimador de densidade."],
         ["Score calibrado ainda é específico ao benchmark.", "O split usa implantes independentes nos mesmos três fundos reais, não uma nova população de sensores."],
         ["A esparsidade de banda é target-aware.", "O ranking conhece a assinatura do alvo e não estabelece um sensor universal de três bandas."],
+        ["O resultado da transferência nominal é sintético.", "Ele quase alcança o oráculo em alvos implantados, mas ainda exige validação independente no sensor e biológica."],
       ],
     },
     footer: {
@@ -656,9 +705,9 @@ export default function Home() {
     </header>
 
     <section className="hero" id="top">
-      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>33</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>77</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside>
-      <a className="latest-audit" href="#uncertainty" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
+      <a className="latest-audit" href="#transfer" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
     </section>
 
     <section className="story-section" id="story">
@@ -677,17 +726,26 @@ export default function Home() {
       <div className="section-heading compact" data-reveal="up"><div><span className="section-number">02</span><p className="overline">{copy.physics.overline}</p><h2>{copy.physics.title}</h2></div><p>{copy.physics.intro}</p></div>
       <div className="realism-grid">{REALISM_VALUES.map((item, index) => <article className={`realism-card ${index >= 3 ? "risk" : ""}`} data-reveal="up" key={copy.physics.cards[index][0]}><div className="step-index">0{index + 1}</div><p>{copy.physics.cards[index][1]}</p><h3>{copy.physics.cards[index][0]}</h3><div className="dual-metric"><div><span>{copy.physics.oracle}</span><strong>{item.oracle.toFixed(3)}</strong></div><div><span>{copy.physics.lab}</span><strong>{item.lab.toFixed(3)}</strong></div></div><div className="delta">Δ {(item.lab - item.oracle).toFixed(3)}</div></article>)}</div>
       <div className="insight-banner" data-reveal="scale"><span className="signal-dot" /><strong>{copy.physics.evidence}</strong><p>{copy.physics.insight}</p></div>
-      <StoryBridge content={copy.bridges.physics} nextId="variability" />
+      <StoryBridge content={copy.bridges.physics} nextId="transfer" />
+    </section>
+
+    <section className="section transfer-section" id="transfer">
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">03</span><p className="overline">{copy.transfer.overline}</p><h2>{copy.transfer.title}</h2></div><p>{copy.transfer.intro}</p></div>
+      <div className="transfer-question" data-reveal="scale"><span>{copy.transfer.questionLabel}</span><p>{copy.transfer.question}</p></div>
+      <div className="transfer-grid">{[TARGET_TRANSFER.lab, TARGET_TRANSFER.nominal, TARGET_TRANSFER.family, TARGET_TRANSFER.oracle].map((method, index) => <article className={`transfer-card transfer-card-${index}`} data-reveal="up" key={copy.transfer.methods[index]}><div className="transfer-head"><span>0{index + 1}</span><h3>{copy.transfer.methods[index]}</h3></div><div className="transfer-metrics"><div><span>{copy.transfer.auc}</span><strong>{method.auc.toFixed(3)}</strong><small>{copy.transfer.interval} {method.aucCi}</small></div><div><span>{copy.transfer.pd}</span><strong>{method.pd.toFixed(3)}</strong><small>{copy.transfer.interval} {method.pdCi}</small></div></div></article>)}</div>
+      <div className="transfer-differences"><article data-reveal="left"><span>{copy.transfer.primary}</span><strong>{copy.transfer.primaryValue}</strong><b>{copy.transfer.primaryVerdict}</b></article><article className="secondary" data-reveal="right"><span>{copy.transfer.secondary}</span><strong>{copy.transfer.secondaryValue}</strong><b>{copy.transfer.secondaryVerdict}</b></article></div>
+      <p className="transfer-honesty" data-reveal="up">{copy.transfer.honesty}</p>
+      <StoryBridge content={copy.bridges.transfer} nextId="variability" />
     </section>
 
     <section className="section" id="variability">
-      <div className="section-heading" data-reveal="up"><div><span className="section-number">03</span><p className="overline">{copy.variability.overline}</p><h2>{copy.variability.title}</h2></div><p>{copy.variability.intro}</p></div>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">04</span><p className="overline">{copy.variability.overline}</p><h2>{copy.variability.title}</h2></div><p>{copy.variability.intro}</p></div>
       <div className="track-tabs" data-reveal="up" role="tablist" aria-label={copy.variability.tabLabel}>{(Object.keys(TRACK_VALUES) as Array<keyof typeof TRACK_VALUES>).map((id) => <button role="tab" aria-selected={id === trackId} className={id === trackId ? "active" : ""} key={id} onClick={() => setTrackId(id)}><span>{tracks[id].name}</span><small>{tracks[id].verdict}</small></button>)}</div><div className="track-display" data-reveal="scale"><div className="track-context"><p className="overline">{copy.variability.selected}</p><h3>{track.name}</h3><p>{track.detail}</p><div className="track-verdict">{track.verdict}</div></div><div className="track-bars">{TRACK_VALUES[trackId].map((value, index) => <EvidenceBar key={copy.variability.methods[index]} label={copy.variability.methods[index]} value={value} tone={index === 1 ? "amber" : index === 2 ? "ice" : "teal"} />)}</div></div><p className="honesty-note" data-reveal="up">{copy.variability.honesty}</p>
       <StoryBridge content={copy.bridges.variability} nextId="background" />
     </section>
 
     <section className="section background-section" id="background">
-      <div className="section-heading" data-reveal="up"><div><span className="section-number">04</span><p className="overline">{copy.background.overline}</p><h2>{copy.background.title}</h2></div><p>{copy.background.intro}</p></div>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">05</span><p className="overline">{copy.background.overline}</p><h2>{copy.background.title}</h2></div><p>{copy.background.intro}</p></div>
       <div className="background-question" data-reveal="scale"><span>{copy.background.questionLabel}</span><p>{copy.background.question}</p></div>
       <div className="background-comparison">{[BACKGROUND.mf, BACKGROUND.model].map((method, index) => <article className={index === 0 ? "method-card winner" : "method-card"} data-reveal={index === 0 ? "left" : "right"} key={copy.background.methods[index]}><div className="method-head"><span>0{index + 1}</span><h3>{copy.background.methods[index]}</h3></div><div className="method-metrics"><div><span>{copy.background.auc}</span><strong>{method.auc.toFixed(3)}</strong><small>{copy.background.interval} {method.aucCi}</small></div><div><span>{copy.background.pd}</span><strong>{method.pd.toFixed(3)}</strong><small>{copy.background.interval} {method.pdCi}</small></div></div></article>)}</div>
       <div className="background-difference" data-reveal="up"><div><span>{copy.background.difference}</span><strong>{copy.background.differenceValue}</strong></div><p>{copy.background.differenceCi}</p></div>
@@ -696,7 +754,7 @@ export default function Home() {
     </section>
 
     <section className="section uncertainty-section" id="uncertainty">
-      <div className="section-heading" data-reveal="up"><div><span className="section-number">05</span><p className="overline">{copy.uncertainty.overline}</p><h2>{copy.uncertainty.title}</h2></div><p>{copy.uncertainty.intro}</p></div>
+      <div className="section-heading" data-reveal="up"><div><span className="section-number">06</span><p className="overline">{copy.uncertainty.overline}</p><h2>{copy.uncertainty.title}</h2></div><p>{copy.uncertainty.intro}</p></div>
       <div className="uncertainty-question" data-reveal="scale"><span>T7B</span><p>{copy.uncertainty.question}</p></div>
       <div className="uncertainty-grid">{[UNCERTAINTY.mf, UNCERTAINTY.model].map((method, index) => <article className={`uncertainty-method ${index === 0 ? "best" : ""}`} data-reveal={index === 0 ? "left" : "right"} key={copy.uncertainty.methods[index]}><div className="uncertainty-method-head"><span>0{index + 1}</span><h3>{copy.uncertainty.methods[index]}</h3></div><div className="proper-score-grid"><div><span>{copy.uncertainty.metrics[0]}</span><strong>{method.nll.toFixed(5)}</strong><small>{copy.uncertainty.lower}</small></div><div><span>{copy.uncertainty.metrics[1]}</span><strong>{method.brier.toFixed(5)}</strong><small>{copy.uncertainty.lower}</small></div><div><span>{copy.uncertainty.metrics[2]}</span><strong>{method.ece.toFixed(5)}</strong><small>{copy.uncertainty.lower}</small></div><div><span>{copy.uncertainty.metrics[3]}</span><strong>{method.auc.toFixed(3)}</strong><small>3 scenes · 24 cases</small></div></div></article>)}</div>
       <div className="uncertainty-difference" data-reveal="up"><div><span>{copy.uncertainty.difference}</span><strong>{copy.uncertainty.differenceValue}</strong></div><p>{copy.uncertainty.differenceCi}</p></div>
@@ -705,14 +763,14 @@ export default function Home() {
     </section>
 
     <section className="section sparsity-section" id="sparsity">
-      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">06</span><p className="overline">{copy.sparsity.overline}</p><h2>{copy.sparsity.title}</h2></div><p>{copy.sparsity.intro}</p></div>
+      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">07</span><p className="overline">{copy.sparsity.overline}</p><h2>{copy.sparsity.title}</h2></div><p>{copy.sparsity.intro}</p></div>
       <div className="sparsity-dashboard" data-reveal="scale"><div className="sparsity-chart"><span>{copy.sparsity.chart}</span><div className="band-bars">{BAND_SPARSITY.map((item) => <div className={`band-column ${item.k === "3" ? "focus" : ""} ${item.k === "20" ? "elbow" : ""} ${item.k === "all" ? "full" : ""}`} data-k={item.k} key={item.k}><strong>{item.auc.toFixed(3)}</strong><div><i style={{ height: `${Math.max(8, (item.auc - 0.8) * 500)}%` }} /></div><small>{item.k}</small></div>)}</div><div className="band-axis"><span>top-k</span><span>all = 103–204 bands</span></div></div><div className="sparsity-notes"><article><span>{copy.sparsity.difference}</span><strong>{copy.sparsity.differenceValue}</strong></article><article className="threshold-note"><strong>{copy.sparsity.threshold}</strong><p>{copy.sparsity.thresholdText}</p></article><p>{copy.sparsity.concentration}</p></div></div>
       <div className="sparsity-verdict" data-reveal="up"><span>RESULT</span><p>{copy.sparsity.verdict}</p></div>
       <StoryBridge content={copy.bridges.sparsity} nextId="unmixing" />
     </section>
 
     <section className="section unmix-section" id="unmixing">
-      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">07</span><p className="overline">{copy.unmixing.overline}</p><h2>{copy.unmixing.title}</h2></div><p>{copy.unmixing.intro}</p></div>
+      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">08</span><p className="overline">{copy.unmixing.overline}</p><h2>{copy.unmixing.title}</h2></div><p>{copy.unmixing.intro}</p></div>
       <div className="unmix-table" data-reveal="scale"><div className="unmix-row head"><span>{copy.unmixing.columns[0]}</span><span>{copy.unmixing.columns[1]}</span><span>{copy.unmixing.columns[2]}</span><span>{copy.unmixing.columns[3]}</span></div>{UNMIXING.map((item) => <div className="unmix-row" key={item.scene}><strong>{item.scene}</strong><span>{item.mf.toFixed(4)}</span><span>{item.model.toFixed(4)}</span><b>{item.winner}</b></div>)}</div>
       <StoryBridge content={copy.bridges.unmixing} nextId="studio" />
     </section>

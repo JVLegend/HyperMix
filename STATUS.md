@@ -2,6 +2,47 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T9a: transferência física laboratório-sensor - 2026-08-05
+
+O módulo `hypermix/transfer.py` agora transforma um espectro laboratorial por
+reamostragem, resposta espectral gaussiana, atmosfera simples, deslocamento de
+comprimento de onda e ganho de iluminação. `target_transfer_library` constrói
+uma família cartesiana reproduzível usando somente parâmetros declarados antes
+da avaliação. As funções não recebem rótulos, máscaras ou scores.
+
+O experimento em `scripts/target_transfer_experiment.py` avaliou 45 casos
+pareados com espectro medido de bacterioclorofila a, fundos USGS, mistura
+bilinear, FWHM de 8, 10 e 12 nm, cinco atmosferas por seed e target SNR de 10,
+5 e 0 dB. AUC e Pd@FAR 1e-3 receberam IC de 95% por 4.000 réplicas bootstrap
+hierárquicas.
+
+| Método | AUC [IC 95%] | Pd@FAR 1e-3 [IC 95%] |
+|---|:---:|:---:|
+| MF espacial, alvo laboratorial | 0,968 [0,962, 0,974] | 0,626 [0,587, 0,672] |
+| MF espacial, transferência nominal | 0,990 [0,988, 0,992] | 0,760 [0,727, 0,787] |
+| Subespaço espacial, família física | 0,777 [0,749, 0,799] | 0,369 [0,340, 0,394] |
+| MF espacial, alvo oráculo | 0,992 [0,991, 0,994] | 0,778 [0,744, 0,805] |
+
+O critério primário exigia que os IC de AUC e Pd da família física menos o alvo
+laboratorial ficassem acima de zero. Ele falhou: AUC -0,191
+[-0,217, -0,171] e Pd -0,257 [-0,293, -0,221]. A família ampla combinada por
+subespaço degradou a detecção e não fecha o gap laboratório-sensor.
+
+A transferência nominal era um método declarado no protocolo, mas não o método
+do critério primário. Na análise secundária, ela melhorou AUC em 0,022
+[0,016, 0,028] e Pd em 0,134 [0,097, 0,169], reduzindo a distância média de AUC
+ao oráculo de 0,024 para 0,002. Isto é evidência sintética a favor de uma
+correção física estreita baseada em metadados, não uma vantagem do aprendizado.
+O resultado usa alvos implantados e não substitui T8 nem valida expressão
+biológica remotamente observada.
+
+O gate de release também passou a verificar `hypermix.__version__`, que foi
+corrigido de `0.4.0` para `0.5.0` para corresponder ao pacote público. A suíte
+completa tem 77 testes. Artefatos: `results/target_transfer.json` e
+`results/target_transfer.md`. Duas execuções integrais produziram o mesmo
+SHA-256 para o JSON:
+`bad307559ba816ff4bb73b7b3010da14690e4642464f0ebf4aa0ee40e240b102`.
+
 ## DOI público no Zenodo - 2026-08-04
 
 A versão `0.5.0` foi preservada no Zenodo como software aberto sob licença MIT.

@@ -44,6 +44,7 @@ def validate_release(root: Path, *, tag: str | None = None) -> list[str]:
     root = root.resolve()
     errors: list[str] = []
     pyproject = _read(root, "pyproject.toml", errors)
+    package_init = _read(root, "hypermix/__init__.py", errors)
     citation = _read(root, "CITATION.cff", errors)
     changelog = _read(root, "CHANGELOG.md", errors)
     workflow = _read(root, ".github/workflows/publish-pypi.yml", errors)
@@ -56,6 +57,18 @@ def validate_release(root: Path, *, tag: str | None = None) -> list[str]:
     expected_tag = f"v{version}"
     if tag is not None and tag != expected_tag:
         errors.append(f"tag {tag!r} diverge da versão do pacote; esperado {expected_tag!r}")
+
+    package_version_match = re.search(
+        r'(?m)^__version__\s*=\s*["\']([^"\']+)["\']\s*$', package_init
+    )
+    package_version = (
+        package_version_match.group(1) if package_version_match else None
+    )
+    if package_version != version:
+        errors.append(
+            "hypermix.__version__ declara "
+            f"{package_version!r}; pyproject.toml declara {version!r}"
+        )
 
     citation_version = _citation_field(citation, "version")
     if citation_version != version:

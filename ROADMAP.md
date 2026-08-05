@@ -122,15 +122,25 @@ cenário completo, a comparação é 0,983 contra 0,906.
 Hipótese: uma família de assinaturas transformadas por resposta espectral do
 sensor, atmosfera e iluminação pode reduzir esse gap sem usar rótulos de teste.
 
-- [ ] Definir uma interface `target_transfer` que receba espectro laboratorial,
+- [x] Definir uma interface `target_transfer` que receba espectro laboratorial,
       comprimentos de onda e metadados do sensor.
-- [ ] Construir uma biblioteca física de transformações antes da avaliação.
-- [ ] Estimar parâmetros apenas por metadados ou pixels não rotulados.
-- [ ] Comparar MF laboratorial, família física, matched subspace e alvo oráculo
+- [x] Construir uma biblioteca física de transformações antes da avaliação.
+- [x] Estimar parâmetros apenas por metadados ou pixels não rotulados.
+- [x] Comparar MF laboratorial, família física, matched subspace e alvo oráculo
       somente quando um oráculo legítimo existir.
-- [ ] Medir redução pareada do gap, AUC ou métrica regional e Pd@FAR quando
+- [x] Medir redução pareada do gap, AUC ou métrica regional e Pd@FAR quando
       aplicável, sempre com IC.
-- [ ] Testar primeiro no simulador calibrado e depois no bioHSI real.
+- [x] Testar primeiro no simulador calibrado.
+- [ ] Testar no bioHSI real somente depois de T8 cruzar a porta geométrica.
+
+T9a foi concluído no simulador em 45 casos pareados. O critério primário da
+família física falhou: diferença de AUC -0,191 [-0,217, -0,171] e de Pd@FAR
+-0,257 [-0,293, -0,221] contra o alvo laboratorial. Como análise secundária, a
+transferência nominal melhorou AUC em 0,022 [0,016, 0,028] e Pd em 0,134
+[0,097, 0,169], ficando a 0,002 AUC do oráculo. O resultado motiva validação
+independente de uma correção física estreita, sem promover o subespaço amplo e
+sem alterar retroativamente o critério primário. Detalhes em
+`results/target_transfer.md`.
 
 Aceite: a regra de transformação é reproduzível e não consulta rótulos de
 avaliação. O resultado será reportado mesmo se não reduzir o gap.

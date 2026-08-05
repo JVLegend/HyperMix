@@ -14,6 +14,22 @@ medidos pelos scripts versionados.
 - arquivou o ZIP exato da tag `v0.5.0` no Zenodo e registrou os DOI de versão e
   conceitual na documentação citável.
 
+### Adicionado
+
+- criou `hypermix/transfer.py` para transferência laboratório-sensor por SRF,
+  atmosfera, deslocamento espectral e ganho, sem rótulos de avaliação;
+- adicionou o experimento T9a com AUC, Pd@FAR, distância ao oráculo e IC
+  bootstrap em 45 casos pareados;
+- ampliou o gate de release para conferir `hypermix.__version__`.
+
+### Resultado científico
+
+- o critério primário da família física por subespaço falhou e degradou AUC e
+  Pd@FAR contra o alvo laboratorial;
+- em análise secundária, a transferência nominal por metadados quase alcançou o
+  oráculo. O achado é sintético, favorece modelagem física estreita e não muda o
+  veredito sobre aprendizado.
+
 ## 0.5.0 - 2026-08-04
 
 ### Adicionado

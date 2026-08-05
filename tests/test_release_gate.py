@@ -13,6 +13,7 @@ validate_release = CHECK_RELEASE.validate_release
 
 RELEASE_FILES = (
     "pyproject.toml",
+    "hypermix/__init__.py",
     "CITATION.cff",
     "CHANGELOG.md",
     ".github/workflows/publish-pypi.yml",
@@ -52,6 +53,21 @@ def test_release_gate_rejects_citation_drift(tmp_path):
     errors = validate_release(root, tag="v0.5.0")
 
     assert any("CITATION.cff declara" in error for error in errors)
+
+
+def test_release_gate_rejects_runtime_version_drift(tmp_path):
+    root = _release_fixture(tmp_path)
+    package_init = root / "hypermix" / "__init__.py"
+    package_init.write_text(
+        package_init.read_text(encoding="utf-8").replace(
+            '__version__ = "0.5.0"', '__version__ = "9.9.9"'
+        ),
+        encoding="utf-8",
+    )
+
+    errors = validate_release(root, tag="v0.5.0")
+
+    assert any("hypermix.__version__ declara" in error for error in errors)
 
 
 def test_release_gate_rejects_unpinned_actions(tmp_path):

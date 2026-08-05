@@ -46,6 +46,12 @@ from .metrics import (
     roc_curve,
 )
 from .background import background_detector, smoothed_background_detector
+from .transfer import (
+    TargetTransferLibrary,
+    resample_spectrum,
+    target_transfer,
+    target_transfer_library,
+)
 from .datasets import implant_target, load_mat_cube, load_envi_cube, synthetic_target
 from .envi import (
     EnviHeader,
@@ -68,7 +74,7 @@ from .biohsi_published import (
     ucls_abundances,
 )
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 __all__ = [
     "SceneResult",
@@ -103,6 +109,10 @@ __all__ = [
     "mean_absolute_error",
     "background_detector",
     "smoothed_background_detector",
+    "TargetTransferLibrary",
+    "resample_spectrum",
+    "target_transfer",
+    "target_transfer_library",
     "load_mat_cube",
     "load_envi_cube",
     "EnviHeader",
