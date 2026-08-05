@@ -1,7 +1,7 @@
 # Checklist da release pública
 
-Estado em 2026-08-04: preparação em andamento. A versão `0.5.0` ainda não foi
-publicada no PyPI, GitHub ou Zenodo.
+Estado em 2026-08-04: a versão `0.5.0` foi publicada no GitHub e no PyPI. Zenodo
+e DOI ainda estão pendentes.
 
 ## Pré-release
 
@@ -20,21 +20,22 @@ publicada no PyPI, GitHub ou Zenodo.
 ## Publicação
 
 - [x] Criar o environment `pypi` no GitHub, sem tokens permanentes.
-- [ ] Criar o projeto `hypermix` no PyPI e configurar Trusted Publishing para
+- [x] Criar o projeto `hypermix` no PyPI e configurar Trusted Publishing para
       `JVLegend/HyperMix` e o workflow aprovado.
 - [x] Adicionar uma etapa OIDC com `id-token: write`; ela só executa quando uma
       release do GitHub é publicada.
-- [ ] Criar a tag assinada `v0.5.0` no commit validado.
+- [x] Criar a tag anotada `v0.5.0` no commit validado `e60cef1`. A tag não foi
+      assinada porque não havia identidade de assinatura configurada.
 - [x] Conferir os artefatos produzidos por `release-artifacts.yml`.
-- [ ] Publicar a release no GitHub com notas derivadas do changelog.
-- [ ] Publicar sdist e wheel no PyPI sem reutilizar o número da versão.
+- [x] Publicar a release no GitHub com notas derivadas do changelog.
+- [x] Publicar sdist e wheel no PyPI sem reutilizar o número da versão.
 - [ ] Ativar ou conferir a integração do repositório com Zenodo.
 - [ ] Registrar o DOI no README e em `CITATION.cff`.
 
 ## Pós-release
 
-- [ ] Instalar `hypermix==0.5.0` em um ambiente vazio.
-- [ ] Executar o exemplo mínimo do README.
+- [x] Instalar `hypermix==0.5.0` em um ambiente vazio e sem cache.
+- [x] Executar o exemplo mínimo do README.
 - [ ] Abrir uma issue para qualquer divergência entre pacote, tag e documentação.
 - [ ] Registrar uma reprodução externa quando ela existir.
 

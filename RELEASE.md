@@ -1,5 +1,8 @@
 # Publicando o HyperMix
 
+Estado da `0.5.0`: publicada no GitHub e no PyPI em 2026-08-04. O procedimento
+abaixo permanece como registro auditável e base para a próxima versão.
+
 O HyperMix usa PyPI Trusted Publishing. Não crie token permanente e não salve
 credenciais no GitHub ou no repositório.
 

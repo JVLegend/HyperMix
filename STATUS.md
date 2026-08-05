@@ -2,6 +2,28 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## Release pública 0.5.0 no PyPI - 2026-08-04
+
+A versão `0.5.0` foi publicada em https://pypi.org/project/hypermix/ por Trusted
+Publishing/OIDC, sem token permanente. O publisher que era pendente tornou-se
+ativo após o primeiro upload. A GitHub Release está em
+https://github.com/JVLegend/HyperMix/releases/tag/v0.5.0, e o workflow de
+publicação concluiu em
+https://github.com/JVLegend/HyperMix/actions/runs/30969871588.
+
+A tag anotada `v0.5.0` aponta para o commit validado
+`e60cef1302f72885979b88b947871c3ec549fa4e`. Ela não tem assinatura criptográfica
+porque não havia identidade de assinatura configurada na máquina. O PyPI gerou
+atestações digitais para os uploads. Os SHA-256 públicos são:
+
+- wheel: `a8bb453ad75de68d78badcf9bdaa5e0e35deb2c9c92aa2f6c8a284329bb74ae4`;
+- sdist: `4e536805d875d4a35ffa525982a1cfc99e7f8e0af425f90f82cc3783788da0c7`.
+
+Uma instalação sem cache em ambiente vazio baixou `hypermix==0.5.0` do índice,
+confirmou `reference_spectra.csv` e executou o exemplo mínimo com AUC `0,955064`
+para `snr_db=10` e `seed=0`. Esse valor é somente um smoke test do exemplo, não
+um novo resultado científico agregado. Zenodo e DOI continuam pendentes.
+
 ## Release candidate 0.5.0 validado, publisher PyPI pendente - 2026-08-04
 
 Os artefatos versionados da `0.5.0` foram preparados no commit `ddced5b`.

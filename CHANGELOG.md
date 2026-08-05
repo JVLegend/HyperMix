@@ -6,7 +6,11 @@ medidos pelos scripts versionados.
 
 ## Não publicado
 
-Nenhuma mudança registrada.
+### Documentação
+
+- registrou a publicação pública da `0.5.0`, os hashes dos artefatos e o smoke
+  test de instalação independente;
+- adicionou badge do PyPI e a lab note da primeira release pública.
 
 ## 0.5.0 - 2026-08-04
 

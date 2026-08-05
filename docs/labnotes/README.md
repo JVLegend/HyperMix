@@ -17,6 +17,7 @@ advanced since the draft date.
 | 8 | `08-release-gates-before-publication.md` | CI badge after first green run | ready |
 | 9 | `09-the-050-release-candidate-is-ready.md` | CI badge for release candidate | ready |
 | 10 | `10-the-release-now-fails-closed.md` | CI gate or metadata diagram | ready |
+| 11 | `11-hypermix-050-is-public.md` | PyPI project page or release badge | ready |
 
 Public framing to preserve in every post:
 

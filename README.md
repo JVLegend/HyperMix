@@ -7,6 +7,7 @@
 ### Open detection of engineered biosignatures in remote hyperspectral imagery
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/hypermix.svg)](https://pypi.org/project/hypermix/)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
 [![Tests](https://img.shields.io/badge/tests-67%20passing-2ea44f.svg)](tests/)
