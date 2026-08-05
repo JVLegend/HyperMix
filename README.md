@@ -7,14 +7,15 @@
 ### Open detection of engineered biosignatures in remote hyperspectral imagery
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
+[![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
 [![Tests](https://img.shields.io/badge/tests-63%20passing-2ea44f.svg)](tests/)
+[![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
 
-*Pulling a faint engineered reporter out of noisy remote hyperspectral cubes, with an MC-dropout uncertainty estimate.*
+*Benchmarking faint engineered reporters in noisy remote hyperspectral cubes, with calibrated uncertainty and explicit baselines.*
 
 </div>
 
@@ -27,11 +28,13 @@ soil, leaves, and water, the atmosphere distorts it, and cheap sensors bury it i
 noise. A hyperspectral camera hands you a mountain of data, not an answer. Pulling
 the answer out is an **algorithm** problem, and that is what HyperMix is for.
 
-HyperMix treats detection and spectral unmixing as one regularized inverse
-problem, designed from the start for **unknown natural backgrounds, sparse
-reference libraries, and low SNR**. It is developed by a statistician working in
-medical imaging, porting the low-SNR, cross-device reconstruction toolkit from
-retinal OCT to biology at a distance. Everything here is MIT licensed.
+HyperMix tests detection and spectral unmixing as regularized inverse problems
+under **unknown natural backgrounds, sparse reference libraries, and low SNR**.
+It is developed by a statistician working in medical imaging, porting the
+low-SNR, cross-device reconstruction toolkit from retinal OCT to biology at a
+distance. Everything here is MIT licensed. So far, the learned methods have not
+robustly surpassed a well-calibrated spatial matched filter; the open benchmark
+and its negative results are the contribution.
 
 ## 📚 Contents
 
@@ -43,6 +46,7 @@ retinal OCT to biology at a distance. Everything here is MIT licensed.
 - [🗺️ Roadmap](#️-roadmap)
 - [💾 Data](#-data)
 - [⚠️ Honest limitations](#️-honest-limitations)
+- [🤝 Contributing](CONTRIBUTING.md)
 
 ## ✨ Highlights
 

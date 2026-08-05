@@ -13,6 +13,8 @@ advanced since the draft date.
 | 4 | `04-nine-regions-not-millions-of-pixels.md` | `assets/biohsi_54m_rois.png` | ready |
 | 5 | `05-the-reproduction-gate-failed.md` | `assets/biohsi_54m_reproduction.png` | ready |
 | 6 | `06-the-one-file-that-would-unblock-the-test.md` | `assets/biohsi_54m_rois.png` | ready |
+| 7 | `07-we-asked-for-the-missing-coordinates.md` | `assets/biohsi_54m_rois.png` | ready |
+| 8 | `08-release-gates-before-publication.md` | CI badge after first green run | ready |
 
 Public framing to preserve in every post:
 

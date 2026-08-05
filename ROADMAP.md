@@ -135,12 +135,12 @@ avaliação. O resultado será reportado mesmo se não reduzir o gap.
 
 ## Milestone 3: release pública e citável
 
-- [ ] Atualizar README, contagem de testes e descrição de incerteza.
-- [ ] Revisar `CITATION.cff` para não sugerir superioridade ou generalização
+- [x] Atualizar README, contagem de testes e descrição de incerteza.
+- [x] Revisar `CITATION.cff` para não sugerir superioridade ou generalização
       completa do método aprendido.
 - [ ] Adicionar CI para Python 3.10 a 3.14 no núcleo sem Torch e Python 3.11 com
       a suíte de treino.
-- [ ] Adicionar `CHANGELOG.md`, `CONTRIBUTING.md` e política de suporte.
+- [x] Adicionar `CHANGELOG.md`, `CONTRIBUTING.md` e política de suporte.
 - [ ] Executar build de sdist e wheel, validação de metadados e instalação em
       ambiente limpo.
 - [ ] Publicar `hypermix` no PyPI.
