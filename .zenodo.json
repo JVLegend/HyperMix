@@ -1,6 +1,6 @@
 {
   "title": "HyperMix: open detection of engineered biosignatures in remote hyperspectral imagery",
-  "description": "An open-source toolkit that detects a faint engineered reporter against complex natural backgrounds in noisy remote hyperspectral imagery, with calibrated uncertainty. Includes a physics-based scene simulator, an implanted-target benchmark on real airborne data (Indian Pines, Salinas, Pavia University), classical baselines (matched filter, ACE, SAM), and a physics-informed learned detector that generalizes from simulation to real backgrounds. Developed under the Experiment Foundation Hyperspectral Biology grant.",
+  "description": "An open benchmark toolkit for detecting engineered biosignatures in remote hyperspectral imagery, with calibrated uncertainty. It includes a physics-based simulator, implanted-target benchmarks on real airborne backgrounds, classical baselines and learned models. In the completed experiments, no learned method robustly outperforms a well-calibrated spatial matched filter. Evaluation on physically measured bioHSI targets is paused pending recovery of the manual Figure 4g coordinates. Developed under the Experiment Foundation Hyperspectral Biology grant.",
   "upload_type": "software",
   "license": "MIT",
   "access_right": "open",

@@ -1,45 +1,46 @@
-# Releasing HyperMix
+# Publicando o HyperMix
 
-Steps that need your accounts (I prepared everything; these need your credentials).
+O HyperMix usa PyPI Trusted Publishing. Não crie token permanente e não salve
+credenciais no GitHub ou no repositório.
 
-## 1. Publish to PyPI
+## Contrato do publisher
 
-The package already builds cleanly (`python -m build` → `dist/`). To publish:
+Cadastre um publisher pendente em https://pypi.org/manage/account/publishing/
+com estes valores exatos:
 
-```bash
-cd ~/Documents/GitHub/HyperMix
-. .venv-train/bin/activate          # or any env with build + twine
-pip install -U build twine
-rm -rf dist && python -m build      # rebuild sdist + wheel for the current version
-twine check dist/*                  # validates metadata (no upload)
-twine upload dist/*                 # asks for your PyPI token
-```
+- projeto PyPI: `hypermix`;
+- proprietário GitHub: `JVLegend`;
+- repositório: `HyperMix`;
+- workflow: `publish-pypi.yml`;
+- environment: `pypi`.
 
-- Get a token at https://pypi.org/manage/account/token/ (scope: entire account,
-  or project-scoped after the first upload).
-- Username is `__token__`, password is the token (starts with `pypi-`).
-- Tip: test first on TestPyPI with `twine upload -r testpypi dist/*`.
-- After publishing, `pip install hypermix` works for anyone.
+O workflow `.github/workflows/publish-pypi.yml` recebe um token OIDC de curta
+duração somente quando uma GitHub Release é publicada. Ele faz checkout da tag,
+reconstrói sdist e wheel, executa `twine check` e publica os dois artefatos.
 
-## 2. Mint a DOI on Zenodo
+## Sequência da versão 0.5.0
 
-`.zenodo.json` and `CITATION.cff` are already in the repo, so Zenodo will pick up
-the metadata automatically.
+1. Confirmar que `main` está limpa, sincronizada e com CI verde.
+2. Confirmar que `pyproject.toml` e `CITATION.cff` declaram `0.5.0`.
+3. Configurar o publisher pendente do PyPI com o contrato acima.
+4. Conferir o environment `pypi` no GitHub.
+5. Criar a tag `v0.5.0` no commit validado.
+6. Publicar a GitHub Release usando `docs/releases/v0.5.0.md`.
+7. Acompanhar o workflow `Publish to PyPI` até o sucesso.
+8. Instalar `hypermix==0.5.0` em ambiente vazio e executar o exemplo mínimo.
 
-1. Sign in at https://zenodo.org with your GitHub account.
-2. Go to https://zenodo.org/account/settings/github/ and flip the switch **ON**
-   for the `JVLegend/HyperMix` repository.
-3. On GitHub, cut a new release (e.g. tag `v0.4.0`). Zenodo archives it and
-   issues a DOI automatically.
-4. Copy the DOI badge Zenodo gives you into `README.md` (top, next to the other
-   badges) and update the "Cite" section.
+Não reutilize `0.5.0` se qualquer arquivo chegar ao PyPI. Versões publicadas são
+imutáveis.
 
-## 3. After the DOI exists
+## DOI do Zenodo
 
-Add to the README badges:
+Depois da publicação:
 
-```md
-[![DOI](https://zenodo.org/badge/DOI/<your-doi>.svg)](https://doi.org/<your-doi>)
-```
+1. entrar em https://zenodo.org/account/settings/github/ com a conta ligada ao
+   GitHub;
+2. habilitar `JVLegend/HyperMix`;
+3. confirmar que a release `v0.5.0` foi arquivada;
+4. copiar o DOI para o README e `CITATION.cff` em um patch posterior.
 
-That closes Milestone 3 (open dataset + benchmark + package + DOI).
+`.zenodo.json` e `CITATION.cff` já contêm a moldura científica honesta. O DOI
+não deve ser inventado nem antecipado antes da resposta do Zenodo.

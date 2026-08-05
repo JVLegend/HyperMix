@@ -6,8 +6,8 @@ publicada no PyPI, GitHub ou Zenodo.
 ## Pré-release
 
 - [x] Confirmar CI verde em Python 3.10 a 3.14, suíte de pesquisa, pacote e site.
-- [ ] Fixar o conteúdo da release e atualizar `CHANGELOG.md`.
-- [ ] Sincronizar a versão em `pyproject.toml` e `CITATION.cff`.
+- [x] Fixar o conteúdo da release e atualizar `CHANGELOG.md`.
+- [x] Sincronizar a versão em `pyproject.toml` e `CITATION.cff`.
 - [x] Atualizar a contagem de testes e links no README.
 - [x] Executar `python -m build` e `python -m twine check dist/*`.
 - [x] Instalar a wheel em ambiente limpo e executar um smoke test.
@@ -19,8 +19,8 @@ publicada no PyPI, GitHub ou Zenodo.
 
 - [ ] Criar o projeto `hypermix` no PyPI e configurar Trusted Publishing para
       `JVLegend/HyperMix` e o workflow aprovado.
-- [ ] Adicionar uma etapa OIDC com `id-token: write` somente depois dessa
-      configuração e de aprovação explícita para publicar.
+- [x] Adicionar uma etapa OIDC com `id-token: write`; ela só executa quando uma
+      release do GitHub é publicada.
 - [ ] Criar a tag assinada `v0.5.0` no commit validado.
 - [x] Conferir os artefatos produzidos por `release-artifacts.yml`.
 - [ ] Publicar a release no GitHub com notas derivadas do changelog.

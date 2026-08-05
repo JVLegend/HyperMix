@@ -6,6 +6,10 @@ medidos pelos scripts versionados.
 
 ## Não publicado
 
+Nenhuma mudança registrada.
+
+## 0.5.0 - 2026-08-04
+
 ### Adicionado
 
 - aquisição auditável e loader ENVI para o cubo bioHSI real de 54 m;

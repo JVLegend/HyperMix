@@ -67,7 +67,7 @@ Run it in your browser, no setup:
 Or locally:
 
 ```bash
-pip install -e ".[viz]"        # numpy + scipy + matplotlib
+pip install "hypermix[viz]"     # published package
 ```
 
 ```python
@@ -90,6 +90,8 @@ python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
 pytest -q                           # 63 tests
 ```
+
+Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
 
 ## 🌐 Web Observatory
 
