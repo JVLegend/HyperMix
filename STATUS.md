@@ -2,6 +2,47 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T12: abundância calibrada e intervalos - 2026-08-06
+
+O módulo `hypermix/abundance.py` adiciona calibração afim não decrescente com
+peso igual por caso e intervalos split-conformal agrupados. O protocolo separa
+quatro fontes de informação: treino simulado do unmixer, 12 casos para calibrar
+a escala, 12 casos distintos para calibrar resíduos e 24 casos finais de
+avaliação. Cada caso é uma combinação cena, SNR e seed. Pixels correlacionados
+não são tratados como unidades independentes no bootstrap.
+
+A avaliação cobre Indian Pines, Salinas e Pavia University, target SNR de 10 e
+5 dB e quatro seeds finais. As métricas são condicionais aos pixels com
+abundância maior que 0,02.
+
+| Método | MAE [IC 95%] | Viés [IC 95%] | Cobertura 90% [IC 95%] | Largura [IC 95%] |
+|---|:---:|:---:|:---:|:---:|
+| MF calibrado | 0,0110 [0,0093, 0,0129] | 0,0018 [0,0000, 0,0035] | 0,971 [0,953, 0,988] | 0,0719 [0,0714, 0,0723] |
+| Unmixer calibrado | 0,0136 [0,0116, 0,0158] | 0,0035 [-0,0015, 0,0086] | 0,987 [0,975, 0,995] | 0,0815 [0,0807, 0,0822] |
+
+A diferença pareada de MAE, unmixer menos MF, foi +0,0026 [-0,0006, 0,0059],
+portanto não demonstra diferença significativa. O viés absoluto foi maior no
+unmixer por +0,0064 [0,0032, 0,0096], e seus intervalos foram mais largos por
++0,0096 [0,0090, 0,0102]. Os dois métodos superaram 90% de cobertura média.
+Pelo critério pré-especificado, não há vantagem calibrada do aprendizado em
+abundância.
+
+O resultado não contradiz a melhora do unmixer em Pavia U., onde sua MAE foi
+0,0101 contra 0,0171 do MF. Ele falha como vantagem agregada porque perde em
+Indian Pines e, sobretudo, Salinas. Uma arquitetura maior não é o próximo passo
+sem hipótese causal nova.
+
+Os intervalos são condicionais a pixels já declarados como alvo e não incluem
+erro de detecção. A abundância continua sendo fração do simulador, não
+concentração biológica. Calibração e avaliação usam implantes distintos nos
+mesmos três fundos, não uma nova população de sensores.
+
+Artefatos: `results/abundance_uncertainty.json`, `.md` e `.png`. Duas execuções
+produziram SHA-256 idênticos: JSON
+`6d23d415c43eba11d5686afca043028f0167fd1dca77b632d9a7e8569fcae7ae` e figura
+`6c0cd3c6b93467ae2e834ad059eee4e101f58551fc8f6be056e71c67e94002d5`.
+A suíte completa tem 99 testes passando.
+
 ## T11: limite operacional de detecção - 2026-08-06
 
 O módulo `hypermix/lod.py` formaliza calibração de threshold em cenas sem alvo,

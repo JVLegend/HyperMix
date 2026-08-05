@@ -37,7 +37,10 @@ from .metrics import (
     binary_nll,
     brier_score,
     expected_calibration_error,
+    interval_coverage,
     mean_absolute_error,
+    mean_bias,
+    mean_interval_width,
     negative_log_likelihood,
     pd_at_far,
     pearson_r,
@@ -58,6 +61,11 @@ from .lod import (
     grid_detection_limit,
     robust_standardize_scores,
     threshold_at_far,
+)
+from .abundance import (
+    CaseBalancedAffineCalibrator,
+    GroupedConformalInterval,
+    finite_sample_quantile,
 )
 from .transfer import (
     TargetTransferLibrary,
@@ -120,6 +128,9 @@ __all__ = [
     "reliability_curve",
     "pearson_r",
     "mean_absolute_error",
+    "mean_bias",
+    "interval_coverage",
+    "mean_interval_width",
     "background_detector",
     "smoothed_background_detector",
     "BlindTrack",
@@ -131,6 +142,9 @@ __all__ = [
     "grid_detection_limit",
     "robust_standardize_scores",
     "threshold_at_far",
+    "CaseBalancedAffineCalibrator",
+    "GroupedConformalInterval",
+    "finite_sample_quantile",
     "TargetTransferLibrary",
     "resample_spectrum",
     "target_transfer",

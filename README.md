@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-91%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-99%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -95,7 +95,8 @@ python scripts/target_variability_experiment.py  # measured target variability
 python scripts/target_transfer_experiment.py  # laboratory-to-sensor transfer
 python scripts/blind_target_experiment.py  # held-out and unknown targets
 python scripts/lod_experiment.py    # detection limit by sensor and FAR
-pytest -q                           # 91 tests
+python scripts/abundance_uncertainty_experiment.py  # calibrated abundance
+pytest -q                           # 99 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
@@ -343,6 +344,26 @@ secundário.
 
 Reproduce: `python scripts/train_unmixer.py`.
 
+### Abundância calibrada e intervalos
+
+T12 separa treino, calibração de escala, calibração conformal e avaliação. Cada
+cena-seed recebe peso igual, e os IC usam casos pareados em vez de pixels como
+unidade de bootstrap. Os intervalos de 90% são condicionais aos pixels de alvo.
+
+| Método | MAE [IC 95%] | Cobertura | Largura |
+|---|:---:|:---:|:---:|
+| MF calibrado | **0.0110 [0.0093, 0.0129]** | 0.971 | **0.0719** |
+| Unmixer calibrado | 0.0136 [0.0116, 0.0158] | 0.987 | 0.0815 |
+
+A diferença pareada de MAE cruza zero, mas o unmixer tem viés absoluto maior
+por +0.0064 [0.0032, 0.0096] e intervalos mais largos por +0.0096
+[0.0090, 0.0102]. Assim, o critério pré-especificado não encontra vantagem
+calibrada do aprendizado. Isso não muda o fato de que o unmixer é melhor em
+Pavia U.; mostra que a melhora não se sustenta agregada nas três cenas.
+
+Resultado completo em
+[results/abundance_uncertainty.md](results/abundance_uncertainty.md).
+
 ## 📦 Open spectral dataset
 
 `dataset/` contém uma biblioteca aberta em CSV e NPZ: quatro endmembers medidos
@@ -363,7 +384,8 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
 - [x] **T10**: alvo retido e detecção cega com contratos sem vazamento.
 - [x] **T11**: limite de detecção por FWHM e FAR com calibração externa.
 - [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
-- [ ] **T12**: calibrar abundância e produzir intervalos de predição.
+- [x] **T12**: abundância calibrada e intervalos agrupados, sem vantagem do
+      aprendizado no agregado.
 - [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
       software.
 

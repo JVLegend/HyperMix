@@ -32,10 +32,10 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /<title>HyperMix Observatory<\/title>/i);
   assert.match(html, /Detection without/);
   assert.match(html, /THE CASE FILE/);
-  assert.match(html, /Eight ways to test it/);
+  assert.match(html, /Nine ways to test it/);
   assert.match(html, /LATEST AUDIT/);
-  assert.match(html, /15–20% LOD/);
-  assert.match(html, /FAR 1E-3/);
+  assert.match(html, /No learned win/);
+  assert.match(html, /unmixer interval \+0\.0096 wider/);
   assert.match(html, /A narrow prior/);
   assert.match(html, /Failed decisively/);
   assert.match(html, /class="scroll-progress"/);
@@ -50,6 +50,8 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /Three bands are not enough/);
   assert.match(html, /CHAPTER 08 · DETECTION LIMIT/);
   assert.match(html, /The detection limit is a simulator fraction/);
+  assert.match(html, /CHAPTER 09 · CALIBRATED QUANTITY/);
+  assert.match(html, /No calibrated abundance advantage/);
   assert.match(html, /READ BEFORE CLAIMING/);
   assert.match(html, /The original gain mixed spectral information/);
   assert.match(html, /aria-label="English"/);
@@ -84,10 +86,12 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /auc: 0\.987, pd: 0\.650/);
   assert.match(page, /CHAPTER 05 · BACKGROUND/);
   assert.match(page, /function StoryBridge/);
-  assert.match(page, />91</);
+  assert.match(page, />99</);
   assert.match(page, /LOD_RESULTS =/);
   assert.match(page, /CHAPTER 08 · DETECTION LIMIT/);
-  assert.match(page, /15–20% LOD/);
+  assert.match(page, /15–20% at FAR 1e-2/);
+  assert.match(page, /ABUNDANCE_RESULTS =/);
+  assert.match(page, /CHAPTER 09 · CALIBRATED QUANTITY/);
   assert.match(page, /UNCERTAINTY =/);
   assert.match(page, /nll: 0\.05766, brier: 0\.01540, ece: 0\.00896/);
   assert.match(page, /BAND_SPARSITY =/);
@@ -114,7 +118,7 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /This does not run HyperMix inference/);
   assert.match(layout, /lang="en"/);
   assert.match(layout, /viewportFit: "cover"/);
-  assert.match(layout, /og-v3\.png/);
+  assert.match(layout, /og-v4\.png/);
   assert.match(layout, /title: "HyperMix Observatory"/);
   assert.doesNotMatch(page, /_sites-preview|SkeletonPreview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

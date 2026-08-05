@@ -631,6 +631,15 @@ input[type=range] { width: 100%; accent-color: var(--orange); }
 .unmix-row:last-child { border-bottom: 0; }
 .unmix-row.head { background: var(--ink); color: #a6a69f; font-size: 7px; letter-spacing: .1em; }
 .unmix-row b { color: #d94720; font-size: 9px; }
+.abundance-section { background: #17302d; color: var(--white); }
+.abundance-section .section-heading > p { color: #adbfba; }
+.abundance-section .overline, .abundance-section .section-number { color: #8ed1c6; }
+.abundance-section .unmix-table { border-color: #54706a; color: var(--ink); }
+.abundance-section .background-difference { border-color: #54706a; }
+.abundance-section .sparsity-verdict { background: #0f201e; border: 1px solid #36534e; }
+.abundance-section .story-bridge { color: #8eb2aa; }
+.abundance-section .story-bridge strong { color: var(--white); }
+.abundance-section .story-bridge p { color: #adbfba; }
 
 .limits { padding: 110px clamp(24px, 5vw, 78px); display: grid; grid-template-columns: .8fr 1.2fr; gap: 9vw; background: var(--orange); color: #2d1008; }
 .limits .overline { color: #66220e; }

@@ -1,6 +1,6 @@
 # Roadmap do HyperMix
 
-Atualizado em 2026-08-05. Este arquivo define a ordem de trabalho depois das
+Atualizado em 2026-08-06. Este arquivo define a ordem de trabalho depois das
 Fases A e B e dos testes T1, T7a, T7b e T7c. O `STATUS.md` continua sendo a
 fonte dos resultados já medidos. Este roadmap registra hipóteses e entregas
 futuras, não resultados antecipados.
@@ -14,7 +14,8 @@ limitações que ainda impedem uma conclusão externa:
 
 1. os alvos do benchmark atual são implantados digitalmente;
 2. a assinatura de laboratório sofre transformação antes de chegar ao sensor;
-3. abundância e decisão operacional ainda precisam de calibração fora da cena;
+3. abundância e decisão operacional foram calibradas fora da avaliação, mas
+   ainda não em dado biológico remoto real;
 4. conhecer apenas a família do alvo e não o espectro exato precisava de um
    teste sem vazamento.
 
@@ -30,7 +31,7 @@ Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
 | 3 | Milestone 3, release | Concluído: instalação pública, versão citável e CI | Documentação auditada |
 | 4 | T10, alvo retido e detecção cega | Concluído: separa oracle, família e alvo desconhecido | Dois hosts medidos |
 | 5 | T11, limite de detecção | Concluído: LOD por FWHM e FAR com calibração externa | Simulador medido |
-| 6 | T12, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
+| 6 | T12, abundância calibrada | Concluído: erro, cobertura e largura com splits externos | Simulador implantado |
 | 7 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
 
 ## T8: validação em alvo biológico realmente medido
@@ -225,16 +226,19 @@ Motivação medida: o unmixer melhora Pearson r nas três cenas atuais, mas em
 Salinas sua target MAE é 0,0237 contra 0,0073 do MF. Correlação alta não elimina
 viés de escala.
 
-- [ ] Separar treino, calibração e avaliação por cena ou experimento.
-- [ ] Calibrar a escala de abundância sem usar os rótulos da avaliação.
-- [ ] Adicionar intervalos de predição por bootstrap ou método conformal.
-- [ ] Medir MAE, viés, cobertura e largura média dos intervalos.
-- [ ] Avaliar em simulação e, se o ground truth permitir, nos níveis de indução
-      do bioHSI.
-- [ ] Escrever `results/abundance_uncertainty.md` e `.json` com IC.
+- [x] Separar treino, calibração de escala, calibração conformal e avaliação.
+- [x] Calibrar a escala de abundância sem usar os rótulos da avaliação.
+- [x] Adicionar intervalos split-conformal agrupados por caso.
+- [x] Medir MAE, viés, cobertura e largura média dos intervalos.
+- [x] Avaliar no simulador implantado. A extensão bioHSI continua dependente do
+      ground truth e das coordenadas de T8.
+- [x] Escrever `results/abundance_uncertainty.md`, `.json` e `.png` com IC.
 
-Aceite: a estimativa quantitativa informa erro e cobertura, não apenas ranking
-ou correlação.
+Aceite concluído: a estimativa quantitativa informa erro e cobertura, não apenas
+ranking ou correlação. O MF calibrado teve MAE 0,0110 e largura 0,0719; o
+unmixer, 0,0136 e 0,0815. A diferença de MAE não foi significativa, mas o
+unmixer teve viés absoluto e largura significativamente maiores. Não houve
+vantagem calibrada do aprendizado.
 
 ## Publicação e comunidade
 

@@ -43,6 +43,11 @@ const LOD_RESULTS = [
   { sensor: "20 nm", realizedFar: "0.00285", nominal: "20%", conservative: ">20%" },
 ];
 
+const ABUNDANCE_RESULTS = [
+  { method: "MF", mae: "0.0110", coverage: "0.971", width: "0.0719" },
+  { method: "Unmixer", mae: "0.0136", coverage: "0.987", width: "0.0815" },
+];
+
 const BACKGROUND = {
   mf: { auc: 0.987, pd: 0.650, aucCi: "0.968–0.997", pdCi: "0.227–0.872" },
   model: { auc: 0.976, pd: 0.324, aucCi: "0.945–0.994", pdCi: "0.087–0.544" },
@@ -76,7 +81,7 @@ const TARGET_TRANSFER = {
   oracle: { auc: 0.992, pd: 0.778, aucCi: "0.991–0.994", pdCi: "0.744–0.805" },
 } as const;
 
-const CHAPTER_IDS = ["benchmark", "physics", "transfer", "variability", "background", "uncertainty", "sparsity", "unmixing"] as const;
+const CHAPTER_IDS = ["benchmark", "physics", "transfer", "variability", "background", "uncertainty", "sparsity", "unmixing", "abundance"] as const;
 
 const COPY = {
   en: {
@@ -93,16 +98,16 @@ const COPY = {
       explore: "Follow the evidence",
       status: "Open Map Studio",
       proof: ["passing tests", "real backgrounds", "calibration / eval seeds", "open source"],
-      latest: "LATEST AUDIT · T11",
+      latest: "LATEST AUDIT · T12",
       findings: [
-        ["FAR 1E-2", "15–20% LOD", "sensor-specific nominal limit"],
-        ["FAR 1E-3", "Above grid", "Pd 0.80 not reached by 20%"],
+        ["CALIBRATED MAE", "No learned win", "MF 0.0110 vs unmixer 0.0136"],
+        ["90% INTERVALS", "Both cover", "unmixer interval +0.0096 wider"],
       ],
       readLatest: "Inspect the new evidence",
     },
     story: {
       overline: "THE CASE FILE",
-      title: <>One claim.<br /><em>Eight ways to test it.</em></>,
+      title: <>One claim.<br /><em>Nine ways to test it.</em></>,
       intro: "Read the evidence in order. Each chapter removes one convenient assumption and asks whether learning finally earns a robust advantage.",
       chapters: [
         ["01", "Signal", "Does learning hold when the target fades?", "Spatial MF leads"],
@@ -113,6 +118,7 @@ const COPY = {
         ["06", "Calibration", "Can learning win on honest probabilities?", "MF still wins"],
         ["07", "Bands", "Is the signal really carried by three bands?", "Not here"],
         ["08", "Detection limit", "What abundance reaches operational Pd?", "15–20% at FAR 1e-2"],
+        ["09", "Quantity", "Does calibration rescue learned abundance?", "No aggregate advantage"],
       ],
     },
     bridges: {
@@ -123,7 +129,8 @@ const COPY = {
       background: ["NEW SCORECARD", "The last simple causal detection test also fails.", "Ariel rewards calibrated uncertainty, not AUC alone. Ask whether learning can win on probability quality."],
       uncertainty: ["BAND AUDIT", "Learning also loses on calibrated uncertainty.", "If detection is nearly saturated, inspect how many spectral channels actually carry the matched-filter result."],
       sparsity: ["OPERATIONAL QUESTION", "Three bands are not enough in this benchmark.", "Keep the leading baseline and ask how much implanted signal is needed at a fixed false-alarm budget."],
-      unmixing: ["INSPECT THE ARTIFACT", "A simulated detection limit is not a field guarantee.", "Bring a score map, inspect its threshold, then finish with the boundaries of every claim."],
+      unmixing: ["QUANTIFY THE TARGET", "A detection limit says when, not how much.", "Now calibrate abundance on separate implants and require honest prediction intervals."],
+      abundance: ["INSPECT THE ARTIFACT", "Coverage alone is not interval efficiency.", "Bring a score map, inspect its threshold, then finish with the boundaries of every claim."],
       studio: ["FINAL READING", "A convincing map is not biological validation.", "The last chapter states exactly what this benchmark can and cannot support."],
     },
     studio: {
@@ -221,6 +228,17 @@ const COPY = {
       intro: "Target-free scenes calibrate the threshold before evaluation. Noise stays fixed while abundance falls. The limit is the first tested grid point that sustains Pd 0.80 at every higher abundance.",
       columns: ["SENSOR FWHM", "REALIZED FAR", "NOMINAL LOD", "CONSERVATIVE LOD"],
     },
+    abundance: {
+      overline: "CHAPTER 09 · CALIBRATED QUANTITY",
+      title: <>An estimate needs<br /><em>an honest interval.</em></>,
+      intro: "Training, affine scale calibration, conformal residual calibration, and evaluation use disjoint implants. Scene-seed cases, not pixels, are the bootstrap units.",
+      columns: ["METHOD", "MAE", "90% COVERAGE", "INTERVAL WIDTH"],
+      methods: ["Calibrated MF", "Calibrated unmixer"],
+      difference: "PAIRED DIFFERENCE · UNMIXER MINUS MF",
+      differenceValue: "MAE +0.0026 [−0.0006, 0.0059] · width +0.0096 [0.0090, 0.0102]",
+      verdict: "No calibrated abundance advantage",
+      verdictText: "MAE is not significantly different. Both intervals cover above 90%, but the unmixer has significantly larger absolute bias and wider intervals.",
+    },
     background: {
       overline: "CHAPTER 05 · BACKGROUND",
       title: <>The last<br /><em>honest test.</em></>,
@@ -284,6 +302,7 @@ const COPY = {
         ["The nominal transfer result is synthetic.", "It nearly reaches the oracle on implanted targets, but still needs independent sensor and biological validation."],
         ["The held-out family has only two measured hosts.", "Near-oracle transfer between E. coli and P. putida is narrow robustness, not broad chemical generalization."],
         ["The detection limit is a simulator fraction.", "It uses an exact sensor-space target and implanted blobs, not biological concentration or field validation."],
+        ["Abundance intervals are conditional on detection.", "They cover pixels already declared as target and do not include the uncertainty of missing the target itself."],
       ],
     },
     footer: {
@@ -306,16 +325,16 @@ const COPY = {
       explore: "Seguir as evidências",
       status: "Abrir Map Studio",
       proof: ["testes verdes", "fundos reais", "seeds calibração / avaliação", "código aberto"],
-      latest: "AUDITORIA MAIS RECENTE · T11",
+      latest: "AUDITORIA MAIS RECENTE · T12",
       findings: [
-        ["FAR 1E-2", "LOD de 15–20%", "limite nominal depende do sensor"],
-        ["FAR 1E-3", "Acima da grade", "Pd 0,80 não atingida até 20%"],
+        ["MAE CALIBRADA", "Sem vitória aprendida", "MF 0,0110 vs unmixer 0,0136"],
+        ["INTERVALOS 90%", "Ambos cobrem", "intervalo do unmixer +0,0096 maior"],
       ],
       readLatest: "Inspecionar novas evidências",
     },
     story: {
       overline: "O DOSSIÊ",
-      title: <>Uma afirmação.<br /><em>Oito formas de testá-la.</em></>,
+      title: <>Uma afirmação.<br /><em>Nove formas de testá-la.</em></>,
       intro: "Leia as evidências em ordem. Cada capítulo remove uma premissa conveniente e pergunta se o aprendizado finalmente conquista uma vantagem robusta.",
       chapters: [
         ["01", "Sinal", "O aprendizado resiste quando o alvo enfraquece?", "MF espacial lidera"],
@@ -326,6 +345,7 @@ const COPY = {
         ["06", "Calibração", "O aprendizado vence em probabilidades honestas?", "MF ainda vence"],
         ["07", "Bandas", "O sinal está mesmo em três bandas?", "Não aqui"],
         ["08", "Limite de detecção", "Que abundância atinge a Pd operacional?", "15–20% em FAR 1e-2"],
+        ["09", "Quantidade", "Calibrar salva a abundância aprendida?", "Sem vantagem agregada"],
       ],
     },
     bridges: {
@@ -336,7 +356,8 @@ const COPY = {
       background: ["NOVO PLACAR", "O último teste causal simples de detecção também falha.", "Ariel premia incerteza calibrada, não apenas AUC. Pergunte se o aprendizado vence na qualidade da probabilidade."],
       uncertainty: ["AUDITORIA DE BANDAS", "O aprendizado também perde em incerteza calibrada.", "Se a detecção está quase saturada, inspecione quantos canais espectrais realmente carregam o resultado do matched filter."],
       sparsity: ["PERGUNTA OPERACIONAL", "Três bandas não bastam neste benchmark.", "Mantenha o baseline líder e pergunte quanto sinal implantado é necessário sob um orçamento fixo de falso alarme."],
-      unmixing: ["INSPECIONE O ARTEFATO", "Um limite simulado não é garantia de campo.", "Traga um mapa de scores, examine seu limiar e termine nas fronteiras de toda afirmação."],
+      unmixing: ["QUANTIFIQUE O ALVO", "O limite diz quando detectar, não quanto existe.", "Agora calibre a abundância em implantes separados e exija intervalos de predição honestos."],
+      abundance: ["INSPECIONE O ARTEFATO", "Cobertura sozinha não é eficiência do intervalo.", "Traga um mapa de scores, examine seu limiar e termine nas fronteiras de toda afirmação."],
       studio: ["LEITURA FINAL", "Um mapa convincente não é validação biológica.", "O último capítulo declara exatamente o que este benchmark pode e não pode sustentar."],
     },
     studio: {
@@ -434,6 +455,17 @@ const COPY = {
       intro: "Cenas sem alvo calibram o limiar antes da avaliação. O ruído permanece fixo enquanto a abundância cai. O limite é o primeiro ponto testado que sustenta Pd 0,80 em todas as abundâncias maiores.",
       columns: ["FWHM DO SENSOR", "FAR REALIZADA", "LOD NOMINAL", "LOD CONSERVADORA"],
     },
+    abundance: {
+      overline: "CAPÍTULO 09 · QUANTIDADE CALIBRADA",
+      title: <>Uma estimativa precisa<br /><em>de intervalo honesto.</em></>,
+      intro: "Treino, calibração afim da escala, calibração conformal dos resíduos e avaliação usam implantes distintos. Casos cena-seed, não pixels, são as unidades do bootstrap.",
+      columns: ["MÉTODO", "MAE", "COBERTURA 90%", "LARGURA DO INTERVALO"],
+      methods: ["MF calibrado", "Unmixer calibrado"],
+      difference: "DIFERENÇA PAREADA · UNMIXER MENOS MF",
+      differenceValue: "MAE +0,0026 [−0,0006, 0,0059] · largura +0,0096 [0,0090, 0,0102]",
+      verdict: "Sem vantagem calibrada em abundância",
+      verdictText: "A MAE não difere significativamente. Os dois intervalos cobrem acima de 90%, mas o unmixer tem viés absoluto significativamente maior e intervalos mais largos.",
+    },
     background: {
       overline: "CAPÍTULO 05 · FUNDO",
       title: <>O último teste<br /><em>honesto.</em></>,
@@ -497,6 +529,7 @@ const COPY = {
         ["O resultado da transferência nominal é sintético.", "Ele quase alcança o oráculo em alvos implantados, mas ainda exige validação independente no sensor e biológica."],
         ["A família com alvo retido tem somente dois hosts medidos.", "A transferência quase oracle entre E. coli e P. putida é robustez estreita, não generalização química ampla."],
         ["O limite de detecção é uma fração do simulador.", "Ele usa alvo exato no espaço do sensor e blobs implantados, não concentração biológica nem validação de campo."],
+        ["Os intervalos de abundância são condicionais à detecção.", "Eles cobrem pixels já declarados como alvo e não incluem a incerteza de perder o próprio alvo."],
       ],
     },
     footer: {
@@ -709,9 +742,9 @@ export default function Home() {
     </header>
 
     <section className="hero" id="top">
-      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>91</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>99</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside>
-      <a className="latest-audit" href="#unmixing" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
+      <a className="latest-audit" href="#abundance" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
     </section>
 
     <section className="story-section" id="story">
@@ -776,7 +809,15 @@ export default function Home() {
     <section className="section unmix-section" id="unmixing">
       <div className="section-heading compact" data-reveal="up"><div><span className="section-number">08</span><p className="overline">{copy.unmixing.overline}</p><h2>{copy.unmixing.title}</h2></div><p>{copy.unmixing.intro}</p></div>
       <div className="unmix-table" data-reveal="scale"><div className="unmix-row head"><span>{copy.unmixing.columns[0]}</span><span>{copy.unmixing.columns[1]}</span><span>{copy.unmixing.columns[2]}</span><span>{copy.unmixing.columns[3]}</span></div>{LOD_RESULTS.map((item) => <div className="unmix-row" key={item.sensor}><strong>{item.sensor}</strong><span>{item.realizedFar}</span><span>{item.nominal}</span><b>{item.conservative}</b></div>)}</div>
-      <StoryBridge content={copy.bridges.unmixing} nextId="studio" />
+      <StoryBridge content={copy.bridges.unmixing} nextId="abundance" />
+    </section>
+
+    <section className="section unmix-section abundance-section" id="abundance">
+      <div className="section-heading compact" data-reveal="up"><div><span className="section-number">09</span><p className="overline">{copy.abundance.overline}</p><h2>{copy.abundance.title}</h2></div><p>{copy.abundance.intro}</p></div>
+      <div className="unmix-table" data-reveal="scale"><div className="unmix-row head"><span>{copy.abundance.columns[0]}</span><span>{copy.abundance.columns[1]}</span><span>{copy.abundance.columns[2]}</span><span>{copy.abundance.columns[3]}</span></div>{ABUNDANCE_RESULTS.map((item, index) => <div className="unmix-row" key={item.method}><strong>{copy.abundance.methods[index]}</strong><span>{item.mae}</span><span>{item.coverage}</span><b>{item.width}</b></div>)}</div>
+      <div className="background-difference" data-reveal="up"><div><span>{copy.abundance.difference}</span><strong>{copy.abundance.differenceValue}</strong></div><p>{copy.abundance.verdict}</p></div>
+      <div className="sparsity-verdict" data-reveal="up"><span>RESULT</span><p><strong>{copy.abundance.verdict}.</strong> {copy.abundance.verdictText}</p></div>
+      <StoryBridge content={copy.bridges.abundance} nextId="studio" />
     </section>
 
     <section className="studio-section" id="studio">

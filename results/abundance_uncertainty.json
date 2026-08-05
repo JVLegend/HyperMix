@@ -1,0 +1,1034 @@
+{
+  "protocol": {
+    "target": "bacteriochlorophyll_a",
+    "target_threshold": 0.02,
+    "target_snr_db": [
+      10.0,
+      5.0
+    ],
+    "scenes": [
+      "indian_pines",
+      "salinas",
+      "paviaU"
+    ],
+    "training": {
+      "simulated_scenes": 28,
+      "height_width": 96,
+      "epochs": 30
+    },
+    "scale_calibration_seeds": [
+      100,
+      101
+    ],
+    "interval_calibration_seeds": [
+      200,
+      201
+    ],
+    "evaluation_seeds": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "interval_alpha": 0.1,
+    "bootstrap_replicates": 5000,
+    "bootstrap_unit": "scene-SNR-seed case, paired by method"
+  },
+  "calibrators": {
+    "matched_filter": {
+      "slope": 0.7855108673717617,
+      "intercept": 0.020754378768824716,
+      "interval_radius": 0.03696931604903618,
+      "case_radii": [
+        0.020579284128180914,
+        0.027441548794940818,
+        0.018941206895874557,
+        0.01687841385796933,
+        0.013619810357282505,
+        0.013854809326302453,
+        0.01575590494196101,
+        0.016155232524393062,
+        0.029391936320334086,
+        0.030268545642448227,
+        0.03693546221797778,
+        0.03696931604903618
+      ]
+    },
+    "unmixer": {
+      "slope": 0.7788056350717472,
+      "intercept": 0.010137249522925574,
+      "interval_radius": 0.042458221967245566,
+      "case_radii": [
+        0.02648523281793365,
+        0.042458221967245566,
+        0.026342889036065256,
+        0.016240077173224565,
+        0.027580143278198507,
+        0.024585265001877576,
+        0.027411454605101568,
+        0.02018628757477378,
+        0.018326820110566924,
+        0.020189406186977843,
+        0.020757359304239276,
+        0.030449798620365155
+      ]
+    }
+  },
+  "aggregate": {
+    "matched_filter": {
+      "mae": {
+        "mean": 0.01101480187394259,
+        "ci_low": 0.00928597291427687,
+        "ci_high": 0.012865717779194936
+      },
+      "bias": {
+        "mean": 0.001818486811353261,
+        "ci_low": 3.843443095402748e-05,
+        "ci_high": 0.0035332744658892077
+      },
+      "abs_bias": {
+        "mean": 0.004243161660880508,
+        "ci_low": 0.003438871393244815,
+        "ci_high": 0.005073173070803559
+      },
+      "pearson_r": {
+        "mean": 0.8852036872714882,
+        "ci_low": 0.8353231133941642,
+        "ci_high": 0.9317036878286686
+      },
+      "coverage": {
+        "mean": 0.9713482817840933,
+        "ci_low": 0.9529988083940761,
+        "ci_high": 0.9879383212546516
+      },
+      "width": {
+        "mean": 0.07185192705964205,
+        "ci_low": 0.07137668116055443,
+        "ci_high": 0.07230745695405459
+      }
+    },
+    "unmixer": {
+      "mae": {
+        "mean": 0.013604264309597732,
+        "ci_low": 0.01156709222729851,
+        "ci_high": 0.015834001334781706
+      },
+      "bias": {
+        "mean": 0.0034544990063740816,
+        "ci_low": -0.0014714601202013445,
+        "ci_high": 0.008564073266150062
+      },
+      "abs_bias": {
+        "mean": 0.01059806627565064,
+        "ci_low": 0.007536048391487579,
+        "ci_high": 0.01372438269906848
+      },
+      "pearson_r": {
+        "mean": 0.9471782478148539,
+        "ci_low": 0.9215940310770391,
+        "ci_high": 0.9700356638631423
+      },
+      "coverage": {
+        "mean": 0.987445653707088,
+        "ci_low": 0.9753398990545056,
+        "ci_high": 0.9953888137212303
+      },
+      "width": {
+        "mean": 0.08146402068121299,
+        "ci_low": 0.0807176327968672,
+        "ci_high": 0.08224145432062055
+      }
+    }
+  },
+  "differences": {
+    "mae": {
+      "mean": 0.00258946243565514,
+      "ci_low": -0.0005690608570255091,
+      "ci_high": 0.005882366275746713
+    },
+    "abs_bias": {
+      "mean": 0.006354904614770131,
+      "ci_low": 0.0032478085413430195,
+      "ci_high": 0.009565422292093765
+    },
+    "coverage": {
+      "mean": 0.016097371922994676,
+      "ci_low": -0.005087317602955522,
+      "ci_high": 0.036940819469920935
+    },
+    "width": {
+      "mean": 0.009612093621570925,
+      "ci_low": 0.009033210607109779,
+      "ci_high": 0.01015836028812143
+    }
+  },
+  "by_scene": {
+    "indian_pines": {
+      "matched_filter": {
+        "mae": {
+          "mean": 0.008448783015475957,
+          "ci_low": 0.007539693402393233,
+          "ci_high": 0.009345040358916146
+        },
+        "bias": {
+          "mean": -0.0035789340408855187,
+          "ci_low": -0.005175698947790299,
+          "ci_high": -0.00201105506793555
+        },
+        "coverage": {
+          "mean": 0.9991776165977168,
+          "ci_low": 0.9980776121301085,
+          "ci_high": 0.9999032507739938
+        },
+        "width": {
+          "mean": 0.07204706902334754,
+          "ci_low": 0.07175749413295646,
+          "ci_high": 0.07228856126597791
+        }
+      },
+      "unmixer": {
+        "mae": {
+          "mean": 0.012044055937522807,
+          "ci_low": 0.009507970907904503,
+          "ci_high": 0.015045527235206461
+        },
+        "bias": {
+          "mean": -0.009806759072273944,
+          "ci_low": -0.01420114508408335,
+          "ci_high": -0.004979326678452005
+        },
+        "coverage": {
+          "mean": 0.9748183250917032,
+          "ci_low": 0.9409694054243407,
+          "ci_high": 0.9965113309064157
+        },
+        "width": {
+          "mean": 0.0798195442068296,
+          "ci_low": 0.0788982186117719,
+          "ci_high": 0.08057651105815077
+        }
+      }
+    },
+    "salinas": {
+      "matched_filter": {
+        "mae": {
+          "mean": 0.007519449664521091,
+          "ci_low": 0.007129450221947704,
+          "ci_high": 0.007912816556314966
+        },
+        "bias": {
+          "mean": 0.0037732564259364233,
+          "ci_low": 0.0027839902229512595,
+          "ci_high": 0.004606246606269935
+        },
+        "coverage": {
+          "mean": 0.9999306036241791,
+          "ci_low": 0.999832692397025,
+          "ci_high": 1.0
+        },
+        "width": {
+          "mean": 0.07303996515060847,
+          "ci_low": 0.07277030865290225,
+          "ci_high": 0.07323106291310673
+        }
+      },
+      "unmixer": {
+        "mae": {
+          "mean": 0.01870082013153618,
+          "ci_low": 0.015312310788619573,
+          "ci_high": 0.02225317731307901
+        },
+        "bias": {
+          "mean": 0.01864364229086502,
+          "ci_low": 0.015259808098186875,
+          "ci_high": 0.022208834955464333
+        },
+        "coverage": {
+          "mean": 0.9951325449397961,
+          "ci_low": 0.9884020212895526,
+          "ci_high": 0.999934725848564
+        },
+        "width": {
+          "mean": 0.0838269245935985,
+          "ci_low": 0.08346447064809963,
+          "ci_high": 0.08417146361849671
+        }
+      }
+    },
+    "paviaU": {
+      "matched_filter": {
+        "mae": {
+          "mean": 0.017076172941830725,
+          "ci_low": 0.015668141354291693,
+          "ci_high": 0.018473534744676334
+        },
+        "bias": {
+          "mean": 0.005261138049008878,
+          "ci_low": 0.0036711598379689523,
+          "ci_high": 0.006849271453038119
+        },
+        "coverage": {
+          "mean": 0.9149366251303839,
+          "ci_low": 0.8914657600034352,
+          "ci_high": 0.9383865870021691
+        },
+        "width": {
+          "mean": 0.07046874700497018,
+          "ci_low": 0.07003085750881258,
+          "ci_high": 0.07091114167369303
+        }
+      },
+      "unmixer": {
+        "mae": {
+          "mean": 0.0100679168597342,
+          "ci_low": 0.009097826642991007,
+          "ci_high": 0.011078321937355966
+        },
+        "bias": {
+          "mean": 0.0015266138005311687,
+          "ci_low": -7.198795182887047e-05,
+          "ci_high": 0.0033098660348349195
+        },
+        "coverage": {
+          "mean": 0.9923860910897645,
+          "ci_low": 0.9891622498026944,
+          "ci_high": 0.9954430360662998
+        },
+        "width": {
+          "mean": 0.08074559324321087,
+          "ci_low": 0.08016272118262763,
+          "ci_high": 0.08130675081593257
+        }
+      }
+    }
+  },
+  "verdict": {
+    "conclusion": "no_calibrated_abundance_advantage",
+    "point_win": false,
+    "interval_win": false,
+    "coverage_target_met_by_both": true,
+    "pre_specified_rule": "Vit\u00f3ria pontual exige que o IC bootstrap pareado de 95% para MAE do unmixer menos MF fique abaixo de zero. Vit\u00f3ria em efici\u00eancia dos intervalos exige tamb\u00e9m cobertura m\u00e9dia de pelo menos 0,90 nos dois m\u00e9todos e IC de 95% da diferen\u00e7a de largura abaixo de zero."
+  },
+  "rows": [
+    {
+      "case_id": "indian_pines|10|0",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 800000,
+      "method": "matched_filter",
+      "mae": 0.007592399606222828,
+      "bias": -0.0030824178891591014,
+      "abs_bias": 0.0030824178891591014,
+      "pearson_r": 0.9791043388367557,
+      "coverage": 1.0,
+      "width": 0.0722564979170248,
+      "target_pixels": 2978
+    },
+    {
+      "case_id": "indian_pines|10|0",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 800000,
+      "method": "unmixer",
+      "mae": 0.010272026446439068,
+      "bias": -0.00917324946057824,
+      "abs_bias": 0.00917324946057824,
+      "pearson_r": 0.9876101275749255,
+      "coverage": 0.9983210208193418,
+      "width": 0.08021565230363034,
+      "target_pixels": 2978
+    },
+    {
+      "case_id": "indian_pines|10|1",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 800001,
+      "method": "matched_filter",
+      "mae": 0.00810658877379317,
+      "bias": -0.004283382878304451,
+      "abs_bias": 0.004283382878304451,
+      "pearson_r": 0.9736627556298437,
+      "coverage": 1.0,
+      "width": 0.07223695250801987,
+      "target_pixels": 3001
+    },
+    {
+      "case_id": "indian_pines|10|1",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 800001,
+      "method": "unmixer",
+      "mae": 0.01128766946715924,
+      "bias": -0.010305754159531257,
+      "abs_bias": 0.010305754159531257,
+      "pearson_r": 0.985889567611377,
+      "coverage": 1.0,
+      "width": 0.08027974762739859,
+      "target_pixels": 3001
+    },
+    {
+      "case_id": "indian_pines|10|2",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 800002,
+      "method": "matched_filter",
+      "mae": 0.010073113023099056,
+      "bias": -0.007490342471550659,
+      "abs_bias": 0.007490342471550659,
+      "pearson_r": 0.9791050237843002,
+      "coverage": 0.9987867022567338,
+      "width": 0.0712213123280451,
+      "target_pixels": 4121
+    },
+    {
+      "case_id": "indian_pines|10|2",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 800002,
+      "method": "unmixer",
+      "mae": 0.02072846423143456,
+      "bias": -0.020690024222905442,
+      "abs_bias": 0.020690024222905442,
+      "pearson_r": 0.9924349835211634,
+      "coverage": 0.8636253336568794,
+      "width": 0.07719970773406896,
+      "target_pixels": 4121
+    },
+    {
+      "case_id": "indian_pines|10|3",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 800003,
+      "method": "matched_filter",
+      "mae": 0.005888550245673096,
+      "bias": 0.00046462586724280944,
+      "abs_bias": 0.00046462586724280944,
+      "pearson_r": 0.9588244878017438,
+      "coverage": 1.0,
+      "width": 0.07220137686476684,
+      "target_pixels": 2804
+    },
+    {
+      "case_id": "indian_pines|10|3",
+      "scene": "indian_pines",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 800003,
+      "method": "unmixer",
+      "mae": 0.00583274411174888,
+      "bias": 0.004904699409521563,
+      "abs_bias": 0.004904699409521563,
+      "pearson_r": 0.977410853457737,
+      "coverage": 1.0,
+      "width": 0.08146578377183343,
+      "target_pixels": 2804
+    },
+    {
+      "case_id": "indian_pines|5|0",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 801000,
+      "method": "matched_filter",
+      "mae": 0.008546368654560977,
+      "bias": -0.001167560439968654,
+      "abs_bias": 0.001167560439968654,
+      "pearson_r": 0.9758445985806438,
+      "coverage": 0.9992260061919505,
+      "width": 0.07261577954064591,
+      "target_pixels": 2584
+    },
+    {
+      "case_id": "indian_pines|5|0",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 801000,
+      "method": "unmixer",
+      "mae": 0.009623807676743864,
+      "bias": -0.0070754901715681705,
+      "abs_bias": 0.0070754901715681705,
+      "pearson_r": 0.989952933415769,
+      "coverage": 0.9941950464396285,
+      "width": 0.08100380794609413,
+      "target_pixels": 2584
+    },
+    {
+      "case_id": "indian_pines|5|1",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 801001,
+      "method": "matched_filter",
+      "mae": 0.008847615592020887,
+      "bias": -0.004098393747135502,
+      "abs_bias": 0.004098393747135502,
+      "pearson_r": 0.9628676583474766,
+      "coverage": 1.0,
+      "width": 0.07212317571828099,
+      "target_pixels": 3450
+    },
+    {
+      "case_id": "indian_pines|5|1",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 801001,
+      "method": "unmixer",
+      "mae": 0.01304210958345927,
+      "bias": -0.012374745691494994,
+      "abs_bias": 0.012374745691494994,
+      "pearson_r": 0.9857011078354844,
+      "coverage": 0.9814492753623189,
+      "width": 0.07963905235397635,
+      "target_pixels": 3450
+    },
+    {
+      "case_id": "indian_pines|5|2",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 801002,
+      "method": "matched_filter",
+      "mae": 0.010325255164193359,
+      "bias": -0.005394074296054589,
+      "abs_bias": 0.005394074296054589,
+      "pearson_r": 0.9573770689369845,
+      "coverage": 0.9956824975091332,
+      "width": 0.07200243012141416,
+      "target_pixels": 3011
+    },
+    {
+      "case_id": "indian_pines|5|2",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 801002,
+      "method": "unmixer",
+      "mae": 0.014429946967001603,
+      "bias": -0.013201950975802006,
+      "abs_bias": 0.013201950975802006,
+      "pearson_r": 0.9785287991769879,
+      "coverage": 0.9647957489206244,
+      "width": 0.07981974046203069,
+      "target_pixels": 3011
+    },
+    {
+      "case_id": "indian_pines|5|3",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 801003,
+      "method": "matched_filter",
+      "mae": 0.008210373064244289,
+      "bias": -0.003579926472154,
+      "abs_bias": 0.003579926472154,
+      "pearson_r": 0.9662667586420061,
+      "coverage": 0.9997257268239166,
+      "width": 0.07171902718858267,
+      "target_pixels": 3646
+    },
+    {
+      "case_id": "indian_pines|5|3",
+      "scene": "indian_pines",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 801003,
+      "method": "unmixer",
+      "mae": 0.011135679016195974,
+      "bias": -0.010537557305832999,
+      "abs_bias": 0.010537557305832999,
+      "pearson_r": 0.9888240947860985,
+      "coverage": 0.9961601755348327,
+      "width": 0.07893286145560427,
+      "target_pixels": 3646
+    },
+    {
+      "case_id": "salinas|10|0",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 810000,
+      "method": "matched_filter",
+      "mae": 0.006651094658945991,
+      "bias": 0.0008182620080948319,
+      "abs_bias": 0.0008182620080948319,
+      "pearson_r": 0.9912001334935313,
+      "coverage": 1.0,
+      "width": 0.07310754361608873,
+      "target_pixels": 6805
+    },
+    {
+      "case_id": "salinas|10|0",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 810000,
+      "method": "unmixer",
+      "mae": 0.01118076879014976,
+      "bias": 0.01113889493857319,
+      "abs_bias": 0.01113889493857319,
+      "pearson_r": 0.9964788312068841,
+      "coverage": 1.0,
+      "width": 0.08334221608303319,
+      "target_pixels": 6805
+    },
+    {
+      "case_id": "salinas|10|1",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 810001,
+      "method": "matched_filter",
+      "mae": 0.0070532697598601184,
+      "bias": 0.0046763644001278065,
+      "abs_bias": 0.0046763644001278065,
+      "pearson_r": 0.9862160714732893,
+      "coverage": 1.0,
+      "width": 0.07338627955694367,
+      "target_pixels": 5516
+    },
+    {
+      "case_id": "salinas|10|1",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 810001,
+      "method": "unmixer",
+      "mae": 0.02583012927332873,
+      "bias": 0.02583012927332873,
+      "abs_bias": 0.02583012927332873,
+      "pearson_r": 0.9939715263434247,
+      "coverage": 0.9820522117476432,
+      "width": 0.08447463960487844,
+      "target_pixels": 5516
+    },
+    {
+      "case_id": "salinas|10|2",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 810002,
+      "method": "matched_filter",
+      "mae": 0.00707731378059869,
+      "bias": 0.0044701233022990524,
+      "abs_bias": 0.0044701233022990524,
+      "pearson_r": 0.98593740662967,
+      "coverage": 0.9997059255991766,
+      "width": 0.07331672575295561,
+      "target_pixels": 6801
+    },
+    {
+      "case_id": "salinas|10|2",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 810002,
+      "method": "unmixer",
+      "mae": 0.018089004412670816,
+      "bias": 0.018089004412670816,
+      "abs_bias": 0.018089004412670816,
+      "pearson_r": 0.9966869002573819,
+      "coverage": 0.9997059255991766,
+      "width": 0.08407803868691337,
+      "target_pixels": 6801
+    },
+    {
+      "case_id": "salinas|10|3",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 810003,
+      "method": "matched_filter",
+      "mae": 0.007889941792322086,
+      "bias": 0.00448160620771497,
+      "abs_bias": 0.00448160620771497,
+      "pearson_r": 0.9706302743675455,
+      "coverage": 1.0,
+      "width": 0.07307658020983314,
+      "target_pixels": 6266
+    },
+    {
+      "case_id": "salinas|10|3",
+      "scene": "salinas",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 810003,
+      "method": "unmixer",
+      "mae": 0.020602994376333415,
+      "bias": 0.02060281036260113,
+      "abs_bias": 0.02060281036260113,
+      "pearson_r": 0.9824724298558271,
+      "coverage": 1.0,
+      "width": 0.083967436187572,
+      "target_pixels": 6266
+    },
+    {
+      "case_id": "salinas|5|0",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 811000,
+      "method": "matched_filter",
+      "mae": 0.007463313371647075,
+      "bias": 0.004736628457532858,
+      "abs_bias": 0.004736628457532858,
+      "pearson_r": 0.9682314176478886,
+      "coverage": 1.0,
+      "width": 0.07313195629209902,
+      "target_pixels": 6938
+    },
+    {
+      "case_id": "salinas|5|0",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 811000,
+      "method": "unmixer",
+      "mae": 0.019593436195645304,
+      "bias": 0.019593289392420606,
+      "abs_bias": 0.019593289392420606,
+      "pearson_r": 0.9889059827453797,
+      "coverage": 1.0,
+      "width": 0.08402309007092192,
+      "target_pixels": 6938
+    },
+    {
+      "case_id": "salinas|5|1",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 811001,
+      "method": "matched_filter",
+      "mae": 0.008265205493691892,
+      "bias": 0.002826015362670948,
+      "abs_bias": 0.002826015362670948,
+      "pearson_r": 0.9145100000685997,
+      "coverage": 1.0,
+      "width": 0.07218049193369648,
+      "target_pixels": 8483
+    },
+    {
+      "case_id": "salinas|5|1",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 811001,
+      "method": "unmixer",
+      "mae": 0.015324641334343957,
+      "bias": 0.014912038233245722,
+      "abs_bias": 0.014912038233245722,
+      "pearson_r": 0.9561229036704724,
+      "coverage": 1.0,
+      "width": 0.08285438877765722,
+      "target_pixels": 8483
+    },
+    {
+      "case_id": "salinas|5|2",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 811002,
+      "method": "matched_filter",
+      "mae": 0.008238938739979298,
+      "bias": 0.005067827903556282,
+      "abs_bias": 0.005067827903556282,
+      "pearson_r": 0.9610698000124469,
+      "coverage": 1.0,
+      "width": 0.07310197532992223,
+      "target_pixels": 5725
+    },
+    {
+      "case_id": "salinas|5|2",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 811002,
+      "method": "unmixer",
+      "mae": 0.025474988912355046,
+      "bias": 0.02547274820623314,
+      "abs_bias": 0.02547274820623314,
+      "pearson_r": 0.9836296878291692,
+      "coverage": 0.9795633187772925,
+      "width": 0.08436389129824425,
+      "target_pixels": 5725
+    },
+    {
+      "case_id": "salinas|5|3",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 811003,
+      "method": "matched_filter",
+      "mae": 0.007516519719123574,
+      "bias": 0.00310922376549464,
+      "abs_bias": 0.00310922376549464,
+      "pearson_r": 0.9667144762355736,
+      "coverage": 0.9997389033942559,
+      "width": 0.07301816851332882,
+      "target_pixels": 7660
+    },
+    {
+      "case_id": "salinas|5|3",
+      "scene": "salinas",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 811003,
+      "method": "unmixer",
+      "mae": 0.01351059775746244,
+      "bias": 0.013510223507846824,
+      "abs_bias": 0.013510223507846824,
+      "pearson_r": 0.9900713974303978,
+      "coverage": 0.9997389033942559,
+      "width": 0.08351169603956758,
+      "target_pixels": 7660
+    },
+    {
+      "case_id": "paviaU|10|0",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 820000,
+      "method": "matched_filter",
+      "mae": 0.01481583272892122,
+      "bias": 0.003167830459958831,
+      "abs_bias": 0.003167830459958831,
+      "pearson_r": 0.7876130462691707,
+      "coverage": 0.9525873746952046,
+      "width": 0.07083622042387372,
+      "target_pixels": 14764
+    },
+    {
+      "case_id": "paviaU|10|0",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 0,
+      "implantation_seed": 820000,
+      "method": "unmixer",
+      "mae": 0.008104900271877883,
+      "bias": 0.002044861254305874,
+      "abs_bias": 0.002044861254305874,
+      "pearson_r": 0.9263886782484854,
+      "coverage": 0.9983066919534002,
+      "width": 0.08126834857802108,
+      "target_pixels": 14764
+    },
+    {
+      "case_id": "paviaU|10|1",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 820001,
+      "method": "matched_filter",
+      "mae": 0.015381162758355283,
+      "bias": 0.0012653879066832718,
+      "abs_bias": 0.0012653879066832718,
+      "pearson_r": 0.7392112532585576,
+      "coverage": 0.9430738216377076,
+      "width": 0.06942295602315902,
+      "target_pixels": 20834
+    },
+    {
+      "case_id": "paviaU|10|1",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 1,
+      "implantation_seed": 820001,
+      "method": "unmixer",
+      "mae": 0.008861107382264245,
+      "bias": -0.0010152570963947525,
+      "abs_bias": 0.0010152570963947525,
+      "pearson_r": 0.8841720963584427,
+      "coverage": 0.9930882211769223,
+      "width": 0.07921103606014353,
+      "target_pixels": 20834
+    },
+    {
+      "case_id": "paviaU|10|2",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 820002,
+      "method": "matched_filter",
+      "mae": 0.014886643429162062,
+      "bias": 0.003756030463360116,
+      "abs_bias": 0.003756030463360116,
+      "pearson_r": 0.8006516754951383,
+      "coverage": 0.951043429216018,
+      "width": 0.07111714756997206,
+      "target_pixels": 17730
+    },
+    {
+      "case_id": "paviaU|10|2",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 2,
+      "implantation_seed": 820002,
+      "method": "unmixer",
+      "mae": 0.008456057918109949,
+      "bias": -0.00013773923689293764,
+      "abs_bias": 0.00013773923689293764,
+      "pearson_r": 0.9361031973521231,
+      "coverage": 0.997405527354766,
+      "width": 0.08127970025910583,
+      "target_pixels": 17730
+    },
+    {
+      "case_id": "paviaU|10|3",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 820003,
+      "method": "matched_filter",
+      "mae": 0.015458595997604739,
+      "bias": 0.0060004050054254824,
+      "abs_bias": 0.0060004050054254824,
+      "pearson_r": 0.7382174744868103,
+      "coverage": 0.9423625642001141,
+      "width": 0.07154295003580426,
+      "target_pixels": 15771
+    },
+    {
+      "case_id": "paviaU|10|3",
+      "scene": "paviaU",
+      "target_snr_db": 10.0,
+      "seed": 3,
+      "implantation_seed": 820003,
+      "method": "unmixer",
+      "mae": 0.01013440088740663,
+      "bias": 0.004993542815199769,
+      "abs_bias": 0.004993542815199769,
+      "pearson_r": 0.8909036768542659,
+      "coverage": 0.9963223638323505,
+      "width": 0.08215039163750133,
+      "target_pixels": 15771
+    },
+    {
+      "case_id": "paviaU|5|0",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 821000,
+      "method": "matched_filter",
+      "mae": 0.019087465165135188,
+      "bias": 0.00719975942992579,
+      "abs_bias": 0.00719975942992579,
+      "pearson_r": 0.6807969314427365,
+      "coverage": 0.8805253974408686,
+      "width": 0.0703698205547606,
+      "target_pixels": 20632
+    },
+    {
+      "case_id": "paviaU|5|0",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 0,
+      "implantation_seed": 821000,
+      "method": "unmixer",
+      "mae": 0.011051483700527666,
+      "bias": 5.514444413786454e-05,
+      "abs_bias": 5.514444413786454e-05,
+      "pearson_r": 0.846439963985414,
+      "coverage": 0.9896277626987204,
+      "width": 0.08046229831915615,
+      "target_pixels": 20632
+    },
+    {
+      "case_id": "paviaU|5|1",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 821001,
+      "method": "matched_filter",
+      "mae": 0.018087603008933084,
+      "bias": 0.00616370340024833,
+      "abs_bias": 0.00616370340024833,
+      "pearson_r": 0.6935925794195738,
+      "coverage": 0.8971803597472047,
+      "width": 0.07007106286298215,
+      "target_pixels": 16456
+    },
+    {
+      "case_id": "paviaU|5|1",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 1,
+      "implantation_seed": 821001,
+      "method": "unmixer",
+      "mae": 0.01015169843206747,
+      "bias": 0.001914421937243509,
+      "abs_bias": 0.001914421937243509,
+      "pearson_r": 0.8609154771314831,
+      "coverage": 0.9920393777345649,
+      "width": 0.08053003720862169,
+      "target_pixels": 16456
+    },
+    {
+      "case_id": "paviaU|5|2",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 821002,
+      "method": "matched_filter",
+      "mae": 0.01959653207163492,
+      "bias": 0.005449089625031581,
+      "abs_bias": 0.005449089625031581,
+      "pearson_r": 0.6824765594759884,
+      "coverage": 0.8720218247953926,
+      "width": 0.0698592134481731,
+      "target_pixels": 16495
+    },
+    {
+      "case_id": "paviaU|5|2",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 2,
+      "implantation_seed": 821002,
+      "method": "unmixer",
+      "mae": 0.011453011823513819,
+      "bias": -0.0012110389103178842,
+      "abs_bias": 0.0012110389103178842,
+      "pearson_r": 0.8325834475641551,
+      "coverage": 0.9862382540163686,
+      "width": 0.0800576785603261,
+      "target_pixels": 16495
+    },
+    {
+      "case_id": "paviaU|5|3",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 821003,
+      "method": "matched_filter",
+      "mae": 0.019295548374899302,
+      "bias": 0.009086898101437623,
+      "abs_bias": 0.009086898101437623,
+      "pearson_r": 0.6247667041794431,
+      "coverage": 0.8806982293105613,
+      "width": 0.07053060512103654,
+      "target_pixels": 15926
+    },
+    {
+      "case_id": "paviaU|5|3",
+      "scene": "paviaU",
+      "target_snr_db": 5.0,
+      "seed": 3,
+      "implantation_seed": 821003,
+      "method": "unmixer",
+      "mae": 0.012330674462105945,
+      "bias": 0.0055689751969679084,
+      "abs_bias": 0.0055689751969679084,
+      "pearson_r": 0.7800792833436446,
+      "coverage": 0.9860605299510234,
+      "width": 0.08100525532281126,
+      "target_pixels": 15926
+    }
+  ]
+}

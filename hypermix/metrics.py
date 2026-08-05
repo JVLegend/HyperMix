@@ -15,6 +15,9 @@ __all__ = [
     "reliability_curve",
     "pearson_r",
     "mean_absolute_error",
+    "mean_bias",
+    "interval_coverage",
+    "mean_interval_width",
 ]
 
 
@@ -227,3 +230,56 @@ def mean_absolute_error(
     """Mean absolute error, optionally restricted to a declared mask."""
     predicted, truth = _selected_pair(predicted, truth, mask)
     return float(np.mean(np.abs(predicted - truth)))
+
+
+def mean_bias(
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray | None = None,
+) -> float:
+    """Mean signed prediction error, optionally on a declared mask."""
+    predicted, truth = _selected_pair(predicted, truth, mask)
+    return float(np.mean(predicted - truth))
+
+
+def interval_coverage(
+    lower: np.ndarray,
+    upper: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray | None = None,
+) -> float:
+    """Fraction of selected truths contained in inclusive prediction intervals."""
+    truth_input = np.asarray(truth, dtype=np.float64)
+    lower, truth_lower = _selected_pair(lower, truth_input, mask)
+    upper, truth_upper = _selected_pair(upper, truth_input, mask)
+    if not np.array_equal(truth_lower, truth_upper):
+        raise ValueError("interval inputs must select the same truth values")
+    if np.any(lower > upper):
+        raise ValueError("lower interval bounds must not exceed upper bounds")
+    return float(np.mean((truth_lower >= lower) & (truth_lower <= upper)))
+
+
+def mean_interval_width(
+    lower: np.ndarray,
+    upper: np.ndarray,
+    mask: np.ndarray | None = None,
+) -> float:
+    """Mean interval width, optionally restricted to a declared mask."""
+    lower = np.asarray(lower, dtype=np.float64)
+    upper = np.asarray(upper, dtype=np.float64)
+    if lower.shape != upper.shape:
+        raise ValueError("lower and upper must have the same shape")
+    if mask is not None:
+        mask = np.asarray(mask, dtype=bool)
+        if mask.shape != lower.shape:
+            raise ValueError("mask and interval bounds must have the same shape")
+        lower, upper = lower[mask], upper[mask]
+    else:
+        lower, upper = lower.ravel(), upper.ravel()
+    if lower.size == 0:
+        raise ValueError("metric selection must contain at least one interval")
+    if not np.all(np.isfinite(lower)) or not np.all(np.isfinite(upper)):
+        raise ValueError("interval bounds must be finite")
+    if np.any(lower > upper):
+        raise ValueError("lower interval bounds must not exceed upper bounds")
+    return float(np.mean(upper - lower))
