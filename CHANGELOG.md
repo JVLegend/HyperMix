@@ -10,7 +10,9 @@ medidos pelos scripts versionados.
 
 - registrou a publicação pública da `0.5.0`, os hashes dos artefatos e o smoke
   test de instalação independente;
-- adicionou badge do PyPI e a lab note da primeira release pública.
+- adicionou badge do PyPI e a lab note da primeira release pública;
+- arquivou o ZIP exato da tag `v0.5.0` no Zenodo e registrou os DOI de versão e
+  conceitual na documentação citável.
 
 ## 0.5.0 - 2026-08-04
 

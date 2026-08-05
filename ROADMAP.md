@@ -14,8 +14,10 @@ limitações que ainda impedem uma conclusão externa:
 
 1. os alvos do benchmark atual são implantados digitalmente;
 2. a assinatura de laboratório sofre transformação antes de chegar ao sensor;
-3. abundância e decisão operacional ainda precisam de calibração fora da cena;
-4. o software ainda não possui uma distribuição pública completa com DOI.
+3. abundância e decisão operacional ainda precisam de calibração fora da cena.
+
+A distribuição pública deixou de ser bloqueio: `0.5.0` está no PyPI, no GitHub
+Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
 
 ## Ordem executiva
 
@@ -23,7 +25,7 @@ limitações que ainda impedem uma conclusão externa:
 |---:|---|---|---|
 | 1 | T8, bioHSI real | Primeiro teste sem implantação digital | Nenhuma |
 | 2 | T9, transferência da assinatura | Reduzir o gap laboratório-sensor sem rótulos de teste | Metadados de T8 |
-| 3 | Milestone 3, release | Instalação pública, versão citável e CI | Documentação auditada |
+| 3 | Milestone 3, release | Concluído: instalação pública, versão citável e CI | Documentação auditada |
 | 4 | T10, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
 | 5 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
 
@@ -143,22 +145,20 @@ avaliação. O resultado será reportado mesmo se não reduzir o gap.
 - [x] Adicionar `CHANGELOG.md`, `CONTRIBUTING.md` e política de suporte.
 - [x] Executar build de sdist e wheel, validação de metadados e instalação em
       ambiente limpo.
-- [ ] Publicar `hypermix` no PyPI.
-- [ ] Criar release `v0.5.0` no GitHub.
-- [ ] Integrar a release ao Zenodo e registrar o DOI no README e no
+- [x] Publicar `hypermix` no PyPI.
+- [x] Criar release `v0.5.0` no GitHub.
+- [x] Integrar a release ao Zenodo e registrar o DOI no README e no
       `CITATION.cff`.
 
 Aceite: um usuário externo consegue instalar a versão publicada, executar um
 exemplo e reproduzir ao menos um benchmark a partir de um clone limpo.
 
-A infraestrutura e os artefatos foram validados nas execuções
-`30966762668` e `30966867000` do GitHub Actions. A release ainda não está
-publicada: os próximos gates são PyPI, tag `v0.5.0`, GitHub Release e DOI.
-
-O candidato `0.5.0` foi fixado no commit `ddced5b` e passou novamente pela CI
-completa na execução `30967741908`. O workflow OIDC e o environment `pypi`
-estão prontos. Falta autenticar a conta PyPI, cadastrar o publisher pendente e
-só então criar tag e release.
+A infraestrutura e os artefatos foram validados nas execuções `30966762668` e
+`30966867000` do GitHub Actions. O candidato `0.5.0`, inicialmente fixado no
+commit `ddced5b`, passou novamente pela CI completa na execução `30967741908`.
+A tag publicada aponta para `e60cef1`; PyPI recebeu os artefatos por OIDC, e o
+Zenodo preservou a tag no registro `10.5281/zenodo.21799951`. O Milestone 3 está
+concluído.
 
 ## T10: abundância calibrada e intervalos
 

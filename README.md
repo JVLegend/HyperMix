@@ -8,6 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/hypermix.svg)](https://pypi.org/project/hypermix/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
 [![Tests](https://img.shields.io/badge/tests-67%20passing-2ea44f.svg)](tests/)
@@ -290,7 +291,7 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
       implantação digital. Manifesto e downloader rastreável já concluídos.
 - [ ] **T9**: transferir a assinatura de laboratório para o sensor sem rótulos
       de avaliação.
-- [ ] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
+- [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
 - [ ] **T10**: calibrar abundância e produzir intervalos de predição.
 - [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
       software.
@@ -363,8 +364,10 @@ et al.; URLs, licença e checksums estão em
 
 ## 📚 Cite
 
-If you use HyperMix, please cite it (see [CITATION.cff](CITATION.cff)). A Zenodo
-DOI is planned for the next release.
+If you use HyperMix, please cite it using [CITATION.cff](CITATION.cff) and the
+version DOI [`10.5281/zenodo.21799951`](https://doi.org/10.5281/zenodo.21799951).
+For a citation that should always resolve to the latest archived version, use
+the concept DOI [`10.5281/zenodo.21799950`](https://doi.org/10.5281/zenodo.21799950).
 
 ## 📄 License
 

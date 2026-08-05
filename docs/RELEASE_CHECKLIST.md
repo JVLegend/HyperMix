@@ -1,7 +1,7 @@
 # Checklist da release pública
 
-Estado em 2026-08-04: a versão `0.5.0` foi publicada no GitHub e no PyPI. Zenodo
-e DOI ainda estão pendentes.
+Estado em 2026-08-04: a versão `0.5.0` foi publicada no GitHub, PyPI e Zenodo.
+O DOI da versão é `10.5281/zenodo.21799951`.
 
 ## Pré-release
 
@@ -29,8 +29,8 @@ e DOI ainda estão pendentes.
 - [x] Conferir os artefatos produzidos por `release-artifacts.yml`.
 - [x] Publicar a release no GitHub com notas derivadas do changelog.
 - [x] Publicar sdist e wheel no PyPI sem reutilizar o número da versão.
-- [ ] Ativar ou conferir a integração do repositório com Zenodo.
-- [ ] Registrar o DOI no README e em `CITATION.cff`.
+- [x] Ativar e conferir a integração do repositório com Zenodo.
+- [x] Registrar o DOI no README e em `CITATION.cff`.
 
 ## Pós-release
 

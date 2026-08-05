@@ -30,5 +30,5 @@ A versão pública preserva o resultado central do projeto. Nos experimentos
 concluídos, nenhum método aprendido superou de forma robusta o matched filter
 espacial bem calibrado. A contribuição é o benchmark aberto e auditável.
 
-O próximo registro permanente será o DOI do Zenodo. A integração ainda depende
-da autenticação da conta e, portanto, não foi antecipada nem inventada.
+Atualização: o registro permanente foi concluído depois desta nota. O DOI da
+versão é `10.5281/zenodo.21799951`; a próxima nota documenta a verificação.

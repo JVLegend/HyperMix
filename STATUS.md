@@ -2,6 +2,27 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## DOI público no Zenodo - 2026-08-04
+
+A versão `0.5.0` foi preservada no Zenodo como software aberto sob licença MIT.
+O DOI da versão é https://doi.org/10.5281/zenodo.21799951 e o DOI conceitual,
+que aponta para a versão mais recente, é
+https://doi.org/10.5281/zenodo.21799950. O registro contém o arquivo
+`HyperMix-v0.5.0.zip`, com 5.924.441 bytes e MD5
+`7ddd27d785bcdad6fd9ccefc66e1c5cb`.
+
+O arquivo é o ZIP exato da tag anotada `v0.5.0`, que aponta para
+`e60cef1302f72885979b88b947871c3ec549fa4e`. A API pública do Zenodo confirmou
+estado `published`, versão `0.5.0`, licença `mit-license` e o repositório
+`https://github.com/JVLegend/HyperMix`. A integração GitHub foi habilitada para
+arquivar automaticamente releases futuras. Como ela não retroage para releases
+anteriores à ativação, a `0.5.0` foi depositada manualmente sem apagar ou recriar
+a GitHub Release e sem reenviar o pacote ao PyPI.
+
+O texto do registro preserva a conclusão científica: nenhum método aprendido
+superou de forma robusta o matched filter espacial bem calibrado nos
+experimentos concluídos. A criação do DOI não adiciona resultado científico.
+
 ## Release pública 0.5.0 no PyPI - 2026-08-04
 
 A versão `0.5.0` foi publicada em https://pypi.org/project/hypermix/ por Trusted
@@ -22,7 +43,8 @@ atestações digitais para os uploads. Os SHA-256 públicos são:
 Uma instalação sem cache em ambiente vazio baixou `hypermix==0.5.0` do índice,
 confirmou `reference_spectra.csv` e executou o exemplo mínimo com AUC `0,955064`
 para `snr_db=10` e `seed=0`. Esse valor é somente um smoke test do exemplo, não
-um novo resultado científico agregado. Zenodo e DOI continuam pendentes.
+um novo resultado científico agregado. O DOI foi publicado posteriormente no
+Zenodo e está registrado na seção acima.
 
 ## Release candidate 0.5.0 validado, publisher PyPI pendente - 2026-08-04
 
@@ -571,13 +593,15 @@ wheels yet. The core package (M0/M1) still runs on 3.14 without torch.
 - [x] Avaliação multi-cena cobre Indian Pines e Salinas (AVIRIS) e Pavia U.
       (ROSIS). A troca de sensor não remove a circularidade do alvo implantado.
 - [x] Packaging: `python -m build` produces a clean sdist + wheel (PyPI-ready).
-- [x] CITATION.cff + .zenodo.json added (DOI-ready).
+- [x] CITATION.cff + .zenodo.json added and the version DOI registered.
 - [x] Unmixing head (`AbundanceUnmixer`) estima abundância fracionária. A métrica
       original em todos os pixels foi substituída por target r e target MAE;
       valores atuais estão na seção de Fase A e em `results/unmix_eval.md`.
 - [x] `RELEASE.md`: step-by-step PyPI + Zenodo instructions for the author.
-- [ ] PyPI publish: author runs `twine upload dist/*` with their token (see RELEASE.md).
-- [ ] DOI: connect the GitHub repo to Zenodo and cut a release (see RELEASE.md).
+- [x] PyPI publish completed through Trusted Publishing/OIDC, without a stored
+      token.
+- [x] Zenodo DOI published for `0.5.0`: `10.5281/zenodo.21799951`; concept DOI:
+      `10.5281/zenodo.21799950`.
 
 ## Grant / admin (tracked in the vault, not here)
 

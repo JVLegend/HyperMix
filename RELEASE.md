@@ -1,7 +1,8 @@
 # Publicando o HyperMix
 
-Estado da `0.5.0`: publicada no GitHub e no PyPI em 2026-08-04. O procedimento
-abaixo permanece como registro auditável e base para a próxima versão.
+Estado da `0.5.0`: publicada no GitHub, PyPI e Zenodo em 2026-08-04. O
+procedimento abaixo permanece como registro auditável e base para a próxima
+versão.
 
 O HyperMix usa PyPI Trusted Publishing. Não crie token permanente e não salve
 credenciais no GitHub ou no repositório.
@@ -42,13 +43,24 @@ imutáveis.
 
 ## DOI do Zenodo
 
-Depois da publicação:
+Para a `0.5.0`, o repositório foi habilitado na integração GitHub do Zenodo
+depois da GitHub Release. Como a integração não fez ingestão retroativa, o ZIP
+exato da tag foi depositado manualmente, sem apagar ou recriar a release e sem
+reenviar o pacote ao PyPI. O resultado público é:
+
+- DOI da versão: `10.5281/zenodo.21799951`;
+- DOI conceitual: `10.5281/zenodo.21799950`;
+- arquivo: `HyperMix-v0.5.0.zip`;
+- MD5 no Zenodo: `7ddd27d785bcdad6fd9ccefc66e1c5cb`.
+
+Para versões futuras:
 
 1. entrar em https://zenodo.org/account/settings/github/ com a conta ligada ao
    GitHub;
 2. habilitar `JVLegend/HyperMix`;
-3. confirmar que a release `v0.5.0` foi arquivada;
-4. copiar o DOI para o README e `CITATION.cff` em um patch posterior.
+3. publicar a nova GitHub Release somente depois dos gates;
+4. confirmar a ingestão automática do Zenodo e copiar o DOI da versão para o
+   README e `CITATION.cff` em um patch posterior.
 
-`.zenodo.json` e `CITATION.cff` já contêm a moldura científica honesta. O DOI
-não deve ser inventado nem antecipado antes da resposta do Zenodo.
+`.zenodo.json` e `CITATION.cff` contêm a moldura científica honesta. O DOI não
+deve ser inventado nem antecipado antes da resposta do Zenodo.
