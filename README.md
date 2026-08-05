@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-63%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-67%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -88,7 +88,7 @@ python scripts/train_detector.py    # train the learned detector (needs ".[train
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
-pytest -q                           # 63 tests
+pytest -q                           # 67 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.

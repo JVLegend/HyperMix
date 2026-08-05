@@ -14,6 +14,8 @@ publicada no PyPI, GitHub ou Zenodo.
 - [x] Conferir que dados curados de `hypermix.data` estão dentro da wheel.
 - [x] Verificar que nenhum cubo baixado, segredo ou ambiente entrou no pacote.
 - [x] Executar `npm audit --omit=dev` e os builds de Sites e Vercel.
+- [x] Automatizar o gate de consistência entre tag, pacote, citação, changelog,
+      notas e workflow OIDC.
 
 ## Publicação
 

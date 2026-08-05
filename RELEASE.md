@@ -22,12 +22,17 @@ reconstrói sdist e wheel, executa `twine check` e publica os dois artefatos.
 
 1. Confirmar que `main` está limpa, sincronizada e com CI verde.
 2. Confirmar que `pyproject.toml` e `CITATION.cff` declaram `0.5.0`.
-3. Configurar o publisher pendente do PyPI com o contrato acima.
-4. Conferir o environment `pypi` no GitHub.
-5. Criar a tag `v0.5.0` no commit validado.
-6. Publicar a GitHub Release usando `docs/releases/v0.5.0.md`.
-7. Acompanhar o workflow `Publish to PyPI` até o sucesso.
-8. Instalar `hypermix==0.5.0` em ambiente vazio e executar o exemplo mínimo.
+3. Executar `python scripts/check_release.py --tag v0.5.0`.
+4. Configurar o publisher pendente do PyPI com o contrato acima.
+5. Conferir o environment `pypi` no GitHub.
+6. Criar a tag `v0.5.0` no commit validado.
+7. Publicar a GitHub Release usando `docs/releases/v0.5.0.md`.
+8. Acompanhar o workflow `Publish to PyPI` até o sucesso.
+9. Instalar `hypermix==0.5.0` em ambiente vazio e executar o exemplo mínimo.
+
+O gate também roda na CI e antes do upload. Ele bloqueia tag divergente,
+versões desencontradas, data inconsistente, notas ausentes, permissões OIDC
+incorretas e actions sem pin por SHA.
 
 Não reutilize `0.5.0` se qualquer arquivo chegar ao PyPI. Versões publicadas são
 imutáveis.

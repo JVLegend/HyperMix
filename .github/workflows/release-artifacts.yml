@@ -20,6 +20,8 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+      - name: Validate release contract
+        run: python scripts/check_release.py
       - name: Build and validate
         run: |
           python -m pip install --upgrade pip build twine

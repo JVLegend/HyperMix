@@ -9,11 +9,18 @@ Os artefatos versionados da `0.5.0` foram preparados no commit `ddced5b`.
 release agora descrevem a mesma versão e preservam a conclusão científica
 negativa.
 
-O candidato passou localmente por 58 testes e 5 skips opcionais no núcleo, 63
+O candidato passou localmente por 62 testes e 5 skips opcionais no núcleo, 67
 testes na suíte completa, `twine check`, instalação da wheel em ambiente vazio e
 leitura de um recurso espectral empacotado. A CI remota também ficou verde em
 https://github.com/JVLegend/HyperMix/actions/runs/30967741908, incluindo Python
 3.10 a 3.14, PyTorch, pacote e builds Sites/Vercel.
+
+Um gate executável em `scripts/check_release.py` agora confere a correspondência
+entre tag, versão do pacote, `CITATION.cff`, data do changelog, notas da release
+e contrato OIDC. Ele também exige pin por SHA em todas as actions do workflow de
+publicação. O gate roda na CI, no build de artefatos e imediatamente antes do
+upload ao PyPI. Quatro testes cobrem o caminho válido e falhas por tag, citação
+ou action divergente.
 
 O workflow `.github/workflows/publish-pypi.yml` usa OIDC, ação fixada por SHA e
 o environment GitHub `pypi`, sem token permanente. O nome `hypermix` ainda não
@@ -77,7 +84,7 @@ T8c permanece pausado. Não serão movidas caixas usando score, e nenhum baselin
 será comparado até que as coordenadas manuais ou uma ponte independente sejam
 recuperadas. Resultados e diagnóstico estão em
 `results/real_target_reproduction.md` e
-`results/real_target_reproduction_diagnosis.md`. A suíte completa tem 63 testes
+`results/real_target_reproduction_diagnosis.md`. A suíte completa tem 67 testes
 passando no ambiente `.venv-train`. Duas execuções integrais produziram o mesmo
 SHA-256 para `results/real_target_reproduction.json`:
 `a25651a108e8c593c39937b982b5899f196b4ed4a1e4188090bdf2058dd03ca2`.

@@ -18,6 +18,8 @@ Nenhuma mudança registrada.
 - detector auto-supervisionado de fundo e benchmark causal correspondente;
 - observatório web bilíngue, responsivo e acessível;
 - CI matricial para o núcleo, suíte de pesquisa, pacote e observatório;
+- gate de release para impedir divergências entre tag, pacote, citação,
+  changelog, notas e publicação OIDC;
 - documentação de contribuição, suporte, segurança e preparação de release.
 
 ### Resultado científico
