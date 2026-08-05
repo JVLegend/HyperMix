@@ -17,6 +17,7 @@ publicada no PyPI, GitHub ou Zenodo.
 
 ## Publicação
 
+- [x] Criar o environment `pypi` no GitHub, sem tokens permanentes.
 - [ ] Criar o projeto `hypermix` no PyPI e configurar Trusted Publishing para
       `JVLegend/HyperMix` e o workflow aprovado.
 - [x] Adicionar uma etapa OIDC com `id-token: write`; ela só executa quando uma

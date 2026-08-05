@@ -2,6 +2,25 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## Release candidate 0.5.0 validado, publisher PyPI pendente - 2026-08-04
+
+Os artefatos versionados da `0.5.0` foram preparados no commit `ddced5b`.
+`pyproject.toml`, `CITATION.cff`, `CHANGELOG.md`, `.zenodo.json` e as notas de
+release agora descrevem a mesma versão e preservam a conclusão científica
+negativa.
+
+O candidato passou localmente por 58 testes e 5 skips opcionais no núcleo, 63
+testes na suíte completa, `twine check`, instalação da wheel em ambiente vazio e
+leitura de um recurso espectral empacotado. A CI remota também ficou verde em
+https://github.com/JVLegend/HyperMix/actions/runs/30967741908, incluindo Python
+3.10 a 3.14, PyTorch, pacote e builds Sites/Vercel.
+
+O workflow `.github/workflows/publish-pypi.yml` usa OIDC, ação fixada por SHA e
+o environment GitHub `pypi`, sem token permanente. O nome `hypermix` ainda não
+existe no índice público. A conta PyPI não estava autenticada nesta sessão, por
+isso o publisher pendente ainda não foi cadastrado. Tag `v0.5.0`, GitHub Release,
+upload PyPI e DOI do Zenodo não foram criados.
+
 ## Milestone 3: CI e artefatos de release validados - 2026-08-04
 
 A preparação da release pública avançou sem antecipar a versão `0.5.0`. O

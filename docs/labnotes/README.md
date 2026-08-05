@@ -15,6 +15,7 @@ advanced since the draft date.
 | 6 | `06-the-one-file-that-would-unblock-the-test.md` | `assets/biohsi_54m_rois.png` | ready |
 | 7 | `07-we-asked-for-the-missing-coordinates.md` | `assets/biohsi_54m_rois.png` | ready |
 | 8 | `08-release-gates-before-publication.md` | CI badge after first green run | ready |
+| 9 | `09-the-050-release-candidate-is-ready.md` | CI badge for release candidate | ready |
 
 Public framing to preserve in every post:
 

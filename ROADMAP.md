@@ -155,6 +155,11 @@ A infraestrutura e os artefatos foram validados nas execuções
 `30966762668` e `30966867000` do GitHub Actions. A release ainda não está
 publicada: os próximos gates são PyPI, tag `v0.5.0`, GitHub Release e DOI.
 
+O candidato `0.5.0` foi fixado no commit `ddced5b` e passou novamente pela CI
+completa na execução `30967741908`. O workflow OIDC e o environment `pypi`
+estão prontos. Falta autenticar a conta PyPI, cadastrar o publisher pendente e
+só então criar tag e release.
+
 ## T10: abundância calibrada e intervalos
 
 Motivação medida: o unmixer melhora Pearson r nas três cenas atuais, mas em
