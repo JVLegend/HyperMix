@@ -29,8 +29,9 @@ Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
 | 2 | T9, transferência da assinatura | Reduzir o gap laboratório-sensor sem rótulos de teste | Metadados de T8 |
 | 3 | Milestone 3, release | Concluído: instalação pública, versão citável e CI | Documentação auditada |
 | 4 | T10, alvo retido e detecção cega | Concluído: separa oracle, família e alvo desconhecido | Dois hosts medidos |
-| 5 | T11, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
-| 6 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
+| 5 | T11, limite de detecção | Concluído: LOD por FWHM e FAR com calibração externa | Simulador medido |
+| 6 | T12, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
+| 7 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
 
 ## T8: validação em alvo biológico realmente medido
 
@@ -197,7 +198,28 @@ A tag publicada aponta para `e60cef1`; PyPI recebeu os artefatos por OIDC, e o
 Zenodo preservou a tag no registro `10.5281/zenodo.21799951`. O Milestone 3 está
 concluído.
 
-## T11: abundância calibrada e intervalos
+## T11: limite operacional de detecção
+
+Pergunta: qual é a menor abundância simulada que mantém Pd maior ou igual a
+0,80 sob um orçamento de falso-alarme calibrado fora da avaliação?
+
+- [x] Fixar ruído absoluto por sensor antes de variar abundância.
+- [x] Separar oito seeds de calibração sem alvo e 12 seeds de avaliação.
+- [x] Validar o FAR obtido em cenas sem alvo independentes.
+- [x] Avaliar FWHM 8, 12 e 20 nm, FAR 1e-2 e 1e-3 e abundância 1% a 20%.
+- [x] Reportar LOD nominal e conservador, curvas de Pd e IC bootstrap.
+- [x] Escrever `results/lod.md`, `.json` e `lod_curves.png`.
+
+Em FAR 1e-2, o LOD nominal foi 15% para 8 e 12 nm e 20% para 20 nm. O
+LOD conservador foi 20% para 8 e 12 nm e ficou acima da grade para 20 nm.
+Em FAR 1e-3, nenhum sensor alcançou Pd 0,80 até 20%. Todos os thresholds finais
+respeitaram o budget médio em seeds independentes.
+
+Aceite concluído: o resultado informa explicitamente o budget, a meta de Pd, o
+IC e quando o LOD está acima da faixa avaliada. Ele permanece condicionado ao
+simulador e ao MF com alvo exato.
+
+## T12: abundância calibrada e intervalos
 
 Motivação medida: o unmixer melhora Pearson r nas três cenas atuais, mas em
 Salinas sua target MAE é 0,0237 contra 0,0073 do MF. Correlação alta não elimina

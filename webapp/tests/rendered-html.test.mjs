@@ -34,8 +34,8 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /THE CASE FILE/);
   assert.match(html, /Eight ways to test it/);
   assert.match(html, /LATEST AUDIT/);
-  assert.match(html, /Near oracle/);
-  assert.match(html, /OTHER HOST/);
+  assert.match(html, /15–20% LOD/);
+  assert.match(html, /FAR 1E-3/);
   assert.match(html, /A narrow prior/);
   assert.match(html, /Failed decisively/);
   assert.match(html, /class="scroll-progress"/);
@@ -48,6 +48,8 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /Both 95% intervals are above zero/);
   assert.match(html, /How sparse is/);
   assert.match(html, /Three bands are not enough/);
+  assert.match(html, /CHAPTER 08 · DETECTION LIMIT/);
+  assert.match(html, /The detection limit is a simulator fraction/);
   assert.match(html, /READ BEFORE CLAIMING/);
   assert.match(html, /The original gain mixed spectral information/);
   assert.match(html, /aria-label="English"/);
@@ -82,7 +84,10 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /auc: 0\.987, pd: 0\.650/);
   assert.match(page, /CHAPTER 05 · BACKGROUND/);
   assert.match(page, /function StoryBridge/);
-  assert.match(page, />82</);
+  assert.match(page, />91</);
+  assert.match(page, /LOD_RESULTS =/);
+  assert.match(page, /CHAPTER 08 · DETECTION LIMIT/);
+  assert.match(page, /15–20% LOD/);
   assert.match(page, /UNCERTAINTY =/);
   assert.match(page, /nll: 0\.05766, brier: 0\.01540, ece: 0\.00896/);
   assert.match(page, /BAND_SPARSITY =/);

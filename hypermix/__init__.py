@@ -53,6 +53,12 @@ from .blind import (
     family_detection_features,
     scale_target_library,
 )
+from .lod import (
+    detection_probability_at_threshold,
+    grid_detection_limit,
+    robust_standardize_scores,
+    threshold_at_far,
+)
 from .transfer import (
     TargetTransferLibrary,
     resample_spectrum,
@@ -121,6 +127,10 @@ __all__ = [
     "blind_anomaly_features",
     "family_detection_features",
     "scale_target_library",
+    "detection_probability_at_threshold",
+    "grid_detection_limit",
+    "robust_standardize_scores",
+    "threshold_at_far",
     "TargetTransferLibrary",
     "resample_spectrum",
     "target_transfer",

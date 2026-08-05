@@ -2,6 +2,43 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T11: limite operacional de detecção - 2026-08-06
+
+O módulo `hypermix/lod.py` formaliza calibração de threshold em cenas sem alvo,
+padronização robusta de scores, Pd e FAR em threshold externo e LOD sustentado
+em uma grade de abundância. O experimento `scripts/lod_experiment.py` usa ruído
+absoluto fixo por sensor, calibrado para target SNR 5 dB em 15% de abundância.
+Reduzir a abundância não reduz o ruído junto com o alvo.
+
+Foram avaliados FWHM de 8, 12 e 20 nm, oito abundâncias de 1% a 20%, FAR alvo de
+1e-2 e 1e-3, oito seeds de calibração sem alvo e 12 seeds independentes de
+avaliação. O LOD é o primeiro ponto testado com Pd média maior ou igual a 0,80
+que permanece acima da meta nos níveis seguintes. O LOD conservador exige que o
+limite inferior do IC de 95% também permaneça acima de 0,80.
+
+| FWHM | FAR | FAR obtido [IC 95%] | LOD nominal | LOD conservador |
+|---:|---:|:---:|:---:|:---:|
+| 8 nm | 1e-2 | 0,00680 [0,00485, 0,00873] | 15% | 20% |
+| 12 nm | 1e-2 | 0,00637 [0,00444, 0,00870] | 15% | 20% |
+| 20 nm | 1e-2 | 0,00285 [0,00124, 0,00484] | 20% | acima de 20% |
+| 8, 12 e 20 nm | 1e-3 | todos abaixo do budget | acima de 20% | acima de 20% |
+
+Uma auditoria piloto rejeitou thresholds calculados pelo quantil agrupado,
+porque eles excederam o FAR em cinco dos seis cenários. A regra final usa o maior
+threshold entre as oito cenas de calibração sem alvo. Todos os budgets passaram
+na avaliação independente, ao custo esperado de menor Pd.
+
+Esses valores são limites do simulador condicionados ao MF espacial com alvo
+exato no sensor. A abundância máxima do blob não é concentração biológica, e
+FWHM isolado não descreve um sensor completo. O resultado serve para planejar e
+comparar configurações simuladas, não como garantia de campo.
+
+Artefatos: `results/lod.json`, `results/lod.md` e `results/lod_curves.png`.
+Duas execuções integrais produziram os mesmos SHA-256: JSON
+`badab6b340ed3111344fa206a5e2c6abd0a30499f8995a44294e8ba4438f28c8` e figura
+`b63e1387c8a5321ac57e466523d748e26a1a83177c69b3a03ef1aaface43dd05`.
+A suíte completa tem 91 testes passando.
+
 ## T10: alvo retido e detecção cega - 2026-08-05
 
 O módulo `hypermix/blind.py` formaliza três contratos de informação: `oracle`,

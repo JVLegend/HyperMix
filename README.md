@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-82%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-91%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -94,7 +94,8 @@ python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
 python scripts/target_transfer_experiment.py  # laboratory-to-sensor transfer
 python scripts/blind_target_experiment.py  # held-out and unknown targets
-pytest -q                           # 82 tests
+python scripts/lod_experiment.py    # detection limit by sensor and FAR
+pytest -q                           # 91 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
@@ -301,6 +302,25 @@ desfechos. Isso indica robustez estreita entre estes dois espectros biliverdina,
 não generalização entre famílias químicas. Resultados completos em
 [results/blind.md](results/blind.md).
 
+### Limite operacional de detecção
+
+T11 muda a pergunta de comparação de métodos para planejamento experimental.
+Thresholds de FAR são calibrados em cenas sem alvo, avaliados em seeds distintos
+e aplicados a curvas com ruído absoluto fixo. O LOD é o primeiro nível testado
+que mantém Pd maior ou igual a 0,80 em todos os níveis superiores.
+
+| FWHM | FAR | FAR obtido [IC 95%] | LOD nominal | LOD conservador |
+|---:|---:|:---:|:---:|:---:|
+| 8 nm | 1e-2 | 0.00680 [0.00485, 0.00873] | 15% | 20% |
+| 12 nm | 1e-2 | 0.00637 [0.00444, 0.00870] | 15% | 20% |
+| 20 nm | 1e-2 | 0.00285 [0.00124, 0.00484] | 20% | acima de 20% |
+| todos | 1e-3 | budget validado | acima de 20% | acima de 20% |
+
+A abundância é o máximo do blob implantado no simulador, não concentração
+biológica. O detector é o MF espacial com alvo exato no sensor, então estes
+valores são um teto algorítmico e não garantia de campo. Curvas e IC completos
+em [results/lod.md](results/lod.md).
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -341,8 +361,9 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
 - [x] **T9a**: transferência laboratório-sensor em simulador calibrado, sem
       rótulos de avaliação. Validação bioHSI continua dependente de T8.
 - [x] **T10**: alvo retido e detecção cega com contratos sem vazamento.
+- [x] **T11**: limite de detecção por FWHM e FAR com calibração externa.
 - [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
-- [ ] **T11**: calibrar abundância e produzir intervalos de predição.
+- [ ] **T12**: calibrar abundância e produzir intervalos de predição.
 - [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
       software.
 
