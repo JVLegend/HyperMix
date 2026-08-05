@@ -5,15 +5,15 @@ publicada no PyPI, GitHub ou Zenodo.
 
 ## Pré-release
 
-- [ ] Confirmar CI verde em Python 3.10 a 3.14, suíte de pesquisa, pacote e site.
+- [x] Confirmar CI verde em Python 3.10 a 3.14, suíte de pesquisa, pacote e site.
 - [ ] Fixar o conteúdo da release e atualizar `CHANGELOG.md`.
 - [ ] Sincronizar a versão em `pyproject.toml` e `CITATION.cff`.
-- [ ] Atualizar a contagem de testes e links no README.
-- [ ] Executar `python -m build` e `python -m twine check dist/*`.
-- [ ] Instalar a wheel em ambiente limpo e executar um smoke test.
-- [ ] Conferir que dados curados de `hypermix.data` estão dentro da wheel.
-- [ ] Verificar que nenhum cubo baixado, segredo ou ambiente entrou no pacote.
-- [ ] Executar `npm audit --omit=dev` e os builds de Sites e Vercel.
+- [x] Atualizar a contagem de testes e links no README.
+- [x] Executar `python -m build` e `python -m twine check dist/*`.
+- [x] Instalar a wheel em ambiente limpo e executar um smoke test.
+- [x] Conferir que dados curados de `hypermix.data` estão dentro da wheel.
+- [x] Verificar que nenhum cubo baixado, segredo ou ambiente entrou no pacote.
+- [x] Executar `npm audit --omit=dev` e os builds de Sites e Vercel.
 
 ## Publicação
 
@@ -22,7 +22,7 @@ publicada no PyPI, GitHub ou Zenodo.
 - [ ] Adicionar uma etapa OIDC com `id-token: write` somente depois dessa
       configuração e de aprovação explícita para publicar.
 - [ ] Criar a tag assinada `v0.5.0` no commit validado.
-- [ ] Conferir os artefatos produzidos por `release-artifacts.yml`.
+- [x] Conferir os artefatos produzidos por `release-artifacts.yml`.
 - [ ] Publicar a release no GitHub com notas derivadas do changelog.
 - [ ] Publicar sdist e wheel no PyPI sem reutilizar o número da versão.
 - [ ] Ativar ou conferir a integração do repositório com Zenodo.

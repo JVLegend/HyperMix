@@ -26,6 +26,12 @@ de Cloudflare ainda herda avisos em uma dependência de desenvolvimento sem
 correção compatível disponível, por isso esse risco permanece explícito e
 separado do bundle de produção.
 
-Nada disso significa que `0.5.0` já foi publicada. PyPI, tag do GitHub e DOI do
-Zenodo continuam pendentes até que a CI remota fique verde e o checklist final
-seja aprovado.
+A primeira CI remota ficou verde nas oito combinações e superfícies, e o
+workflow manual preservou sdist e wheel como artefatos sem publicá-los. As
+execuções auditáveis estão em:
+
+- https://github.com/JVLegend/HyperMix/actions/runs/30966762668
+- https://github.com/JVLegend/HyperMix/actions/runs/30966867000
+
+Isso não significa que `0.5.0` já foi publicada. PyPI, tag do GitHub e DOI do
+Zenodo continuam pendentes até a aprovação do checklist final.

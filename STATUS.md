@@ -2,6 +2,37 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## Milestone 3: CI e artefatos de release validados - 2026-08-04
+
+A preparação da release pública avançou sem antecipar a versão `0.5.0`. O
+workflow de CI executou com sucesso no GitHub em
+https://github.com/JVLegend/HyperMix/actions/runs/30966762668. O núcleo passou
+em Python 3.10, 3.11, 3.12, 3.13 e 3.14; a suíte completa passou em Python 3.11
+com PyTorch; o sdist e a wheel passaram `twine check` e instalação limpa; o
+observatório passou lint, TypeScript, auditoria das dependências de produção,
+dois testes de renderização e builds para Sites e Vercel.
+
+O workflow separado de artefatos também passou em
+https://github.com/JVLegend/HyperMix/actions/runs/30966867000. Ele gerou
+`hypermix-distributions-main`, com sdist e wheel validados, sem publicar no
+PyPI. As dependências públicas do observatório foram atualizadas dentro dos
+mesmos majors. A auditoria de produção não encontrou vulnerabilidades
+conhecidas; o tooling local de Cloudflare ainda herda quatro avisos em
+dependências de desenvolvimento sem atualização compatível disponível.
+
+Metadados e documentação agora preservam explicitamente o resultado negativo:
+nenhum método aprendido superou de forma robusta o matched filter espacial nos
+experimentos concluídos. `CHANGELOG.md`, `CONTRIBUTING.md`, `SUPPORT.md`,
+`SECURITY.md` e `docs/RELEASE_CHECKLIST.md` definem a preparação restante.
+PyPI, tag `v0.5.0`, release do GitHub e DOI do Zenodo continuam pendentes.
+
+Em paralelo, o pedido público das coordenadas manuais da Figura 4g foi aberto
+em https://github.com/itai-levin/bioHSI/issues/2, com acompanhamento em
+https://github.com/JVLegend/HyperMix/issues/1 sob a etiqueta `data validation`.
+T8c continua pausado e nenhuma região será ajustada por score enquanto
+aguardamos uma ponte independente. O canal privado de relato de vulnerabilidades
+também foi habilitado para corresponder à política em `SECURITY.md`.
+
 ## T8: porta de reprodução falhou e localizou a lacuna geométrica - 2026-08-04
 
 O método publicado HKM mais UCLS foi reimplementado em

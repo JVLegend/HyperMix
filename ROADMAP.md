@@ -138,10 +138,10 @@ avaliação. O resultado será reportado mesmo se não reduzir o gap.
 - [x] Atualizar README, contagem de testes e descrição de incerteza.
 - [x] Revisar `CITATION.cff` para não sugerir superioridade ou generalização
       completa do método aprendido.
-- [ ] Adicionar CI para Python 3.10 a 3.14 no núcleo sem Torch e Python 3.11 com
+- [x] Adicionar CI para Python 3.10 a 3.14 no núcleo sem Torch e Python 3.11 com
       a suíte de treino.
 - [x] Adicionar `CHANGELOG.md`, `CONTRIBUTING.md` e política de suporte.
-- [ ] Executar build de sdist e wheel, validação de metadados e instalação em
+- [x] Executar build de sdist e wheel, validação de metadados e instalação em
       ambiente limpo.
 - [ ] Publicar `hypermix` no PyPI.
 - [ ] Criar release `v0.5.0` no GitHub.
@@ -150,6 +150,10 @@ avaliação. O resultado será reportado mesmo se não reduzir o gap.
 
 Aceite: um usuário externo consegue instalar a versão publicada, executar um
 exemplo e reproduzir ao menos um benchmark a partir de um clone limpo.
+
+A infraestrutura e os artefatos foram validados nas execuções
+`30966762668` e `30966867000` do GitHub Actions. A release ainda não está
+publicada: os próximos gates são PyPI, tag `v0.5.0`, GitHub Release e DOI.
 
 ## T10: abundância calibrada e intervalos
 
