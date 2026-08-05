@@ -35,7 +35,7 @@ test("server-renders the HyperMix Observatory", async () => {
   assert.match(html, /Eight ways to test it/);
   assert.match(html, /LATEST AUDIT/);
   assert.match(html, /Near oracle/);
-  assert.match(html, /BROAD FAMILY/);
+  assert.match(html, /OTHER HOST/);
   assert.match(html, /A narrow prior/);
   assert.match(html, /Failed decisively/);
   assert.match(html, /class="scroll-progress"/);
@@ -74,14 +74,15 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /aria-label="Target SNR"/);
   assert.match(page, /role="tablist"/);
   assert.match(page, /CHAPTER 03 · TRANSFER/);
-  assert.match(page, /CHAPTER 04 · VARIATION/);
+  assert.match(page, /CHAPTER 04 · TARGET KNOWLEDGE/);
+  assert.match(page, /family MLP loses to the other-host MF/);
   assert.match(page, /TARGET_TRANSFER =/);
   assert.match(page, /auc: 0\.990, pd: 0\.760/);
   assert.match(page, /BACKGROUND =/);
   assert.match(page, /auc: 0\.987, pd: 0\.650/);
   assert.match(page, /CHAPTER 05 · BACKGROUND/);
   assert.match(page, /function StoryBridge/);
-  assert.match(page, />77</);
+  assert.match(page, />82</);
   assert.match(page, /UNCERTAINTY =/);
   assert.match(page, /nll: 0\.05766, brier: 0\.01540, ece: 0\.00896/);
   assert.match(page, /BAND_SPARSITY =/);

@@ -2,6 +2,50 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T10: alvo retido e detecção cega - 2026-08-05
+
+O módulo `hypermix/blind.py` formaliza três contratos de informação: `oracle`,
+que conhece o alvo exato; `family`, que recebe somente assinaturas relacionadas;
+e `unknown`, que não recebe alvo nem família. As APIs de features dos dois
+últimos regimes não aceitam o espectro exato, reduzindo o risco de vazamento.
+
+O experimento leave-one-host-out em `scripts/blind_target_experiment.py` avaliou
+Indian Pines, Salinas e Pavia University com alvos biliverdina implantados em
+target SNR de 5 e 0 dB e quatro seeds. Ao reter E. coli, somente P. putida e
+perturbações físicas fixas entram na família; ao reter P. putida, ocorre o
+inverso. A curva canônica, média dos dois hosts, foi excluída porque vazaria o
+alvo retido. O regime cego não recebe nenhuma assinatura. São 48 casos pareados
+por método, com AUC e Pd@FAR 1e-3 e 5.000 réplicas bootstrap hierárquicas.
+
+| Regime e método | AUC [IC 95%] | Pd@FAR 1e-3 [IC 95%] |
+|---|:---:|:---:|
+| Oracle, MF espacial com alvo exato | 0,984 [0,960, 0,998] | 0,562 [0,105, 0,810] |
+| Família, MF espacial com centroide | 0,983 [0,956, 0,998] | 0,556 [0,091, 0,808] |
+| Família, subespaço espacial | 0,903 [0,803, 0,993] | 0,396 [0,039, 0,693] |
+| Família, MLP sem alvo retido | 0,970 [0,924, 0,998] | 0,514 [0,036, 0,783] |
+| Cego, RX espacial | 0,511 [0,399, 0,632] | 0,000 [0,000, 0,002] |
+| Cego, MLP sem alvo | 0,503 [0,405, 0,607] | 0,000 [0,000, 0,001] |
+
+O critério principal foi endurecido após a primeira auditoria do protocolo para
+usar o melhor baseline clássico do regime familiar, o MF do centroide, em vez
+do subespaço mais fraco. O MLP familiar ficou abaixo dele em AUC, -0,014
+[-0,033, -0,000], e Pd, -0,042 [-0,086, -0,004]. Contra o subespaço, o ganho de
+AUC foi 0,067 [0,005, 0,120], mas o de Pd cruzou zero. No regime cego, MLP menos
+RX foi -0,007 [-0,026, 0,012] em AUC e aproximadamente zero em Pd.
+
+Portanto, o aprendizado não venceu em nenhum regime. O resultado novo é que o
+espectro medido do outro host, usado como centroide de uma família estreita,
+quase fechou a distância ao oracle sem conhecer o alvo exato. Isto sustenta
+robustez familiar estreita entre estes dois hosts, não generalização ampla entre
+famílias químicas. Como os MAT não trazem centros de banda, as curvas medidas
+usam a grade de conveniência linear de 400 a 1000 nm; isto não é calibração
+espectral desses sensores. O benchmark continua baseado em alvos implantados.
+
+Artefatos: `results/blind.json` e `results/blind.md`. Duas execuções integrais
+produziram o mesmo SHA-256 para o JSON:
+`9908672f26f4834b096343bf5c80aa1d1d45f48c4bb8a6c621f6538063cf68b2`.
+A suíte completa tem 82 testes passando.
+
 ## T9a: transferência física laboratório-sensor - 2026-08-05
 
 O módulo `hypermix/transfer.py` agora transforma um espectro laboratorial por

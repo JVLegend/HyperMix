@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-77%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-82%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -93,7 +93,8 @@ python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
 python scripts/target_transfer_experiment.py  # laboratory-to-sensor transfer
-pytest -q                           # 77 tests
+python scripts/blind_target_experiment.py  # held-out and unknown targets
+pytest -q                           # 82 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
@@ -279,6 +280,27 @@ família ampla de assinaturas. Ele ainda usa alvos implantados e precisa de
 validação independente. Resultados completos em
 [results/target_transfer.md](results/target_transfer.md).
 
+### Alvo retido e detecção cega
+
+T10 separa o teto oracle de dois regimes sem acesso ao alvo exato. No regime
+família, E. coli é retido e somente P. putida é permitido, e vice-versa. No
+regime cego, nenhum espectro de alvo é fornecido. O teste cobre 48 casos
+pareados nas três cenas reais, com alvos implantados, dois SNRs e quatro seeds.
+
+| Regime e método | AUC [IC 95%] | Pd@FAR 1e-3 [IC 95%] |
+|---|:---:|:---:|
+| Oracle, MF com alvo exato | 0.984 [0.960, 0.998] | 0.562 [0.105, 0.810] |
+| Família, MF com centroide | **0.983 [0.956, 0.998]** | **0.556 [0.091, 0.808]** |
+| Família, MLP | 0.970 [0.924, 0.998] | 0.514 [0.036, 0.783] |
+| Cego, RX | 0.511 [0.399, 0.632] | 0.000 [0.000, 0.002] |
+| Cego, MLP | 0.503 [0.405, 0.607] | 0.000 [0.000, 0.001] |
+
+O aprendizado não venceu. O MF construído apenas com o outro host quase
+alcançou o oracle, enquanto o MLP familiar ficou abaixo dele nos dois
+desfechos. Isso indica robustez estreita entre estes dois espectros biliverdina,
+não generalização entre famílias químicas. Resultados completos em
+[results/blind.md](results/blind.md).
+
 ## 🧪 Unmixing: how much, not just whether
 
 Detection asks *is the reporter here?* Unmixing asks *how much?* `AbundanceUnmixer`
@@ -318,8 +340,9 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
       implantação digital. Manifesto e downloader rastreável já concluídos.
 - [x] **T9a**: transferência laboratório-sensor em simulador calibrado, sem
       rótulos de avaliação. Validação bioHSI continua dependente de T8.
+- [x] **T10**: alvo retido e detecção cega com contratos sem vazamento.
 - [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
-- [ ] **T10**: calibrar abundância e produzir intervalos de predição.
+- [ ] **T11**: calibrar abundância e produzir intervalos de predição.
 - [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
       software.
 

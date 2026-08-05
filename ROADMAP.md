@@ -1,6 +1,6 @@
 # Roadmap do HyperMix
 
-Atualizado em 2026-08-04. Este arquivo define a ordem de trabalho depois das
+Atualizado em 2026-08-05. Este arquivo define a ordem de trabalho depois das
 Fases A e B e dos testes T1, T7a, T7b e T7c. O `STATUS.md` continua sendo a
 fonte dos resultados já medidos. Este roadmap registra hipóteses e entregas
 futuras, não resultados antecipados.
@@ -14,7 +14,9 @@ limitações que ainda impedem uma conclusão externa:
 
 1. os alvos do benchmark atual são implantados digitalmente;
 2. a assinatura de laboratório sofre transformação antes de chegar ao sensor;
-3. abundância e decisão operacional ainda precisam de calibração fora da cena.
+3. abundância e decisão operacional ainda precisam de calibração fora da cena;
+4. conhecer apenas a família do alvo e não o espectro exato precisava de um
+   teste sem vazamento.
 
 A distribuição pública deixou de ser bloqueio: `0.5.0` está no PyPI, no GitHub
 Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
@@ -26,8 +28,9 @@ Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
 | 1 | T8, bioHSI real | Primeiro teste sem implantação digital | Nenhuma |
 | 2 | T9, transferência da assinatura | Reduzir o gap laboratório-sensor sem rótulos de teste | Metadados de T8 |
 | 3 | Milestone 3, release | Concluído: instalação pública, versão citável e CI | Documentação auditada |
-| 4 | T10, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
-| 5 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
+| 4 | T10, alvo retido e detecção cega | Concluído: separa oracle, família e alvo desconhecido | Dois hosts medidos |
+| 5 | T11, abundância calibrada | Estimativa quantitativa com intervalos | Splits e alvos de T8 |
+| 6 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
 
 ## T8: validação em alvo biológico realmente medido
 
@@ -145,6 +148,30 @@ sem alterar retroativamente o critério primário. Detalhes em
 Aceite: a regra de transformação é reproduzível e não consulta rótulos de
 avaliação. O resultado será reportado mesmo se não reduzir o gap.
 
+## T10: alvo retido e detecção cega
+
+Pergunta: quando o espectro exato é retirado, o aprendizado consegue extrair
+mais informação que um baseline clássico com o mesmo conhecimento disponível?
+
+- [x] Formalizar regimes oracle, família e alvo desconhecido.
+- [x] Impedir que features não-oracle aceitem o alvo exato.
+- [x] Executar leave-one-host-out bidirecional nos dois espectros biliverdina
+      medidos, excluindo a média canônica que vazaria o alvo retido.
+- [x] Comparar MF-centroide, subespaço, RX e dois MLPs com informação pareada.
+- [x] Medir AUC e Pd@FAR 1e-3 com IC bootstrap em três fundos reais, dois SNRs
+      e quatro seeds.
+- [x] Escrever `results/blind.md` e `results/blind.json`.
+
+O MLP familiar perdeu para o MF do centroide em AUC, -0,014
+[-0,033, -0,000], e Pd, -0,042 [-0,086, -0,004]. O MLP totalmente cego não
+superou RX. Nenhum regime aprendido satisfez o critério. Em contraste, o
+centroide construído somente com o outro host atingiu AUC 0,983 contra 0,984 do
+oracle. Este é um resultado de robustez familiar estreita entre dois hosts, não
+uma demonstração de generalização ampla.
+
+Aceite concluído: o contrato de informação está testado, o resultado é
+reproduzível e a conclusão negativa para aprendizado foi preservada.
+
 ## Milestone 3: release pública e citável
 
 - [x] Atualizar README, contagem de testes e descrição de incerteza.
@@ -170,7 +197,7 @@ A tag publicada aponta para `e60cef1`; PyPI recebeu os artefatos por OIDC, e o
 Zenodo preservou a tag no registro `10.5281/zenodo.21799951`. O Milestone 3 está
 concluído.
 
-## T10: abundância calibrada e intervalos
+## T11: abundância calibrada e intervalos
 
 Motivação medida: o unmixer melhora Pearson r nas três cenas atuais, mas em
 Salinas sua target MAE é 0,0237 contra 0,0073 do MF. Correlação alta não elimina

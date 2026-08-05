@@ -32,9 +32,9 @@ const REALISM_VALUES = [
 ];
 
 const TRACK_VALUES = {
-  host: [0.996, 0.967, 0.997, 0.997],
-  sensor: [0.993, 0.910, 0.996, 0.995],
-  family: [0.907, 0.948, 0.928, 0.996],
+  host: [0.984, 0.983, 0.970, 0.503],
+  sensor: [0.988, 0.987, 0.976, 0.499],
+  family: [0.981, 0.979, 0.963, 0.508],
 } as const;
 
 const UNMIXING = [
@@ -93,10 +93,10 @@ const COPY = {
       explore: "Follow the evidence",
       status: "Open Map Studio",
       proof: ["passing tests", "real backgrounds", "calibration / eval seeds", "open source"],
-      latest: "LATEST AUDIT · T9",
+      latest: "LATEST AUDIT · T10",
       findings: [
-        ["NARROW PRIOR", "Near oracle", "nominal transfer +0.022 AUC"],
-        ["BROAD FAMILY", "Primary fails", "subspace −0.191 AUC"],
+        ["OTHER HOST", "Near oracle", "family MF 0.983 vs 0.984"],
+        ["LEARNING", "No advantage", "family MLP −0.014 AUC"],
       ],
       readLatest: "Inspect the new evidence",
     },
@@ -108,7 +108,7 @@ const COPY = {
         ["01", "Signal", "Does learning hold when the target fades?", "Spatial MF leads"],
         ["02", "Physics", "Does sensor realism reverse the result?", "Mismatch dominates"],
         ["03", "Transfer", "Can declared physics carry the lab target to the sensor?", "Narrow prior works"],
-        ["04", "Variation", "Can measured target variation help?", "Mostly ties"],
+        ["04", "Target knowledge", "What survives when the exact target is hidden?", "A narrow family survives"],
         ["05", "Background", "Can raw scene statistics rescue learning?", "Not in this test"],
         ["06", "Calibration", "Can learning win on honest probabilities?", "MF still wins"],
         ["07", "Bands", "Is the signal really carried by three bands?", "Not here"],
@@ -118,8 +118,8 @@ const COPY = {
     bridges: {
       benchmark: ["NEXT QUESTION", "The baseline survives low signal.", "Now remove the convenient assumption that the lab signature reaches the sensor unchanged."],
       physics: ["TRANSFER TEST", "Physical mismatch hurts more than model choice.", "Use only declared sensor metadata to transform the lab signature before detection."],
-      transfer: ["NEXT QUESTION", "A narrow physical prior nearly reaches the oracle.", "Now widen the target family and give learning measured variation plus a fair classical subspace."],
-      variability: ["FINAL CAUSAL TEST", "Still no robust learned advantage.", "Let a model consume the raw scene and learn its background statistics without labels."],
+      transfer: ["HOLD OUT THE TARGET", "A narrow physical prior nearly reaches the oracle.", "Now remove the exact target entirely and keep the information available to every comparator explicit."],
+      variability: ["FINAL CAUSAL TEST", "The other host survives; learning still does not win.", "Now remove even the family and let a model learn background statistics without labels."],
       background: ["NEW SCORECARD", "The last simple causal detection test also fails.", "Ariel rewards calibrated uncertainty, not AUC alone. Ask whether learning can win on probability quality."],
       uncertainty: ["BAND AUDIT", "Learning also loses on calibrated uncertainty.", "If detection is nearly saturated, inspect how many spectral channels actually carry the matched-filter result."],
       sparsity: ["WHAT REMAINS", "Three bands are not enough in this benchmark.", "A detector need not be superior to make the toolkit useful. Move from ranking pixels to estimating abundance."],
@@ -202,18 +202,18 @@ const COPY = {
       honesty: "This is a deterministic physical transform on synthetic implants, not a learned win and not biological validation. The broad family was the pre-specified primary test, and it performed substantially worse.",
     },
     variability: {
-      overline: "CHAPTER 04 · VARIATION",
-      title: <>The final<br />MLP-friendly test.</>,
-      intro: "The detector is trained over measured variation, but its features still come from the nominal target. The classical subspace receives the library of plausible signatures.",
-      tabLabel: "Variability tracks",
-      selected: "SELECTED TRACK",
-      methods: ["Nominal spatial MF", "Spatial subspace", "Learned", "Oracle"],
+      overline: "CHAPTER 04 · TARGET KNOWLEDGE",
+      title: <>Hide the target.<br /><em>Audit what remains.</em></>,
+      intro: "In this leave-one-host-out test, E. coli can use only P. putida as its family reference, and vice versa. The held-out spectrum appears only in implantation and the oracle ceiling.",
+      tabLabel: "Held-out target summaries",
+      selected: "SELECTED SUMMARY",
+      methods: ["Exact-target oracle", "Other-host family MF", "Family MLP", "Fully blind MLP"],
       tracks: {
-        host: { name: "Host", detail: "SmURFP/biliverdin in E. coli and P. putida", verdict: "Practical tie" },
-        sensor: { name: "Host + sensor", detail: "FWHM 6-14 nm and atmosphere 0.7-1.3", verdict: "Practical tie" },
-        family: { name: "Any reporter", detail: "Bacteriochlorophyll a or SmURFP/biliverdin", verdict: "Classical subspace wins" },
+        host: { name: "Aggregate", detail: "Three real backgrounds, both held-out hosts, 5 and 0 dB, four seeds", verdict: "Narrow family near oracle" },
+        sensor: { name: "5 dB", detail: "Higher target-relative signal across the same scenes and holdouts", verdict: "Family MF leads learning" },
+        family: { name: "0 dB", detail: "Lower target-relative signal across the same scenes and holdouts", verdict: "Blind methods remain near chance" },
       },
-      honesty: <><strong>Correct reading:</strong> the “any reporter” track combines chemical classes. It is not intra-molecule variability. Spatial subspace beats the MLP by 0.020 AUC.</>,
+      honesty: <><strong>Correct reading:</strong> the family MLP loses to the other-host MF by 0.014 AUC and 0.042 Pd. The fully blind MLP does not beat spatial RX. Two measured hosts support only narrow family robustness, not broad chemical generalization.</>,
     },
     unmixing: {
       overline: "CHAPTER 08 · QUANTITY",
@@ -282,6 +282,7 @@ const COPY = {
         ["A calibrated score is still benchmark-specific.", "The split uses independent implants in the same three real backgrounds, not a new sensor population."],
         ["Band sparsity is target-aware here.", "The ranking knows the target signature and does not establish a universal three-band sensor."],
         ["The nominal transfer result is synthetic.", "It nearly reaches the oracle on implanted targets, but still needs independent sensor and biological validation."],
+        ["The held-out family has only two measured hosts.", "Near-oracle transfer between E. coli and P. putida is narrow robustness, not broad chemical generalization."],
       ],
     },
     footer: {
@@ -304,10 +305,10 @@ const COPY = {
       explore: "Seguir as evidências",
       status: "Abrir Map Studio",
       proof: ["testes verdes", "fundos reais", "seeds calibração / avaliação", "código aberto"],
-      latest: "AUDITORIA MAIS RECENTE · T9",
+      latest: "AUDITORIA MAIS RECENTE · T10",
       findings: [
-        ["PRIOR ESTREITO", "Perto do oráculo", "transferência nominal +0,022 AUC"],
-        ["FAMÍLIA AMPLA", "Primário falha", "subespaço −0,191 AUC"],
+        ["OUTRO HOST", "Perto do oráculo", "MF família 0,983 vs 0,984"],
+        ["APRENDIZADO", "Sem vantagem", "MLP família −0,014 AUC"],
       ],
       readLatest: "Inspecionar novas evidências",
     },
@@ -319,7 +320,7 @@ const COPY = {
         ["01", "Sinal", "O aprendizado resiste quando o alvo enfraquece?", "MF espacial lidera"],
         ["02", "Física", "O realismo do sensor inverte o resultado?", "Mismatch domina"],
         ["03", "Transferência", "A física declarada leva o alvo lab até o sensor?", "Prior estreito funciona"],
-        ["04", "Variação", "Variação medida do alvo ajuda?", "Predominam empates"],
+        ["04", "Conhecimento", "O que resiste sem o alvo exato?", "Família estreita resiste"],
         ["05", "Fundo", "A estatística bruta da cena salva o aprendizado?", "Não neste teste"],
         ["06", "Calibração", "O aprendizado vence em probabilidades honestas?", "MF ainda vence"],
         ["07", "Bandas", "O sinal está mesmo em três bandas?", "Não aqui"],
@@ -329,8 +330,8 @@ const COPY = {
     bridges: {
       benchmark: ["PRÓXIMA PERGUNTA", "O baseline resiste ao baixo sinal.", "Agora remova a premissa conveniente de que a assinatura do laboratório chega intacta ao sensor."],
       physics: ["TESTE DE TRANSFERÊNCIA", "Mismatch físico pesa mais que escolher outro modelo.", "Use apenas metadados declarados do sensor para transformar a assinatura lab antes da detecção."],
-      transfer: ["PRÓXIMA PERGUNTA", "Um prior físico estreito quase alcança o oráculo.", "Agora amplie a família do alvo e dê ao aprendizado variação medida mais um subespaço clássico justo."],
-      variability: ["TESTE CAUSAL FINAL", "Ainda não há vantagem robusta do aprendizado.", "Deixe um modelo consumir a cena bruta e aprender a estatística do fundo sem rótulos."],
+      transfer: ["RETENHA O ALVO", "Um prior físico estreito quase alcança o oráculo.", "Agora retire completamente o alvo exato e deixe explícita a informação disponível para cada comparador."],
+      variability: ["TESTE CAUSAL FINAL", "O outro host resiste; o aprendizado ainda não vence.", "Agora retire também a família e deixe um modelo aprender a estatística do fundo sem rótulos."],
       background: ["NOVO PLACAR", "O último teste causal simples de detecção também falha.", "Ariel premia incerteza calibrada, não apenas AUC. Pergunte se o aprendizado vence na qualidade da probabilidade."],
       uncertainty: ["AUDITORIA DE BANDAS", "O aprendizado também perde em incerteza calibrada.", "Se a detecção está quase saturada, inspecione quantos canais espectrais realmente carregam o resultado do matched filter."],
       sparsity: ["O QUE RESTA", "Três bandas não bastam neste benchmark.", "Um detector não precisa ser superior para tornar o toolkit útil. Passe do ranking de pixels à estimativa de abundância."],
@@ -413,18 +414,18 @@ const COPY = {
       honesty: "Esta é uma transformação física determinística sobre alvos implantados, não uma vitória do aprendizado nem validação biológica. A família ampla era o teste primário pré-especificado e teve desempenho substancialmente pior.",
     },
     variability: {
-      overline: "CAPÍTULO 04 · VARIAÇÃO",
-      title: <>O último teste<br />favorável ao MLP.</>,
-      intro: "O detector é treinado sobre variação medida, mas suas features continuam derivadas do alvo nominal. O subespaço clássico recebe a biblioteca de assinaturas plausíveis.",
-      tabLabel: "Tracks de variabilidade",
-      selected: "TRACK SELECIONADO",
-      methods: ["MF espacial nominal", "Subespaço espacial", "Aprendido", "Oráculo"],
+      overline: "CAPÍTULO 04 · CONHECIMENTO DO ALVO",
+      title: <>Esconda o alvo.<br /><em>Audite o que resta.</em></>,
+      intro: "Neste leave-one-host-out, E. coli usa somente P. putida como referência familiar, e vice-versa. O espectro retido aparece apenas na implantação e no teto oracle.",
+      tabLabel: "Resumos com alvo retido",
+      selected: "RESUMO SELECIONADO",
+      methods: ["Oracle com alvo exato", "MF família do outro host", "MLP família", "MLP totalmente cego"],
       tracks: {
-        host: { name: "Hospedeiro", detail: "SmURFP/biliverdina em E. coli e P. putida", verdict: "Empate prático" },
-        sensor: { name: "Hospedeiro + sensor", detail: "FWHM 6-14 nm e atmosfera 0,7-1,3", verdict: "Empate prático" },
-        family: { name: "Qualquer repórter", detail: "Bacterioclorofila a ou SmURFP/biliverdina", verdict: "Subespaço clássico vence" },
+        host: { name: "Agregado", detail: "Três fundos reais, dois hosts retidos, 5 e 0 dB e quatro seeds", verdict: "Família estreita perto do oracle" },
+        sensor: { name: "5 dB", detail: "Maior sinal relativo do alvo nas mesmas cenas e retenções", verdict: "MF família lidera o aprendizado" },
+        family: { name: "0 dB", detail: "Menor sinal relativo do alvo nas mesmas cenas e retenções", verdict: "Métodos cegos perto do acaso" },
       },
-      honesty: <><strong>Leitura correta:</strong> o track “qualquer repórter” combina classes químicas. Não é variabilidade intra-molécula. Nele, o subespaço espacial supera o MLP por 0,020 AUC.</>,
+      honesty: <><strong>Leitura correta:</strong> o MLP família perde para o MF do outro host por 0,014 AUC e 0,042 Pd. O MLP totalmente cego não supera RX espacial. Dois hosts medidos sustentam apenas robustez familiar estreita, não generalização química ampla.</>,
     },
     unmixing: {
       overline: "CAPÍTULO 08 · QUANTIDADE",
@@ -493,6 +494,7 @@ const COPY = {
         ["Score calibrado ainda é específico ao benchmark.", "O split usa implantes independentes nos mesmos três fundos reais, não uma nova população de sensores."],
         ["A esparsidade de banda é target-aware.", "O ranking conhece a assinatura do alvo e não estabelece um sensor universal de três bandas."],
         ["O resultado da transferência nominal é sintético.", "Ele quase alcança o oráculo em alvos implantados, mas ainda exige validação independente no sensor e biológica."],
+        ["A família com alvo retido tem somente dois hosts medidos.", "A transferência quase oracle entre E. coli e P. putida é robustez estreita, não generalização química ampla."],
       ],
     },
     footer: {
@@ -705,9 +707,9 @@ export default function Home() {
     </header>
 
     <section className="hero" id="top">
-      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>77</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>82</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside>
-      <a className="latest-audit" href="#transfer" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
+      <a className="latest-audit" href="#variability" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
     </section>
 
     <section className="story-section" id="story">

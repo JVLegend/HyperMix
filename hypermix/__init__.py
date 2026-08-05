@@ -46,6 +46,13 @@ from .metrics import (
     roc_curve,
 )
 from .background import background_detector, smoothed_background_detector
+from .blind import (
+    BLIND_TRACKS,
+    BlindTrack,
+    blind_anomaly_features,
+    family_detection_features,
+    scale_target_library,
+)
 from .transfer import (
     TargetTransferLibrary,
     resample_spectrum,
@@ -109,6 +116,11 @@ __all__ = [
     "mean_absolute_error",
     "background_detector",
     "smoothed_background_detector",
+    "BlindTrack",
+    "BLIND_TRACKS",
+    "blind_anomaly_features",
+    "family_detection_features",
+    "scale_target_library",
     "TargetTransferLibrary",
     "resample_spectrum",
     "target_transfer",
