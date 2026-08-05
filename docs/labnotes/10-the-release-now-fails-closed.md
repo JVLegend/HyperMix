@@ -20,6 +20,10 @@ Essas verificações rodam na CI, no workflow de artefatos e novamente antes do
 upload. Quatro testes exercitam o caminho válido e três formas de divergência.
 A suíte completa agora contém 67 testes.
 
+O primeiro ciclo remoto com o novo gate ficou integralmente verde:
+
+https://github.com/JVLegend/HyperMix/actions/runs/30968511397
+
 O gate não muda o resultado científico e não transforma um candidato em uma
 release. O pacote ainda não foi enviado ao PyPI porque o publisher pendente
 precisa ser autorizado pela conta do autor. Tag, GitHub Release e DOI também

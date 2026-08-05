@@ -11,8 +11,8 @@ negativa.
 
 O candidato passou localmente por 62 testes e 5 skips opcionais no núcleo, 67
 testes na suíte completa, `twine check`, instalação da wheel em ambiente vazio e
-leitura de um recurso espectral empacotado. A CI remota também ficou verde em
-https://github.com/JVLegend/HyperMix/actions/runs/30967741908, incluindo Python
+leitura de um recurso espectral empacotado. A CI remota mais recente ficou verde
+em https://github.com/JVLegend/HyperMix/actions/runs/30968511397, incluindo Python
 3.10 a 3.14, PyTorch, pacote e builds Sites/Vercel.
 
 Um gate executável em `scripts/check_release.py` agora confere a correspondência
