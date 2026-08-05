@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "official_repository": "https://github.com/VoigtLab/bioHSI",
+  "official_tag": "v.1.0.0",
+  "official_commit": "935e501cf24e28fd77b40c9d111f8e827bd1812c",
+  "candidate_geometry": "hypermix/data/biohsi_54m_protocol.json",
+  "scores": [
+    0.007528224806482545,
+    0.009584763080100502,
+    0.007149039947252349,
+    0.010034390767681336,
+    0.0162357052338579,
+    0.020234514880639883,
+    0.005600956246270394,
+    0.004082062490480838,
+    0.013139458634232503
+  ],
+  "mae": 0.1581373674541685,
+  "pearson_r": 0.14508311805090784,
+  "final_clusters": 16,
+  "map_min": 0.0,
+  "map_max": 0.39794998824438,
+  "map_mean": 0.012825168291714765,
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.0",
+    "spectral": "0.22.4"
+  },
+  "interpretation": "This audit tests the candidate coordinate bridge with the source implementation. It does not recreate the authors' historical environment."
+}

@@ -53,6 +53,20 @@ from .envi import (
     open_envi_cube,
     parse_envi_header,
 )
+from .biohsi_roi import (
+    BioHSI54mProtocol,
+    BioHSIRoi,
+    extract_rotated_crop,
+    load_biohsi_54m_protocol,
+    roi_polygon_in_scene,
+)
+from .biohsi_published import (
+    PublishedHKMResult,
+    load_published_yf10_absorbance,
+    published_hkm_ucls,
+    smooth_spectral_cube,
+    ucls_abundances,
+)
 
 __version__ = "0.4.0"
 
@@ -95,6 +109,16 @@ __all__ = [
     "parse_envi_header",
     "open_envi_cube",
     "envi_nodata_mask",
+    "BioHSI54mProtocol",
+    "BioHSIRoi",
+    "load_biohsi_54m_protocol",
+    "extract_rotated_crop",
+    "roi_polygon_in_scene",
+    "PublishedHKMResult",
+    "load_published_yf10_absorbance",
+    "published_hkm_ucls",
+    "smooth_spectral_cube",
+    "ucls_abundances",
     "synthetic_target",
     "implant_target",
     "__version__",

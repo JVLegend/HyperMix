@@ -19,3 +19,5 @@ assets/*.png
 !assets/benchmark_real.png
 !assets/detector_real.png
 !assets/banner.png
+!assets/biohsi_54m_rois.png
+!assets/biohsi_54m_reproduction.png

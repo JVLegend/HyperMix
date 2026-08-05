@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-b8972a.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20→%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-38%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-63%20passing-2ea44f.svg)](tests/)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
 [![Funded by Experiment Foundation](https://img.shields.io/badge/funded%20by-Experiment%20Foundation-b8972a.svg)](https://experiment.com/projects/cldzyecslnphmynjenmv)
@@ -84,7 +84,7 @@ python scripts/train_detector.py    # train the learned detector (needs ".[train
 python scripts/run_mismatch_experiment.py  # spectral mismatch robustness
 python scripts/realism_experiment.py       # measured spectra + SRF + atmosphere
 python scripts/target_variability_experiment.py  # measured target variability
-pytest -q                           # 38 tests
+pytest -q                           # 63 tests
 ```
 
 ## 🌐 Web Observatory
@@ -309,7 +309,19 @@ primeiro conjunto real de 54 m é explícito porque o arquivo possui cerca de
 
 ```bash
 python scripts/fetch_biohsi.py --dataset rg_on_sand_induction_54m.zip
+python scripts/biohsi_roi_overlay.py
+python scripts/reproduce_biohsi_54m.py
 ```
+
+A reprodução HKM requer `pip install -e ".[reproduce,viz]"`. A auditoria que
+executa a tag externa dos autores também requer o extra `hsi`.
+
+O protocolo pré-especificado da análise de 54 m está em
+[results/real_target_protocol.md](results/real_target_protocol.md). A primeira
+porta de reprodução falhou, inclusive ao executar diretamente a tag oficial nas
+caixas candidatas. Por isso elas não são tratadas como coordenadas confirmadas
+da Figura 4g e nenhum baseline foi comparado. O diagnóstico está em
+[results/real_target_reproduction_diagnosis.md](results/real_target_reproduction_diagnosis.md).
 
 Os espectros compactos de referência são versionados no pacote. As fontes são
 USGS Spectral Library Version 7 e o arquivo oficial bioHSI associado a Chemla

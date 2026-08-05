@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "method": "published HierarchicalKMeansUnmixer plus UCLS",
+  "dataset": "bioHSI rg_on_sand_induction_54m",
+  "protocol": "hypermix/data/biohsi_54m_protocol.json",
+  "regions": [
+    {
+      "index": 0,
+      "concentration_um": 250.0,
+      "published_score": 0.2596761516,
+      "reproduced_score": 0.017406488938444233,
+      "absolute_error": 0.24226966266155578
+    },
+    {
+      "index": 1,
+      "concentration_um": 100.0,
+      "published_score": 0.212257450346,
+      "reproduced_score": 0.012183681783104281,
+      "absolute_error": 0.20007376856289572
+    },
+    {
+      "index": 2,
+      "concentration_um": 50.0,
+      "published_score": 0.283760350253,
+      "reproduced_score": 0.011508987825604965,
+      "absolute_error": 0.27225136242739506
+    },
+    {
+      "index": 3,
+      "concentration_um": 25.0,
+      "published_score": 0.295329538573,
+      "reproduced_score": 0.008375999596490009,
+      "absolute_error": 0.28695353897651
+    },
+    {
+      "index": 4,
+      "concentration_um": 10.0,
+      "published_score": 0.275457455856,
+      "reproduced_score": 0.0206195320356894,
+      "absolute_error": 0.2548379238203106
+    },
+    {
+      "index": 5,
+      "concentration_um": 5.0,
+      "published_score": 0.130564359932,
+      "reproduced_score": 0.01648208209122429,
+      "absolute_error": 0.11408227784077571
+    },
+    {
+      "index": 6,
+      "concentration_um": 1.0,
+      "published_score": 0.0313956246441,
+      "reproduced_score": 0.00852166733109493,
+      "absolute_error": 0.02287395731300507
+    },
+    {
+      "index": 7,
+      "concentration_um": 0.1,
+      "published_score": 0.00892586740016,
+      "reproduced_score": 0.0052253741007974065,
+      "absolute_error": 0.003700493299362593
+    },
+    {
+      "index": 8,
+      "concentration_um": 0.0,
+      "published_score": 0.00682029269821,
+      "reproduced_score": 0.01480711747451588,
+      "absolute_error": 0.00798682477630588
+    }
+  ],
+  "reproduction_metrics": {
+    "mae": 0.1561144232975685,
+    "pearson_r": 0.37590070520494273,
+    "spearman_vs_published": 0.09999999999999999,
+    "region_auc": 0.7777777777777778,
+    "spearman_vs_concentration": 0.2833333333333333,
+    "positive_negative_contrast": 0.0049114090762901255
+  },
+  "gate": {
+    "mae_limit": 0.01,
+    "pearson_limit": 0.99,
+    "passed": false
+  },
+  "clusters": {
+    "initial": 1000,
+    "retained": 999,
+    "final": 15
+  },
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.0",
+    "platform": "macOS-26.5.2-arm64-arm-64bit"
+  }
+}

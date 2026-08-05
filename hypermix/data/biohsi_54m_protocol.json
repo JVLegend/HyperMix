@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-04",
+  "dataset": {
+    "doi": "10.5281/zenodo.14756889",
+    "archive": "rg_on_sand_induction_54m.zip",
+    "header": "rg_on_sand_induction_54m/raw_0_rd_rf_or.hdr",
+    "parameters": "rg_on_sand_induction_54m/raw_0_rd_rf_or_params_file.json"
+  },
+  "sources": {
+    "article_doi": "10.1038/s41587-025-02622-y",
+    "source_data": {
+      "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41587-025-02622-y/MediaObjects/41587_2025_2622_MOESM4_ESM.xlsx",
+      "sha256": "8cb9bb5420e55b7ee27820ec2ea50c214f07538e405b75e271bdc4c91fa8666c",
+      "sheet": "4G",
+      "range": "A1:B10"
+    },
+    "official_code": {
+      "repository": "https://github.com/VoigtLab/bioHSI",
+      "version": "v.1.0.0",
+      "figure_notebook": "04_image_processing/fig4fg.ipynb"
+    }
+  },
+  "target_signature": {
+    "hypermix_library_key": "bacteriochlorophyll_a_yf10",
+    "official_file": "04_image_processing/00_data/absorbance_data/YF10_infered_absorbance_from_pellets_09Jul2024.npy",
+    "official_file_sha256": "6acaaf4686548429c3eff3a42d5278a1c0856e78c9f2eeff50dba08001eb2164",
+    "packaged_csv_sha256": "92539f6b73aa4f7294804a90fcd686e16729e53a42df3e61d399b38c185079f2",
+    "kind": "independent_pellet_absorbance",
+    "role": "fixed_before_evaluation"
+  },
+  "primary_analysis": {
+    "figure": "4g",
+    "sample_name": "high_flight_day_1_left_img0",
+    "sample_index": 0,
+    "crop_yx": [[729, 836], [332, 341]],
+    "rotation_degrees": 4.085616779974877,
+    "rotation_implementation": "scipy.ndimage.rotate",
+    "rotation_reshape": false,
+    "roi_coordinates": "half-open [top, left] to [bottom, right] in the rotated crop",
+    "positive_threshold_um": 5.0,
+    "positive_threshold_source": "official fig4fg.ipynb exploratory ROC",
+    "statistical_unit": "region",
+    "primary_metric": "region-level ROC AUC",
+    "secondary_metrics": [
+      "Spearman association with concentration",
+      "high-versus-low region contrast"
+    ],
+    "forbidden_primary_metric": "pixel-level Pd@FAR",
+    "rois": [
+      {"index": 0, "top_left_yx": [3, 3], "bottom_right_yx": [6, 7], "concentration_um": 250.0, "published_classification_score": 0.25967615160000002},
+      {"index": 1, "top_left_yx": [13, 2], "bottom_right_yx": [18, 7], "concentration_um": 100.0, "published_classification_score": 0.21225745034599999},
+      {"index": 2, "top_left_yx": [23, 2], "bottom_right_yx": [27, 6], "concentration_um": 50.0, "published_classification_score": 0.283760350253},
+      {"index": 3, "top_left_yx": [37, 3], "bottom_right_yx": [40, 6], "concentration_um": 25.0, "published_classification_score": 0.29532953857299998},
+      {"index": 4, "top_left_yx": [50, 2], "bottom_right_yx": [54, 6], "concentration_um": 10.0, "published_classification_score": 0.27545745585600001},
+      {"index": 5, "top_left_yx": [62, 2], "bottom_right_yx": [67, 6], "concentration_um": 5.0, "published_classification_score": 0.130564359932},
+      {"index": 6, "top_left_yx": [75, 2], "bottom_right_yx": [79, 6], "concentration_um": 1.0, "published_classification_score": 0.031395624644099999},
+      {"index": 7, "top_left_yx": [87, 3], "bottom_right_yx": [90, 6], "concentration_um": 0.1, "published_classification_score": 0.0089258674001599994},
+      {"index": 8, "top_left_yx": [99, 2], "bottom_right_yx": [104, 6], "concentration_um": 0.0, "published_classification_score": 0.0068202926982099997}
+    ]
+  },
+  "excluded_from_primary": [
+    {
+      "sample_name": "high_flight_dat_1_right_img0",
+      "sample_index": 1,
+      "roi_count": 4,
+      "reason": "not represented in the published Figure 4g source-data table and not independently identified"
+    }
+  ]
+}

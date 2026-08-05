@@ -1,6 +1,6 @@
 # Roadmap do HyperMix
 
-Atualizado em 2026-08-03. Este arquivo define a ordem de trabalho depois das
+Atualizado em 2026-08-04. Este arquivo define a ordem de trabalho depois das
 Fases A e B e dos testes T1, T7a, T7b e T7c. O `STATUS.md` continua sendo a
 fonte dos resultados já medidos. Este roadmap registra hipóteses e entregas
 futuras, não resultados antecipados.
@@ -58,43 +58,52 @@ ortorretificação. `hypermix/envi.py` lê esse cubo preservando escala, unidade
 metadados, com testes sintéticos. Os fatos completos estão em
 `dataset/BIOHSI_REAL_DATA.md`.
 
-Três lacunas externas foram descobertas e mudam o planejamento de T8b. O ZIP não
-traz o CSV de níveis de indução, não traz a assinatura de referência citada em
-`REF_SPECTRA_PATHS` e não declara controles positivos ou negativos. As
-coordenadas manuais, ao contrário do que se supunha, **estão** disponíveis, em
-`TL_POINTS_COORDS` e `BR_POINTS_COORDS`, treze retângulos no referencial
-recortado e rotacionado.
-
-Próxima ação bloqueante de T8b: obter os rótulos de concentração e a assinatura
-de referência, em outro subconjunto do mesmo registro Zenodo ou junto aos
-autores. Sem eles não existe ground truth e nenhum confronto deve ser executado.
+O ZIP não traz os CSVs de indução nem a assinatura citada em
+`REF_SPECTRA_PATHS`. T8b resolveu os rótulos por outra fonte pública: a aba `4G`
+da planilha Source Data da Nature fornece as nove concentrações e os nove scores
+publicados, e a assinatura independente YF10 está no release oficial. A ligação
+entre as caixas locais do JSON de parâmetros e as caixas manuais da Figura 4g,
+porém, falhou na porta de reprodução e continua aberta.
 
 ### T8b: ground truth e protocolo
 
-- [ ] **Bloqueante:** obter os rótulos de indução e a assinatura de referência,
-      ausentes no ZIP de 54 m.
-- [ ] Converter `TL_POINTS_COORDS` e `BR_POINTS_COORDS` do referencial recortado
-      e rotacionado para o referencial do cubo, com verificação visual.
-- [ ] Reconstruir o desenho experimental a partir dos arquivos e do material
+- [x] Recuperar os nove rótulos da Figura 4g pela Source Data oficial e fixar a
+      assinatura independente YF10 já versionada.
+- [x] Converter `TL_POINTS_COORDS` e `BR_POINTS_COORDS` do referencial recortado
+      e rotacionado para o referencial do cubo como hipótese geométrica.
+- [ ] Validar que essa geometria corresponde ao
+      `manually_defined_rectangle_coordinates.json` usado na Figura 4g.
+- [x] Reconstruir o desenho experimental primário a partir dos arquivos e do material
       do artigo.
-- [ ] Definir regiões positivas, controles e exclusões antes de calcular score.
-- [ ] Usar assinatura independente de pellets ou a biblioteca já versionada.
-- [ ] Proibir extração da assinatura a partir da região de teste.
-- [ ] Escolher a unidade estatística correta. Pixels vizinhos não serão tratados
+- [x] Definir regiões positivas, controle não induzido e exclusões antes de calcular score.
+- [x] Usar assinatura independente de pellets da biblioteca já versionada.
+- [x] Proibir extração da assinatura a partir da região de teste.
+- [x] Escolher a unidade estatística correta. Pixels vizinhos não serão tratados
       como réplicas independentes.
-- [ ] Pré-especificar a métrica primária conforme o ground truth disponível.
-      A inspeção já decide este ponto: com treze retângulos de poucos pixels,
-      sem máscara publicada e sem controles declarados, Pd@FAR não é defensível
-      aqui. A métrica primária será contraste ou classificação por região, com
-      intervalos sobre regiões e a limitação de n pequeno declarada.
+- [x] Pré-especificar AUC regional como métrica primária, Spearman e contraste
+      como secundárias, e proibir Pd@FAR pixel a pixel.
+
+T8b está parcialmente concluído em `results/real_target_protocol.md`. Há nove
+rótulos, uma assinatura independente e uma hipótese geométrica explícita.
+`hypermix/biohsi_roi.py` torna recorte e rotação reproduzíveis, e
+`assets/biohsi_54m_rois.png` audita visualmente as caixas candidatas. A porta de
+reprodução falhou com MAE 0,156114 e Pearson 0,375901. A tag oficial executada
+diretamente também falhou nessas caixas, com MAE 0,158137 e Pearson 0,145083.
+O próximo passo é recuperar o JSON manual ou outra ponte independente de
+coordenadas. A análise comparativa não pode avançar por ajuste visual ao score.
 
 ### T8c: confronto e aceite
 
-- [ ] Reproduzir primeiro o método de contraste do trabalho original.
+- [x] Implementar o método publicado, fixar a porta e registrar a primeira
+      tentativa de reprodução, que falhou.
+- [x] Auditar as caixas candidatas executando diretamente a tag oficial.
+- [ ] Recuperar as coordenadas manuais da Figura 4g e cruzar a porta de
+      reprodução sem reposicionar regiões por score.
 - [ ] Comparar método original, MF espacial, matched subspace e RX.
 - [ ] Tratar o detector aprendido como análise secundária, sem mudar o critério
       depois de observar os resultados.
-- [ ] Calcular intervalos sobre regiões, parcelas ou réplicas independentes.
+- [ ] Reportar sensibilidade por região sem apresentar reamostragem como IC
+      biológico populacional.
 - [ ] Escrever `results/real_target.json` e `results/real_target.md`.
 - [ ] Atualizar site e conclusão pública somente após o resultado reproduzível.
 

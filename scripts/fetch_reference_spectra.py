@@ -6,8 +6,9 @@ The generated table contains 400-1000 nm spectra at 1 nm spacing from:
 * the official bioHSI code archive for Chemla et al., inferred pellet
   absorbance for the two experimentally demonstrated reporters.
 
-Large upstream archives are not committed. Their checksums are verified and
-only the seven required spectra are interpolated into the package data file.
+Large upstream archives are not committed. Their checksums are verified. Seven
+spectra are interpolated into the compact library, and the 371 native YF10
+samples are preserved separately for reproduction of the published method.
 
     python scripts/fetch_reference_spectra.py
 """
@@ -28,6 +29,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "hypermix" / "data" / "reference_spectra.csv"
+DEFAULT_YF10_OUTPUT = ROOT / "hypermix" / "data" / "biohsi_yf10_absorbance.csv"
 
 USGS_URL = (
     "https://www.sciencebase.gov/catalog/file/get/586e8c88e4b0f5ce109fccae"
@@ -110,7 +112,12 @@ def _interpolate_valid(wavelengths: np.ndarray, values: np.ndarray,
     return np.interp(output_wavelengths, wavelengths[valid], values[valid])
 
 
-def build_reference_csv(usgs_zip: Path, biohsi_zip: Path, output: Path) -> None:
+def build_reference_csv(
+    usgs_zip: Path,
+    biohsi_zip: Path,
+    output: Path,
+    yf10_output: Path = DEFAULT_YF10_OUTPUT,
+) -> None:
     output_wavelengths = np.arange(400.0, 1001.0, 1.0)
     columns: dict[str, np.ndarray] = {}
 
@@ -132,6 +139,18 @@ def build_reference_csv(usgs_zip: Path, biohsi_zip: Path, output: Path) -> None:
                 raise ValueError(f"unexpected bioHSI array shape for {member}: {array.shape}")
             columns[name] = np.interp(output_wavelengths, array[0], array[1])
 
+            if name == "chemla_bchl_a_yf10_absorbance":
+                yf10_output.parent.mkdir(parents=True, exist_ok=True)
+                np.savetxt(
+                    yf10_output,
+                    array.T,
+                    delimiter=",",
+                    header="wavelength_nm,absorbance",
+                    comments="",
+                    fmt="%.17g",
+                )
+                print(f"Wrote {yf10_output} ({array.shape[1]} native samples)")
+
     output.parent.mkdir(parents=True, exist_ok=True)
     names = list(columns)
     with output.open("w", newline="", encoding="utf-8") as handle:
@@ -149,6 +168,7 @@ def main() -> None:
     parser.add_argument("--usgs-zip", type=Path)
     parser.add_argument("--biohsi-zip", type=Path)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--yf10-output", type=Path, default=DEFAULT_YF10_OUTPUT)
     args = parser.parse_args()
 
     with tempfile.TemporaryDirectory(prefix="hypermix-spectra-") as tmp:
@@ -157,7 +177,7 @@ def main() -> None:
         biohsi = args.biohsi_zip or tmpdir / "biohsi.zip"
         _download(USGS_URL, usgs, USGS_SHA256)
         _download(BIOHSI_URL, biohsi, BIOHSI_SHA256)
-        build_reference_csv(usgs, biohsi, args.output)
+        build_reference_csv(usgs, biohsi, args.output, args.yf10_output)
 
 
 if __name__ == "__main__":

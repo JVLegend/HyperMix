@@ -124,30 +124,43 @@ As coordenadas manuais **estão presentes**, em `TL_POINTS_COORDS` e
 `BR_POINTS_COORDS`, com nove retângulos na amostra esquerda e quatro na direita,
 treze ao todo. Elas estão no referencial recortado, e o `params` também registra
 uma rotação por amostra, de 4,0856 e 1,5074 graus. Converter esses retângulos
-para o referencial do cubo exige aplicar recorte e rotação, o que ainda não foi
-feito. As duas janelas de recorte foram verificadas no cubo e não contêm
+para o referencial do cubo exige aplicar recorte e rotação. Essa transformação
+foi implementada em `hypermix/biohsi_roi.py` e verificada no overlay
+`assets/biohsi_54m_rois.png`. As duas janelas de recorte não contêm
 preenchimento, com refletância média em torno de 0,33 na banda 136.
 
-### O que continua ausente
+### Resolução pública dos rótulos e lacuna geométrica
 
-Três dependências externas impedem o ground truth de T8b:
+Os CSVs e o caminho de assinatura continuam ausentes do ZIP. Os níveis da
+primeira coluna foram recuperados por fontes públicas independentes, mas a
+geometria usada na Figura 4g ainda não foi recuperada:
 
 1. **Níveis de indução.** `CONC_LABELS_PATHS` aponta para caminhos absolutos da
    máquina dos autores, `plates_col1_labels.csv` e `plates_col2_labels.csv`, que
-   não acompanham o ZIP. Sem eles, os treze retângulos não têm rótulo de
-   concentração.
+   não acompanham o ZIP. A aba `4G` da planilha Source Data oficial contém nove
+   concentrações e nove scores, correspondentes aos nove retângulos da Figura
+   4g: 250, 100, 50, 25, 10, 5, 1, 0,1 e 0 µM.
 2. **Assinatura de referência.** `REF_SPECTRA_PATHS` aponta para
    `../infered_RG_on_sand.npy`, fora do arquivo. Note que este não é o
-   `YF10_infered_absorbance_from_pellets_09Jul2024.npy` citado no notebook da
-   Figura 4, e sim uma assinatura distinta.
+   arquivo usado pelo notebook específico da Figura 4, que carrega a assinatura
+   independente `YF10_infered_absorbance_from_pellets_09Jul2024.npy`. Essa curva
+   já está preservada na biblioteca do HyperMix.
 3. **Controles.** `REF_BLOT_NEG_CTRL_COORDS` e `REF_BLOT_POS_CTRL_COORDS` estão
-   vazios nas duas amostras. Este subconjunto não declara controle positivo nem
-   negativo.
+   vazios. A análise primária usa a região não induzida de 0 µM como referência
+   negativa e o limiar de 5 µM definido no notebook oficial.
 
-Enquanto essas três lacunas não forem resolvidas, por outro subconjunto do mesmo
-registro Zenodo ou por contato com os autores, T8b não pode fixar regiões
-positivas. Nenhum loader, split, máscara ou métrica será derivado dos scores de
-um detector.
+Os quatro retângulos da segunda amostra não aparecem na tabela `4G` e continuam
+sem identidade independente. Eles foram excluídos antes da avaliação. O artefato
+`hypermix/data/biohsi_54m_protocol.json` registra fontes, hash, geometria
+candidata, rótulos, scores de reprodução e exclusões.
+
+O notebook oficial não usa diretamente `TL_POINTS_COORDS`. Ele carrega
+`manually_defined_rectangle_coordinates.json`, produzido interativamente sobre
+a cena completa. Esse arquivo não está no ZIP nem no release de código. A
+primeira porta de reprodução falhou tanto no porte HyperMix quanto na execução
+direta da tag oficial sobre as caixas candidatas. Portanto a igualdade de nove
+caixas e a plausibilidade visual não validam a correspondência. O diagnóstico
+completo está em `results/real_target_reproduction_diagnosis.md`.
 
 ## Procedimento local
 
@@ -188,10 +201,10 @@ Pixels vizinhos do mesmo retângulo não serão tratados como réplicas
 independentes. O nível de inferência deve seguir as unidades realmente
 disponíveis, como regiões, placas, parcelas ou réplicas experimentais.
 
-A inspeção torna essa regra concreta. Existem treze retângulos ao todo, com
-lados de poucos pixels e raios declarados de 3 e 4. Não há máscara pixel a pixel
-publicada nem controle declarado. Portanto Pd@FAR **não** é métrica primária
-defensável neste subconjunto, e o protocolo deve usar contraste ou classificação
-por região, com intervalos calculados sobre regiões, não sobre pixels. Treze
-unidades também limitam a precisão de qualquer intervalo, o que precisa ser dito
-no resultado em vez de mascarado por milhares de pixels correlacionados.
+A análise planejada possui nove retângulos, com lados de poucos pixels. Não há
+máscara pixel a pixel publicada. Portanto Pd@FAR **não** é métrica primária
+defensável, e o protocolo usa AUC por região, com Spearman e contraste como
+secundárias. Existe uma única região por concentração, então reamostragem não
+será apresentada como IC de variabilidade biológica. Os quatro retângulos
+adicionais permanecem fora da análise primária. Estas regras só serão aplicadas
+depois que a ponte geométrica cruzar a porta de reprodução.

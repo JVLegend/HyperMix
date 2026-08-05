@@ -2,6 +2,63 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T8: porta de reprodução falhou e localizou a lacuna geométrica - 2026-08-04
+
+O método publicado HKM mais UCLS foi reimplementado em
+`hypermix/biohsi_published.py`, com a assinatura YF10 nativa empacotada, defaults
+históricos fixos e um script integral para o cubo de 54 m. Antes da execução,
+a porta foi congelada em MAE menor ou igual a 0,01 e Pearson maior ou igual a
+0,99 contra os nove scores da Source Data.
+
+A tentativa falhou: MAE 0,156114, Pearson 0,375901 e Spearman 0,100000. Para
+verificar se o porte era a causa, a tag oficial `v.1.0.0` foi executada
+diretamente no mesmo cubo e nas mesmas caixas candidatas. Ela também falhou,
+com MAE 0,158137 e Pearson 0,145083. O mapa oficial direto atingiu score máximo
+0,397950, mas todas as médias candidatas ficaram abaixo de 0,021.
+
+O diagnóstico é documental e geométrico. O notebook da Figura 4g lê um
+`manually_defined_rectangle_coordinates.json` criado interativamente sobre a
+cena completa. Esse arquivo não acompanha o ZIP nem o código. O JSON do ZIP
+contém caixas em recortes rotacionados, mas a reprodução demonstrou que a
+correspondência visual e a igualdade de nove caixas não bastam para afirmar que
+são as regiões da figura.
+
+T8c permanece pausado. Não serão movidas caixas usando score, e nenhum baseline
+será comparado até que as coordenadas manuais ou uma ponte independente sejam
+recuperadas. Resultados e diagnóstico estão em
+`results/real_target_reproduction.md` e
+`results/real_target_reproduction_diagnosis.md`. A suíte completa tem 63 testes
+passando no ambiente `.venv-train`. Duas execuções integrais produziram o mesmo
+SHA-256 para `results/real_target_reproduction.json`:
+`a25651a108e8c593c39937b982b5899f196b4ed4a1e4188090bdf2058dd03ca2`.
+
+## T8b parcialmente concluído: rótulos e protocolo regional - 2026-08-04
+
+A lacuna de rótulos do ZIP foi resolvida sem consultar nenhum detector. A
+planilha oficial Source Data Figs. 1-4, aba `4G`, contém nove concentrações e os
+nove scores médios publicados para a Figura 4g. O arquivo foi conferido com
+SHA-256 `8cb9bb5420e55b7ee27820ec2ea50c214f07538e405b75e271bdc4c91fa8666c`.
+A assinatura independente YF10 usada pelo notebook oficial já estava preservada
+na biblioteca espectral do HyperMix.
+
+O protocolo curado em `hypermix/data/biohsi_54m_protocol.json` fixa, em ordem
+espacial, 250, 100, 50, 25, 10, 5, 1, 0,1 e 0 µM. O limiar de 5 µM vem do
+notebook oficial, não de resultado do HyperMix. São seis regiões positivas e
+três negativas. Quatro retângulos adicionais sem identidade confirmada foram
+excluídos da análise primária.
+
+`hypermix/biohsi_roi.py` implementa a hipótese de recorte, a rotação sem expansão, a
+conversão bidirecional de coordenadas e os polígonos no cubo. O overlay
+`assets/biohsi_54m_rois.png` verifica as nove caixas em RGB sem usar scores de
+detecção. O protocolo estatístico foi congelado em
+`results/real_target_protocol.md`: AUC por região é primária, Spearman e
+contraste são secundárias, e Pd@FAR pixel a pixel está proibida.
+
+Com uma região por concentração, não será reportado IC como se existissem nove
+réplicas biológicas intercambiáveis. Reamostragem pode aparecer apenas como
+sensibilidade. Isto ainda não é um resultado comparativo de detecção. A porta
+de reprodução foi executada e falhou, como registrado acima.
+
 ## T8a concluído: cubo bioHSI de 54 m inspecionado e lido - 2026-08-04
 
 O ZIP de 54 m foi transferido de forma retomável e validado: 628.789.375 bytes e
@@ -32,15 +89,12 @@ depende do pacote opcional `spectral`, ausente no ambiente. O leitor novo
 reproduziu exatamente as medições feitas à mão no arquivo real. A suíte passou de
 38 para 51 testes, todos verdes, sem depender do arquivo de 629 MB.
 
-Isto ainda não é um resultado de detecção. A inspeção revelou três lacunas que
-bloqueiam T8b: o ZIP não contém `plates_col1_labels.csv`, então os retângulos não
-têm nível de indução; `REF_SPECTRA_PATHS` aponta para `../infered_RG_on_sand.npy`
-fora do arquivo, que não é o mesmo `.npy` de pellets citado no notebook da Figura
-4; e os campos de controle positivo e negativo estão vazios. As coordenadas
-manuais, ao contrário do que se supunha, estão disponíveis, treze retângulos no
-referencial recortado e rotacionado. Com treze regiões pequenas e sem máscara
-pixel a pixel publicada, Pd@FAR fica descartada como métrica primária deste
-subconjunto. Detalhes em `dataset/BIOHSI_REAL_DATA.md`.
+Isto ainda não era um resultado de detecção. A inspeção revelou que o ZIP não
+contém `plates_col1_labels.csv`, que `REF_SPECTRA_PATHS` aponta para um arquivo
+externo e que os campos de controle estão vazios. Coordenadas candidatas estavam
+presentes, mas o JSON manual usado pelo notebook da Figura 4g não. A etapa T8b
+recuperou rótulos por fontes públicas sem inferir classes a partir de scores,
+porém a ponte geométrica permanece sem validação.
 
 ## Fase C iniciada: aquisição rastreável do bioHSI real - 2026-08-03
 
