@@ -33,6 +33,12 @@ dos autores no Gmail conectado nem comentários na issue upstream. A tradução 
 a submissão permanecem condicionadas a uma reprodução externa e à decisão
 final sobre a geometria da Figura 4g.
 
+A chamada de reprodução foi aberta como
+[`JVLegend/HyperMix#2`](https://github.com/JVLegend/HyperMix/issues/2), fixada no
+commit `9cbff27` e etiquetada como `good first issue`, `help wanted` e
+`data validation`. O aceite exige sistema, Python, commit, saída completa e
+registro de qualquer divergência. Confirmações e falhas são evidência válida.
+
 ## T12: abundância calibrada e intervalos - 2026-08-06
 
 O módulo `hypermix/abundance.py` adiciona calibração afim não decrescente com

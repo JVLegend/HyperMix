@@ -60,3 +60,8 @@ pessoa externa não deve mover as regiões para melhorar a concordância.
 Uma reprodução externa pode ser reportada em uma issue pública, inclusive se
 falhar. Falhas de instalação, divergência numérica e documentação ambígua são
 resultados úteis para o benchmark.
+
+A chamada ativa está em
+[`JVLegend/HyperMix#2`](https://github.com/JVLegend/HyperMix/issues/2). Ela fixa
+o commit mínimo e pede que a saída seja publicada sem editar os artefatos para
+forçar concordância.

@@ -250,8 +250,8 @@ vantagem calibrada do aprendizado.
       limpo, com saída esperada explícita.
 - [x] Preparar formulários verificáveis para reprodução externa e validação de
       dados, sem abrir comunicação pública em nome de terceiros.
-- [ ] Abrir issues etiquetadas como `good first issue` e `data validation`
-      quando houver uma tarefa concreta ou uma resposta externa para registrar.
+- [x] Abrir a issue pública de reprodução externa, etiquetada como
+      `good first issue`, `help wanted` e `data validation`.
 - [ ] Obter ao menos uma instalação ou reprodução por pessoa externa.
 - [ ] Considerar JOSS somente depois de histórico público suficiente, uso
       científico demonstrável e práticas abertas contínuas.
@@ -262,10 +262,12 @@ vantagem calibrada do aprendizado.
 O pacote em `publication/` contém oito afirmações e 16 artefatos fixados por
 SHA-256. `scripts/verify_evidence_manifest.py` verifica a cadeia inteira sem
 dependências científicas. A versão interna 0.1 do manuscrito está pronta em
-pt-BR, mas não deve apresentar T8 como concluído. O próximo aceite é uma reprodução por
-pessoa externa e uma resposta dos autores sobre as coordenadas da Figura 4g.
-Os formulários de issue já exigem proveniência, comandos e proteção contra
-seleção de regiões por score.
+pt-BR, mas não deve apresentar T8 como concluído. A
+[issue pública de reprodução externa](https://github.com/JVLegend/HyperMix/issues/2)
+fixa o commit, o comando, a saída esperada e os metadados de aceite. O próximo
+aceite é uma execução por pessoa externa e uma resposta dos autores sobre as
+coordenadas da Figura 4g. Os formulários de issue exigem proveniência, comandos
+e proteção contra seleção de regiões por score.
 
 ## O que não entra no caminho crítico
 
