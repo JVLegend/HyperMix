@@ -242,8 +242,8 @@ vantagem calibrada do aprendizado.
 
 ## Publicação e comunidade
 
-- [x] Criar o esqueleto do preprint centrado na auditoria de validade e nos
-      resultados negativos reproduzíveis.
+- [x] Criar o esqueleto e a versão interna 0.1 do preprint, centrados na
+      auditoria de validade e nos resultados negativos reproduzíveis.
 - [x] Registrar decisões, comandos, limitações e hashes dos resultados em um
       manifesto verificável.
 - [x] Publicar um protocolo mínimo de reprodução externa a partir de clone
@@ -261,8 +261,8 @@ vantagem calibrada do aprendizado.
 
 O pacote em `publication/` contém oito afirmações e 16 artefatos fixados por
 SHA-256. `scripts/verify_evidence_manifest.py` verifica a cadeia inteira sem
-dependências científicas. A estrutura do preprint está pronta, mas o manuscrito
-não deve apresentar T8 como concluído. O próximo aceite é uma reprodução por
+dependências científicas. A versão interna 0.1 do manuscrito está pronta em
+pt-BR, mas não deve apresentar T8 como concluído. O próximo aceite é uma reprodução por
 pessoa externa e uma resposta dos autores sobre as coordenadas da Figura 4g.
 Os formulários de issue já exigem proveniência, comandos e proteção contra
 seleção de regiões por score.

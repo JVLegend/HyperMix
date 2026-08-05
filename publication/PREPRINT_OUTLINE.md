@@ -1,6 +1,7 @@
 # Esqueleto do preprint HyperMix
 
-Estado: estrutura de trabalho, não manuscrito submetido.
+Estado: estrutura de trabalho. A versão interna 0.1 está em
+`publication/MANUSCRIPT_DRAFT_PTBR.md`; não é um manuscrito submetido.
 
 ## Título provisório
 

@@ -22,6 +22,7 @@ advanced since the draft date.
 | 13 | `13-transfer-before-detection.md` | laboratory and sensor spectra | ready |
 | 14 | `14-the-narrow-physical-prior-won.md` | T9 comparison panel | ready |
 | 15 | `15-every-claim-needs-a-file.md` | evidence matrix or checksum terminal | ready |
+| 16 | `16-the-preprint-starts-with-what-failed.md` | manuscript evidence table | ready |
 
 Public framing to preserve in every post:
 

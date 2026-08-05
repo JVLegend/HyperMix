@@ -378,8 +378,10 @@ python scripts/verify_evidence_manifest.py
 
 Consulte a [matriz de evidências](publication/EVIDENCE_MATRIX.md), o
 [protocolo externo](publication/EXTERNAL_REPRODUCTION.md) e o
-[esqueleto do preprint](publication/PREPRINT_OUTLINE.md). O T8 aparece como
-bloqueado, não como uma comparação concluída em alvo biológico real.
+[esqueleto do preprint](publication/PREPRINT_OUTLINE.md). A
+[versão interna 0.1 do manuscrito](publication/MANUSCRIPT_DRAFT_PTBR.md) está em
+pt-BR para auditoria antes da tradução. O T8 aparece como bloqueado, não como
+uma comparação concluída em alvo biológico real.
 
 ## 📦 Open spectral dataset
 

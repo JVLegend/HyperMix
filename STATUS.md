@@ -26,6 +26,13 @@ O pacote não cria uma nova vitória de método. Ele torna auditável a conclus�
 existente: nenhum método aprendido superou de forma robusta o MF espacial bem
 calibrado nos testes concluídos. A suíte completa tem 103 testes passando.
 
+A versão interna 0.1 do manuscrito foi escrita em pt-BR a partir da matriz. Ela
+contém resumo, desenho, métodos, tabela principal, discussão, limites e uma
+seção própria para a porta bioHSI bloqueada. Em 05/08, não havia resposta direta
+dos autores no Gmail conectado nem comentários na issue upstream. A tradução e
+a submissão permanecem condicionadas a uma reprodução externa e à decisão
+final sobre a geometria da Figura 4g.
+
 ## T12: abundância calibrada e intervalos - 2026-08-06
 
 O módulo `hypermix/abundance.py` adiciona calibração afim não decrescente com
