@@ -1,0 +1,55 @@
+name: External reproduction
+description: Report an independent installation, evidence check, or experiment rerun.
+title: "[external reproduction] "
+labels: ["reproduction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Successful and failed reproductions are both useful. Please include raw command output and avoid summarizing a failure as a scientific disagreement before the cause is isolated.
+  - type: input
+    id: commit
+    attributes:
+      label: HyperMix commit or version
+      placeholder: "Full commit SHA or package version"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Python version, architecture, and installation command.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Reproduction scope
+      options:
+        - Evidence manifest only
+        - Test suite
+        - One scientific experiment
+        - Full benchmark
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands and complete output
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: divergence
+    attributes:
+      label: Divergence from the documented result
+      description: Include changed hashes, metrics, tracebacks, or write "none".
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I did not tune regions, thresholds, or seeds after seeing the evaluation result.
+          required: true

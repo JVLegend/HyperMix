@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Figure 4g coordinate request
+    url: https://github.com/itai-levin/bioHSI/issues/2
+    about: Follow the upstream request for the missing manual ROI artifact.

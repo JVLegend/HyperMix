@@ -32,7 +32,7 @@ Releases e no Zenodo com DOI de versão `10.5281/zenodo.21799951`.
 | 4 | T10, alvo retido e detecção cega | Concluído: separa oracle, família e alvo desconhecido | Dois hosts medidos |
 | 5 | T11, limite de detecção | Concluído: LOD por FWHM e FAR com calibração externa | Simulador medido |
 | 6 | T12, abundância calibrada | Concluído: erro, cobertura e largura com splits externos | Simulador implantado |
-| 7 | Publicação | Preprint do benchmark e preparação para revisão de software | T8/T9 e uso público |
+| 7 | T13, publicação | Em andamento: cadeia de evidências pronta; falta validação externa | T8 e uso público |
 
 ## T8: validação em alvo biológico realmente medido
 
@@ -242,14 +242,30 @@ vantagem calibrada do aprendizado.
 
 ## Publicação e comunidade
 
-- [ ] Preparar um preprint de benchmark depois de T8 e T9, centrado na auditoria
-      de validade e nos resultados negativos reproduzíveis.
-- [ ] Registrar decisões pré-especificadas e hashes dos resultados.
-- [ ] Abrir issues etiquetadas como `good first issue` e `data validation`.
+- [x] Criar o esqueleto do preprint centrado na auditoria de validade e nos
+      resultados negativos reproduzíveis.
+- [x] Registrar decisões, comandos, limitações e hashes dos resultados em um
+      manifesto verificável.
+- [x] Publicar um protocolo mínimo de reprodução externa a partir de clone
+      limpo, com saída esperada explícita.
+- [x] Preparar formulários verificáveis para reprodução externa e validação de
+      dados, sem abrir comunicação pública em nome de terceiros.
+- [ ] Abrir issues etiquetadas como `good first issue` e `data validation`
+      quando houver uma tarefa concreta ou uma resposta externa para registrar.
 - [ ] Obter ao menos uma instalação ou reprodução por pessoa externa.
 - [ ] Considerar JOSS somente depois de histórico público suficiente, uso
       científico demonstrável e práticas abertas contínuas.
 - [ ] Incluir declaração transparente de uso de IA em eventual submissão.
+
+### T13: estado atual
+
+O pacote em `publication/` contém oito afirmações e 16 artefatos fixados por
+SHA-256. `scripts/verify_evidence_manifest.py` verifica a cadeia inteira sem
+dependências científicas. A estrutura do preprint está pronta, mas o manuscrito
+não deve apresentar T8 como concluído. O próximo aceite é uma reprodução por
+pessoa externa e uma resposta dos autores sobre as coordenadas da Figura 4g.
+Os formulários de issue já exigem proveniência, comandos e proteção contra
+seleção de regiões por score.
 
 ## O que não entra no caminho crítico
 

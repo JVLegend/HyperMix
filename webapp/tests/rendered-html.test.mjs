@@ -86,7 +86,8 @@ test("keeps the dashboard interactive and free of starter assets", async () => {
   assert.match(page, /auc: 0\.987, pd: 0\.650/);
   assert.match(page, /CHAPTER 05 · BACKGROUND/);
   assert.match(page, /function StoryBridge/);
-  assert.match(page, />99</);
+  assert.match(page, />103</);
+  assert.match(page, /publication\/EVIDENCE_MATRIX\.md/);
   assert.match(page, /LOD_RESULTS =/);
   assert.match(page, /CHAPTER 08 · DETECTION LIMIT/);
   assert.match(page, /15–20% at FAR 1e-2/);

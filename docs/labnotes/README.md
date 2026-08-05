@@ -21,6 +21,7 @@ advanced since the draft date.
 | 12 | `12-a-citable-snapshot-without-rewriting-history.md` | Zenodo DOI record | ready |
 | 13 | `13-transfer-before-detection.md` | laboratory and sensor spectra | ready |
 | 14 | `14-the-narrow-physical-prior-won.md` | T9 comparison panel | ready |
+| 15 | `15-every-claim-needs-a-file.md` | evidence matrix or checksum terminal | ready |
 
 Public framing to preserve in every post:
 

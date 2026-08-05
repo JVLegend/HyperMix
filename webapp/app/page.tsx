@@ -307,7 +307,7 @@ const COPY = {
     },
     footer: {
       tagline: "Open detection of engineered biosignatures.",
-      links: ["Source", "Results", "Data card"],
+      links: ["Source", "Results", "Evidence", "Data card"],
       note: "MIT · Developed by João Victor, statistician · Funded by the Experiment Foundation",
     },
   },
@@ -534,7 +534,7 @@ const COPY = {
     },
     footer: {
       tagline: "Detecção aberta de biossinais engenheirados.",
-      links: ["Código", "Resultados", "Data card"],
+      links: ["Código", "Resultados", "Evidências", "Data card"],
       note: "MIT · Desenvolvido por João Victor, estatístico · Financiado pela Experiment Foundation",
     },
   },
@@ -742,7 +742,7 @@ export default function Home() {
     </header>
 
     <section className="hero" id="top">
-      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>99</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
+      <div className="hero-copy"><div className="eyebrow"><span className="pulse" /> {copy.hero.eyebrow}</div><h1>{copy.hero.title}</h1><p className="hero-lead">{copy.hero.lead}</p><div className="hero-actions"><a className="primary-button" href="#story">{copy.hero.explore} <span>↓</span></a><a className="text-button" href="#studio">{copy.hero.status} <span>→</span></a></div><div className="proof-strip"><div><strong>103</strong><span>{copy.hero.proof[0]}</span></div><div><strong>3</strong><span>{copy.hero.proof[1]}</span></div><div><strong>2 / 4</strong><span>{copy.hero.proof[2]}</span></div><div><strong>MIT</strong><span>{copy.hero.proof[3]}</span></div></div></div>
       <aside className="leader-card" aria-label={copy.leaderboard.aria}><div className="card-kicker"><span>01</span> {copy.leaderboard.kicker}</div><div className="leader-title"><span>{copy.leaderboard.mean}</span><strong>{copy.leaderboard.scope}</strong></div><EvidenceBar label={copy.leaderboard.methods[0]} value={0.990} tone="teal" /><EvidenceBar label={copy.leaderboard.methods[1]} value={0.987} tone="ice" /><EvidenceBar label={copy.leaderboard.methods[2]} value={0.943} tone="amber" /><EvidenceBar label={copy.leaderboard.methods[3]} value={0.860} tone="muted" /><EvidenceBar label={copy.leaderboard.methods[4]} value={0.656} tone="muted" /><div className="verdict"><span>{copy.leaderboard.conclusion}</span><p>{copy.leaderboard.verdict}</p></div></aside>
       <a className="latest-audit" href="#abundance" data-reveal="up"><span className="latest-audit-label">{copy.hero.latest}</span>{copy.hero.findings.map((finding) => <div className="latest-finding" key={finding[0]}><small>{finding[0]}</small><strong>{finding[1]}</strong><p>{finding[2]}</p></div>)}<b>{copy.hero.readLatest} <i>↓</i></b></a>
     </section>
@@ -826,6 +826,6 @@ export default function Home() {
     </section>
 
     <section className="limits" id="limits"><div data-reveal="left"><p className="overline">{copy.limits.overline}</p><h2>{copy.limits.title}</h2></div><ol>{copy.limits.items.map((item, index) => <li data-reveal="right" key={item[0]}><span>0{index + 1}</span><p><strong>{item[0]}</strong> {item[1]}</p></li>)}</ol></section>
-    <footer><div className="footer-brand"><span className="brand-mark">H</span><div><strong>HyperMix Observatory</strong><p>{copy.footer.tagline}</p></div></div><div className="footer-links"><a href="https://github.com/JVLegend/HyperMix" target="_blank" rel="noreferrer">{copy.footer.links[0]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/results/leaderboard.md" target="_blank" rel="noreferrer">{copy.footer.links[1]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/dataset/DATA_CARD.md" target="_blank" rel="noreferrer">{copy.footer.links[2]}</a></div><p className="footer-note">{copy.footer.note}</p></footer>
+    <footer><div className="footer-brand"><span className="brand-mark">H</span><div><strong>HyperMix Observatory</strong><p>{copy.footer.tagline}</p></div></div><div className="footer-links"><a href="https://github.com/JVLegend/HyperMix" target="_blank" rel="noreferrer">{copy.footer.links[0]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/results/leaderboard.md" target="_blank" rel="noreferrer">{copy.footer.links[1]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/publication/EVIDENCE_MATRIX.md" target="_blank" rel="noreferrer">{copy.footer.links[2]}</a><a href="https://github.com/JVLegend/HyperMix/blob/main/dataset/DATA_CARD.md" target="_blank" rel="noreferrer">{copy.footer.links[3]}</a></div><p className="footer-note">{copy.footer.note}</p></footer>
   </main>;
 }

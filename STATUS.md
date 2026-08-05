@@ -2,6 +2,30 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T13: pacote de publicação rastreável - 2026-08-06
+
+O diretório `publication/` agora contém uma matriz de oito afirmações, o
+esqueleto do preprint e um protocolo mínimo de reprodução externa. O manifesto
+`publication/evidence_manifest.json` liga cada afirmação ao comando gerador, a
+dois artefatos, aos respectivos SHA-256 e às limitações que restringem sua
+leitura. São 16 arquivos verificados.
+
+`python scripts/verify_evidence_manifest.py` executa somente com a biblioteca
+padrão e falha se houver arquivo ausente, checksum divergente, ID duplicado ou
+caminho fora do repositório. O comando permite uma primeira auditoria a partir
+de clone limpo sem baixar cubos nem reexecutar treinos. Ele verifica integridade
+e rastreabilidade, não substitui a reprodução científica integral.
+
+A matriz mantém o T8 como `blocked`. A porta de reprodução da Figura 4g não foi
+satisfeita e nenhum confronto entre detectores no alvo biológico real pode ser
+feito antes de recuperar o JSON manual ou uma ponte geométrica validada pelos
+autores. A mensagem aos autores pede o arquivo, a ordem das nove regiões, o
+referencial de coordenadas e, se disponível, o diretório de saída da figura.
+
+O pacote não cria uma nova vitória de método. Ele torna auditável a conclusão
+existente: nenhum método aprendido superou de forma robusta o MF espacial bem
+calibrado nos testes concluídos. A suíte completa tem 103 testes passando.
+
 ## T12: abundância calibrada e intervalos - 2026-08-06
 
 O módulo `hypermix/abundance.py` adiciona calibração afim não decrescente com

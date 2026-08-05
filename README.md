@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21799950.svg)](https://doi.org/10.5281/zenodo.21799950)
 [![Python](https://img.shields.io/badge/python-3.10%20to%203.14-1a2f52.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/detector-PyTorch-ee4c2c.svg)](hypermix/detector.py)
-[![Tests](https://img.shields.io/badge/tests-99%20passing-2ea44f.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-103%20passing-2ea44f.svg)](tests/)
 [![CI](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml/badge.svg)](https://github.com/JVLegend/HyperMix/actions/workflows/ci.yml)
 [![Status](https://img.shields.io/badge/status-active-2ea44f.svg)](STATUS.md)
 [![Live Observatory](https://img.shields.io/badge/live-observatory-34d6c4.svg)](https://hypermix-observatory.vercel.app)
@@ -45,6 +45,7 @@ and its negative results are the contribution.
 - [🌐 Web Observatory](#-web-observatory)
 - [🧪 The learned detector](#-milestone-2-detector-aprendido-com-contexto-espacial)
 - [📊 Benchmarks](#-benchmarks)
+- [🔎 Evidence bundle](#-evidence-bundle)
 - [🗺️ Roadmap](#️-roadmap)
 - [💾 Data](#-data)
 - [⚠️ Honest limitations](#️-honest-limitations)
@@ -96,7 +97,8 @@ python scripts/target_transfer_experiment.py  # laboratory-to-sensor transfer
 python scripts/blind_target_experiment.py  # held-out and unknown targets
 python scripts/lod_experiment.py    # detection limit by sensor and FAR
 python scripts/abundance_uncertainty_experiment.py  # calibrated abundance
-pytest -q                           # 99 tests
+python scripts/verify_evidence_manifest.py  # verify publication artifacts
+pytest -q                           # 103 tests
 ```
 
 Para desenvolver a partir do clone, use `pip install -e ".[viz,dev]"`.
@@ -364,6 +366,21 @@ Pavia U.; mostra que a melhora não se sustenta agregada nas três cenas.
 Resultado completo em
 [results/abundance_uncertainty.md](results/abundance_uncertainty.md).
 
+## 🔎 Evidence bundle
+
+Cada afirmação principal do pacote de publicação está ligada ao comando
+gerador, aos artefatos, aos checksums SHA-256 e às limitações correspondentes.
+Verifique a cadeia completa sem dependências científicas:
+
+```bash
+python scripts/verify_evidence_manifest.py
+```
+
+Consulte a [matriz de evidências](publication/EVIDENCE_MATRIX.md), o
+[protocolo externo](publication/EXTERNAL_REPRODUCTION.md) e o
+[esqueleto do preprint](publication/PREPRINT_OUTLINE.md). O T8 aparece como
+bloqueado, não como uma comparação concluída em alvo biológico real.
+
 ## 📦 Open spectral dataset
 
 `dataset/` contém uma biblioteca aberta em CSV e NPZ: quatro endmembers medidos
@@ -386,8 +403,9 @@ nm em passos de 10 nm; a fonte empacotada preserva 1 nm. Veja o
 - [x] **Milestone 3**: CI, PyPI, release `v0.5.0` e DOI do Zenodo.
 - [x] **T12**: abundância calibrada e intervalos agrupados, sem vantagem do
       aprendizado no agregado.
-- [ ] **Publicação**: preprint após T8/T9 e preparação gradual para revisão de
-      software.
+- [x] **T13a**: matriz de evidências, hashes, verificador e esqueleto do
+      preprint.
+- [ ] **T13b**: reprodução externa e validação das coordenadas da Figura 4g.
 
 O plano completo, com dependências, critérios de aceite e limites honestos,
 está em [ROADMAP.md](ROADMAP.md).

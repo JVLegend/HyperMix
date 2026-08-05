@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "project": "HyperMix",
+  "project_version": "0.5.0",
+  "created": "2026-08-06",
+  "entries": [
+    {
+      "id": "t7a-background-learning",
+      "status": "supported",
+      "claim": "O autoencoder de fundo espacial pré-especificado foi inferior ao matched filter espacial em AUC e Pd@FAR 1e-3.",
+      "command": "python scripts/background_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/background.json",
+          "sha256": "3e77d71fba3ff6d575c10cb74586df876f6c0ec318f2a27ac9b68741d423fa51"
+        },
+        {
+          "path": "results/background.md",
+          "sha256": "c979e4d480d58ed9faf890e80f5926b845af27887610a4cd37f4ed1c35b0cebf"
+        }
+      ],
+      "limitations": [
+        "O alvo é implantado digitalmente em três fundos reais.",
+        "O resultado fecha este autoencoder raso, não toda a classe de modelos de densidade."
+      ]
+    },
+    {
+      "id": "t7b-calibrated-uncertainty",
+      "status": "supported",
+      "claim": "O ensemble aprendido calibrado teve NLL e ECE significativamente piores que o matched filter espacial com Platt.",
+      "command": "python scripts/uncertainty_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/uncertainty.json",
+          "sha256": "5cd0b6129d5109db5cadbf14ad8c4ba7ce986584ad8a8ba11f2fabab887f3052"
+        },
+        {
+          "path": "results/uncertainty.md",
+          "sha256": "5cf91dfc72785a567e58f1f8b9d12f9e904cc77c43186de48eff9557d8ee5490"
+        }
+      ],
+      "limitations": [
+        "A calibração usa implantes independentes nos mesmos três fundos.",
+        "A tarefa binária não reproduz a recuperação atmosférica do Ariel Data Challenge."
+      ]
+    },
+    {
+      "id": "t7c-band-sparsity",
+      "status": "supported",
+      "claim": "As três bandas mais ponderadas não preservaram o desempenho do matched filter espacial com todas as bandas.",
+      "command": "python scripts/band_sparsity_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/band_sparsity.json",
+          "sha256": "227273f2aba5cd7ba7683bbe7a97314250de16beeb38470d8e93e69bac77c781"
+        },
+        {
+          "path": "results/band_sparsity.md",
+          "sha256": "18d9f79acbfb249dca7804803be1050e09a0e29687aec5ed3fa984f8e4c04f45"
+        }
+      ],
+      "limitations": [
+        "A seleção de bandas conhece a assinatura do alvo.",
+        "O resultado não estabelece um número universal de bandas para biossensoriamento."
+      ]
+    },
+    {
+      "id": "t8-real-target-reproduction",
+      "status": "blocked",
+      "claim": "A porta de reprodução da Figura 4g falhou nas caixas candidatas, portanto nenhum confronto de detectores no alvo biológico real é válido ainda.",
+      "command": "python scripts/reproduce_biohsi_54m.py",
+      "artifacts": [
+        {
+          "path": "results/real_target_reproduction.json",
+          "sha256": "a25651a108e8c593c39937b982b5899f196b4ed4a1e4188090bdf2058dd03ca2"
+        },
+        {
+          "path": "results/real_target_reproduction.md",
+          "sha256": "639dfce4e349a07a3581f99d59d151142e70cc0e2068e5b7a0640ac5cf8b0fac"
+        }
+      ],
+      "limitations": [
+        "O JSON de retângulos manuais usado na Figura 4g não está no arquivo público.",
+        "As regiões não podem ser reposicionadas usando scores de detector."
+      ]
+    },
+    {
+      "id": "t9-target-transfer",
+      "status": "supported",
+      "claim": "A família física ampla falhou no critério primário, enquanto a transferência nominal foi uma melhora secundária próxima do oráculo.",
+      "command": "python scripts/target_transfer_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/target_transfer.json",
+          "sha256": "bad307559ba816ff4bb73b7b3010da14690e4642464f0ebf4aa0ee40e240b102"
+        },
+        {
+          "path": "results/target_transfer.md",
+          "sha256": "42aaf261f30dfdbec248157adfdc4268f87047c9ee973b1647fdd44a88526991"
+        }
+      ],
+      "limitations": [
+        "A melhora nominal é secundária e não substitui o critério primário.",
+        "O teste usa implantes sintéticos e ainda precisa de validação independente no sensor."
+      ]
+    },
+    {
+      "id": "t10-held-out-target",
+      "status": "supported",
+      "claim": "Nenhum MLP venceu o baseline clássico com o mesmo conhecimento do alvo nos regimes de família ou totalmente cego.",
+      "command": "python scripts/blind_target_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/blind.json",
+          "sha256": "9908672f26f4834b096343bf5c80aa1d1d45f48c4bb8a6c621f6538063cf68b2"
+        },
+        {
+          "path": "results/blind.md",
+          "sha256": "c3c9a4f4d3f533b66a821d3e26d959df5e67c14b270011ed2a264d98a44795d9"
+        }
+      ],
+      "limitations": [
+        "A família medida contém somente dois hosts.",
+        "Alvos implantados não equivalem à expressão biológica remota observada."
+      ]
+    },
+    {
+      "id": "t11-detection-limit",
+      "status": "supported",
+      "claim": "No simulador, o LOD nominal em FAR 1e-2 ficou entre 15% e 20%, e nenhum sensor atingiu Pd 0,80 em FAR 1e-3 até 20%.",
+      "command": "python scripts/lod_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/lod.json",
+          "sha256": "badab6b340ed3111344fa206a5e2c6abd0a30499f8995a44294e8ba4438f28c8"
+        },
+        {
+          "path": "results/lod.md",
+          "sha256": "fc0ecbccd024998e97645e6145d45b35b824ac1459378f8d73382ab11a73d312"
+        }
+      ],
+      "limitations": [
+        "Abundância é fração máxima do alvo implantado, não concentração biológica.",
+        "FWHM isolado não representa todos os atributos de um sensor real."
+      ]
+    },
+    {
+      "id": "t12-calibrated-abundance",
+      "status": "inconclusive",
+      "claim": "A diferença agregada de MAE entre unmixer e MF cruzou zero, mas o unmixer teve viés absoluto maior e intervalos mais largos.",
+      "command": "python scripts/abundance_uncertainty_experiment.py",
+      "artifacts": [
+        {
+          "path": "results/abundance_uncertainty.json",
+          "sha256": "6d23d415c43eba11d5686afca043028f0167fd1dca77b632d9a7e8569fcae7ae"
+        },
+        {
+          "path": "results/abundance_uncertainty.md",
+          "sha256": "78b4fb17eec29219268e7cfe1ab021782fbddf8eba7286a649046115609fd320"
+        }
+      ],
+      "limitations": [
+        "Os intervalos são condicionais a pixels já declarados como alvo.",
+        "A escala é uma fração do simulador e não uma concentração biológica."
+      ]
+    }
+  ]
+}

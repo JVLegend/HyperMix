@@ -1,0 +1,46 @@
+name: Data validation
+description: Propose an independently sourced mapping, ROI, or metadata correction.
+title: "[data validation] "
+labels: ["data validation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for evidence that can validate a dataset mapping without selecting regions from HyperMix detector scores.
+  - type: input
+    id: dataset
+    attributes:
+      label: Dataset and figure
+      placeholder: "bioHSI 54 m, Figure 4g"
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Independent source
+      description: Link to the author-provided file, archive, supplement, or message.
+    validations:
+      required: true
+  - type: textarea
+    id: mapping
+    attributes:
+      label: Coordinate or metadata mapping
+      description: Include coordinate order, origin, crop, rotation, flip, interval convention, and label ordering when applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Reproduction test
+      description: State the command and the expected artifact or metric that would validate this mapping.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Leakage safeguards
+      options:
+        - label: The proposed regions were not selected or moved using HyperMix detector scores.
+          required: true
+        - label: I have stated the provenance and reuse terms of every attached artifact.
+          required: true
