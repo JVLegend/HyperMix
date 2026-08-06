@@ -39,6 +39,14 @@ commit `9cbff27` e etiquetada como `good first issue`, `help wanted` e
 `data validation`. O aceite exige sistema, Python, commit, saída completa e
 registro de qualquer divergência. Confirmações e falhas são evidência válida.
 
+O T13c adicionou `scripts/build_publication_assets.py`, que usa apenas a
+biblioteca padrão para extrair a tabela principal dos oito JSONs. O mesmo
+comando gera `publication/generated/main_contrasts.svg` e
+`source_provenance.json`, além de sincronizar o bloco delimitado do manuscrito.
+O SVG orienta todos os contrastes para que valores positivos favoreçam o método
+aprendido, mas usa escala própria por linha e proíbe comparar comprimentos entre
+métricas. O CI executa `--check` e falha diante de qualquer drift.
+
 ## T12: abundância calibrada e intervalos - 2026-08-06
 
 O módulo `hypermix/abundance.py` adiciona calibração afim não decrescente com

@@ -1,0 +1,159 @@
+{
+  "generator": "scripts/build_publication_assets.py",
+  "interpretation": "Contrastes da figura são orientados para que valores positivos favoreçam o método aprendido. Cada linha usa escala própria.",
+  "plot": [
+    {
+      "interval": {
+        "high": -0.0026964987091703356,
+        "low": -0.02299106615368825,
+        "mean": -0.010967084886647669
+      },
+      "label": "T7a · AUC"
+    },
+    {
+      "interval": {
+        "high": -0.14242922255684112,
+        "low": -0.51736044821406,
+        "mean": -0.3251396262325121
+      },
+      "label": "T7a · Pd@FAR"
+    },
+    {
+      "interval": {
+        "high": -0.004475697166032544,
+        "low": -0.017783510227755112,
+        "mean": -0.010257073128223486
+      },
+      "label": "T7b · NLL, sinal invertido"
+    },
+    {
+      "interval": {
+        "high": -0.002077926952244071,
+        "low": -0.00560326159898998,
+        "mean": -0.003972025908819481
+      },
+      "label": "T7b · ECE, sinal invertido"
+    },
+    {
+      "interval": {
+        "high": -0.17148170538165267,
+        "low": -0.21689532609123252,
+        "mean": -0.1906195789023317
+      },
+      "label": "T9 · AUC"
+    },
+    {
+      "interval": {
+        "high": -0.22146761699602466,
+        "low": -0.2933691276720001,
+        "mean": -0.25718900553644775
+      },
+      "label": "T9 · Pd@FAR"
+    },
+    {
+      "interval": {
+        "high": -0.00017974276171068502,
+        "low": -0.032590182048917726,
+        "mean": -0.013516377665832737
+      },
+      "label": "T10 · AUC"
+    },
+    {
+      "interval": {
+        "high": -0.003646762844792988,
+        "low": -0.08593639396763457,
+        "mean": -0.04169242670210513
+      },
+      "label": "T10 · Pd@FAR"
+    },
+    {
+      "interval": {
+        "high": 0.0005690608570255091,
+        "low": -0.005882366275746713,
+        "mean": -0.00258946243565514
+      },
+      "label": "T12 · MAE, sinal invertido"
+    },
+    {
+      "interval": {
+        "high": -0.009033210607109779,
+        "low": -0.01015836028812143,
+        "mean": -0.009612093621570925
+      },
+      "label": "T12 · largura, sinal invertido"
+    }
+  ],
+  "schema_version": 1,
+  "secondary_transfer": {
+    "nominal_auc": {
+      "high": 0.02779071841936416,
+      "low": 0.01604001736836854,
+      "mean": 0.021997464748743062
+    },
+    "nominal_pd_at_far": {
+      "high": 0.16867046558697948,
+      "low": 0.09657673312216744,
+      "mean": 0.13374321726665722
+    }
+  },
+  "sources": {
+    "results/abundance_uncertainty.json": "6d23d415c43eba11d5686afca043028f0167fd1dca77b632d9a7e8569fcae7ae",
+    "results/background.json": "3e77d71fba3ff6d575c10cb74586df876f6c0ec318f2a27ac9b68741d423fa51",
+    "results/band_sparsity.json": "227273f2aba5cd7ba7683bbe7a97314250de16beeb38470d8e93e69bac77c781",
+    "results/blind.json": "9908672f26f4834b096343bf5c80aa1d1d45f48c4bb8a6c621f6538063cf68b2",
+    "results/lod.json": "badab6b340ed3111344fa206a5e2c6abd0a30499f8995a44294e8ba4438f28c8",
+    "results/real_target_reproduction.json": "a25651a108e8c593c39937b982b5899f196b4ed4a1e4188090bdf2058dd03ca2",
+    "results/target_transfer.json": "bad307559ba816ff4bb73b7b3010da14690e4642464f0ebf4aa0ee40e240b102",
+    "results/uncertainty.json": "5cd0b6129d5109db5cadbf14ad8c4ba7ce986584ad8a8ba11f2fabab887f3052"
+  },
+  "table": [
+    {
+      "axis": "Fundo auto-supervisionado, T7a",
+      "contrast": "autoencoder espacial menos MF espacial",
+      "result": "AUC -0,011 [-0,023, -0,003]; Pd -0,325 [-0,517, -0,142]",
+      "verdict": "aprendizado pior"
+    },
+    {
+      "axis": "Incerteza, T7b",
+      "contrast": "ensemble menos MF espacial calibrado",
+      "result": "NLL +0,01026 [0,00448, 0,01778]; ECE +0,00397 [0,00208, 0,00560]",
+      "verdict": "aprendizado pior"
+    },
+    {
+      "axis": "Bandas, T7c",
+      "contrast": "top-3 menos todas as bandas",
+      "result": "AUC espacial -0,0356 [-0,0917, -0,0005]; menor k descritivo 20",
+      "verdict": "três bandas não bastaram"
+    },
+    {
+      "axis": "Alvo real, T8",
+      "contrast": "reprodução da Figura 4g nas caixas candidatas",
+      "result": "MAE 0,156114; Pearson 0,375901",
+      "verdict": "porta bloqueada"
+    },
+    {
+      "axis": "Transferência, T9",
+      "contrast": "família física menos alvo laboratorial",
+      "result": "AUC -0,191 [-0,217, -0,171]; Pd -0,257 [-0,293, -0,221]",
+      "verdict": "aprendizado pior"
+    },
+    {
+      "axis": "Alvo retido, T10",
+      "contrast": "MLP familiar menos MF familiar",
+      "result": "AUC -0,0135 [-0,0326, -0,0002]; Pd -0,0417 [-0,0859, -0,0036]",
+      "verdict": "aprendizado pior"
+    },
+    {
+      "axis": "Limite, T11",
+      "contrast": "LOD em FAR 1e-2 e referência em FAR 1e-3",
+      "result": "nominal 15% a 20% em FAR 1e-2; >20% em FAR 1e-3",
+      "verdict": "resultado do simulador"
+    },
+    {
+      "axis": "Abundância, T12",
+      "contrast": "unmixer menos MF",
+      "result": "MAE +0,0026 [-0,0006, 0,0059]; largura +0,0096 [0,0090, 0,0102]",
+      "verdict": "MAE inconclusiva; intervalo pior"
+    }
+  ]
+}

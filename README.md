@@ -374,6 +374,7 @@ Verifique a cadeia completa sem dependências científicas:
 
 ```bash
 python scripts/verify_evidence_manifest.py
+python scripts/build_publication_assets.py --check
 ```
 
 Consulte a [matriz de evidências](publication/EVIDENCE_MATRIX.md), o
@@ -382,6 +383,11 @@ Consulte a [matriz de evidências](publication/EVIDENCE_MATRIX.md), o
 [versão interna 0.1 do manuscrito](publication/MANUSCRIPT_DRAFT_PTBR.md) está em
 pt-BR para auditoria antes da tradução. O T8 aparece como bloqueado, não como
 uma comparação concluída em alvo biológico real.
+
+A tabela principal, a figura de contrastes e a proveniência das fontes são
+geradas diretamente dos JSONs versionados por
+`scripts/build_publication_assets.py`. O modo `--check` falha no CI quando um
+resultado e os materiais do manuscrito divergem.
 
 ## 📦 Open spectral dataset
 

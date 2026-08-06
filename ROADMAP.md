@@ -252,6 +252,8 @@ vantagem calibrada do aprendizado.
       dados, sem abrir comunicação pública em nome de terceiros.
 - [x] Abrir a issue pública de reprodução externa, etiquetada como
       `good first issue`, `help wanted` e `data validation`.
+- [x] Gerar tabela, figura de contrastes e proveniência do manuscrito
+      diretamente dos JSONs, com verificação de drift no CI.
 - [ ] Obter ao menos uma instalação ou reprodução por pessoa externa.
 - [ ] Considerar JOSS somente depois de histórico público suficiente, uso
       científico demonstrável e práticas abertas contínuas.
@@ -268,6 +270,11 @@ fixa o commit, o comando, a saída esperada e os metadados de aceite. O próximo
 aceite é uma execução por pessoa externa e uma resposta dos autores sobre as
 coordenadas da Figura 4g. Os formulários de issue exigem proveniência, comandos
 e proteção contra seleção de regiões por score.
+
+O T13c removeu a transcrição manual da tabela principal. O gerador padrão liga
+os oito eixos aos JSONs, atualiza o bloco delimitado do manuscrito, produz um
+SVG vetorial e fixa hashes das fontes. O CI falha se qualquer um dos quatro
+materiais sincronizados ficar desatualizado.
 
 ## O que não entra no caminho crítico
 

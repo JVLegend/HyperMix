@@ -23,6 +23,7 @@ advanced since the draft date.
 | 14 | `14-the-narrow-physical-prior-won.md` | T9 comparison panel | ready |
 | 15 | `15-every-claim-needs-a-file.md` | evidence matrix or checksum terminal | ready |
 | 16 | `16-the-preprint-starts-with-what-failed.md` | manuscript evidence table | ready |
+| 17 | `17-the-table-is-code.md` | generated contrast figure or CI drift failure | ready |
 
 Public framing to preserve in every post:
 

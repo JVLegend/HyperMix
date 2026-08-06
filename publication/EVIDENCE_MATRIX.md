@@ -35,6 +35,21 @@ Evidence bundle verified: 8 claims, 16 files.
 O comando falha se um artefato estiver ausente, se um checksum divergir, se
 houver IDs duplicados ou se um caminho tentar sair do repositório.
 
+## Sincronização do manuscrito
+
+O comando abaixo extrai os valores dos oito JSONs, atualiza o bloco delimitado
+da tabela principal e gera uma figura SVG de contrastes e um arquivo de
+proveniência com os hashes das fontes:
+
+```bash
+python scripts/build_publication_assets.py
+python scripts/build_publication_assets.py --check
+```
+
+O modo `--check` não escreve arquivos. Ele falha se a tabela, a figura, a
+proveniência ou o bloco do manuscrito estiverem desatualizados. Na figura, cada
+linha usa escala própria e somente direção e cruzamento do zero são comparáveis.
+
 ## Regras de leitura para o preprint
 
 1. `supported` significa sustentado pelo protocolo e pelo artefato indicado,

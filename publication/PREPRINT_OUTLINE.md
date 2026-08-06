@@ -3,6 +3,10 @@
 Estado: estrutura de trabalho. A versão interna 0.1 está em
 `publication/MANUSCRIPT_DRAFT_PTBR.md`; não é um manuscrito submetido.
 
+Os materiais gerados ficam em `publication/generated/`. A tabela do manuscrito,
+o SVG de contrastes e a proveniência são sincronizados por
+`python scripts/build_publication_assets.py`; o CI executa o modo `--check`.
+
 ## Título provisório
 
 **HyperMix: an open benchmark for honest evaluation of engineered

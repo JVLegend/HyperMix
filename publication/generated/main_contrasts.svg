@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860">
+<title>HyperMix: paired contrasts oriented toward learned advantage</title>
+<desc>Each row has an independent scale. Positive values favor learning; negative values favor the matched-filter baseline.</desc>
+<rect width="100%" height="100%" fill="#071316"/>
+<style>text{font-family:Inter,Arial,sans-serif}.title{fill:#f3f7f5;font-size:28px;font-weight:700}.subtitle{fill:#9eb5ad;font-size:16px}.label{fill:#dce8e3;font-size:16px}.value{fill:#dce8e3;font-size:15px;font-variant-numeric:tabular-nums}.verdict{font-size:14px;font-weight:700}.grid{stroke:#345149;stroke-width:1}.zero{stroke:#c6d4cf;stroke-width:2}.ci{stroke-width:5;stroke-linecap:round}.dot{stroke:#071316;stroke-width:2}</style>
+<text x="36" y="44" class="title">Paired evidence, oriented toward learned advantage</text>
+<text x="36" y="76" class="subtitle">Positive favors learning; negative favors the matched-filter baseline. Each row has its own scale.</text>
+<text x="530" y="108" class="subtitle" text-anchor="start">classical baseline</text>
+<text x="770.0" y="108" class="subtitle" text-anchor="middle">0</text>
+<text x="1010" y="108" class="subtitle" text-anchor="end">learned method</text>
+<line x1="530" y1="128" x2="1010" y2="128" class="grid"/>
+<line x1="770.0" y1="107" x2="770.0" y2="149" class="zero"/>
+<text x="36" y="134" class="label">T7a · AUC</text>
+<line x1="570.00" y1="128" x2="746.54" y2="128" class="ci" stroke="#ff7b72"/>
+<circle cx="674.60" cy="128" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="134" class="value">-0.011 [-0.023. -0.003]</text>
+<text x="1280" y="134" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="190" x2="1010" y2="190" class="grid"/>
+<line x1="770.0" y1="169" x2="770.0" y2="211" class="zero"/>
+<text x="36" y="196" class="label">T7a · Pd@FAR</text>
+<line x1="570.00" y1="190" x2="714.94" y2="190" class="ci" stroke="#ff7b72"/>
+<circle cx="644.31" cy="190" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="196" class="value">-0.325 [-0.517. -0.142]</text>
+<text x="1280" y="196" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="252" x2="1010" y2="252" class="grid"/>
+<line x1="770.0" y1="231" x2="770.0" y2="273" class="zero"/>
+<text x="36" y="258" class="label">T7b · NLL, sinal invertido</text>
+<line x1="570.00" y1="252" x2="719.66" y2="252" class="ci" stroke="#ff7b72"/>
+<circle cx="654.65" cy="252" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="258" class="value">-0.01026 [-0.01778. -0.00448]</text>
+<text x="1280" y="258" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="314" x2="1010" y2="314" class="grid"/>
+<line x1="770.0" y1="293" x2="770.0" y2="335" class="zero"/>
+<text x="36" y="320" class="label">T7b · ECE, sinal invertido</text>
+<line x1="570.00" y1="314" x2="695.83" y2="314" class="ci" stroke="#ff7b72"/>
+<circle cx="628.22" cy="314" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="320" class="value">-0.00397 [-0.00560. -0.00208]</text>
+<text x="1280" y="320" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="376" x2="1010" y2="376" class="grid"/>
+<line x1="770.0" y1="355" x2="770.0" y2="397" class="zero"/>
+<text x="36" y="382" class="label">T9 · AUC</text>
+<line x1="570.00" y1="376" x2="611.88" y2="376" class="ci" stroke="#ff7b72"/>
+<circle cx="594.23" cy="376" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="382" class="value">-0.191 [-0.217. -0.171]</text>
+<text x="1280" y="382" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="438" x2="1010" y2="438" class="grid"/>
+<line x1="770.0" y1="417" x2="770.0" y2="459" class="zero"/>
+<text x="36" y="444" class="label">T9 · Pd@FAR</text>
+<line x1="570.00" y1="438" x2="619.02" y2="438" class="ci" stroke="#ff7b72"/>
+<circle cx="594.67" cy="438" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="444" class="value">-0.257 [-0.293. -0.221]</text>
+<text x="1280" y="444" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="500" x2="1010" y2="500" class="grid"/>
+<line x1="770.0" y1="479" x2="770.0" y2="521" class="zero"/>
+<text x="36" y="506" class="label">T10 · AUC</text>
+<line x1="570.00" y1="500" x2="768.90" y2="500" class="ci" stroke="#ff7b72"/>
+<circle cx="687.05" cy="500" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="506" class="value">-0.0135 [-0.0326. -0.0002]</text>
+<text x="1280" y="506" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="562" x2="1010" y2="562" class="grid"/>
+<line x1="770.0" y1="541" x2="770.0" y2="583" class="zero"/>
+<text x="36" y="568" class="label">T10 · Pd@FAR</text>
+<line x1="570.00" y1="562" x2="761.51" y2="562" class="ci" stroke="#ff7b72"/>
+<circle cx="672.97" cy="562" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="568" class="value">-0.0417 [-0.0859. -0.0036]</text>
+<text x="1280" y="568" class="verdict" fill="#ff7b72">classical advantage</text>
+<line x1="530" y1="624" x2="1010" y2="624" class="grid"/>
+<line x1="770.0" y1="603" x2="770.0" y2="645" class="zero"/>
+<text x="36" y="630" class="label">T12 · MAE, sinal invertido</text>
+<line x1="570.00" y1="624" x2="789.35" y2="624" class="ci" stroke="#e6b85c"/>
+<circle cx="681.96" cy="624" r="7" class="dot" fill="#e6b85c"/>
+<text x="1045" y="630" class="value">-0.0026 [-0.0059. 0.0006]</text>
+<text x="1280" y="630" class="verdict" fill="#e6b85c">inconclusive</text>
+<line x1="530" y1="686" x2="1010" y2="686" class="grid"/>
+<line x1="770.0" y1="665" x2="770.0" y2="707" class="zero"/>
+<text x="36" y="692" class="label">T12 · largura, sinal invertido</text>
+<line x1="570.00" y1="686" x2="592.15" y2="686" class="ci" stroke="#ff7b72"/>
+<circle cx="580.76" cy="686" r="7" class="dot" fill="#ff7b72"/>
+<text x="1045" y="692" class="value">-0.0096 [-0.0102. -0.0090]</text>
+<text x="1280" y="692" class="verdict" fill="#ff7b72">classical advantage</text>
+<text x="36" y="780" class="subtitle">Intervals are not standardized. Compare direction and zero crossing row by row, not line length across metrics.</text>
+<text x="36" y="810" class="subtitle">T7b and T12 loss/error contrasts are sign-inverted only for this directional display.</text>
+</svg>

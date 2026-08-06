@@ -26,6 +26,8 @@ jobs:
           python-version: "3.11"
       - name: Verify checksummed publication evidence
         run: python -I scripts/verify_evidence_manifest.py
+      - name: Verify generated manuscript assets
+        run: python -I scripts/build_publication_assets.py --check
 
   core:
     name: Core / Python ${{ matrix.python-version }}
