@@ -175,6 +175,68 @@ O download é retomável. Depois de concluído, tamanho e MD5 são verificados
 antes de o arquivo `.part` receber o nome final. `--inspect` testa a integridade
 do ZIP e lista seus membros sem extrair conteúdo.
 
+## Varredura remota dos demais subconjuntos, 2026-08-28
+
+O diretório central de um ZIP fica no fim do arquivo, então o conteúdo de cada
+subconjunto foi listado por requisições HTTP com cabeçalho `Range`, sem baixar os
+volumes completos. Cada listagem custou cerca de 3 KiB.
+
+| Subconjunto | Tamanho | Traz rótulo de concentração? | Traz controles? |
+|---|---:|---|---|
+| `rg_bchla_pellets_ctrl` | 1,54 GB | **sim**, `RG_concentration_map.csv` embutido | série inclui zero |
+| `rg_on_sand_24m` | 0,73 GB | não, caminho externo `giha1_plate_OD_labels.csv` | **sim**, positivo e negativo |
+| `rg_on_sand_induction_54m` | 0,63 GB | não, caminho externo | não, campos vazios |
+| `rg_in_field_sensing` | 2,92 GB | não, só cubo e cabeçalho | não |
+| `rg_in_field_sensing_replicates` | 0,72 GB | não, só cubo e cabeçalho | não |
+| `rg_wt_aj1_yf6_pellets` | 3,19 GB | não, só cubo, cabeçalho e PNG | não |
+| `rg_yf10_gradient_varied_soils` | 1,70 GB | não, só cubo, cabeçalho e PNG | não |
+
+A coluna de rótulo descreve o que **acompanha o ZIP**. No caso do voo de 54 m os
+níveis foram recuperados depois por fonte pública independente, conforme a seção
+anterior; a lacuna remanescente ali é geométrica, não de rótulo.
+
+### `rg_bchla_pellets_ctrl`, o único com ground truth embutido
+
+O `RG_concentration_map.csv` tem 192 bytes e descreve uma grade de 4 por 12:
+
+```
+2000,1000,800,600,400,200,100,50,10,1,0.1,0
+2000,1000,800,600,400,200,100,50,10,1,0.1,0
+NA,NA,NA,NA,NA,NA,NA,500000,100000,50000,10000,4000
+NA,NA,NA,NA,NA,NA,NA,500000,100000,50000,10000,4000
+```
+
+São duas séries em duplicata. A primeira cobre quatro ordens de grandeza e
+**inclui controle zero**. A segunda cobre valores muito mais altos, de 500000 a
+4000, com sete células ausentes. O cubo é ENVI `bil`, float32, little-endian,
+1600 por 754 com 371 bandas, portanto configuração de sensor diferente da usada
+no voo de 54 m.
+
+Duas ressalvas registradas antes de qualquer análise. A unidade das
+concentrações não aparece no CSV, então por ora os valores são ordem relativa e
+não concentração absoluta. E o CSV dá a grade, não a posição dos poços na
+imagem, de modo que o mapeamento espacial continua a ser estabelecido; a
+diferença em relação ao voo de 54 m é que uma placa é uma grade regular, um
+problema geométrico bem posto.
+
+Este subconjunto é de bancada, não de voo. Ele permite medir limite de detecção
+e abundância calibrada sobre espectros medidos com concentração conhecida, mas
+não valida detecção a 54 m contra clutter natural. As duas perguntas são
+distintas e serão reportadas como tais.
+
+### `rg_on_sand_24m`, melhor que o de 54 m em controles
+
+O `params_file.json` traz doze retângulos e, ao contrário do voo de 54 m,
+declara controles: `REF_BLOT_POS_CTRL_COORDS` igual a `[[0, 0], [0, 1]]` e
+`REF_BLOT_NEG_CTRL_COORDS` igual a `[[5, 0], [5, 1]]`. A rotação é de 22,44
+graus e o recorte tem 287 por 295, com raio de blot de 23,3 pixels. O cubo é
+`bsq`, 1410 por 1234 com 273 bandas, e a faixa de análise declarada é de 500 a
+900 nm.
+
+O rótulo de concentração continua fora do arquivo, em
+`giha1_plate_OD_labels.csv`, mas o nome informa a unidade pretendida,
+densidade óptica.
+
 ## Leitura do cubo no HyperMix
 
 `hypermix/envi.py` foi escrito depois da inspeção e não substitui
