@@ -237,6 +237,73 @@ O rótulo de concentração continua fora do arquivo, em
 `giha1_plate_OD_labels.csv`, mas o nome informa a unidade pretendida,
 densidade óptica.
 
+## Inspeção local de `rg_bchla_pellets_ctrl`, 2026-08-28
+
+O ZIP foi transferido de forma retomável, com um supervisor que reiniciou a
+transferência após dois `TimeoutError`. Tamanho e MD5 foram conferidos de forma
+independente após o download: 1.540.133.184 bytes e
+`a62e189eef22baaf36931d126e74c449`, ambos conformes ao manifesto. O ZIP foi criado
+em Windows e usa barra invertida como separador, o que exige normalização de
+caminho na extração.
+
+### Cubo
+
+Lido com `hypermix/envi.py`, que assim exercita o caminho `bil` além do `bsq` do
+voo de 54 m.
+
+| Campo | Valor |
+|---|---|
+| samples, lines, bands | 1600, 754, 371 |
+| interleave | `bil` |
+| data type | 4, float32, little-endian |
+| wavelengths | 371 valores de 399,590 nm a 1002,490 nm, passo médio 1,6295 nm |
+| sensor | `uVS-374`, lente de 24 mm |
+| description | `[HEADWALL Hyperspec III]` |
+
+O produto 1600 x 754 x 371 x 4 dá 1.790.297.600 bytes, exatamente o tamanho do
+binário. Não há preenchimento: zero por cento dos pixels são nulos em todas as
+bandas amostradas, coerente com cena de bancada e não ortorretificada.
+
+Dois pontos de cautela sobre escala. A descrição **não** traz a cadeia
+`RADIANCE, REFLECTANCE, OR` presente no voo de 54 m, portanto o nível de
+processamento é diferente e não deve ser presumido equivalente. E os valores vão
+de 0 a exatamente 3,000 em várias bandas, o que sugere teto de saturação por
+recorte. Nenhuma conversão é aplicada; o dado é lido como está.
+
+### Desenho experimental visível
+
+A imagem de referência mostra uma placa padrão de 96 poços, oito linhas por doze
+colunas, com conteúdo apenas nas quatro primeiras linhas. Isso é coerente com a
+grade de 4 por 12 do `RG_concentration_map.csv`. O passo da grade medido no cubo
+é de aproximadamente 71 pixels nos dois eixos, compatível com o passo físico
+uniforme de uma placa de 96 poços.
+
+### Geometria NÃO resolvida
+
+O mapeamento entre células do CSV e poços da imagem **não foi estabelecido** e
+não deve ser presumido. Três ambiguidades permanecem abertas:
+
+1. **Fase da grade.** Ajustes por contraste e por estrutura de poços vazios
+   convergiram para fases diferentes, deslocadas em cerca de uma posição em cada
+   eixo. As duas hipóteses cabem dentro da área da placa.
+2. **Orientação das colunas.** O texto impresso na placa aparece espelhado na
+   imagem, o que sugere inversão de colunas, enquanto o padrão de poços vazios
+   das linhas 3 e 4 do CSV sugere o contrário. As duas leituras não foram
+   conciliadas.
+3. **Borda versus rótulo.** A faixa à direita da imagem contém as letras de linha
+   impressas na placa, e uma das fases candidatas coloca a última coluna sobre
+   essa faixa em vez de sobre um poço, o que produziria um valor baixo por
+   artefato e não por concentração nula.
+
+Enquanto essas três ambiguidades não forem resolvidas por evidência independente
+do score de qualquer detector, nenhuma comparação de métodos será executada neste
+subconjunto. Em particular, escolher a fase ou a orientação que torna o sinal
+mais bonito seria exatamente o erro circular que já bloqueou o voo de 54 m.
+
+Caminho previsto: detecção de poços por estrutura óptica em bandas onde o corante
+não absorve, ancoragem pelas letras impressas da placa, e verificação com o poço
+declarado de concentração zero, tudo pré-registrado antes de qualquer avaliação.
+
 ## Leitura do cubo no HyperMix
 
 `hypermix/envi.py` foi escrito depois da inspeção e não substitui
