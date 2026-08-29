@@ -1,0 +1,52 @@
+{
+  "band_stride": 6,
+  "seed": 0,
+  "scenes": [
+    {
+      "scene": "pellets, po\u00e7os vazios",
+      "n_pixels": 29424,
+      "n_bands": 62,
+      "pixels_per_dimension": 474.6,
+      "excess_kurtosis_median": 5.196293139626154,
+      "excess_kurtosis_max": 9.553479942163897,
+      "bands_with_excess_kurtosis_above_1": 62,
+      "skewness_median": 1.8390089512683583,
+      "mahalanobis_observed": {
+        "q0.5": 45.70758576096708,
+        "q0.9": 89.05884341916531,
+        "q0.99": 349.2833151269665,
+        "q0.999": 1122.3543884976737
+      },
+      "mahalanobis_expected_gaussian": {
+        "q0.5": 61.30000753039296,
+        "q0.9": 76.57519158926893,
+        "q0.99": 90.83259798237651,
+        "q0.999": 102.09928701535257
+      },
+      "tail_ratio_q999": 10.993
+    },
+    {
+      "scene": "voo 54 m, fundo",
+      "n_pixels": 60000,
+      "n_bands": 46,
+      "pixels_per_dimension": 1304.3,
+      "excess_kurtosis_median": 0.04612534758366671,
+      "excess_kurtosis_max": 9.40311941621284,
+      "bands_with_excess_kurtosis_above_1": 9,
+      "skewness_median": 0.5183996094475001,
+      "mahalanobis_observed": {
+        "q0.5": 41.927961539253765,
+        "q0.9": 70.75172249099842,
+        "q0.99": 115.061511507131,
+        "q0.999": 562.8114853429192
+      },
+      "mahalanobis_expected_gaussian": {
+        "q0.5": 45.27638827027079,
+        "q0.9": 58.608511861484054,
+        "q0.99": 70.87051080292437,
+        "q0.999": 81.6228764403895
+      },
+      "tail_ratio_q999": 6.895
+    }
+  ]
+}
