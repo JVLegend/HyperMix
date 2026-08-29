@@ -2,6 +2,52 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T8d: segundo subconjunto real e geometria da placa - 2026-08-29
+
+O eixo de alvo real ganhou uma segunda fonte, encontrada dentro do próprio
+registro público em vez de depender de terceiros. Os seis subconjuntos ainda não
+abertos foram listados remotamente, lendo o diretório central de cada ZIP por
+requisição HTTP com cabeçalho `Range`, ao custo de cerca de 3 KiB por arquivo.
+
+`rg_bchla_pellets_ctrl.zip` é o único do registro que traz ground truth
+embutido: um `RG_concentration_map.csv` com grade de 4 por 12, uma série de 2000
+até 0 cobrindo quatro ordens de grandeza e incluindo controle zero, mais uma
+segunda série de 500000 a 4000, ambas em duplicata. `rg_on_sand_24m.zip` é
+melhor que o voo de 54 m em um ponto: declara controles positivo e negativo, que
+lá estavam vazios. Os outros quatro trazem apenas cubo, cabeçalho e PNG.
+
+O ZIP de pellets foi baixado e verificado, 1.540.133.184 bytes e MD5
+`a62e189eef22baaf36931d126e74c449`. O cubo é ENVI `bil`, 1600 por 754 com 371
+bandas, de 399,590 nm a 1002,490 nm, sensor `uVS-374`, e o binário bate exato com
+as dimensões. Isso exercitou o caminho `bil` do leitor, além do `bsq` do voo.
+Duas cautelas ficaram registradas: a descrição não traz a cadeia
+`RADIANCE, REFLECTANCE, OR`, e os valores têm teto exato em 3,000.
+
+A geometria da placa foi resolvida pela rota de anotação manual congelada. O
+período veio de autocorrelação do gradiente em banda NIR e a fase foi escolhida
+por inspeção visual do alinhamento com a estrutura óptica dos poços, nunca com
+intensidade de corante, sem consultar score de detector. A grade tem linhas em
+`138 + 72k` e colunas em `433 + 70k`, com os 96 círculos sobre os 96 poços.
+`hypermix/data/biohsi_pellets_plate_geometry.json` congela isso com SHA-256
+próprio e MD5 do cubo, `scripts/biohsi_pellets_plate_overlay.py` regenera a
+evidência conferindo os dois hashes antes de desenhar, e testes offline validam o
+artefato sem depender do cubo de 1,8 GB. Na prática é o artefato de coordenadas
+que falta no arquivo publicado pelos autores.
+
+A orientação tem âncora independente de sinal: as letras A a H impressas na placa
+aparecem na borda direita da imagem, logo a imagem está espelhada e a coluna
+física 1 fica à direita.
+
+Isto ainda não é resultado de detecção, e três pontos seguem abertos. A unidade
+das concentrações não é declarada. A correspondência entre as quatro linhas do
+CSV e as linhas da placa não foi estabelecida. E uma sonda pré-especificada de
+profundidade de banda no pico Qy da bacterioclorofila a, 800 nm com ombros em 750
+e 860 nm, não recuperou sinal coerente, com valores planos e negativos inclusive
+nas linhas vazias. A correlação de Spearman com o log da concentração deu -0,542
+na orientação da imagem, com sinal oposto ao que absorção exigiria, e por isso
+não foi usada para decidir orientação. Duas sondas anteriores foram descartadas
+por erro declarado de escolha espectral. 111 testes verdes.
+
 ## T13: pacote de publicação rastreável - 2026-08-06
 
 O diretório `publication/` agora contém uma matriz de oito afirmações, o

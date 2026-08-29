@@ -99,6 +99,28 @@ diretamente também falhou nessas caixas, com MAE 0,158137 e Pearson 0,145083.
 O próximo passo é recuperar o JSON manual ou outra ponte independente de
 coordenadas. A análise comparativa não pode avançar por ajuste visual ao score.
 
+### T8d: segundo subconjunto real, pellets com concentração conhecida
+
+- [x] Varrer remotamente os seis subconjuntos não abertos por HTTP `Range`, sem
+      baixar os volumes.
+- [x] Identificar `rg_bchla_pellets_ctrl` como o único com ground truth embutido
+      e `rg_on_sand_24m` como o único que declara controles.
+- [x] Baixar e verificar o ZIP de pellets por tamanho e MD5.
+- [x] Ler o cubo pelo caminho `bil` do leitor e registrar as cautelas de escala.
+- [x] Resolver a geometria da placa por anotação manual congelada, com hash,
+      script de regeneração e testes offline.
+- [x] Fixar a âncora de orientação pelas letras impressas, independente de sinal.
+- [ ] **Bloqueante:** identificar a unidade das concentrações do CSV.
+- [ ] **Bloqueante:** estabelecer qual linha do CSV corresponde a qual linha da
+      placa, por evidência independente de score.
+- [ ] Só então definir métrica primária e unidade estatística para este
+      subconjunto, tratando poços como unidades e não pixels.
+
+O eixo de detecção permanece intocado neste subconjunto. A sonda pré-especificada
+no pico Qy da bacterioclorofila a não recuperou sinal coerente, e o resultado foi
+registrado como negativo em vez de substituído por outra janela escolhida a
+posteriori.
+
 ### T8c: confronto e aceite
 
 - [x] Implementar o método publicado, fixar a porta e registrar a primeira
