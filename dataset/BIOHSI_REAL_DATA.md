@@ -300,9 +300,37 @@ do score de qualquer detector, nenhuma comparação de métodos será executada 
 subconjunto. Em particular, escolher a fase ou a orientação que torna o sinal
 mais bonito seria exatamente o erro circular que já bloqueou o voo de 54 m.
 
-Caminho previsto: detecção de poços por estrutura óptica em bandas onde o corante
-não absorve, ancoragem pelas letras impressas da placa, e verificação com o poço
-declarado de concentração zero, tudo pré-registrado antes de qualquer avaliação.
+### Tentativa automática de detecção da grade, resultado negativo
+
+A detecção automática foi tentada e **não convergiu**. O registro do que falhou
+importa tanto quanto um sucesso.
+
+O período da grade foi recuperado de forma estável por autocorrelação do
+gradiente em banda NIR, onde o corante não absorve: 70 pixels entre colunas e 72
+entre linhas, coerentes entre si e com o passo uniforme de uma placa de 96 poços.
+A fase, porém, não foi resolvida. Três abordagens independentes, picos do desvio
+padrão do contraste, ajuste de grade regular por busca, e correlação com uma
+grade sintética, convergiram para fases diferentes, deslocadas em cerca de uma
+posição em cada eixo.
+
+A causa foi identificada. O modelo usado supunha interior liso e borda com
+gradiente forte, mas cada poço vazio apresenta um **reflexo especular no
+centro**. Esse brilho produz gradiente alto no interior e inverte o sinal da
+métrica, o que explica tanto os escores negativos em ambas as fases testadas
+quanto a divergência entre os ajustes. Nenhuma das fases candidatas foi adotada.
+
+Duas rotas permanecem, e a escolha entre elas ainda não foi feita:
+
+1. Detecção de círculos dimensionada ao diâmetro real do poço, cerca de 60 a 70
+   pixels, robusta a reflexo especular.
+2. Anotação manual única, congelada em artefato versionado com hash, declarada
+   como tal. Essa rota é legítima desde que a anotação seja feita sem consultar
+   score de detector e publicada junto do resultado. Na prática, produziria
+   exatamente o artefato de coordenadas que falta no arquivo dos autores.
+
+Caminho previsto em qualquer das rotas: ancoragem pelas letras impressas da
+placa, verificação com o poço declarado de concentração zero, e pré-registro
+antes de qualquer avaliação.
 
 ## Leitura do cubo no HyperMix
 
