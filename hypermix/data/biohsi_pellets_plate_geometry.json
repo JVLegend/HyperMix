@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "subset": "rg_bchla_pellets_ctrl.zip",
+  "zenodo_doi": "10.5281/zenodo.14756889",
+  "zip_md5": "a62e189eef22baaf36931d126e74c449",
+  "cube_relpath": "rg_bchla_pellets_ctrl/data",
+  "cube_md5": "65f4d553dad8c11350d2d393beacc61f",
+  "cube_shape_lines_samples_bands": [
+    754,
+    1600,
+    371
+  ],
+  "cube_interleave": "bil",
+  "geometry_image_frame": {
+    "rows_y": [
+      138,
+      210,
+      282,
+      354,
+      426,
+      498,
+      570,
+      642
+    ],
+    "cols_x": [
+      433,
+      503,
+      573,
+      643,
+      713,
+      783,
+      853,
+      923,
+      993,
+      1063,
+      1133,
+      1203
+    ],
+    "row_pitch_px": 72,
+    "col_pitch_px": 70,
+    "sample_radius_px": 20,
+    "row_labels": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "n_wells": 96
+  },
+  "annotation_method": "Anotacao manual unica. A grade foi proposta por autocorrelacao do gradiente em banda NIR e a fase foi escolhida por inspecao visual de overlay sobre a estrutura optica dos pocos, nao sobre intensidade de corante. Nenhum score de detector foi consultado. Evidencia em assets/biohsi_pellets_plate_grid.png.",
+  "orientation_anchor": "As letras de linha A a H impressas na placa aparecem na borda DIREITA da imagem, correndo de A no topo a H embaixo. Em placa padrao de 96 pocos elas ficam a esquerda, portanto a imagem esta espelhada horizontalmente e a coluna fisica 1 corresponde a coluna mais a DIREITA da imagem. Este ancoramento vem de rotulo impresso, independente de qualquer sinal espectral.",
+  "unresolved": [
+    "A unidade das concentracoes do RG_concentration_map.csv nao e declarada.",
+    "A correspondencia entre as quatro linhas do CSV e as linhas da placa nao foi estabelecida e nao deve ser presumida.",
+    "Uma sonda pre-especificada de profundidade de banda no pico Qy da bacterioclorofila a, 800 nm com ombros em 750 e 860 nm, nao recuperou sinal coerente: valores planos e negativos em toda a placa, inclusive nas linhas sem conteudo aparente. A correlacao de Spearman com log da concentracao deu -0,542 na orientacao da imagem, com sinal oposto ao que absorcao exigiria, e por isso NAO foi usada para decidir orientacao."
+  ],
+  "usage_rule": "Esta geometria localiza pocos. Ela NAO autoriza comparacao de metodos neste subconjunto enquanto o mapeamento linha-para-concentracao e a unidade nao forem resolvidos por evidencia independente de score.",
+  "geometry_sha256": "b03681809e188d8d2fea6a4b0deddfcbba5c812006c1719819e72403e3e07ebb"
+}

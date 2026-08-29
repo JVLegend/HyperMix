@@ -328,9 +328,50 @@ Duas rotas permanecem, e a escolha entre elas ainda não foi feita:
    score de detector e publicada junto do resultado. Na prática, produziria
    exatamente o artefato de coordenadas que falta no arquivo dos autores.
 
-Caminho previsto em qualquer das rotas: ancoragem pelas letras impressas da
-placa, verificação com o poço declarado de concentração zero, e pré-registro
-antes de qualquer avaliação.
+### Geometria resolvida por anotação manual congelada, 2026-08-28
+
+A rota de anotação manual foi executada. O período da grade já era estável por
+autocorrelação; a fase foi decidida por inspeção visual de um overlay desenhado
+sobre a banda NIR, julgando alinhamento com a estrutura óptica dos poços e nunca
+com intensidade de corante. Nenhum score de detector foi consultado.
+
+A grade adotada, no referencial da imagem, tem linhas em `138 + 72k` para k de 0
+a 7 e colunas em `433 + 70k` para k de 0 a 11. Os 96 círculos caem sobre os 96
+poços, o que está registrado em `assets/biohsi_pellets_plate_grid.png`.
+
+O artefato `hypermix/data/biohsi_pellets_plate_geometry.json` congela essa
+geometria com SHA-256 próprio, o MD5 do cubo e as questões ainda abertas. Ele
+acompanha o pacote e é validado por testes offline que não dependem do cubo de
+1,8 GB. Na prática, é exatamente o artefato de coordenadas que falta no arquivo
+publicado pelos autores.
+
+**Âncora de orientação, independente de sinal.** As letras de linha A a H
+impressas na placa aparecem na borda **direita** da imagem, correndo de A no topo
+a H embaixo. Em uma placa padrão de 96 poços essas letras ficam à esquerda,
+portanto a imagem está espelhada horizontalmente e a **coluna física 1
+corresponde à coluna mais à direita da imagem**. Essa conclusão vem de rótulo
+impresso no plástico, não de qualquer medida espectral.
+
+### O que a geometria ainda não autoriza
+
+Localizar poços não é o mesmo que atribuir concentrações. Três pontos seguem
+abertos e impedem qualquer comparação de métodos neste subconjunto:
+
+1. A unidade das concentrações do CSV continua não declarada.
+2. A correspondência entre as quatro linhas do CSV e as linhas da placa não foi
+   estabelecida.
+3. Uma sonda **pré-especificada** de profundidade de banda no pico Qy da
+   bacterioclorofila a, 800 nm com ombros em 750 e 860 nm, **não** recuperou
+   sinal coerente: valores planos e negativos em toda a placa, inclusive nas
+   linhas sem conteúdo aparente. A correlação de Spearman com o log da
+   concentração deu -0,542 na orientação da imagem, com sinal **oposto** ao que
+   absorção exigiria. Por isso ela não foi usada para decidir orientação nem
+   tratada como evidência de detecção.
+
+Duas sondas anteriores foram descartadas por erro declarado de escolha
+espectral: contraste 900 menos 540 nm, adequado a corante visível e não a um
+pigmento do infravermelho próximo, e profundidade ancorada no máximo da curva de
+biblioteca, que cai na banda Soret em 399,6 nm e torna o cálculo degenerado.
 
 ## Leitura do cubo no HyperMix
 
