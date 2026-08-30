@@ -1,0 +1,50 @@
+{
+  "subset": "rg_on_sand_24m.zip",
+  "cube_md5": "3aea44b708f10b04512ac203ebc76ebc",
+  "geometry_sha256": "11d257d7397d6ac1c16041071e164e1ce9dcbfe0630f99b20f60bc69040c47cc",
+  "bands_nm": {
+    "left": 819.984,
+    "peak": 866.555,
+    "right": 910.908
+  },
+  "prespecified_prediction": "sinal monótono decrescente da posição 0, controle positivo declarado, para a posição 5, controle negativo declarado, com as duas réplicas concordando quanto ao sentido",
+  "observed": {
+    "A": {
+      "band_depth": [
+        0.035518,
+        0.012686,
+        -0.002118,
+        -0.00128,
+        -0.005994,
+        -0.010886
+      ],
+      "spearman_position_vs_signal": -0.9429
+    },
+    "B": {
+      "band_depth": [
+        0.037196,
+        0.024682,
+        0.007005,
+        -0.001141,
+        -0.009989,
+        -0.016504
+      ],
+      "spearman_position_vs_signal": -1.0
+    }
+  },
+  "jitter_px": 5,
+  "jitter_draws": 300,
+  "jitter_sensitivity": {
+    "A": {
+      "median": -0.9429,
+      "p2.5": -1.0,
+      "p97.5": -0.4857
+    },
+    "B": {
+      "median": -1.0,
+      "p2.5": -1.0,
+      "p97.5": -0.5971
+    }
+  },
+  "replicate_sign_agreement_rate": 1.0
+}

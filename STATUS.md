@@ -2,6 +2,41 @@
 
 Source of progress truth for the repo. Read before starting a phase, update at the end.
 
+## T8e: primeira ordenação recuperada em expressão biológica medida - 2026-08-30
+
+Pela primeira vez o projeto mediu expressão biológica real, sem implantar alvo
+digital. O subconjunto de 24 m traz doze blots em areia, seis posições em duas
+colunas réplicas, e o `params_file.json` do próprio arquivo declara a posição 0
+como controle positivo e a posição 5 como negativo nas duas réplicas.
+
+Essa identidade é anterior a qualquer medição feita aqui, o que permitiu
+registrar a predição antes de medir: o sinal deve cair de forma monótona da
+posição 0 para a 5 e as duas réplicas devem concordar quanto ao sentido. O
+sentido não foi escolhido depois de ver os dados.
+
+Sinal medido como profundidade de banda em 866,6 nm, pico documentado do repórter
+YF10, com ombros em 820,0 e 910,9 nm. Resultado: Spearman de -0,943 na réplica A
+e -1,000 na réplica B, ou seja monótona perfeita numa delas. Sob deslocamento
+aleatório dos centros anotados de até 5 px, em 300 sorteios, as medianas foram
+-0,943 e -1,000 e as duas réplicas concordaram quanto ao sentido em 100% dos
+sorteios.
+
+A geometria é anotação manual provisória, congelada em
+`hypermix/data/biohsi_24m_blot_geometry.json` com SHA-256 próprio e MD5 do cubo.
+A janela `CROP` declarada no `params` não foi usada: ela contém 74,4% de
+preenchimento e, marcada sobre a imagem, cai fora do conjunto experimental.
+Três tentativas de localização automática falharam antes, por limiar de brilho,
+por componentes conexos de borda escura e por ajuste de grade rotacionada que
+convergiu para solução degenerada na borda do espaço de busca. Todas ficaram
+registradas.
+
+O que este resultado não é: não é comparação de detectores, não é curva
+dose-resposta calibrada, já que as concentrações das posições 1 a 4 continuam
+desconhecidas, e duas colunas são poucas unidades para inferência populacional.
+O que ele é: a primeira evidência neste projeto de que o pipeline recupera a
+ordenação esperada de expressão biológica realmente medida a distância.
+`results/real_target_24m.md`. 120 testes verdes.
+
 ## T8d: segundo subconjunto real e geometria da placa - 2026-08-29
 
 O eixo de alvo real ganhou uma segunda fonte, encontrada dentro do próprio

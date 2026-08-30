@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "subset": "rg_on_sand_24m.zip",
+  "zenodo_doi": "10.5281/zenodo.14756889",
+  "zip_md5": "c236e15c7553109f08dc1892a46d7b6f",
+  "cube_relpath": "rg_on_sand_24m/raw_34000_concentration_rd_rf_or",
+  "cube_md5": "3aea44b708f10b04512ac203ebc76ebc",
+  "cube_shape_lines_samples_bands": [
+    1234,
+    1410,
+    273
+  ],
+  "cube_interleave": "bsq",
+  "geometry_image_frame": {
+    "replicate_a_xy": [
+      [
+        784,
+        665
+      ],
+      [
+        772,
+        687
+      ],
+      [
+        763,
+        709
+      ],
+      [
+        756,
+        734
+      ],
+      [
+        748,
+        758
+      ],
+      [
+        742,
+        781
+      ]
+    ],
+    "replicate_b_xy": [
+      [
+        821,
+        681
+      ],
+      [
+        809,
+        707
+      ],
+      [
+        799,
+        728
+      ],
+      [
+        789,
+        750
+      ],
+      [
+        781,
+        772
+      ],
+      [
+        772,
+        800
+      ]
+    ],
+    "sample_radius_px": 5,
+    "positions": 6,
+    "replicates": 2,
+    "position_0_role": "positive_control",
+    "position_5_role": "negative_control"
+  },
+  "annotation_method": "Anotacao manual provisoria, lida visualmente sobre a imagem de referencia com grade de coordenadas. A leitura e internamente consistente: passo de 24,7 e 25,7 px ao longo das duas colunas e separacao de 40,3 px entre elas, aproximadamente perpendicular a direcao das colunas. A janela CROP declarada no params NAO foi usada porque contem 74,4% de preenchimento e cai fora do conjunto experimental. Incerteza estimada de poucos pixels, tratada por analise de sensibilidade a jitter em vez de precisao alegada.",
+  "control_identity_source": "REF_BLOT_POS_CTRL_COORDS e REF_BLOT_NEG_CTRL_COORDS do params_file.json do proprio subconjunto declaram a posicao 0 como controle positivo e a posicao 5 como negativo, nas duas replicas. Essa identidade e anterior a qualquer medicao feita aqui e por isso a direcao esperada do gradiente e uma predicao, nao um ajuste posterior.",
+  "unresolved": [
+    "As concentracoes das posicoes 1 a 4 permanecem desconhecidas: o CSV giha1_plate_OD_labels.csv nao acompanha o ZIP.",
+    "A anotacao e provisoria e nao foi validada contra as coordenadas originais dos autores.",
+    "Duas colunas replicas sao poucas unidades para inferencia populacional."
+  ],
+  "geometry_sha256": "11d257d7397d6ac1c16041071e164e1ce9dcbfe0630f99b20f60bc69040c47cc"
+}
