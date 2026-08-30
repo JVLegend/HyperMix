@@ -6,7 +6,7 @@ from importlib.resources import files
 
 import numpy as np
 
-from scripts.real_target_24m_gradient import _sample, _spearman
+from hypermix import sample_disk_means, spearman_r
 
 ARTIFACT = files("hypermix.data").joinpath("biohsi_24m_blot_geometry.json")
 
@@ -44,8 +44,8 @@ def test_spearman_is_minus_one_for_a_strictly_decreasing_sequence():
     positions = np.arange(6, dtype=float)
     decreasing = np.array([5.0, 4.0, 3.0, 2.0, 1.0, 0.0])
 
-    assert _spearman(positions, decreasing) == -1.0
-    assert _spearman(positions, positions) == 1.0
+    assert spearman_r(positions, decreasing) == -1.0
+    assert spearman_r(positions, positions) == 1.0
 
 
 def test_sample_averages_a_disk_around_each_centre():
@@ -53,7 +53,7 @@ def test_sample_averages_a_disk_around_each_centre():
     depth[20, 10] = 1.0
     depth[20, 30] = 2.0
 
-    values = _sample(depth, [(10, 20), (30, 20)], radius=3)
+    values = sample_disk_means(depth, [(10, 20), (30, 20)], 3)
 
     assert values[1] > values[0] > 0.0
     # média sobre o disco, não o valor do pixel central

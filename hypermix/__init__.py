@@ -47,6 +47,9 @@ from .metrics import (
     reliability_curve,
     roc_auc,
     roc_curve,
+    spearman_r,
+    excess_kurtosis,
+    skewness,
 )
 from .background import background_detector, smoothed_background_detector
 from .blind import (
@@ -79,6 +82,7 @@ from .envi import (
     envi_nodata_mask,
     open_envi_cube,
     parse_envi_header,
+    sample_disk_means,
 )
 from .biohsi_roi import (
     BioHSI54mProtocol,
@@ -127,6 +131,9 @@ __all__ = [
     "expected_calibration_error",
     "reliability_curve",
     "pearson_r",
+    "spearman_r",
+    "excess_kurtosis",
+    "skewness",
     "mean_absolute_error",
     "mean_bias",
     "interval_coverage",
@@ -155,6 +162,7 @@ __all__ = [
     "parse_envi_header",
     "open_envi_cube",
     "envi_nodata_mask",
+    "sample_disk_means",
     "BioHSI54mProtocol",
     "BioHSIRoi",
     "load_biohsi_54m_protocol",

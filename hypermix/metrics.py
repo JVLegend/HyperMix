@@ -14,6 +14,9 @@ __all__ = [
     "expected_calibration_error",
     "reliability_curve",
     "pearson_r",
+    "spearman_r",
+    "excess_kurtosis",
+    "skewness",
     "mean_absolute_error",
     "mean_bias",
     "interval_coverage",
@@ -283,3 +286,44 @@ def mean_interval_width(
     if np.any(lower > upper):
         raise ValueError("lower interval bounds must not exceed upper bounds")
     return float(np.mean(upper - lower))
+
+
+def spearman_r(a: np.ndarray, b: np.ndarray) -> float:
+    """Correlação de postos, apropriada quando só a ordenação é significativa.
+
+    Usada onde a relação esperada é monótona mas não linear, como a resposta de
+    um repórter ao longo de um gradiente de concentração. Empates recebem postos
+    pela ordem de classificação, sem correção de empate média.
+    """
+    first = np.asarray(a, dtype=np.float64).ravel()
+    second = np.asarray(b, dtype=np.float64).ravel()
+    if first.size != second.size:
+        raise ValueError("spearman_r requires arrays of the same size")
+    if first.size < 2:
+        raise ValueError("spearman_r requires at least two points")
+    ranks_a = np.argsort(np.argsort(first)).astype(np.float64)
+    ranks_b = np.argsort(np.argsort(second)).astype(np.float64)
+    return float(np.corrcoef(ranks_a, ranks_b)[0, 1])
+
+
+def excess_kurtosis(values: np.ndarray) -> np.ndarray:
+    """Excesso de curtose por coluna, zero para uma gaussiana.
+
+    Mede peso de cauda. Valores positivos indicam cauda mais pesada que a
+    gaussiana, condição sob a qual o matched filter deixa de ser ótimo.
+    """
+    data = np.asarray(values, dtype=np.float64)
+    centred = data - data.mean(axis=0, keepdims=True)
+    variance = (centred**2).mean(axis=0)
+    fourth = (centred**4).mean(axis=0)
+    return fourth / np.maximum(variance**2, 1e-30) - 3.0
+
+
+def skewness(values: np.ndarray) -> np.ndarray:
+    """Assimetria por coluna, zero para uma distribuição simétrica."""
+    data = np.asarray(values, dtype=np.float64)
+    centred = data - data.mean(axis=0, keepdims=True)
+    variance = (centred**2).mean(axis=0)
+    third = (centred**3).mean(axis=0)
+    return third / np.maximum(variance**1.5, 1e-30)
+

@@ -35,6 +35,7 @@ import os
 import numpy as np
 
 from hypermix.envi import envi_nodata_mask, open_envi_cube
+from hypermix.metrics import excess_kurtosis, skewness
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BAND_STRIDE = 6          # mantém pixels por dimensão alto
@@ -96,18 +97,6 @@ def _subsample(pixels: np.ndarray, stride: int) -> np.ndarray:
     return pixels
 
 
-def _excess_kurtosis(x: np.ndarray) -> np.ndarray:
-    centred = x - x.mean(axis=0, keepdims=True)
-    var = (centred**2).mean(axis=0)
-    m4 = (centred**4).mean(axis=0)
-    return m4 / np.maximum(var**2, 1e-30) - 3.0
-
-
-def _skewness(x: np.ndarray) -> np.ndarray:
-    centred = x - x.mean(axis=0, keepdims=True)
-    var = (centred**2).mean(axis=0)
-    m3 = (centred**3).mean(axis=0)
-    return m3 / np.maximum(var**1.5, 1e-30)
 
 
 def _chi2_quantile(df: int, q: float, rng: np.random.Generator) -> float:
@@ -130,8 +119,8 @@ def _analyse(name: str, pixels: np.ndarray, stride: int) -> dict:
     delta = evaluate - mean
     mahalanobis = np.einsum("ij,jk,ik->i", delta, inv, delta)
 
-    kurt = _excess_kurtosis(pixels)
-    skew = _skewness(pixels)
+    kurt = excess_kurtosis(pixels)
+    skew = skewness(pixels)
     observed = {f"q{q}": float(np.quantile(mahalanobis, q)) for q in QUANTILES}
     expected = {f"q{q}": _chi2_quantile(d, q, rng) for q in QUANTILES}
     return {

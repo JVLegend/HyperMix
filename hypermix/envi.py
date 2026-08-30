@@ -34,6 +34,7 @@ __all__ = [
     "parse_envi_header",
     "open_envi_cube",
     "envi_nodata_mask",
+    "sample_disk_means",
 ]
 
 # Códigos de tipo do padrão ENVI que aparecem em cubos hiperespectrais.
@@ -262,3 +263,37 @@ def envi_nodata_mask(cube: np.ndarray, sentinel: float = 0.0) -> np.ndarray:
     if np.isnan(sentinel):
         return np.isnan(data).all(axis=2)
     return (data == sentinel).all(axis=2)
+
+
+def sample_disk_means(
+    image: np.ndarray,
+    centres,
+    radius: int,
+    offset: tuple[int, int] = (0, 0),
+) -> np.ndarray:
+    """Média de um disco em torno de cada centro ``(x, y)`` de um mapa 2D.
+
+    Regiões experimentais são anotadas por um ponto, mas medir um único pixel é
+    frágil. O disco reduz ruído sem cruzar a borda da região. ``offset`` desloca
+    todos os centros de uma vez, o que serve à análise de sensibilidade quando a
+    anotação é manual e imprecisa.
+    """
+    data = np.asarray(image)
+    if data.ndim != 2:
+        raise ValueError("image must be 2D")
+    if radius < 1:
+        raise ValueError("radius must be at least 1")
+    grid = np.mgrid[-radius : radius + 1, -radius : radius + 1]
+    disk = (grid[0] ** 2 + grid[1] ** 2) <= radius**2
+    dx, dy = offset
+    out = []
+    for x, y in centres:
+        cx, cy = int(round(x + dx)), int(round(y + dy))
+        if cy - radius < 0 or cx - radius < 0:
+            raise ValueError(f"disk at ({cx}, {cy}) falls outside the image")
+        patch = data[cy - radius : cy + radius + 1, cx - radius : cx + radius + 1]
+        if patch.shape != disk.shape:
+            raise ValueError(f"disk at ({cx}, {cy}) falls outside the image")
+        out.append(float(patch[disk].mean()))
+    return np.asarray(out, dtype=np.float64)
+

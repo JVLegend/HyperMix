@@ -32,7 +32,8 @@ from importlib.resources import files
 
 import numpy as np
 
-from hypermix.envi import open_envi_cube
+from hypermix.envi import open_envi_cube, sample_disk_means
+from hypermix.metrics import spearman_r
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CUBE_HDR = os.path.join(
@@ -58,10 +59,6 @@ def load_geometry() -> dict:
     return doc
 
 
-def _spearman(a: np.ndarray, b: np.ndarray) -> float:
-    ra = np.argsort(np.argsort(a)).astype(float)
-    rb = np.argsort(np.argsort(b)).astype(float)
-    return float(np.corrcoef(ra, rb)[0, 1])
 
 
 def _band_depth(cube, wavelengths: np.ndarray) -> np.ndarray:
@@ -74,15 +71,6 @@ def _band_depth(cube, wavelengths: np.ndarray) -> np.ndarray:
     )
 
 
-def _sample(depth: np.ndarray, centres, radius: int, dx: int = 0, dy: int = 0):
-    grid = np.mgrid[-radius : radius + 1, -radius : radius + 1]
-    disk = (grid[0] ** 2 + grid[1] ** 2) <= radius**2
-    out = []
-    for x, y in centres:
-        cx, cy = int(round(x + dx)), int(round(y + dy))
-        patch = depth[cy - radius : cy + radius + 1, cx - radius : cx + radius + 1]
-        out.append(float(patch[disk].mean()))
-    return np.array(out)
 
 
 def main() -> None:
@@ -105,10 +93,10 @@ def main() -> None:
 
     observed = {}
     for name, centres in replicates.items():
-        values = _sample(depth, centres, radius)
+        values = sample_disk_means(depth, centres, radius)
         observed[name] = {
             "band_depth": [round(v, 6) for v in values],
-            "spearman_position_vs_signal": round(_spearman(positions, values), 4),
+            "spearman_position_vs_signal": round(spearman_r(positions, values), 4),
         }
 
     rng = np.random.default_rng(SEED)
@@ -118,7 +106,7 @@ def main() -> None:
         dx, dy = rng.integers(-JITTER_PX, JITTER_PX + 1, 2)
         draw = {}
         for name, centres in replicates.items():
-            draw[name] = _spearman(positions, _sample(depth, centres, radius, dx, dy))
+            draw[name] = spearman_r(positions, sample_disk_means(depth, centres, radius, (dx, dy)))
             rhos[name].append(draw[name])
         agreements += int(draw["A"] * draw["B"] > 0)
 
