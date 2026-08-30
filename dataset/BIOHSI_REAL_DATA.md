@@ -373,6 +373,61 @@ espectral: contraste 900 menos 540 nm, adequado a corante visível e não a um
 pigmento do infravermelho próximo, e profundidade ancorada no máximo da curva de
 biblioteca, que cai na banda Soret em 399,6 nm e torna o cálculo degenerado.
 
+## Inspeção de `rg_on_sand_24m`, 2026-08-29
+
+ZIP verificado de forma independente: 732.053.288 bytes e MD5
+`c236e15c7553109f08dc1892a46d7b6f`. Como no voo de 54 m, traz quatro membros e
+**nenhum CSV de rótulos**.
+
+O cubo é ENVI `bsq`, float32, 1410 por 1234 com 273 bandas, de 398,632 nm a
+1001,830 nm, e o produto das dimensões bate exato com os 1.900.014.480 bytes do
+binário. A descrição repete a cadeia `RADIANCE, REFLECTANCE, OR`. O preenchimento
+da ortorretificação é de 54,69%, bem maior que os 18,00% do voo de 54 m.
+
+### Descasamento de referencial, confirmado visualmente
+
+A janela `CROP` declarada, linhas 760 a 1047 e colunas 845 a 1140, contém 74,4%
+de preenchimento. Marcada sobre a imagem de referência, ela cai em areia vazia,
+distante do conjunto experimental e parcialmente fora da faixa imageada. É o
+mesmo tipo de descasamento de referencial já registrado no voo de 54 m, agora com
+evidência visual direta.
+
+### Desenho experimental visível e favorável
+
+A cena mostra um campo de areia com um painel de calibração claramente visível e
+vários blots retangulares. O agrupamento central corresponde aos doze retângulos
+do `params`: seis posições ao longo de um eixo, em duas colunas, ou seja seis
+níveis em duplicata.
+
+O ponto que torna este subconjunto valioso é que ele **declara controles**, ao
+contrário do voo de 54 m:
+
+- `REF_BLOT_POS_CTRL_COORDS` igual a `[[0, 0], [0, 1]]`, isto é, a posição 0 nas
+  duas réplicas;
+- `REF_BLOT_NEG_CTRL_COORDS` igual a `[[5, 0], [5, 1]]`, a posição 5 nas duas.
+
+Logo o desenho é controle positivo, quatro níveis intermediários e controle
+negativo, repetido em duas colunas independentes. Rotação declarada de 22,44
+graus e raio de blot de 23,3 pixels.
+
+### Por que isso pode destravar o T8 sem o CSV ausente
+
+Conhecer a identidade dos controles permite um teste real de detecção **sem
+saber as concentrações intermediárias**. Além disso, existe uma hipótese
+falsificável que não exige saber qual extremidade é o controle positivo: se o
+desenho é um gradiente, o sinal do repórter deve ser **monótono ao longo das seis
+posições**, em um sentido ou no outro, e as duas colunas réplicas devem
+concordar quanto ao sentido.
+
+Esse teste é orientável por evidência e não por conveniência: a direção
+encontrada é reportada como observação, não assumida de antemão. As duas colunas
+funcionam como réplicas independentes e são a unidade estatística correta, não os
+pixels.
+
+Antes disso é preciso localizar os doze blots no referencial do cubo entregue,
+pela mesma rota de anotação manual congelada usada na placa de pellets, já que o
+`CROP` declarado não serve.
+
 ## Leitura do cubo no HyperMix
 
 `hypermix/envi.py` foi escrito depois da inspeção e não substitui
